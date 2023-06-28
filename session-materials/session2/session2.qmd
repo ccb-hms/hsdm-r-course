@@ -1,5 +1,5 @@
 ---
-title: "Session 2 Notebook"
+title: "Week 2 Notebook"
 author: "Center for Computational Biomedicine"
 format: 
   html: 
