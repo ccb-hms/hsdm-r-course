@@ -1,0 +1,19 @@
+---
+title: "Research Design and Analysis"
+---
+
+This is a website for the data analysis module in Research Design and Analysis. 
+
+In the top navigation bar, you can find the following materials. 
+
+## Readings
+
+This page contains all readings and data needed for examples in the readings.
+
+## Session Materials
+
+This page contains a Quarto notebook for each class session and accompanying data. 
+
+## Resources
+
+This page contains links to additional resources for learning data analysis with R. 

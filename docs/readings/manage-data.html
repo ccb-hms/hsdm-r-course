@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Research Design and Analysis – manage-data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Research Design and Analysis</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../readings/readings.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Readings</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../session-materials/sessions.html" rel="" target="">
+ <span class="menu-text">Session Materials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resources/resources.html" rel="" target="">
+ <span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../readings/manage-data.html">Managing Data</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Session 0</span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/readings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/install.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing R and RStudio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to RStudio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Basics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/data-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/ggplot-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data visualization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/manage-data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Managing Data</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="manage-data.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="managing-data" class="level1">
+<h1>Managing Data</h1>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Extended Materials
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can find the original, extended version of these materials from chapters <a href="https://epirhandbook.com/en/cleaning-data-and-core-functions.html">8</a>, <a href="https://epirhandbook.com/en/grouping-data.html">13</a>, and <a href="https://epirhandbook.com/en/joining-data.html">14</a>.</p>
+</div>
+</div>
+<p>This week we will be diving deeper into operations needed for data analysis. We will look at how to manipulate column names, group data by its variables, and append datasets together.</p>
+<p>We will be continueing with the same simulated Ebola outbreak dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"linelist_cleaned.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="column-names" class="level2">
+<h2 class="anchored" data-anchor-id="column-names">Column names</h2>
+<p>In R, column <em>names</em> are the “header” or “top” value of a column. They are used to refer to columns in the code, and serve as a default label in figures.</p>
+<p>Other statistical software such as SAS and STATA use <em>“labels”</em> that co-exist as longer printed versions of the shorter column names. While R does offer the possibility of adding column labels to the data, this is not emphasized in most practice. To make column names “printer-friendly” for figures, one typically adjusts their display within the plotting commands that create the outputs.</p>
+<p>As R column names are used very often, so they must have “clean” syntax. We suggest the following:</p>
+<ul>
+<li>Short names</li>
+<li>No spaces (replace with underscores _ )</li>
+<li>No unusual characters (&amp;, #, &lt;, &gt;, …)<br>
+</li>
+<li>Similar style nomenclature (e.g.&nbsp;all date columns named like <strong>date_</strong>onset, <strong>date_</strong>report, <strong>date_</strong>death…)</li>
+</ul>
+<p>Re-naming columns manually is often necessary, even after the standardization step above. Below, re-naming is performed using the <code>rename()</code> function from the <strong>dplyr</strong> package, as part of a pipe chain. <code>rename()</code> uses the style <code>NEW = OLD</code> - the new column name is given before the old column name.</p>
+<p>Below, a re-naming command is added to the cleaning pipeline. Spaces have been added strategically to align code for easier reading.</p>
+<p>Now you can see that the columns names have been changed:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "case_id"              "generation"           "date_infection"      
+ [4] "date_onset"           "date_hospitalisation" "date_outcome"        
+ [7] "outcome"              "gender"               "age"                 
+[10] "age_unit"             "age_years"            "age_cat"             
+[13] "age_cat5"             "hospital"             "lon"                 
+[16] "lat"                  "infector"             "source"              
+[19] "wt_kg"                "ht_cm"                "ct_blood"            
+[22] "fever"                "chills"               "cough"               
+[25] "aches"                "vomit"                "temp"                
+[28] "time_admission"       "bmi"                  "days_onset_hosp"     </code></pre>
+</div>
+</div>
+<section id="rename-by-column-position" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="rename-by-column-position">Rename by column position</h4>
+<p>You can also rename by column position, instead of column name, for example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(<span class="at">newNameForFirstColumn  =</span> <span class="dv">1</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">newNameForSecondColumn =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="rename-via-select-and-summarise" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="rename-via-select-and-summarise">Rename via <code>select()</code> and <code>summarise()</code></h4>
+<p>As a shortcut, you can also rename columns within the <strong>dplyr</strong> <code>select()</code> and <code>summarise()</code> functions. <code>select()</code> is used to keep only certain columns and <code>summarise()</code> is used when grouping data. These functions also uses the format <code>new_name = old_name</code>. Here is an example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>linelist_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="co"># NEW name             # OLD name</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">date_infection       =</span> <span class="st">`</span><span class="at">infection date</span><span class="st">`</span>,    <span class="co"># rename and KEEP ONLY these columns</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">date_hospitalisation =</span> <span class="st">`</span><span class="at">hosp date</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="other-conisderations-with-column-names" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="other-conisderations-with-column-names">Other conisderations with column names</h3>
+<section id="empty-excel-column-names" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="empty-excel-column-names">Empty Excel column names</h4>
+<p>R cannot have dataset columns that do not have column names (headers). So, if you import an Excel dataset with data but no column headers, R will fill-in the headers with names like “…1” or “…2”. The number represents the column number (e.g.&nbsp;if the 4th column in the dataset has no header, then R will name it “…4”).</p>
+<p>You can clean these names manually by referencing their position number (see example above), or their assigned name (<code>linelist_raw$...1</code>).</p>
+</section>
+<section id="merged-excel-column-names-and-cells" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="merged-excel-column-names-and-cells">Merged Excel column names and cells</h4>
+<p>Merged cells in an Excel file are a common occurrence when receiving data. Merged cells can be nice for human reading of data, but are not “tidy data” and cause many problems for machine reading of data. R cannot accommodate merged cells.</p>
+<p>One solution to deal with merged cells is to import the data with the function <code>readWorkbook()</code> from the package <strong>openxlsx</strong>. Set the argument <code>fillMergedCells = TRUE</code>. This gives the value in a merged cell to all cells within the merge range.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>linelist_raw <span class="ot">&lt;-</span> openxlsx<span class="sc">::</span><span class="fu">readWorkbook</span>(<span class="st">"linelist_raw.xlsx"</span>, <span class="at">fillMergedCells =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="revisiting-select" class="level2">
+<h2 class="anchored" data-anchor-id="revisiting-select">Revisiting select</h2>
+<p>Two weeks ago we learned to use <code>select()</code> to select the columns we wanted to keep.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># linelist dataset is piped through select() command, and names() prints just the column names</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case_id, date_onset, date_hospitalisation, fever) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()  <span class="co"># display the column names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "case_id"              "date_onset"           "date_hospitalisation"
+[4] "fever"               </code></pre>
+</div>
+</div>
+<p>Let’s look at some more complicated scenarios when we need to think a bit deeper on how we’re selecting or choosing columns in our data.</p>
+<section id="clean_tidyselect" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="clean_tidyselect">“tidyselect” helper functions</h3>
+<p>These helper functions exist to make it easy to specify columns to keep, discard, or transform. They are from the package <strong>tidyselect</strong>, which is included in <strong>tidyverse</strong> and underlies how columns are selected in <strong>dplyr</strong> functions.</p>
+<p>For example, if you want to re-order the columns, <code>everything()</code> is a useful function to signify “all other columns not yet mentioned”. The command below moves columns <code>date_onset</code> and <code>date_hospitalisation</code> to the beginning (left) of the dataset, but keeps all the other columns afterward. Note that <code>everything()</code> is written with empty parentheses:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># move date_onset and date_hospitalisation to beginning</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date_onset, date_hospitalisation, <span class="fu">everything</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "date_onset"           "date_hospitalisation" "case_id"             
+ [4] "generation"           "date_infection"       "date_outcome"        
+ [7] "outcome"              "gender"               "age"                 
+[10] "age_unit"             "age_years"            "age_cat"             
+[13] "age_cat5"             "hospital"             "lon"                 
+[16] "lat"                  "infector"             "source"              
+[19] "wt_kg"                "ht_cm"                "ct_blood"            
+[22] "fever"                "chills"               "cough"               
+[25] "aches"                "vomit"                "temp"                
+[28] "time_admission"       "bmi"                  "days_onset_hosp"     </code></pre>
+</div>
+</div>
+<p>Here are other “tidyselect” helper functions that also work <em>within</em> <strong>dplyr</strong> functions like <code>select()</code>, <code>across()</code>, and <code>summarise()</code>:</p>
+<ul>
+<li><code>everything()</code> - all other columns not mentioned<br>
+</li>
+<li><code>last_col()</code> - the last column<br>
+</li>
+<li><code>where()</code> - applies a function to all columns and selects those which are TRUE<br>
+</li>
+<li><code>contains()</code> - columns containing a character string
+<ul>
+<li>example: <code>select(contains("time"))</code><br>
+</li>
+</ul></li>
+<li><code>starts_with()</code> - matches to a specified prefix
+<ul>
+<li>example: <code>select(starts_with("date_"))</code><br>
+</li>
+</ul></li>
+<li><code>ends_with()</code> - matches to a specified suffix
+<ul>
+<li>example: <code>select(ends_with("_post"))</code><br>
+</li>
+</ul></li>
+<li><code>matches()</code> - to apply a regular expression (regex)
+<ul>
+<li>example: <code>select(matches("[pt]al"))</code><br>
+</li>
+</ul></li>
+<li><code>num_range()</code> - a numerical range like x01, x02, x03<br>
+</li>
+<li><code>any_of()</code> - matches IF column exists but returns no error if it is not found
+<ul>
+<li>example: <code>select(any_of(date_onset, date_death, cardiac_arrest))</code></li>
+</ul></li>
+</ul>
+<p>In addition, use normal operators such as <code>c()</code> to list several columns, <code>:</code> for consecutive columns, <code>!</code> for opposite, <code>&amp;</code> for AND, and <code>|</code> for OR.</p>
+<p>Use <code>where()</code> to specify logical criteria for columns. If providing a function inside <code>where()</code>, do not include the function’s empty parentheses. The command below selects columns that are class Numeric.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select columns that are class Numeric</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "generation"      "age"             "age_years"       "lon"            
+ [5] "lat"             "wt_kg"           "ht_cm"           "ct_blood"       
+ [9] "temp"            "bmi"             "days_onset_hosp"</code></pre>
+</div>
+</div>
+<p>Use <code>contains()</code> to select only columns in which the column name contains a specified character string. <code>ends_with()</code> and <code>starts_with()</code> provide more nuance.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select columns containing certain characters</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"date"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "date_infection"       "date_onset"           "date_hospitalisation"
+[4] "date_outcome"        </code></pre>
+</div>
+</div>
+<p>The function <code>matches()</code> works similarly to <code>contains()</code> but can be provided a regular expression, such as multiple strings separated by OR bars within the parentheses:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># searched for multiple character matches</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">matches</span>(<span class="st">"onset|hosp|fev"</span>)) <span class="sc">%&gt;%</span>   <span class="co"># note the OR symbol "|"</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "date_onset"           "date_hospitalisation" "hospital"            
+[4] "fever"                "days_onset_hosp"     </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="deduplication" class="level2">
+<h2 class="anchored" data-anchor-id="deduplication">Deduplication</h2>
+<p>In a later week we will learn more about how to de-duplicate data. Only a very simple row de-duplication example is presented here.</p>
+<p>The package <strong>dplyr</strong> offers the <code>distinct()</code> function. This function examines every row and reduce the data frame to only the unique rows. That is, it removes rows that are 100% duplicates.</p>
+<p>When evaluating duplicate rows, it takes into account a range of columns - by default it considers all columns. As shown in the de-duplication page, you can adjust this column range so that the uniqueness of rows is only evaluated in regards to certain columns.</p>
+<p>In this simple example, we just add the empty command <code>distinct()</code> to the pipe chain. This ensures there are no rows that are 100% duplicates of other rows (evaluated across all columns).</p>
+<p>We begin with <code>nrow(linelist)</code> rows in <code>linelist</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After de-duplication there are <code>nrow(linelist)</code> rows. Any removed rows would have been 100% duplicates of other rows.</p>
+</section>
+</section>
+<section id="grouping-data" class="level1">
+<h1>Grouping data</h1>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="../img/Grouping_1500x500.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
+<p>Grouping data is a core component of data management and analysis. Grouped data statistically summarised by group, and can be plotted by group. Functions from the <strong>dplyr</strong> package (part of the <strong>tidyverse</strong>) make grouping and subsequent operations quite easy.</p>
+<p>We will be examining:</p>
+<ul>
+<li>Grouping data with the <code>group_by()</code> function<br>
+</li>
+<li>Un-grouping data<br>
+</li>
+<li><code>summarise()</code> grouped data with statistics<br>
+</li>
+<li>The difference between <code>count()</code> and <code>tally()</code><br>
+</li>
+<li><code>arrange()</code> applied to grouped data<br>
+</li>
+<li><code>filter()</code> applied to grouped data<br>
+</li>
+<li><code>mutate()</code> applied to grouped data<br>
+</li>
+<li><code>select()</code> applied to grouped data<br>
+</li>
+<li>The <strong>base</strong> R <code>aggregate()</code> command as an alternative</li>
+</ul>
+<p>Let’s load a clean version of the simulated Ebola epidemic dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"linelist_cleaned.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<!-- ======================================================= -->
+<section id="grouping" class="level2">
+<h2 class="anchored" data-anchor-id="grouping">Grouping</h2>
+<p>The function <code>group_by()</code> from <strong>dplyr</strong> groups the rows by the unique values in the column specified to it. If multiple columns are specified, rows are grouped by the unique combinations of values across the columns. Each unique value (or combination of values) constitutes a group. Subsequent changes to the dataset or calculations can then be performed within the context of each group.</p>
+<p>For example, the command below takes the <code>linelist</code> and groups the rows by unique values in the column <code>outcome</code>, saving the output as a new data frame <code>ll_by_outcome</code>. The grouping column(s) are placed inside the parentheses of the function <code>group_by()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ll_by_outcome <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(outcome)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Note that there is no perceptible change to the dataset</strong> after running <code>group_by()</code>, <em>until</em> another <strong>dplyr</strong> verb such as <code>mutate()</code>, <code>summarise()</code>, or <code>arrange()</code> is applied on the “grouped” data frame.</p>
+<p>You can however “see” the groupings by printing the data frame. When you print a grouped data frame, you will see it has been transformed into a <a href="https://tibble.tidyverse.org/"><code>tibble</code> class object</a> which, when printed, displays which groupings have been applied and how many groups there are - written just above the header row.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print to see which groups are active</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ll_by_outcome</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,888 × 30
+# Groups:   outcome [3]
+   case_id generation date_infection date_onset date_hospitalisation
+   &lt;chr&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;date&gt;     &lt;date&gt;              
+ 1 5fe599           4 2014-05-08     2014-05-13 2014-05-15          
+ 2 8689b7           4 NA             2014-05-13 2014-05-14          
+ 3 11f8ea           2 NA             2014-05-16 2014-05-18          
+ 4 b8812a           3 2014-05-04     2014-05-18 2014-05-20          
+ 5 893f25           3 2014-05-18     2014-05-21 2014-05-22          
+ 6 be99c8           3 2014-05-03     2014-05-22 2014-05-23          
+ 7 07e3e8           4 2014-05-22     2014-05-27 2014-05-29          
+ 8 369449           4 2014-05-28     2014-06-02 2014-06-03          
+ 9 f393b4           4 NA             2014-06-05 2014-06-06          
+10 1389ca           4 NA             2014-06-05 2014-06-07          
+# ℹ 5,878 more rows
+# ℹ 25 more variables: date_outcome &lt;date&gt;, outcome &lt;chr&gt;, gender &lt;chr&gt;,
+#   age &lt;dbl&gt;, age_unit &lt;chr&gt;, age_years &lt;dbl&gt;, age_cat &lt;fct&gt;, age_cat5 &lt;fct&gt;,
+#   hospital &lt;chr&gt;, lon &lt;dbl&gt;, lat &lt;dbl&gt;, infector &lt;chr&gt;, source &lt;chr&gt;,
+#   wt_kg &lt;dbl&gt;, ht_cm &lt;dbl&gt;, ct_blood &lt;dbl&gt;, fever &lt;chr&gt;, chills &lt;chr&gt;,
+#   cough &lt;chr&gt;, aches &lt;chr&gt;, vomit &lt;chr&gt;, temp &lt;dbl&gt;, time_admission &lt;chr&gt;,
+#   bmi &lt;dbl&gt;, days_onset_hosp &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<section id="unique-groups" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="unique-groups">Unique groups</h3>
+<p><strong>The groups created reflect each unique combination of values across the grouping columns.</strong></p>
+<p>To see the groups <em>and the number of rows in each group</em>, pass the grouped data to <code>tally()</code>. To see just the unique groups without counts you can pass to <code>group_keys()</code>.</p>
+<p>See below that there are <strong>three</strong> unique values in the grouping column <code>outcome</code>: “Death”, “Recover”, and <code>NA</code>. See that there were <code>nrow(linelist %&gt;% filter(outcome == "Death"))</code> deaths, <code>nrow(linelist %&gt;% filter(outcome == "Recover"))</code> recoveries, and <code>nrow(linelist %&gt;% filter(is.na(outcome)))</code> with no outcome recorded.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(outcome) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  outcome     n
+  &lt;chr&gt;   &lt;int&gt;
+1 Death    2582
+2 Recover  1983
+3 &lt;NA&gt;     1323</code></pre>
+</div>
+</div>
+<p>You can group by more than one column. Below, the data frame is grouped by <code>outcome</code> and <code>gender</code>, and then tallied. Note how each unique combination of <code>outcome</code> and <code>gender</code> is registered as its own group - including missing values for either column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(outcome, gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+# Groups:   outcome [3]
+  outcome gender     n
+  &lt;chr&gt;   &lt;chr&gt;  &lt;int&gt;
+1 Death   f       1227
+2 Death   m       1228
+3 Death   &lt;NA&gt;     127
+4 Recover f        953
+5 Recover m        950
+6 Recover &lt;NA&gt;      80
+7 &lt;NA&gt;    f        627
+8 &lt;NA&gt;    m        625
+9 &lt;NA&gt;    &lt;NA&gt;      71</code></pre>
+</div>
+</div>
+</section>
+<section id="new-columns" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="new-columns">New columns</h3>
+<p>You can also create a new grouping column <em>within</em> the <code>group_by()</code> statement. This is equivalent to calling <code>mutate()</code> before the <code>group_by()</code>. For a quick tabulation this style can be handy, but for more clarity in your code consider creating this column in its own <code>mutate()</code> step and then piping to <code>group_by()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group dat based on a binary column created *within* the group_by() command</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age_class =</span> <span class="fu">ifelse</span>(age <span class="sc">&gt;=</span> <span class="dv">18</span>, <span class="st">"adult"</span>, <span class="st">"child"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>(<span class="at">sort =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  age_class     n
+  &lt;chr&gt;     &lt;int&gt;
+1 child      3618
+2 adult      2184
+3 &lt;NA&gt;         86</code></pre>
+</div>
+</div>
+</section>
+<section id="adddrop-grouping-columns" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="adddrop-grouping-columns">Add/drop grouping columns</h3>
+<p>By default, if you run <code>group_by()</code> on data that are already grouped, the old groups will be removed and the new one(s) will apply. If you want to add new groups to the existing ones, include the argument <code>.add = TRUE</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grouped by outcome</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>by_outcome <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(outcome)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add grouping by gender in addition</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>by_outcome_gender <span class="ot">&lt;-</span> by_outcome <span class="sc">%&gt;%</span> </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gender, <span class="at">.add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>** Keep all groups**</p>
+<p>If you group on a column of class factor there may be levels of the factor that are not currently present in the data. If you group on this column, by default those non-present levels are dropped and not included as groups. To change this so that all levels appear as groups (even if not present in the data), set <code>.drop = FALSE</code> in your <code>group_by()</code> command.</p>
+</section>
+</section>
+<section id="un-group" class="level2">
+<h2 class="anchored" data-anchor-id="un-group">Un-group</h2>
+<p>Data that have been grouped will remain grouped until specifically ungrouped via <code>ungroup()</code>. If you forget to ungroup, it can lead to incorrect calculations! Below is an example of removing all groupings:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(outcome, gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can also remove grouping for only specific columns, by placing the column name inside <code>ungroup()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(outcome, gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>(gender) <span class="co"># remove the grouping by gender, leave grouping by outcome</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The verb <code>count()</code> automatically ungroups the data after counting.</p>
+</div>
+</div>
+</section>
+<section id="group_summarise" class="level2">
+<h2 class="anchored" data-anchor-id="group_summarise">Summarise</h2>
+<p>See the <strong>dplyr</strong> section of the [Descriptive tables] page for a detailed description of how to produce summary tables with <code>summarise()</code>. Here we briefly address how its behavior changes when applied to grouped data.</p>
+<p>The <strong>dplyr</strong> function <code>summarise()</code> (or <code>summarize()</code>) takes a data frame and converts it into a <em>new</em> summary data frame, with columns containing summary statistics that you define. On an ungrouped data frame, the summary statistics will be calculated from all rows. Applying <code>summarise()</code> to grouped data produces those summary statistics <em>for each group</em>.</p>
+<p>The syntax of <code>summarise()</code> is such that you provide the name(s) of the <strong>new</strong> summary column(s), an equals sign, and then a statistical function to apply to the data, as shown below. For example, <code>min()</code>, <code>max()</code>, <code>median()</code>, or <code>sd()</code>. Within the statistical function, list the column to be operated on and any relevant argument (e.g.&nbsp;<code>na.rm = TRUE</code>). You can use <code>sum()</code> to count the number of rows that meet a logical criteria (with double equals <code>==</code>).</p>
+<p>Below is an example of <code>summarise()</code> applied <em>without grouped data</em>. The statistics returned are produced from the entire dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summary statistics on ungrouped linelist</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_cases  =</span> <span class="fu">n</span>(),</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_age =</span> <span class="fu">mean</span>(age_years, <span class="at">na.rm=</span>T),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_age  =</span> <span class="fu">max</span>(age_years, <span class="at">na.rm=</span>T),</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_age  =</span> <span class="fu">min</span>(age_years, <span class="at">na.rm=</span>T),</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_males  =</span> <span class="fu">sum</span>(gender <span class="sc">==</span> <span class="st">"m"</span>, <span class="at">na.rm=</span>T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  n_cases mean_age max_age min_age n_males
+1    5888 16.01831      84       0    2803</code></pre>
+</div>
+</div>
+<p>In contrast, below is the same <code>summarise()</code> statement applied to grouped data. The statistics are calculated for each <code>outcome</code> group. Note how grouping columns will carry over into the new data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summary statistics on grouped linelist</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(outcome) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_cases  =</span> <span class="fu">n</span>(),</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_age =</span> <span class="fu">mean</span>(age_years, <span class="at">na.rm=</span>T),</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_age  =</span> <span class="fu">max</span>(age_years, <span class="at">na.rm=</span>T),</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_age  =</span> <span class="fu">min</span>(age_years, <span class="at">na.rm=</span>T),</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_males    =</span> <span class="fu">sum</span>(gender <span class="sc">==</span> <span class="st">"m"</span>, <span class="at">na.rm=</span>T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 6
+  outcome n_cases mean_age max_age min_age n_males
+  &lt;chr&gt;     &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;int&gt;
+1 Death      2582     15.9      76       0    1228
+2 Recover    1983     16.1      84       0     950
+3 &lt;NA&gt;       1323     16.2      69       0     625</code></pre>
+</div>
+</div>
+</section>
+<section id="counts-and-tallies" class="level2">
+<h2 class="anchored" data-anchor-id="counts-and-tallies">Counts and tallies</h2>
+<p><code>count()</code> and <code>tally()</code> provide similar functionality but are different. Read more about the distinction between <code>tally()</code> and <code>count()</code> <a href="https://dplyr.tidyverse.org/reference/tally.html">here</a></p>
+<section id="tally" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="tally"><code>tally()</code></h3>
+<p><code>tally()</code> is shorthand for <code>summarise(n = n())</code>, and <em>does not</em> group data. Thus, to achieve grouped tallys it must follow a <code>group_by()</code> command. You can add <code>sort = TRUE</code> to see the largest groups first.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     n
+1 5888</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(outcome) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>(<span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  outcome     n
+  &lt;chr&gt;   &lt;int&gt;
+1 Death    2582
+2 Recover  1983
+3 &lt;NA&gt;     1323</code></pre>
+</div>
+</div>
+</section>
+<section id="count" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="count"><code>count()</code></h3>
+<p>In contrast, <code>count()</code> does the following:</p>
+<ol type="1">
+<li>applies <code>group_by()</code> on the specified column(s)<br>
+</li>
+<li>applies <code>summarise()</code> and returns column <code>n</code> with the number of rows per group<br>
+</li>
+<li>applies <code>ungroup()</code></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(outcome)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  outcome    n
+1   Death 2582
+2 Recover 1983
+3    &lt;NA&gt; 1323</code></pre>
+</div>
+</div>
+<p>Just like with <code>group_by()</code> you can create a new column within the <code>count()</code> command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(<span class="at">age_class =</span> <span class="fu">ifelse</span>(age <span class="sc">&gt;=</span> <span class="dv">18</span>, <span class="st">"adult"</span>, <span class="st">"child"</span>), <span class="at">sort =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  age_class    n
+1     child 3618
+2     adult 2184
+3      &lt;NA&gt;   86</code></pre>
+</div>
+</div>
+<p><code>count()</code> can be called multiple times, with the functionality “rolling up”. For example, to summarise the number of hospitals present for each gender, run the following. Note, the name of the final column is changed from default “n” for clarity (with <code>name  =</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># produce counts by unique outcome-gender groups</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(gender, hospital) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># gather rows by gender (3) and count number of hospitals per gender (6)</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(gender, <span class="at">name =</span> <span class="st">"hospitals per gender"</span> ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  gender hospitals per gender
+1      f                    6
+2      m                    6
+3   &lt;NA&gt;                    6</code></pre>
+</div>
+</div>
+</section>
+<section id="add-counts" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="add-counts">Add counts</h3>
+<p>In contrast to <code>count()</code> and <code>summarise()</code>, you can use <code>add_count()</code> to <em>add</em> a new column <code>n</code> with the counts of rows per group <em>while retaining all the other data frame columns</em>.</p>
+<p>This means that a group’s count number, in the new column <code>n</code>, will be printed in each row of the group. For demonstration purposes, we add this column and then re-arrange the columns for easier viewing. See the section below on <a href="#group_filter_grp_size">filter on group size</a> for another example.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span>                   <span class="co"># convert to tibble for nicer printing </span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_count</span>(hospital) <span class="sc">%&gt;%</span>           <span class="co"># add column n with counts by hospital</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(hospital, n, <span class="fu">everything</span>()) <span class="co"># re-arrange for demo purposes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,888 × 31
+   hospital                       n case_id generation date_infection date_onset
+   &lt;chr&gt;                      &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;date&gt;    
+ 1 Other                        885 5fe599           4 2014-05-08     2014-05-13
+ 2 Missing                     1469 8689b7           4 NA             2014-05-13
+ 3 St. Mark's Maternity Hosp…   422 11f8ea           2 NA             2014-05-16
+ 4 Port Hospital               1762 b8812a           3 2014-05-04     2014-05-18
+ 5 Military Hospital            896 893f25           3 2014-05-18     2014-05-21
+ 6 Port Hospital               1762 be99c8           3 2014-05-03     2014-05-22
+ 7 Missing                     1469 07e3e8           4 2014-05-22     2014-05-27
+ 8 Missing                     1469 369449           4 2014-05-28     2014-06-02
+ 9 Missing                     1469 f393b4           4 NA             2014-06-05
+10 Missing                     1469 1389ca           4 NA             2014-06-05
+# ℹ 5,878 more rows
+# ℹ 25 more variables: date_hospitalisation &lt;date&gt;, date_outcome &lt;date&gt;,
+#   outcome &lt;chr&gt;, gender &lt;chr&gt;, age &lt;dbl&gt;, age_unit &lt;chr&gt;, age_years &lt;dbl&gt;,
+#   age_cat &lt;fct&gt;, age_cat5 &lt;fct&gt;, lon &lt;dbl&gt;, lat &lt;dbl&gt;, infector &lt;chr&gt;,
+#   source &lt;chr&gt;, wt_kg &lt;dbl&gt;, ht_cm &lt;dbl&gt;, ct_blood &lt;dbl&gt;, fever &lt;chr&gt;,
+#   chills &lt;chr&gt;, cough &lt;chr&gt;, aches &lt;chr&gt;, vomit &lt;chr&gt;, temp &lt;dbl&gt;,
+#   time_admission &lt;chr&gt;, bmi &lt;dbl&gt;, days_onset_hosp &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="add-totals" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="add-totals">Add totals</h3>
+<p>To easily add total <em>sum</em> rows or columns after using <code>tally()</code> or <code>count()</code> you can use the <code>tabyl</code> function from <code>janitor</code>. This package also offers functions like <code>adorn_totals()</code> and <code>adorn_percentages()</code> to add totals and convert to show percentages. Below is a brief example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span>                                  <span class="co"># case linelist</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(age_cat, gender) <span class="sc">%&gt;%</span>                  <span class="co"># cross-tabulate counts of two columns</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_totals</span>(<span class="at">where =</span> <span class="st">"row"</span>) <span class="sc">%&gt;%</span>             <span class="co"># add a total row</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_percentages</span>(<span class="at">denominator =</span> <span class="st">"col"</span>) <span class="sc">%&gt;%</span>  <span class="co"># convert to proportions with column denominator</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>() <span class="sc">%&gt;%</span>                  <span class="co"># convert proportions to percents</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_ns</span>(<span class="at">position =</span> <span class="st">"front"</span>) <span class="sc">%&gt;%</span>            <span class="co"># display as: "count (percent)"</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_title</span>(                                <span class="co"># adjust titles</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">row_name =</span> <span class="st">"Age Category"</span>,</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_name =</span> <span class="st">"Gender"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      Gender                            
+ Age Category              f              m          NA_
+          0-4   640  (22.8%)   416  (14.8%)  39  (14.0%)
+          5-9   641  (22.8%)   412  (14.7%)  42  (15.1%)
+        10-14   518  (18.5%)   383  (13.7%)  40  (14.4%)
+        15-19   359  (12.8%)   364  (13.0%)  20   (7.2%)
+        20-29   468  (16.7%)   575  (20.5%)  30  (10.8%)
+        30-49   179   (6.4%)   557  (19.9%)  18   (6.5%)
+        50-69     2   (0.1%)    91   (3.2%)   2   (0.7%)
+          70+     0   (0.0%)     5   (0.2%)   1   (0.4%)
+         &lt;NA&gt;     0   (0.0%)     0   (0.0%)  86  (30.9%)
+        Total 2,807 (100.0%) 2,803 (100.0%) 278 (100.0%)</code></pre>
+</div>
+</div>
+<p>To add more complex totals rows that involve summary statistics other than <em>sums</em>, see <a href="#tbl_dplyr_totals">this section of the Descriptive Tables page</a>.</p>
+</section>
+<section id="arranging-grouped-data" class="level3">
+<h3 class="anchored" data-anchor-id="arranging-grouped-data">Arranging grouped data</h3>
+<p>Using the <strong>dplyr</strong> verb <code>arrange()</code> to order the rows in a data frame behaves the same when the data are grouped, <em>unless</em> you set the argument <code>.by_group =TRUE</code>. In this case the rows are ordered first by the grouping columns and then by any other columns you specify to <code>arrange()</code>.</p>
+</section>
+<section id="filter-on-grouped-data" class="level3">
+<h3 class="anchored" data-anchor-id="filter-on-grouped-data">Filter on grouped data</h3>
+<section id="filter" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="filter"><code>filter()</code></h4>
+<p>When applied in conjunction with functions that evaluate the data frame (like <code>max()</code>, <code>min()</code>, <code>mean()</code>), these functions will now be applied to the groups. For example, if you want to filter and keep rows where patients are above the median age, this will now apply per group - filtering to keep rows above the <em>group’s</em> median age.</p>
+</section>
+<section id="slice-rows-per-group" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="slice-rows-per-group">Slice rows per group</h4>
+<p>The <strong>dplyr</strong> function <code>slice()</code>, which <a href="https://dplyr.tidyverse.org/reference/slice.html">filters rows based on their position</a> in the data, can also be applied per group. Remember to account for sorting the data within each group to get the desired “slice”.</p>
+<p>For example, to retrieve only the latest 5 admissions from each hospital:</p>
+<ol type="1">
+<li>Group the linelist by column <code>hospital</code><br>
+</li>
+<li>Arrange the records from latest to earliest <code>date_hospitalisation</code> <em>within each hospital group</em><br>
+</li>
+<li>Slice to retrieve the first 5 rows from each hospital</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(hospital) <span class="sc">%&gt;%</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(hospital, date_hospitalisation) <span class="sc">%&gt;%</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(hospital) <span class="sc">%&gt;%</span>                            <span class="co"># for display</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case_id, hospital, date_hospitalisation)  <span class="co"># for display</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 30 × 3
+# Groups:   hospital [6]
+   case_id hospital          date_hospitalisation
+   &lt;chr&gt;   &lt;chr&gt;             &lt;date&gt;              
+ 1 20b688  Central Hospital  2014-05-06          
+ 2 d58402  Central Hospital  2014-05-10          
+ 3 b8f2fd  Central Hospital  2014-05-13          
+ 4 acf422  Central Hospital  2014-05-28          
+ 5 275cc7  Central Hospital  2014-05-28          
+ 6 d1fafd  Military Hospital 2014-04-17          
+ 7 974bc1  Military Hospital 2014-05-13          
+ 8 6a9004  Military Hospital 2014-05-13          
+ 9 09e386  Military Hospital 2014-05-14          
+10 865581  Military Hospital 2014-05-15          
+# ℹ 20 more rows</code></pre>
+</div>
+</div>
+<p><code>slice_head()</code> - selects n rows from the top<br>
+<code>slice_tail()</code> - selects n rows from the end<br>
+<code>slice_sample()</code> - randomly selects n rows<br>
+<code>slice_min()</code> - selects n rows with highest values in <code>order_by =</code> column, use <code>with_ties = TRUE</code> to keep ties<br>
+<code>slice_max()</code> - selects n rows with lowest values in <code>order_by =</code> column, use <code>with_ties = TRUE</code> to keep ties</p>
+<p>See the [De-duplication] page for more examples and detail on <code>slice()</code>.</p>
+</section>
+<section id="group_filter_grp_size" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="group_filter_grp_size">Filter on group size</h4>
+<p>The function <code>add_count()</code> adds a column <code>n</code> to the original data giving the number of rows in that row’s group.</p>
+<p>Shown below, <code>add_count()</code> is applied to the column <code>hospital</code>, so the values in the new column <code>n</code> reflect the number of rows in that row’s hospital group. Note how values in column <code>n</code> are repeated. In the example below, the column name <code>n</code> could be changed using <code>name =</code> within <code>add_count()</code>. For demonstration purposes we re-arrange the columns with <code>select()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_count</span>(hospital) <span class="sc">%&gt;%</span>          <span class="co"># add "number of rows admitted to same hospital as this row" </span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(hospital, n, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,888 × 31
+   hospital                       n case_id generation date_infection date_onset
+   &lt;chr&gt;                      &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;date&gt;         &lt;date&gt;    
+ 1 Other                        885 5fe599           4 2014-05-08     2014-05-13
+ 2 Missing                     1469 8689b7           4 NA             2014-05-13
+ 3 St. Mark's Maternity Hosp…   422 11f8ea           2 NA             2014-05-16
+ 4 Port Hospital               1762 b8812a           3 2014-05-04     2014-05-18
+ 5 Military Hospital            896 893f25           3 2014-05-18     2014-05-21
+ 6 Port Hospital               1762 be99c8           3 2014-05-03     2014-05-22
+ 7 Missing                     1469 07e3e8           4 2014-05-22     2014-05-27
+ 8 Missing                     1469 369449           4 2014-05-28     2014-06-02
+ 9 Missing                     1469 f393b4           4 NA             2014-06-05
+10 Missing                     1469 1389ca           4 NA             2014-06-05
+# ℹ 5,878 more rows
+# ℹ 25 more variables: date_hospitalisation &lt;date&gt;, date_outcome &lt;date&gt;,
+#   outcome &lt;chr&gt;, gender &lt;chr&gt;, age &lt;dbl&gt;, age_unit &lt;chr&gt;, age_years &lt;dbl&gt;,
+#   age_cat &lt;fct&gt;, age_cat5 &lt;fct&gt;, lon &lt;dbl&gt;, lat &lt;dbl&gt;, infector &lt;chr&gt;,
+#   source &lt;chr&gt;, wt_kg &lt;dbl&gt;, ht_cm &lt;dbl&gt;, ct_blood &lt;dbl&gt;, fever &lt;chr&gt;,
+#   chills &lt;chr&gt;, cough &lt;chr&gt;, aches &lt;chr&gt;, vomit &lt;chr&gt;, temp &lt;dbl&gt;,
+#   time_admission &lt;chr&gt;, bmi &lt;dbl&gt;, days_onset_hosp &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>It then becomes easy to filter for case rows who were hospitalized at a “small” hospital, say, a hospital that admitted fewer than 500 patients:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_count</span>(hospital) <span class="sc">%&gt;%</span> </span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&lt;</span> <span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="mutate-on-grouped-data" class="level3">
+<h3 class="anchored" data-anchor-id="mutate-on-grouped-data">Mutate on grouped data</h3>
+<p>To retain all columns and rows (not summarise) and <em>add a new column containing group statistics</em>, use <code>mutate()</code> after <code>group_by()</code> instead of <code>summarise()</code>.</p>
+<p>This is useful if you want group statistics in the original dataset <em>with all other columns present</em> - e.g.&nbsp;for calculations that compare one row to its group.</p>
+<p>For example, this code below calculates the difference between a row’s delay-to-admission and the median delay for their hospital. The steps are:</p>
+<ol type="1">
+<li>Group the data by hospital<br>
+</li>
+<li>Use the column <code>days_onset_hosp</code> (delay to hospitalisation) to create a new column containing the mean delay at the hospital of <em>that row</em><br>
+</li>
+<li>Calculate the difference between the two columns</li>
+</ol>
+<p>We <code>select()</code> only certain columns to display, for demonstration purposes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># group data by hospital (no change to linelist yet)</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(hospital) <span class="sc">%&gt;%</span> </span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># new columns</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># mean days to admission per hospital (rounded to 1 decimal)</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">group_delay_admit =</span> <span class="fu">round</span>(<span class="fu">mean</span>(days_onset_hosp, <span class="at">na.rm=</span>T), <span class="dv">1</span>),</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># difference between row's delay and mean delay at their hospital (rounded to 1 decimal)</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff_to_group     =</span> <span class="fu">round</span>(days_onset_hosp <span class="sc">-</span> group_delay_admit, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># select certain rows only - for demonstration/viewing purposes</span></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case_id, hospital, days_onset_hosp, group_delay_admit, diff_to_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,888 × 5
+# Groups:   hospital [6]
+   case_id hospital              days_onset_hosp group_delay_admit diff_to_group
+   &lt;chr&gt;   &lt;chr&gt;                           &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
+ 1 5fe599  Other                               2               2             0  
+ 2 8689b7  Missing                             1               2.1          -1.1
+ 3 11f8ea  St. Mark's Maternity…               2               2.1          -0.1
+ 4 b8812a  Port Hospital                       2               2.1          -0.1
+ 5 893f25  Military Hospital                   1               2.1          -1.1
+ 6 be99c8  Port Hospital                       1               2.1          -1.1
+ 7 07e3e8  Missing                             2               2.1          -0.1
+ 8 369449  Missing                             1               2.1          -1.1
+ 9 f393b4  Missing                             1               2.1          -1.1
+10 1389ca  Missing                             2               2.1          -0.1
+# ℹ 5,878 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="select-on-grouped-data" class="level3">
+<h3 class="anchored" data-anchor-id="select-on-grouped-data">Select on grouped data</h3>
+<p>The verb <code>select()</code> works on grouped data, but the grouping columns are always included (even if not mentioned in <code>select()</code>). If you do not want these grouping columns, use <code>ungroup()</code> first.</p>
+</section>
+</section>
+<section id="appending-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="appending-datasets">Appending Datasets</h2>
+<p>We often need to combine multiple sources of data. Later on we’ll see more complex methods for combining data based on matching ID’s or other values. However, to start we’ll look at the case where we want to add additional observations to a dataset. You can also think of this as “appending” or “adding” rows.</p>
+<section id="bind-rows" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="bind-rows">Bind rows</h3>
+<p>To bind rows of one data frame to the bottom of another data frame, use <code>bind_rows()</code> from <strong>dplyr</strong>. It is very inclusive, so any column present in either data frame will be included in the output. A few notes:</p>
+<ul>
+<li>Unlike the <strong>base</strong> R version <code>row.bind()</code>, <strong>dplyr</strong>’s <code>bind_rows()</code> does not require that the order of columns be the same in both data frames. As long as the column names are spelled identically, it will align them correctly.<br>
+</li>
+<li>You can optionally specify the argument <code>.id =</code>. Provide a character column name. This will produce a new column that serves to identify which data frame each row originally came from.<br>
+</li>
+<li>You can use <code>bind_rows()</code> on a <code>list</code> of similarly-structured data frames to combine them into one data frame.</li>
+</ul>
+<p>One common example of row binding is to bind a “total” row onto a descriptive table made with <strong>dplyr</strong>’s <code>summarise()</code> function. Below we create a table of case counts and median CT values by hospital with a total row.</p>
+<p>The function <code>summarise()</code> is used on data grouped by hospital to return a summary data frame by hospital. But the function <code>summarise()</code> does not automatically produce a “totals” row, so we create it by summarising the data <em>again</em>, but with the data not grouped by hospital. This produces a second data frame of just one row. We can then bind these data frames together to achieve the final table.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create core table</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="do">###################</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>hosp_summary <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(hospital) <span class="sc">%&gt;%</span>                        <span class="co"># Group data by hospital</span></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(                                    <span class="co"># Create new summary columns of indicators of interest</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> <span class="fu">n</span>(),                                  <span class="co"># Number of rows per hospital-outcome group     </span></span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ct_value_med =</span> <span class="fu">median</span>(ct_blood, <span class="at">na.rm=</span>T))     <span class="co"># median CT value per group</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here is the <code>hosp_summary</code> data frame:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  hospital                             cases ct_value_med
+  &lt;chr&gt;                                &lt;int&gt;        &lt;dbl&gt;
+1 Central Hospital                       454           22
+2 Military Hospital                      896           21
+3 Missing                               1469           21
+4 Other                                  885           22
+5 Port Hospital                         1762           22
+6 St. Mark's Maternity Hospital (SMMH)   422           22</code></pre>
+</div>
+</div>
+<p>Create a data frame with the “total” statistics (<em>not grouped by hospital</em>). This will return just one row.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create totals</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="do">###############</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>totals <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> <span class="fu">n</span>(),                               <span class="co"># Number of rows for whole dataset     </span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ct_value_med =</span> <span class="fu">median</span>(ct_blood, <span class="at">na.rm=</span>T))  <span class="co"># Median CT for whole dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And below is that <code>totals</code> data frame. Note how there are only two columns. These columns are also in <code>hosp_summary</code>, but there is one column in <code>hosp_summary</code> that is not in <code>totals</code> (<code>hospital</code>).</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  cases ct_value_med
+1  5888           22</code></pre>
+</div>
+</div>
+<p>Now we can bind the rows together with <code>bind_rows()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind data frames together</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(hosp_summary, totals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can view the result. See how in the final row, an empty <code>NA</code> value fills in for the column <code>hospital</code> that was not in <code>hosp_summary</code>.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 3
+  hospital                             cases ct_value_med
+  &lt;chr&gt;                                &lt;int&gt;        &lt;dbl&gt;
+1 Central Hospital                       454           22
+2 Military Hospital                      896           21
+3 Missing                               1469           21
+4 Other                                  885           22
+5 Port Hospital                         1762           22
+6 St. Mark's Maternity Hospital (SMMH)   422           22
+7 &lt;NA&gt;                                  5888           22</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

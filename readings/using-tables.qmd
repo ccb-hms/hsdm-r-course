@@ -1,0 +1,243 @@
+# Basic Data Operations
+
+::: callout-tip
+## Extended Materials
+
+You can find the original, extended version of this chapter [here](https://epirhandbook.com/en/cleaning-data-and-core-functions.html).
+:::
+
+```{r}
+#| echo: false
+#| output: false  
+pacman::p_load(
+  rio,        # importing data  
+  here,       # relative file pathways  
+  janitor,    # data cleaning and tables
+  lubridate,  # working with dates
+  matchmaker, # dictionary-based cleaning
+  epikit,     # age_categories() function
+  tidyverse   # data management and visualization
+)
+linelist <- rio::import("data/case_linelists/linelist_cleaned.rds")
+```
+
+## Data
+
+We will continue to use the same `linelist` data we saw during Session 0.
+This is a fictional Ebola outbreak, expanded from the ebola_sim practice dataset in the `outbreaks` package.
+
+```{r, eval=F}
+linelist <- import("linelist_cleaned.rds")
+```
+
+The first 50 rows of `linelist`:  
+
+```{r message=FALSE, echo=F}
+#DT::datatable(head(linelist,50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
+head(linelist,50)
+```
+
+## Select or re-order columns
+
+Use `select()` from **dplyr** to select the columns you want to retain, and to specify their order in the data frame.
+
+**Here are ALL the column names in the linelist at this point in the cleaning pipe chain:**
+
+```{r}
+names(linelist)
+```
+
+### Keep columns {.unnumbered}
+
+**Select only the columns you want to remain**
+
+Put their names in the `select()` command, with no quotation marks. They will appear in the data frame in the order you provide. Note that if you include a column that does not exist, R will return an error (see use of `any_of()` below if you want no error in this situation).
+
+```{r}
+# linelist dataset is piped through select() command, and names() prints just the column names
+linelist %>% 
+  select(case_id, date_onset, date_hospitalisation, fever) %>% 
+  names()  # display the column names
+```
+
+### Remove columns {.unnumbered}
+
+**Indicate which columns to remove** by placing a minus symbol "-" in front of the column name (e.g. `select(-outcome)`), or a vector of column names (as below). All other columns will be retained.
+
+```{r}
+linelist %>% 
+  select(-c(date_onset, fever:vomit)) %>% # remove date_onset and all columns from fever to vomit
+  names()
+```
+
+You can also remove a column using **base** R syntax, by defining it as `NULL`. For example:
+
+```{r, eval=F}
+linelist$date_onset <- NULL   # deletes column with base R syntax 
+```
+
+### Standalone {.unnumbered}
+
+`select()` can also be used as an independent command (not in a pipe chain). In this case, the first argument is the original dataframe to be operated upon.
+
+```{r}
+# Create a new linelist with id and age-related columns
+linelist_age <- select(linelist, case_id, contains("age"))
+
+# display the column names
+names(linelist_age)
+```
+
+
+## Column creation and transformation
+
+In addition to selecting columns, we can create new columns with `mutate()`. 
+The syntax is: `mutate(new_column_name = value or transformation)`. 
+`mutate()` can also be used to modify an existing column.
+
+### New columns {.unnumbered}
+
+The most basic `mutate()` command to create a new column might look like this. It creates a new column `new_col` where the value in every row is 10.
+
+```{r, eval=F}
+linelist <- linelist %>% 
+  mutate(new_col = 10)
+```
+
+You can also reference values in other columns, to perform calculations. Below, a new column `bmi` is created to hold the Body Mass Index (BMI) for each case - as calculated using the formula BMI = kg/m\^2, using column `ht_cm` and column `wt_kg`.
+
+```{r}
+linelist <- linelist %>% 
+  mutate(bmi = wt_kg / (ht_cm/100)^2)
+```
+
+If creating multiple new columns, separate each with a comma and new line. Below are examples of new columns, including ones that consist of values from other columns combined using `str_glue()` from the **stringr** package.
+
+```{r}
+new_col_demo <- linelist %>%                       
+  mutate(
+    new_var_dup    = case_id,             # new column = duplicate/copy another existing column
+    new_var_static = 7,                   # new column = all values the same
+    new_var_static = new_var_static + 5,  # you can overwrite a column, and it can be a calculation using other variables
+    new_var_paste  = stringr::str_glue("{hospital} on ({date_hospitalisation})") # new column = pasting together values from other columns
+    ) %>% 
+  select(case_id, hospital, date_hospitalisation, contains("new"))        # show only new columns, for demonstration purposes
+```
+
+Review the new columns. For demonstration purposes, only the new columns and the columns used to create them are shown:
+
+```{r message=FALSE, echo=F}
+# display the linelist data as a table
+#DT::datatable(head(new_col_demo,50), rownames = FALSE, options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
+head(new_col_demo,50)
+```
+
+::: callout-tip
+## Transmute
+A variation on `mutate()` is the function `transmute()`. This function adds a new column just like `mutate()`, but also drops/removes all other columns that you do not mention within its parentheses.
+:::
+
+
+### Convert column class {.unnumbered}
+
+Columns containing values that are dates, numbers, or logical values (TRUE/FALSE) will only behave as expected if they are correctly classified. There is a difference between "2" of class character and 2 of class numeric!
+There are ways to set column class during the import commands, but this is often cumbersome. 
+
+First, let's run some checks on important columns to see if they are the correct class. 
+Currently, the class of the `age` column is character. To perform quantitative analyses, we need these numbers to be recognized as numeric!
+
+```{r}
+class(linelist$age)
+```
+
+To resolve this, use the ability of `mutate()` to re-define a column with a transformation. We define the column as itself, but converted to a different class. Here is a basic example, converting or ensuring that the column `age` is class Numeric:
+
+```{r, eval=F}
+linelist <- linelist %>% 
+  mutate(age = as.numeric(age))
+```
+
+In a similar way, you can use `as.character()` and `as.logical()`. To convert to class Factor, you can use `factor()`.
+
+## Filter rows
+
+A typical cleaning step after you have cleaned the columns and re-coded values is to *filter* the data frame for specific rows using the **dplyr** verb `filter()`.
+
+Within `filter()`, specify the logic that must be `TRUE` for a row in the dataset to be kept. Below we show how to filter rows based on simple and complex logical conditions.
+
+<!-- ======================================================= -->
+
+### Simple filter {.unnumbered}
+
+This simple example re-defines the dataframe `linelist` as itself, having filtered the rows to meet a logical condition. **Only the rows where the logical statement within the parentheses evaluates to `TRUE` are kept.**
+
+In this example, the logical statement is `gender == "f"`, which is asking whether the value in the column `gender` is equal to "f" (case sensitive).
+
+Before the filter is applied, the number of rows in `linelist` is `nrow(linelist)`.
+
+```{r, eval=F}
+linelist <- linelist %>% 
+  filter(gender == "f")   # keep only rows where gender is equal to "f"
+```
+
+After the filter is applied, the number of rows in `linelist` is `linelist %>% filter(gender == "f") %>% nrow()`.
+
+### Complex filter {.unnumbered}
+
+More complex logical statements can be constructed using parentheses `( )`, OR `|`, negate `!`, `%in%`, and AND `&` operators. An example is below:
+
+Note: You can use the `!` operator in front of a logical criteria to negate it. For example, `!is.na(column)` evaluates to true if the column value is *not* missing. Likewise `!column %in% c("a", "b", "c")` evaluates to true if the column value is *not* in the vector.
+
+#### Examine the data {.unnumbered}
+
+Below is a simple one-line command to create a histogram of onset dates. See that a second smaller outbreak from 2012-2013 is also included in this raw dataset. **For our analyses, we want to remove entries from this earlier outbreak.**
+
+```{r, out.width = "50%"}
+hist(linelist$date_onset, breaks = 50)
+```
+
+#### How filters handle missing numeric and date values {.unnumbered}
+
+Can we just filter by `date_onset` to rows after June 2013? **Caution! Applying the code `filter(date_onset > as.Date("2013-06-01")))` would remove any rows in the later epidemic with a missing date of onset!**
+
+::: callout-warning
+## Conditions with NA
+Filtering to greater than (\>) or less than (\<) a date or number can remove any rows with missing values (`NA`)! This is because `NA` is treated as infinitely large and small.
+:::
+
+### Standalone {.unnumbered}
+
+Filtering can also be done as a stand-alone command (not part of a pipe chain). Like other **dplyr** verbs, in this case the first argument must be the dataset itself.
+
+```{r, eval=F}
+# dataframe <- filter(dataframe, condition(s) for rows to keep)
+
+linelist <- filter(linelist, !is.na(case_id))
+```
+
+You can also use **base** R to subset using square brackets which reflect the \[rows, columns\] that you want to retain.
+
+```{r, eval=F}
+# dataframe <- dataframe[row conditions, column conditions] (blank means keep all)
+
+linelist <- linelist[!is.na(case_id), ]
+```
+
+<!-- ======================================================= -->
+
+## Arrange and sort
+
+Use the **dplyr** function `arrange()` to sort or order the rows by column values.
+
+Simple list the columns in the order they should be sorted on. Specify `.by_group = TRUE` if you want the sorting to to first occur by any *groupings* applied to the data.
+
+By default, column will be sorted in "ascending" order (which applies to numeric and also to character columns). You can sort a variable in "descending" order by wrapping it with `desc()`.
+
+Sorting data with `arrange()` is particularly useful when making tables for publication, using `slice()` to take the "top" rows per group, or setting factor level order by order of appearance.
+
+For example, to sort the our linelist rows by `hospital`, then by `date_onset` in descending order, we would use:
+
+```{r, eval=F}
+linelist %>% 
+   arrange(hospital, desc(date_onset))
+```

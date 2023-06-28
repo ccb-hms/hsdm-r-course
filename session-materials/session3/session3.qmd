@@ -1,0 +1,243 @@
+---
+title: "Session 3 Notebook"
+author: "Center for Computational Biomedicine"
+format: 
+  html: 
+    anchor-sections: true
+code-annotations: select
+---
+
+```{r}
+library(tidyverse)
+```
+
+# Data
+
+This week we are going to start learning how to get to the cleaned data we have been using for the past two weeks. 
+You can download the week 3 data [here]().
+
+Note that this week the data is in the `.RData` format.
+The `.RData` format is specific to R and allows us to easily dump multiple objects to a file exactly as the are inside of our R session. 
+This format is not recommended for research as it limits analyses to only using R and could potentially not be compatible with a future R version. 
+However, for today it will allow us to jump right into the data cleaning process. 
+
+The `session3Data.RData` file contains 3 separate dataframes, `base_df_d`, `base_df_e`, and `base_df_f`.
+They each contain the equivalent set of columns from the `D`, `E`, and `F` NHANES data files for 2005-2006, 2007-2008, and 2009-2010, respectively.  
+
+Let's load and take a look at the data.
+
+```{r}
+load(file.choose())
+```
+```{r}
+summary(base_df_d)
+```
+```{r}
+summary(base_df_e)
+```
+```{r}
+summary(base_df_f)
+```
+
+
+
+::: {.callout-info collapse="true"}
+## See more about how we downloaded the data
+
+The NHANES data was downloaded using a packaged called `phonto`.
+`phonto` connects to a database of the NHANES data developed by the Center for Computational Biomedicine (CCB).
+The database is a relational database running on a virtual machine using the containerization software [Docker](https://www.docker.com/). 
+
+We will be learning a bit more about this in the last week of class.
+The code used to download the data is shown here:
+
+```r
+library(phonto)
+library(DBI)
+library(DT)
+
+cols_d = list(DEMO_D=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", "DMDBORN", "INDFMPIR"), 
+            OHX_D =c("OHXDECAY", "OHXREST"),
+            GLU_D =c("LBXGLU"), GHB_D = "LBXGH",
+            BMX_D="BMXBMI"
+)
+base_df_d <- jointQuery(cols_d)
+
+cols_e = list(DEMO_E=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", "DMDBORN2", "INDFMPIR"), 
+            OHX_E =c("OHXDECAY", "OHXREST"),
+            GLU_E =c("LBXGLU"), GHB_E = "LBXGH",
+            BMX_E ="BMXBMI"
+)
+base_df_e <- jointQuery(cols_e)
+
+cols_f = list(DEMO_F=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", "DMDBORN2", "INDFMPIR"), 
+            OHXDEN_F =c("OHXDECAY", "OHXREST"),
+            GLU_F =c("LBXGLU"), GHB_F = "LBXGH",
+            BMX_F ="BMXBMI"
+)
+base_df_f <- jointQuery(cols_f)
+```
+:::
+
+
+## Preparing the data
+
+In the reading, we saw how to combine multiple sets of observations by appending datasets. However, before we need to make sure corresponding columns between years can be combined. 
+
+NHANES will often change how it encodes or records different variables from year to year.
+Our first red flag are any columns whose name has changed.
+Let's take a look at the column names.
+
+```{r}
+colnames(base_df_d)
+colnames(base_df_e)
+colnames(base_df_f)
+```
+
+We can also check for equality directly:
+
+```{r}
+colnames(base_df_d)[colnames(base_df_d) != colnames(base_df_e)]
+colnames(base_df_e)[colnames(base_df_e) != colnames(base_df_f)]
+colnames(base_df_f)[colnames(base_df_f) != colnames(base_df_d)]
+```
+
+It looks like `DMDBORN` changed after 2006 to `DMDBORN2`. 
+If we check the demographic variable definitions for the three collection cycles [DEMO_D](https://wwwn.cdc.gov/nchs/nhanes/2005-2006/DEMO_D.htm#DMDBORN), [DEMO_E](https://wwwn.cdc.gov/Nchs/Nhanes/2007-2008/DEMO_E.htm#DMDBORN2), and [DEMO_F](https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/DEMO_F.htm#DMDBORN2) we can see that the encoding has changed over time.
+
+To continue the analysis, let's also convert these dataframes into tibbles so we can take advantage of Tidyverse functionality. 
+
+```{r}
+tib_d <- as_tibble(base_df_d)
+tib_e <- as_tibble(base_df_e)
+tib_f <- as_tibble(base_df_f)
+```
+
+::: {.callout-tip appearance="minimal"}
+## Exercise
+a. Resolve the change the variable coding between the datasets.
+Use your own judgement on the best way to resolve this issue. 
+
+```{r}
+
+# Step 1: Change things to have the same sets of values
+# TODO your code here
+
+# Step 2: Rename the columns to fit between the datasets
+tib_e <- rename(tib_e, DMDBORN = DMDBORN2)
+tib_f <- rename(tib_f, DMDBORN = DMDBORN2)
+```
+
+b. Check table 1b to see how the authors chose to handle this in [Beheshti et. al. 2021](https://pubmed.ncbi.nlm.nih.gov/33892837/). Do you think there were any other factors which went into their decision?
+:::
+
+## Combining the data
+
+Now we can combine the data together.
+
+```{r}
+# Combine all years together
+tib_all <- tib_d %>%
+  bind_rows(tib_e) %>%
+  bind_rows(tib_f)
+```
+
+## Summary Statistics
+
+
+
+<!-- ::: {.callout-tip appearance="minimal"} -->
+<!-- ## Exercise -->
+<!-- ::: -->
+ 
+## Filter relevant population
+
+Next we need to filter the summary population. 
+Luckily, the paper provides total numbers of participants for most of the filtering steps performed. 
+This makes it much easier for us to check our work. 
+
+>The total number of individuals who participated in the
+NHANES from 2005 to 2010 were 31,034 study-participants.
+Among them, 3,660 were nonedentulous adolescents (aged 13
+to 18 years old at the time of screening) who had exam survey
+weights assigned. From those 3,660 adolescents, data to measure
+the main outcome variable (dental caries experience) were
+available for a final sample of 3,346 adolescents, representing
+the population of 24,386,135 U.S. adolescents after applying
+the NHANES sample weights, which was described and analyzed
+in this study.
+
+We can start by filtering on age. 
+However, `RIDAGEYR` is currently not a numeric column. 
+If we try converting `RIDAGEYR` to be numeric using `as.numeric`, we get a warning:
+
+```{r}
+all_ado <- tib_all %>%
+  mutate(RIDAGEYR = as.numeric(RIDAGEYR)) # Convert age to be numeric
+```
+
+::: {.callout-tip appearance="minimal"}
+## Exercise
+
+a. What is causing this warning? Do we need to resolve it?
+**Hint** If we are getting `NA` when converting to numeric, then there must be some column entries which R cannot convert to be numbers.
+
+b. Once you've decided how to deal with the warning, filter `tib_all` to only include the desired population as described in the paper. Check how many rows you have at each step to double-check your work. 
+
+```{r}
+all_ado <- tib_all %>%
+  filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% # Gets the 3660 nonedentulous adolescents
+  filter(!is.na(OHXDECAY)) # Gets the 3346 with non-NA dental carie variable
+```
+
+:::
+
+## Final data cleanup
+
+We can choose to leave the variables with their NHANES column names or change them to be a bit more human-readable. 
+Either way, we also want to convert each variable to it's appropriate type. 
+
+```{r}
+# Set columns to have appropriate types
+converted_tib <- mutate(all_ado,
+                   sequence.id = SEQN,
+                   age.years = RIDAGEYR,
+                   gender = as.factor(RIAGENDR),
+                   ethnicity = as.factor(RIDRETH1),
+                   birthplace = as.factor(DMDBORN),
+                   family.PIR = INDFMPIR,
+                   dental.decay.present = (OHXDECAY == "Yes"),
+                   dental.restoration.present = (OHXREST == "Yes"),
+                   plasma.glucose = as.numeric(LBXGLU),
+                   hba1c = as.numeric(LBXGH),
+                   bmi = as.numeric(BMXBMI), 
+                   .keep = "unused") #keep none of the old columns we converted
+
+```
+
+::: {.callout-tip appearance="minimal"}
+## Exercise
+
+Add a `diabetes` column to the dataset based on the guidelines from Beheshti et. al:
+
+>Individuals with an HbA1C of at least 6.5 percent
+or a plasma-fasting glucose value of at least 126 mg/dl were
+considered diabetics; prediabetics were those whose HbA1C
+ranged from 5.7 percent to 6.4 percent and whose fasting
+plasma glucose remained within 100 to 125 mg/dl; the remaining
+study participants, who had less than 5.7 percent HbA1C
+and less than 100 mg/dl fasting plasma glucose, were classified
+as nondiabetics.
+
+It is reccomended to use `case_when`, but feel free to use any method you want. 
+
+```{r}
+# Add diabetes column
+converted_tib <- converted_tib %>% 
+  mutate(diabetes = case_when(
+    hba1c >= 6.5 | plasma.glucose >= 126 ~ "diabetic",
+    hba1c >= 5.7 | plasma.glucose >= 100 ~ "prediabetic",
+    .default = "nondiabetic"
+  ))
+```
+:::

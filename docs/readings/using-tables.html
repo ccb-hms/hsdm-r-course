@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Research Design and Analysis – using-tables</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Research Design and Analysis</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../readings/readings.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Readings</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../session-materials/sessions.html" rel="" target="">
+ <span class="menu-text">Session Materials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resources/resources.html" rel="" target="">
+ <span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../readings/data-basics.html">Week 1</a></li><li class="breadcrumb-item"><a href="../readings/using-tables.html">Basic Data Operations</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/readings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Week 0</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/install.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installing R and RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Basics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Week 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/data-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Core Data Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/using-tables.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Basic Data Operations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/recoding-values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recoding Values</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/ggplot-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data visualization</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/manage-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Managing Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="using-tables.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="basic-data-operations" class="level1">
+<h1>Basic Data Operations</h1>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Extended Materials
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can find the original, extended version of this chapter <a href="https://epirhandbook.com/en/cleaning-data-and-core-functions.html">here</a>.</p>
+</div>
+</div>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>We will continue to use the same <code>linelist</code> data we saw during Session 0. This is a fictional Ebola outbreak, expanded from the ebola_sim practice dataset in the <code>outbreaks</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"linelist_cleaned.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The first 50 rows of <code>linelist</code>:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   case_id generation date_infection date_onset date_hospitalisation
+1   5fe599          4     2014-05-08 2014-05-13           2014-05-15
+2   8689b7          4           &lt;NA&gt; 2014-05-13           2014-05-14
+3   11f8ea          2           &lt;NA&gt; 2014-05-16           2014-05-18
+4   b8812a          3     2014-05-04 2014-05-18           2014-05-20
+5   893f25          3     2014-05-18 2014-05-21           2014-05-22
+6   be99c8          3     2014-05-03 2014-05-22           2014-05-23
+7   07e3e8          4     2014-05-22 2014-05-27           2014-05-29
+8   369449          4     2014-05-28 2014-06-02           2014-06-03
+9   f393b4          4           &lt;NA&gt; 2014-06-05           2014-06-06
+10  1389ca          4           &lt;NA&gt; 2014-06-05           2014-06-07
+11  2978ac          4     2014-05-30 2014-06-06           2014-06-08
+12  57a565          4     2014-05-28 2014-06-13           2014-06-15
+13  fc15ef          6     2014-06-14 2014-06-16           2014-06-17
+14  2eaa9a          5     2014-06-07 2014-06-17           2014-06-17
+15  bbfa93          6     2014-06-09 2014-06-18           2014-06-20
+16  c97dd9          9           &lt;NA&gt; 2014-06-19           2014-06-19
+17  f50e8a         10           &lt;NA&gt; 2014-06-22           2014-06-23
+18  3a7673          8           &lt;NA&gt; 2014-06-23           2014-06-24
+19  7f5a01          7     2014-06-23 2014-06-25           2014-06-27
+20  ddddee          6     2014-06-18 2014-06-26           2014-06-28
+21  99e8fa          7     2014-06-24 2014-06-28           2014-06-29
+22  567136          6           &lt;NA&gt; 2014-07-02           2014-07-03
+23  9371a9          8           &lt;NA&gt; 2014-07-08           2014-07-09
+24  bc2adf          6     2014-07-03 2014-07-09           2014-07-09
+25  403057         10           &lt;NA&gt; 2014-07-09           2014-07-11
+26  8bd1e8          8     2014-07-10 2014-07-10           2014-07-11
+27  f327be          6     2014-06-14 2014-07-12           2014-07-13
+28  42e1a9         12           &lt;NA&gt; 2014-07-12           2014-07-14
+29  90e5fe          5     2014-06-18 2014-07-13           2014-07-14
+30  959170          8     2014-06-29 2014-07-13           2014-07-13
+31  8ebf6e          7     2014-07-02 2014-07-14           2014-07-14
+32  e56412          9     2014-07-12 2014-07-15           2014-07-17
+33  6d788e         11     2014-07-12 2014-07-16           2014-07-17
+34  a47529          5     2014-06-13 2014-07-17           2014-07-18
+35  67be4e          8     2014-07-15 2014-07-17           2014-07-19
+36  da8ecb          5     2014-06-20 2014-07-18           2014-07-20
+37  148f18          6           &lt;NA&gt; 2014-07-19           2014-07-20
+38  2cb9a5         11           &lt;NA&gt; 2014-07-22           2014-07-22
+39  f5c142          7     2014-07-20 2014-07-22           2014-07-24
+40  70a9fe          9           &lt;NA&gt; 2014-07-24           2014-07-26
+41  3ad520          7     2014-07-12 2014-07-24           2014-07-24
+42  062638          8     2014-07-19 2014-07-25           2014-07-27
+43  c76676          9     2014-07-18 2014-07-25           2014-07-25
+44  baacc1         12     2014-07-18 2014-07-27           2014-07-27
+45  497372         13     2014-07-27 2014-07-29           2014-07-31
+46  23e499          9           &lt;NA&gt; 2014-07-30           2014-08-01
+47  38cc4a          8     2014-07-19       &lt;NA&gt;           2014-08-03
+48  3789ee         10     2014-07-26 2014-08-01           2014-08-02
+49  c71dcd          8     2014-07-24 2014-08-02           2014-08-02
+50  6b70f0          7           &lt;NA&gt; 2014-08-03           2014-08-04
+   date_outcome outcome gender age age_unit age_years age_cat age_cat5
+1          &lt;NA&gt;    &lt;NA&gt;      m   2    years         2     0-4      0-4
+2    2014-05-18 Recover      f   3    years         3     0-4      0-4
+3    2014-05-30 Recover      m  56    years        56   50-69    55-59
+4          &lt;NA&gt;    &lt;NA&gt;      f  18    years        18   15-19    15-19
+5    2014-05-29 Recover      m   3    years         3     0-4      0-4
+6    2014-05-24 Recover      f  16    years        16   15-19    15-19
+7    2014-06-01 Recover      f  16    years        16   15-19    15-19
+8    2014-06-07   Death      f   0    years         0     0-4      0-4
+9    2014-06-18 Recover      m  61    years        61   50-69    60-64
+10   2014-06-09   Death      f  27    years        27   20-29    25-29
+11   2014-06-15   Death      m  12    years        12   10-14    10-14
+12         &lt;NA&gt;   Death      m  42    years        42   30-49    40-44
+13   2014-07-09 Recover      m  19    years        19   15-19    15-19
+14         &lt;NA&gt; Recover      f   7    years         7     5-9      5-9
+15   2014-06-30    &lt;NA&gt;      f   7    years         7     5-9      5-9
+16   2014-07-11 Recover      m  13    years        13   10-14    10-14
+17   2014-07-01    &lt;NA&gt;      f  35    years        35   30-49    35-39
+18   2014-06-25    &lt;NA&gt;      f  17    years        17   15-19    15-19
+19   2014-07-06   Death      f  11    years        11   10-14    10-14
+20   2014-07-02   Death      f  11    years        11   10-14    10-14
+21   2014-07-09 Recover      m  19    years        19   15-19    15-19
+22   2014-07-07    &lt;NA&gt;      m  54    years        54   50-69    50-54
+23   2014-07-20    &lt;NA&gt;      f  14    years        14   10-14    10-14
+24         &lt;NA&gt;    &lt;NA&gt;      m  28    years        28   20-29    25-29
+25   2014-07-22   Death      f   6    years         6     5-9      5-9
+26   2014-07-16    &lt;NA&gt;      m   3    years         3     0-4      0-4
+27   2014-07-14   Death      m  31    years        31   30-49    30-34
+28   2014-07-20   Death      f   6    years         6     5-9      5-9
+29   2014-07-16    &lt;NA&gt;      m  67    years        67   50-69    65-69
+30   2014-07-19   Death      f  14    years        14   10-14    10-14
+31   2014-07-27 Recover      f  10    years        10   10-14    10-14
+32   2014-07-19   Death      f  21    years        21   20-29    20-24
+33         &lt;NA&gt; Recover      m  20    years        20   20-29    20-24
+34   2014-07-26   Death      m  45    years        45   30-49    45-49
+35   2014-08-14 Recover      f   1    years         1     0-4      0-4
+36   2014-08-01    &lt;NA&gt;      m  12    years        12   10-14    10-14
+37   2014-07-23   Death      f   3    years         3     0-4      0-4
+38   2014-08-28 Recover      f  15    years        15   15-19    15-19
+39   2014-07-28 Recover      f  20    years        20   20-29    20-24
+40   2014-07-19   Death      m  36    years        36   30-49    35-39
+41         &lt;NA&gt;    &lt;NA&gt;      f   7    years         7     5-9      5-9
+42   2014-08-03    &lt;NA&gt;      m  13    years        13   10-14    10-14
+43         &lt;NA&gt;   Death      f  14    years        14   10-14    10-14
+44         &lt;NA&gt;   Death      m   3    years         3     0-4      0-4
+45         &lt;NA&gt;   Death      m  10    years        10   10-14    10-14
+46   2014-08-06   Death      f   1    years         1     0-4      0-4
+47   2014-08-21 Recover      m   0    years         0     0-4      0-4
+48   2014-09-13    &lt;NA&gt;      f  20    years        20   20-29    20-24
+49   2014-08-04   Death      m  26    years        26   20-29    25-29
+50         &lt;NA&gt;   Death      m  14    years        14   10-14    10-14
+                               hospital       lon      lat infector  source
+1                                 Other -13.21574 8.468973   f547d6   other
+2                               Missing -13.21523 8.451719     &lt;NA&gt;    &lt;NA&gt;
+3  St. Mark's Maternity Hospital (SMMH) -13.21291 8.464817     &lt;NA&gt;    &lt;NA&gt;
+4                         Port Hospital -13.23637 8.475476   f90f5f   other
+5                     Military Hospital -13.22286 8.460824   11f8ea   other
+6                         Port Hospital -13.22263 8.461831   aec8ec   other
+7                               Missing -13.23315 8.462729   893f25   other
+8                               Missing -13.23210 8.461444   133ee7   other
+9                               Missing -13.22255 8.461913     &lt;NA&gt;    &lt;NA&gt;
+10                              Missing -13.25722 8.472923     &lt;NA&gt;    &lt;NA&gt;
+11                        Port Hospital -13.22063 8.484016   996f3a   other
+12                    Military Hospital -13.25399 8.458371   133ee7   other
+13                              Missing -13.23851 8.477617   37a6f6   other
+14                              Missing -13.20939 8.475702   9f6884   other
+15                                Other -13.21573 8.477799   4802b1   other
+16                        Port Hospital -13.22434 8.471451     &lt;NA&gt;    &lt;NA&gt;
+17                        Port Hospital -13.23361 8.478048     &lt;NA&gt;    &lt;NA&gt;
+18                        Port Hospital -13.21422 8.485280     &lt;NA&gt;    &lt;NA&gt;
+19                              Missing -13.23397 8.469575   a75c7f   other
+20                                Other -13.25356 8.459574   8e104d   other
+21                        Port Hospital -13.22501 8.474049   ab634e   other
+22                        Port Hospital -13.21607 8.488029     &lt;NA&gt;    &lt;NA&gt;
+23 St. Mark's Maternity Hospital (SMMH) -13.26807 8.473437     &lt;NA&gt;    &lt;NA&gt;
+24                              Missing -13.22667 8.484083   b799eb   other
+25                                Other -13.21602 8.462422     &lt;NA&gt;    &lt;NA&gt;
+26                              Missing -13.24826 8.470268   5d9e4d   other
+27 St. Mark's Maternity Hospital (SMMH) -13.21563 8.463984   a15e13   other
+28                    Military Hospital -13.21424 8.464135     &lt;NA&gt;    &lt;NA&gt;
+29                        Port Hospital -13.26149 8.456231   ea3740   other
+30                     Central Hospital -13.24530 8.483346   beb26e funeral
+31                    Military Hospital -13.26306 8.474940   567136   other
+32                     Central Hospital -13.23433 8.478321   894024 funeral
+33                              Missing -13.21991 8.469393   36e2e7   other
+34                    Military Hospital -13.22273 8.484806   a2086d   other
+35                                Other -13.23431 8.471212   7baf73   other
+36                              Missing -13.21878 8.484384   eb2277 funeral
+37                              Missing -13.24837 8.484662     &lt;NA&gt;    &lt;NA&gt;
+38                        Port Hospital -13.20975 8.477142     &lt;NA&gt;    &lt;NA&gt;
+39                        Port Hospital -13.26809 8.462381   d6584f   other
+40                        Port Hospital -13.25875 8.455686     &lt;NA&gt;    &lt;NA&gt;
+41                              Missing -13.26264 8.463288   312ecf   other
+42                     Central Hospital -13.26972 8.479407   52ea64   other
+43                    Military Hospital -13.22090 8.463539   cfd79c   other
+44                                Other -13.23307 8.461790   d145b7   other
+45                                Other -13.26809 8.475087   174288   other
+46                                Other -13.25472 8.458258     &lt;NA&gt;    &lt;NA&gt;
+47                              Missing -13.25737 8.453257   53608c funeral
+48 St. Mark's Maternity Hospital (SMMH) -13.21374 8.473257   3b096b   other
+49 St. Mark's Maternity Hospital (SMMH) -13.21760 8.479116   f5c142   other
+50                              Missing -13.24864 8.484803     &lt;NA&gt;    &lt;NA&gt;
+   wt_kg ht_cm ct_blood fever chills cough aches vomit temp time_admission
+1     27    48       22    no     no   yes    no   yes 36.8           &lt;NA&gt;
+2     25    59       22  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.9          09:36
+3     91   238       21  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.9          16:48
+4     41   135       23    no     no    no    no    no 36.8          11:22
+5     36    71       23    no     no   yes    no   yes 36.9          12:60
+6     56   116       21    no     no   yes    no   yes 37.6          14:13
+7     47    87       21  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 37.3          14:33
+8      0    11       22    no     no   yes    no   yes 37.0          09:25
+9     86   226       22    no     no   yes    no   yes 36.4          11:16
+10    69   174       22    no     no   yes    no    no 35.9          10:55
+11    67   112       22    no     no   yes    no   yes 36.5          16:03
+12    84   186       22    no     no   yes    no    no 36.9          11:14
+13    68   174       22    no     no   yes    no    no 36.5          12:42
+14    44    90       21    no     no   yes    no    no 37.1          11:06
+15    34    91       23    no     no   yes    no   yes 36.5          09:10
+16    66   152       22    no     no   yes   yes    no 37.3          08:45
+17    78   214       23    no    yes   yes    no    no 37.0           &lt;NA&gt;
+18    47   137       21    no     no   yes    no    no 38.0          15:41
+19    53   117       22  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 38.0          13:34
+20    47   131       23    no     no   yes    no    no 36.0          18:58
+21    71   150       21    no     no   yes    no   yes 37.0          12:43
+22    86   241       23    no     no   yes    no    no 36.7          16:33
+23    53   131       21    no    yes   yes    no    no 36.9          14:29
+24    69   161       24    no     no   yes    no    no 36.5          07:18
+25    38    80       23  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 37.0          08:11
+26    46    69       22    no     no   yes    no    no 36.5          16:32
+27    68   188       24    no     no   yes    no    no 37.6          16:17
+28    37    66       23    no    yes   yes    no    no 36.6          07:32
+29   100   233       20  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.6          17:45
+30    56   142       24  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.2           &lt;NA&gt;
+31    50   110       24    no     no   yes    no    no 36.4          13:24
+32    57   182       20    no     no   yes    no   yes 37.1          14:43
+33    65   164       24  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 37.5          02:33
+34    72   214       21    no     no   yes    no   yes 37.5          11:36
+35    29    26       22    no     no   yes    no   yes 37.4          17:28
+36    69   157       21  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.9          16:27
+37    37    39       23  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.4           &lt;NA&gt;
+38    48   154       22    no     no   yes   yes   yes 37.3          20:49
+39    54   133       23    no     no   yes   yes   yes 37.0           &lt;NA&gt;
+40    71   168       23  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 37.8          11:38
+41    47   100       23    no     no   yes    no   yes 36.5          14:25
+42    61   125       22    no     no   yes    no   yes 37.5          13:42
+43    47   123       23  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.7          21:22
+44    35    67       22    no     no   yes    no   yes 37.0          13:33
+45    53   134       22    no    yes   yes    no   yes 37.3          19:06
+46    16    31       22    no     no   yes    no    no 36.6          17:14
+47    13    36       23    no     no   yes    no   yes 36.5          20:09
+48    59   125       22    no     no   yes    no   yes 36.6           &lt;NA&gt;
+49    69   183       22    no     no    no    no   yes 37.6          10:23
+50    67   169       22  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.8          09:09
+         bmi days_onset_hosp
+1  117.18750               2
+2   71.81844               1
+3   16.06525               2
+4   22.49657               2
+5   71.41440               1
+6   41.61712               1
+7   62.09539               2
+8    0.00000               1
+9   16.83765               1
+10  22.79033               2
+11  53.41199               2
+12  24.28026               2
+13  22.46003               1
+14  54.32099               0
+15  41.05784               2
+16  28.56648               0
+17  17.03206               1
+18  25.04129               1
+19  38.71722               2
+20  27.38768               2
+21  31.55556               1
+22  14.80691               1
+23  30.88398               1
+24  26.61934               0
+25  59.37500               2
+26  96.61836               1
+27  19.23947               1
+28  84.94031               2
+29  18.41994               1
+30  27.77227               0
+31  41.32231               0
+32  17.20807               2
+33  24.16716               1
+34  15.72190               1
+35 428.99408               2
+36  27.99302               2
+37 243.26101               1
+38  20.23950               0
+39  30.52745               2
+40  25.15590               2
+41  47.00000               0
+42  39.04000               2
+43  31.06616               0
+44  77.96837               0
+45  29.51660               2
+46 166.49324               2
+47 100.30864              NA
+48  37.76000               1
+49  20.60378               0
+50  23.45856               1</code></pre>
+</div>
+</div>
+</section>
+<section id="select-or-re-order-columns" class="level2">
+<h2 class="anchored" data-anchor-id="select-or-re-order-columns">Select or re-order columns</h2>
+<p>Use <code>select()</code> from <strong>dplyr</strong> to select the columns you want to retain, and to specify their order in the data frame.</p>
+<p><strong>Here are ALL the column names in the linelist at this point in the cleaning pipe chain:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(linelist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "case_id"              "generation"           "date_infection"      
+ [4] "date_onset"           "date_hospitalisation" "date_outcome"        
+ [7] "outcome"              "gender"               "age"                 
+[10] "age_unit"             "age_years"            "age_cat"             
+[13] "age_cat5"             "hospital"             "lon"                 
+[16] "lat"                  "infector"             "source"              
+[19] "wt_kg"                "ht_cm"                "ct_blood"            
+[22] "fever"                "chills"               "cough"               
+[25] "aches"                "vomit"                "temp"                
+[28] "time_admission"       "bmi"                  "days_onset_hosp"     </code></pre>
+</div>
+</div>
+<section id="keep-columns" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="keep-columns">Keep columns</h3>
+<p><strong>Select only the columns you want to remain</strong></p>
+<p>Put their names in the <code>select()</code> command, with no quotation marks. They will appear in the data frame in the order you provide. Note that if you include a column that does not exist, R will return an error (see use of <code>any_of()</code> below if you want no error in this situation).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># linelist dataset is piped through select() command, and names() prints just the column names</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case_id, date_onset, date_hospitalisation, fever) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()  <span class="co"># display the column names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "case_id"              "date_onset"           "date_hospitalisation"
+[4] "fever"               </code></pre>
+</div>
+</div>
+</section>
+<section id="remove-columns" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="remove-columns">Remove columns</h3>
+<p><strong>Indicate which columns to remove</strong> by placing a minus symbol “-” in front of the column name (e.g.&nbsp;<code>select(-outcome)</code>), or a vector of column names (as below). All other columns will be retained.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(date_onset, fever<span class="sc">:</span>vomit)) <span class="sc">%&gt;%</span> <span class="co"># remove date_onset and all columns from fever to vomit</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "case_id"              "generation"           "date_infection"      
+ [4] "date_hospitalisation" "date_outcome"         "outcome"             
+ [7] "gender"               "age"                  "age_unit"            
+[10] "age_years"            "age_cat"              "age_cat5"            
+[13] "hospital"             "lon"                  "lat"                 
+[16] "infector"             "source"               "wt_kg"               
+[19] "ht_cm"                "ct_blood"             "temp"                
+[22] "time_admission"       "bmi"                  "days_onset_hosp"     </code></pre>
+</div>
+</div>
+<p>You can also remove a column using <strong>base</strong> R syntax, by defining it as <code>NULL</code>. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>linelist<span class="sc">$</span>date_onset <span class="ot">&lt;-</span> <span class="cn">NULL</span>   <span class="co"># deletes column with base R syntax </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="standalone" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="standalone">Standalone</h3>
+<p><code>select()</code> can also be used as an independent command (not in a pipe chain). In this case, the first argument is the original dataframe to be operated upon.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new linelist with id and age-related columns</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>linelist_age <span class="ot">&lt;-</span> <span class="fu">select</span>(linelist, case_id, <span class="fu">contains</span>(<span class="st">"age"</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># display the column names</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(linelist_age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "case_id"   "age"       "age_unit"  "age_years" "age_cat"   "age_cat5" </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="column-creation-and-transformation" class="level2">
+<h2 class="anchored" data-anchor-id="column-creation-and-transformation">Column creation and transformation</h2>
+<p>In addition to selecting columns, we can create new columns with <code>mutate()</code>. The syntax is: <code>mutate(new_column_name = value or transformation)</code>. <code>mutate()</code> can also be used to modify an existing column.</p>
+<section id="new-columns" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="new-columns">New columns</h3>
+<p>The most basic <code>mutate()</code> command to create a new column might look like this. It creates a new column <code>new_col</code> where the value in every row is 10.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_col =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can also reference values in other columns, to perform calculations. Below, a new column <code>bmi</code> is created to hold the Body Mass Index (BMI) for each case - as calculated using the formula BMI = kg/m^2, using column <code>ht_cm</code> and column <code>wt_kg</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bmi =</span> wt_kg <span class="sc">/</span> (ht_cm<span class="sc">/</span><span class="dv">100</span>)<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If creating multiple new columns, separate each with a comma and new line. Below are examples of new columns, including ones that consist of values from other columns combined using <code>str_glue()</code> from the <strong>stringr</strong> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>new_col_demo <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span>                       </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_var_dup    =</span> case_id,             <span class="co"># new column = duplicate/copy another existing column</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_var_static =</span> <span class="dv">7</span>,                   <span class="co"># new column = all values the same</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_var_static =</span> new_var_static <span class="sc">+</span> <span class="dv">5</span>,  <span class="co"># you can overwrite a column, and it can be a calculation using other variables</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_var_paste  =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"{hospital} on ({date_hospitalisation})"</span>) <span class="co"># new column = pasting together values from other columns</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case_id, hospital, date_hospitalisation, <span class="fu">contains</span>(<span class="st">"new"</span>))        <span class="co"># show only new columns, for demonstration purposes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Review the new columns. For demonstration purposes, only the new columns and the columns used to create them are shown:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   case_id                             hospital date_hospitalisation
+1   5fe599                                Other           2014-05-15
+2   8689b7                              Missing           2014-05-14
+3   11f8ea St. Mark's Maternity Hospital (SMMH)           2014-05-18
+4   b8812a                        Port Hospital           2014-05-20
+5   893f25                    Military Hospital           2014-05-22
+6   be99c8                        Port Hospital           2014-05-23
+7   07e3e8                              Missing           2014-05-29
+8   369449                              Missing           2014-06-03
+9   f393b4                              Missing           2014-06-06
+10  1389ca                              Missing           2014-06-07
+11  2978ac                        Port Hospital           2014-06-08
+12  57a565                    Military Hospital           2014-06-15
+13  fc15ef                              Missing           2014-06-17
+14  2eaa9a                              Missing           2014-06-17
+15  bbfa93                                Other           2014-06-20
+16  c97dd9                        Port Hospital           2014-06-19
+17  f50e8a                        Port Hospital           2014-06-23
+18  3a7673                        Port Hospital           2014-06-24
+19  7f5a01                              Missing           2014-06-27
+20  ddddee                                Other           2014-06-28
+21  99e8fa                        Port Hospital           2014-06-29
+22  567136                        Port Hospital           2014-07-03
+23  9371a9 St. Mark's Maternity Hospital (SMMH)           2014-07-09
+24  bc2adf                              Missing           2014-07-09
+25  403057                                Other           2014-07-11
+26  8bd1e8                              Missing           2014-07-11
+27  f327be St. Mark's Maternity Hospital (SMMH)           2014-07-13
+28  42e1a9                    Military Hospital           2014-07-14
+29  90e5fe                        Port Hospital           2014-07-14
+30  959170                     Central Hospital           2014-07-13
+31  8ebf6e                    Military Hospital           2014-07-14
+32  e56412                     Central Hospital           2014-07-17
+33  6d788e                              Missing           2014-07-17
+34  a47529                    Military Hospital           2014-07-18
+35  67be4e                                Other           2014-07-19
+36  da8ecb                              Missing           2014-07-20
+37  148f18                              Missing           2014-07-20
+38  2cb9a5                        Port Hospital           2014-07-22
+39  f5c142                        Port Hospital           2014-07-24
+40  70a9fe                        Port Hospital           2014-07-26
+41  3ad520                              Missing           2014-07-24
+42  062638                     Central Hospital           2014-07-27
+43  c76676                    Military Hospital           2014-07-25
+44  baacc1                                Other           2014-07-27
+45  497372                                Other           2014-07-31
+46  23e499                                Other           2014-08-01
+47  38cc4a                              Missing           2014-08-03
+48  3789ee St. Mark's Maternity Hospital (SMMH)           2014-08-02
+49  c71dcd St. Mark's Maternity Hospital (SMMH)           2014-08-02
+50  6b70f0                              Missing           2014-08-04
+   new_var_dup new_var_static
+1       5fe599             12
+2       8689b7             12
+3       11f8ea             12
+4       b8812a             12
+5       893f25             12
+6       be99c8             12
+7       07e3e8             12
+8       369449             12
+9       f393b4             12
+10      1389ca             12
+11      2978ac             12
+12      57a565             12
+13      fc15ef             12
+14      2eaa9a             12
+15      bbfa93             12
+16      c97dd9             12
+17      f50e8a             12
+18      3a7673             12
+19      7f5a01             12
+20      ddddee             12
+21      99e8fa             12
+22      567136             12
+23      9371a9             12
+24      bc2adf             12
+25      403057             12
+26      8bd1e8             12
+27      f327be             12
+28      42e1a9             12
+29      90e5fe             12
+30      959170             12
+31      8ebf6e             12
+32      e56412             12
+33      6d788e             12
+34      a47529             12
+35      67be4e             12
+36      da8ecb             12
+37      148f18             12
+38      2cb9a5             12
+39      f5c142             12
+40      70a9fe             12
+41      3ad520             12
+42      062638             12
+43      c76676             12
+44      baacc1             12
+45      497372             12
+46      23e499             12
+47      38cc4a             12
+48      3789ee             12
+49      c71dcd             12
+50      6b70f0             12
+                                          new_var_paste
+1                                 Other on (2014-05-15)
+2                               Missing on (2014-05-14)
+3  St. Mark's Maternity Hospital (SMMH) on (2014-05-18)
+4                         Port Hospital on (2014-05-20)
+5                     Military Hospital on (2014-05-22)
+6                         Port Hospital on (2014-05-23)
+7                               Missing on (2014-05-29)
+8                               Missing on (2014-06-03)
+9                               Missing on (2014-06-06)
+10                              Missing on (2014-06-07)
+11                        Port Hospital on (2014-06-08)
+12                    Military Hospital on (2014-06-15)
+13                              Missing on (2014-06-17)
+14                              Missing on (2014-06-17)
+15                                Other on (2014-06-20)
+16                        Port Hospital on (2014-06-19)
+17                        Port Hospital on (2014-06-23)
+18                        Port Hospital on (2014-06-24)
+19                              Missing on (2014-06-27)
+20                                Other on (2014-06-28)
+21                        Port Hospital on (2014-06-29)
+22                        Port Hospital on (2014-07-03)
+23 St. Mark's Maternity Hospital (SMMH) on (2014-07-09)
+24                              Missing on (2014-07-09)
+25                                Other on (2014-07-11)
+26                              Missing on (2014-07-11)
+27 St. Mark's Maternity Hospital (SMMH) on (2014-07-13)
+28                    Military Hospital on (2014-07-14)
+29                        Port Hospital on (2014-07-14)
+30                     Central Hospital on (2014-07-13)
+31                    Military Hospital on (2014-07-14)
+32                     Central Hospital on (2014-07-17)
+33                              Missing on (2014-07-17)
+34                    Military Hospital on (2014-07-18)
+35                                Other on (2014-07-19)
+36                              Missing on (2014-07-20)
+37                              Missing on (2014-07-20)
+38                        Port Hospital on (2014-07-22)
+39                        Port Hospital on (2014-07-24)
+40                        Port Hospital on (2014-07-26)
+41                              Missing on (2014-07-24)
+42                     Central Hospital on (2014-07-27)
+43                    Military Hospital on (2014-07-25)
+44                                Other on (2014-07-27)
+45                                Other on (2014-07-31)
+46                                Other on (2014-08-01)
+47                              Missing on (2014-08-03)
+48 St. Mark's Maternity Hospital (SMMH) on (2014-08-02)
+49 St. Mark's Maternity Hospital (SMMH) on (2014-08-02)
+50                              Missing on (2014-08-04)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Transmute
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A variation on <code>mutate()</code> is the function <code>transmute()</code>. This function adds a new column just like <code>mutate()</code>, but also drops/removes all other columns that you do not mention within its parentheses.</p>
+</div>
+</div>
+</section>
+<section id="convert-column-class" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="convert-column-class">Convert column class</h3>
+<p>Columns containing values that are dates, numbers, or logical values (TRUE/FALSE) will only behave as expected if they are correctly classified. There is a difference between “2” of class character and 2 of class numeric! There are ways to set column class during the import commands, but this is often cumbersome.</p>
+<p>First, let’s run some checks on important columns to see if they are the correct class. Currently, the class of the <code>age</code> column is character. To perform quantitative analyses, we need these numbers to be recognized as numeric!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(linelist<span class="sc">$</span>age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>To resolve this, use the ability of <code>mutate()</code> to re-define a column with a transformation. We define the column as itself, but converted to a different class. Here is a basic example, converting or ensuring that the column <code>age</code> is class Numeric:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">as.numeric</span>(age))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In a similar way, you can use <code>as.character()</code> and <code>as.logical()</code>. To convert to class Factor, you can use <code>factor()</code>.</p>
+</section>
+</section>
+<section id="filter-rows" class="level2">
+<h2 class="anchored" data-anchor-id="filter-rows">Filter rows</h2>
+<p>A typical cleaning step after you have cleaned the columns and re-coded values is to <em>filter</em> the data frame for specific rows using the <strong>dplyr</strong> verb <code>filter()</code>.</p>
+<p>Within <code>filter()</code>, specify the logic that must be <code>TRUE</code> for a row in the dataset to be kept. Below we show how to filter rows based on simple and complex logical conditions.</p>
+<!-- ======================================================= -->
+<section id="simple-filter" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="simple-filter">Simple filter</h3>
+<p>This simple example re-defines the dataframe <code>linelist</code> as itself, having filtered the rows to meet a logical condition. <strong>Only the rows where the logical statement within the parentheses evaluates to <code>TRUE</code> are kept.</strong></p>
+<p>In this example, the logical statement is <code>gender == "f"</code>, which is asking whether the value in the column <code>gender</code> is equal to “f” (case sensitive).</p>
+<p>Before the filter is applied, the number of rows in <code>linelist</code> is <code>nrow(linelist)</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">"f"</span>)   <span class="co"># keep only rows where gender is equal to "f"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After the filter is applied, the number of rows in <code>linelist</code> is <code>linelist %&gt;% filter(gender == "f") %&gt;% nrow()</code>.</p>
+</section>
+<section id="complex-filter" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="complex-filter">Complex filter</h3>
+<p>More complex logical statements can be constructed using parentheses <code>( )</code>, OR <code>|</code>, negate <code>!</code>, <code>%in%</code>, and AND <code>&amp;</code> operators. An example is below:</p>
+<p>Note: You can use the <code>!</code> operator in front of a logical criteria to negate it. For example, <code>!is.na(column)</code> evaluates to true if the column value is <em>not</em> missing. Likewise <code>!column %in% c("a", "b", "c")</code> evaluates to true if the column value is <em>not</em> in the vector.</p>
+<section id="examine-the-data" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="examine-the-data">Examine the data</h4>
+<p>Below is a simple one-line command to create a histogram of onset dates. See that a second smaller outbreak from 2012-2013 is also included in this raw dataset. <strong>For our analyses, we want to remove entries from this earlier outbreak.</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(linelist<span class="sc">$</span>date_onset, <span class="at">breaks =</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="using-tables_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" style="width:50.0%"></p>
+</div>
+</div>
+</section>
+<section id="how-filters-handle-missing-numeric-and-date-values" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="how-filters-handle-missing-numeric-and-date-values">How filters handle missing numeric and date values</h4>
+<p>Can we just filter by <code>date_onset</code> to rows after June 2013? <strong>Caution! Applying the code <code>filter(date_onset &gt; as.Date("2013-06-01")))</code> would remove any rows in the later epidemic with a missing date of onset!</strong></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Conditions with NA
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Filtering to greater than (&gt;) or less than (&lt;) a date or number can remove any rows with missing values (<code>NA</code>)! This is because <code>NA</code> is treated as infinitely large and small.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="standalone-1" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="standalone-1">Standalone</h3>
+<p>Filtering can also be done as a stand-alone command (not part of a pipe chain). Like other <strong>dplyr</strong> verbs, in this case the first argument must be the dataset itself.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe &lt;- filter(dataframe, condition(s) for rows to keep)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">filter</span>(linelist, <span class="sc">!</span><span class="fu">is.na</span>(case_id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can also use <strong>base</strong> R to subset using square brackets which reflect the [rows, columns] that you want to retain.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe &lt;- dataframe[row conditions, column conditions] (blank means keep all)</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist[<span class="sc">!</span><span class="fu">is.na</span>(case_id), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<!-- ======================================================= -->
+</section>
+</section>
+<section id="arrange-and-sort" class="level2">
+<h2 class="anchored" data-anchor-id="arrange-and-sort">Arrange and sort</h2>
+<p>Use the <strong>dplyr</strong> function <code>arrange()</code> to sort or order the rows by column values.</p>
+<p>Simple list the columns in the order they should be sorted on. Specify <code>.by_group = TRUE</code> if you want the sorting to to first occur by any <em>groupings</em> applied to the data.</p>
+<p>By default, column will be sorted in “ascending” order (which applies to numeric and also to character columns). You can sort a variable in “descending” order by wrapping it with <code>desc()</code>.</p>
+<p>Sorting data with <code>arrange()</code> is particularly useful when making tables for publication, using <code>slice()</code> to take the “top” rows per group, or setting factor level order by order of appearance.</p>
+<p>For example, to sort the our linelist rows by <code>hospital</code>, then by <code>date_onset</code> in descending order, we would use:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">arrange</span>(hospital, <span class="fu">desc</span>(date_onset))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

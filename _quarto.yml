@@ -1,0 +1,63 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Research Design and Analysis"
+  navbar:
+    background: primary
+    search: true
+    left:
+      - text: "Home"
+        file: index.qmd
+      - text: "Readings"
+        file: readings/readings.qmd
+      - text: "Session Materials"
+        file: session-materials/sessions.qmd
+      - text: "Resources"
+        file: resources/resources.qmd
+
+  sidebar:
+    - title: "Readings"
+      style: "docked"
+      #background: primary
+      contents:
+        - readings/readings.qmd
+        - section: "Week 0"
+          contents:
+            - readings/install.qmd
+            - readings/rstudio.qmd
+            - readings/basics.qmd
+        - section: "Week 1"
+          contents:
+            - readings/data-basics.qmd
+            - readings/using-tables.qmd
+            - readings/recoding-values.qmd
+        - section: "Week 2"
+          contents:
+            - readings/ggplot-basics.qmd
+        - section: "Week 3"
+          contents:
+            - readings/manage-data.qmd
+
+    - title: "Session Materials"
+      contents:
+        - session-materials/sessions.qmd
+        - session-materials/session1/session1.qmd
+        - session-materials/session2/session2.qmd
+        - session-materials/session3/session3.qmd
+
+    - title: "Resources"
+      contents:
+        - resources/resources.qmd
+        - resources/getting-help.qmd
+        # navigation items
+
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    toc: true
+  pdf:
+    documentclass: scrreprt

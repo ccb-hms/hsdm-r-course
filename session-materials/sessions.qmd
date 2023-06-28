@@ -1,0 +1,14 @@
+# Sessions
+
+This set of pages contains the in-class materials we will be using.
+
+You can browse the materials for each week here, but for class you need to download the materials and datasets. 
+
+## Week 1: Getting started with data
+[Download Week 1 Materials Here]()
+
+## Week 2: Data visualization
+[Download Week 2 Materials Here]()
+
+## Week 3: Managing data
+[Download Week 3 Materials Here]()
