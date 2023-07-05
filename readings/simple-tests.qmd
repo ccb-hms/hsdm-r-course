@@ -1,0 +1,168 @@
+# Simple statistical tests { }
+
+
+This page demonstrates how to conduct simple statistical tests using **base** R, **rstatix**, and **gtsummary**.  
+
+* T-test  
+* Shapiro-Wilk test  
+* Wilcoxon rank sum test  
+* Kruskal-Wallis test  
+* Chi-squared test  
+* Correlations between numeric variables  
+
+...many other tests can be performed, but we showcase just these common ones and link to further documentation.  
+
+Each of the above packages bring certain advantages and disadvantages:  
+
+* Use **base** R functions to print a statistical outputs to the R Console  
+* Use **rstatix** functions to return results in a data frame, or if you want tests to run by group  
+* Use **gtsummary** if you want to quickly print publication-ready tables  
+
+
+
+<!-- ======================================================= -->
+## Preparation {  }
+
+
+### Load packages {.unnumbered}
+
+This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with  `library()` from **base** R. See the page on [R basics] for more information on R packages.  
+
+
+```{r}
+pacman::p_load(
+  rio,          # File import
+  here,         # File locator
+  skimr,        # get overview of data
+  tidyverse,    # data management + ggplot2 graphics, 
+  gtsummary,    # summary statistics and tests
+  rstatix,      # statistics
+  corrr,        # correlation analayis for numeric variables
+  janitor,      # adding totals and percents to tables
+  flextable     # converting tables to HTML
+  )
+```
+
+### Import data {.unnumbered}
+
+We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import your data with the `import()` function from the **rio** package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export] page for details).  
+
+
+```{r, echo=F}
+# import the linelist into R
+linelist <- rio::import("data/case_linelists/linelist_cleaned.rds")
+```
+
+```{r, eval=F}
+# import the linelist
+linelist <- import("linelist_cleaned.rds")
+```
+
+## **base** R {}
+
+You can use **base** R functions to conduct statistical tests. The commands are relatively simple and results will print to the R Console for simple viewing. However, the outputs are usually lists and so are harder to manipulate if you want to use the results in subsequent operations. 
+
+### T-tests {.unnumbered} 
+
+A [t-test](https://en.wikipedia.org/wiki/Student%27s_t-test), also called "Student's t-Test", is typically used to determine if there is a significant difference between the means of some numeric variable between two groups. Here we'll show the syntax to do this test depending on whether the columns are in the same data frame.
+
+**Syntax 1:** This is the syntax when your numeric and categorical columns are in the same data frame. Provide the numeric column on the left side of the equation and the categorical column on the right side. Specify the dataset to `data = `. Optionally, set `paired = TRUE`, and `conf.level = ` (0.95 default), and `alternative = ` (either "two.sided", "less", or "greater"). Enter `?t.test` for more details.  
+
+```{r}
+## compare mean age by outcome group with a t-test
+t.test(age_years ~ gender, data = linelist)
+```
+
+**Syntax 2:** You can compare two separate numeric vectors using this alternative syntax. For example, if the two columns are in different data sets.  
+
+```{r, eval=F}
+t.test(df1$age_years, df2$age_years)
+```
+
+You can also use a t-test to determine whether a sample mean is significantly different from some specific value. Here we conduct a one-sample t-test with the known/hypothesized population mean as `mu = `:  
+
+```{r, eval=F}
+t.test(linelist$age_years, mu = 45)
+```
+
+### Shapiro-Wilk test {.unnumbered}  
+
+The [Shapiro-Wilk test](https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test) can be used to determine whether a sample came from a normally-distributed population (an assumption of many other tests and analysis, such as the t-test). However, this can only be used on a sample between 3 and 5000 observations. For larger samples a [quantile-quantile plot](https://ggplot2.tidyverse.org/reference/geom_qq.html) may be helpful. 
+
+
+```{r, eval=F}
+shapiro.test(linelist$age_years)
+```
+
+### Wilcoxon rank sum test {.unnumbered}
+
+The Wilcoxon rank sum test, also called the [Mann–Whitney U test](https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test), is often used to help determine if two numeric samples are from the same distribution when their populations are not normally distributed or have unequal variance.
+
+```{r wilcox_base}
+
+## compare age distribution by outcome group with a wilcox test
+wilcox.test(age_years ~ outcome, data = linelist)
+
+```
+
+
+### Kruskal-Wallis test {.unnumbered}
+
+
+The [Kruskal-Wallis test](https://en.wikipedia.org/wiki/Kruskal%E2%80%93Wallis_one-way_analysis_of_variance) is an extension of the Wilcoxon rank sum test that can be used to test for differences in the distribution of more than two samples. When only two samples are used it gives identical results to the Wilcoxon rank sum test. 
+
+```{r }
+
+## compare age distribution by outcome group with a kruskal-wallis test
+kruskal.test(age_years ~ outcome, linelist)
+
+```
+
+### Chi-squared test {.unnumbered} 
+
+[Pearson's Chi-squared test](https://en.wikipedia.org/wiki/Chi-squared_test) is used in testing for significant differences between categorical croups. 
+
+```{r}
+
+## compare the proportions in each group with a chi-squared test
+chisq.test(linelist$gender, linelist$outcome)
+
+```
+
+## Correlations 
+
+Correlation between numeric variables can be investigated using the **tidyverse**  
+**corrr** package. It allows you to compute correlations using Pearson, Kendall
+tau or Spearman rho. The package creates a table and also has a function to 
+automatically plot the values. 
+
+```{r, warning=F, message=F}
+
+correlation_tab <- linelist %>% 
+  select(generation, age, ct_blood, days_onset_hosp, wt_kg, ht_cm) %>%   # keep numeric variables of interest
+  correlate()      # create correlation table (using default pearson)
+
+correlation_tab    # print
+
+## remove duplicate entries (the table above is mirrored) 
+correlation_tab <- correlation_tab %>% 
+  shave()
+
+## view correlation table 
+correlation_tab
+
+## plot correlations 
+rplot(correlation_tab)
+```
+
+
+<!-- ======================================================= -->
+
+## Resources {  }
+
+Much of the information in this page is adapted from these resources and vignettes online:  
+
+[gtsummary](http://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html)
+[dplyr](https://dplyr.tidyverse.org/articles/grouping.html)
+[corrr](https://corrr.tidymodels.org/articles/using-corrr.html)
+[sthda correlation](http://www.sthda.com/english/wiki/correlation-test-between-two-variables-in-r)

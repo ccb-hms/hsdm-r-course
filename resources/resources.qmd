@@ -48,6 +48,14 @@ This is an online R resource specifically for [Excel users](https://jules32.gith
 -   [graphics for communicaton](https://r4ds.had.co.nz/graphics-for-communication.html)
 
 
+### Table Visualization
+
+- The full **flextable** book is here: https://ardata-fr.github.io/flextable-book/
+- The Github site is [here](https://davidgohel.github.io/flextable/)  
+- A manual of all the **flextable** functions can be found [here](https://davidgohel.github.io/flextable/reference/index.html)
+- A gallery of beautiful example **flextable** tables with code can be accessed [here](https://ardata.fr/en/flextable-gallery/)  
+
+
 #### Data manipulation
 
 - The Data Carpentry page on [**dplyr**](https://datacarpentry.org/R-genomics/04-dplyr.html)  
@@ -55,6 +63,17 @@ This is an online R resource specifically for [Excel users](https://jules32.gith
 - This page on [Data manipulation](https://itsalocke.com/files/DataManipulationinR.pdf)  
 - [Summarize with conditions in dplyr](https://stackoverflow.com/questions/23528862/summarize-with-conditions-in-dplyr)  
 
+#### Surveys
+
+[UCLA stats page](https://stats.idre.ucla.edu/r/seminars/survey-data-analysis-with-r/)  
+
+[Analyze survey data free](http://asdfree.com/)  
+
+[srvyr packge](http://gdfe.co/srvyr/)  
+
+[gtsummary package](http://www.danieldsjoberg.com/gtsummary/reference/index.html) 
+
+[EPIET survey case studies](https://github.com/EPIET/RapidAssessmentSurveys)
 
 ### Communities
 

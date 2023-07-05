@@ -11,9 +11,9 @@ code-annotations: select
 
 Welcome! Each week, in-class we will be answering questions on the reading and performing analyses based on a code notebook.
 
-Throughout these sessions we will be replicating the analysis from [Beheshti et. al. 2021](https://pubmed.ncbi.nlm.nih.gov/33892837/)[^session1-1]
+Throughout these sessions we will be replicating the analysis from [Beheshti et. al. 2021](https://pubmed.ncbi.nlm.nih.gov/33892837/)[^1]
 
-[^session1-1]: Beheshti, Mahdieh et al. "Association of Diabetes and Dental Caries Among U.S. Adolescents in the NHANES Dataset." Pediatric dentistry vol. 43,2 (2021): 123-128.
+[^1]: Beheshti, Mahdieh et al. "Association of Diabetes and Dental Caries Among U.S. Adolescents in the NHANES Dataset." Pediatric dentistry vol. 43,2 (2021): 123-128.
 
 This is an analysis of the association between diabetes and dental caries in U.S. adolescents. By the end of the semester we will be able to replicate and extend the analysis in this paper.
 
@@ -226,6 +226,7 @@ nhanes_ado <- nhanes_ado %>%
 ```
 
 This alternate solution where we convert first seems like it could also work, but we would be replacing NA's which exist due to missing data.
+
 ```{r}
 #| eval: false
 # NOT A VALID SOLUTION

@@ -28,17 +28,26 @@ website:
             - readings/install.qmd
             - readings/rstudio.qmd
             - readings/basics.qmd
-        - section: "Week 1"
+        - section: "Week 2"
           contents:
             - readings/data-basics.qmd
             - readings/using-tables.qmd
             - readings/recoding-values.qmd
-        - section: "Week 2"
-          contents:
-            - readings/ggplot-basics.qmd
         - section: "Week 3"
           contents:
+            - readings/ggplot-basics.qmd
+        - section: "Week 4"
+          contents:
             - readings/manage-data.qmd
+        - section: "Week 5"
+          contents:
+            - readings/descriptive-statistics.qmd
+            - readings/formatting-tables.qmd
+            - readings/survey-analysis.qmd
+        - section: "Week 6"
+          contents:
+            - readings/missing-data.qmd
+            - readings/simple-tests.qmd
 
     - title: "In-Class Materials"
       contents:
@@ -59,5 +68,4 @@ format:
       light: flatly
       dark: darkly
     toc: true
-  pdf:
-    documentclass: scrreprt
+  pdf: default
