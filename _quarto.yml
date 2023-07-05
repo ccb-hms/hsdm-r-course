@@ -68,4 +68,5 @@ format:
       light: flatly
       dark: darkly
     toc: true
-  pdf: default
+  pdf: 
+    prefer-html: false
