@@ -1,3 +1,8 @@
+---
+toc: false
+format-links: false
+page-layout: full
+---
 # Sessions
 
 This set of pages contains the in-class materials we will be using.
