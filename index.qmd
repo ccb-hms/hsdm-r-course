@@ -7,7 +7,7 @@ Instructor learning materials for data analysis module of Research Design and An
 ::: {.grid}
 
 ::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
-### (Summer) Instructors
+#### (Summer) Instructors
 
 - {{< fa user >}} &nbsp; Robert Gentleman and Chris Magnano
 - {{< fa university >}} &nbsp; [Center for Computational Biomedicine](https://computationalbiomed.hms.harvard.edu/)
@@ -15,17 +15,17 @@ Instructor learning materials for data analysis module of Research Design and An
 :::
 
 ::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
-### (Summer) Session details
+#### (Summer) Session details
 
-- {{< fa calendar-alt >}} &nbsp; July 17 - July 21
-- {{< fa location-dot >}} &nbsp; Zoom (hybrid TBD)
+- {{< fa calendar >}} &nbsp; July 17 - July 21
+- {{< fa map-marker >}} &nbsp; Zoom (hybrid TBD)
 :::
 
 ::: {.g-col-12 .g-col-md-4 .contact-policy}
-### Robert's Office Hours
+#### Robert's Office Hours
 
 - {{< fa calendar >}} &nbsp; TBD
-- {{< fa location-dot >}} &nbsp; TBD
+- {{< fa map-marker >}} &nbsp; TBD
 :::
 
 :::
