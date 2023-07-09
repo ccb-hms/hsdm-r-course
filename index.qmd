@@ -2,18 +2,30 @@
 title: "Research Design and Analysis"
 ---
 
-This is a website for the data analysis module in Research Design and Analysis. 
+Instructor learning materials for data analysis module of Research Design and Analysis, 2023. 
 
-In the top navigation bar, you can find the following materials. 
+::: {.grid}
 
-## Readings
+::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+### (Summer) Instructors
 
-This page contains all readings and data needed for examples in the readings.
+- {{< fa user >}} &nbsp; Robert Gentleman and Chris Magnano
+- {{< fa university >}} &nbsp; [Center for Computational Biomedicine](https://computationalbiomed.hms.harvard.edu/)
+- {{< fa envelope >}} &nbsp; <a href="mailto:Robert_Gentleman@hms.harvard.edu">Robert_Gentleman@hms.harvard.edu</a> and <a href="mailto:christopher_magnano@hms.harvard.edu">christopher_magnano@hms.harvard.edu</a>
+:::
 
-## Session Materials
+::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+### (Summer) Session details
 
-This page contains a Quarto notebook for each class session and accompanying data. 
+- {{< fa calendar-alt >}} &nbsp; July 17 - July 21
+- {{< fa location-dot >}} &nbsp; Zoom (hybrid TBD)
+:::
 
-## Resources
+::: {.g-col-12 .g-col-md-4 .contact-policy}
+### Robert's Office Hours
 
-This page contains links to additional resources for learning data analysis with R. 
+- {{< fa calendar >}} &nbsp; TBD
+- {{< fa location-dot >}} &nbsp; TBD
+:::
+
+:::

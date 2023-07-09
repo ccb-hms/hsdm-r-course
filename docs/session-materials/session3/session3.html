@@ -165,12 +165,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../session-materials/session1/session1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 1 Notebook</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../session-materials/session2/session2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Week 2 Notebook</span></a>
   </div>
@@ -179,6 +173,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session3/session3.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Week 3 Notebook</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../session-materials/session4/session4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4 Notebook</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../session-materials/session5/session5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 5 Notebook</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../session-materials/session6/session6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 6 Notebook</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../session-materials/session7/session7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 7 Notebook</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../session-materials/session8/session8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2 Notebook</span></a>
   </div>
 </li>
     </ul>
@@ -191,15 +215,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a>
-  <ul class="collapse">
-  <li><a href="#see-more-about-how-we-downloaded-the-data" id="toc-see-more-about-how-we-downloaded-the-data" class="nav-link" data-scroll-target="#see-more-about-how-we-downloaded-the-data">See more about how we downloaded the data</a></li>
-  <li><a href="#preparing-the-data" id="toc-preparing-the-data" class="nav-link" data-scroll-target="#preparing-the-data">Preparing the data</a></li>
-  <li><a href="#combining-the-data" id="toc-combining-the-data" class="nav-link" data-scroll-target="#combining-the-data">Combining the data</a></li>
-  <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics">Summary Statistics</a></li>
-  <li><a href="#filter-relevant-population" id="toc-filter-relevant-population" class="nav-link" data-scroll-target="#filter-relevant-population">Filter relevant population</a></li>
-  <li><a href="#final-data-cleanup" id="toc-final-data-cleanup" class="nav-link" data-scroll-target="#final-data-cleanup">Final data cleanup</a></li>
-  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
+  <li><a href="#first-steps-with-ggplot2" id="toc-first-steps-with-ggplot2" class="nav-link" data-scroll-target="#first-steps-with-ggplot2">First steps with ggplot2</a></li>
+  <li><a href="#mapping-variables" id="toc-mapping-variables" class="nav-link" data-scroll-target="#mapping-variables">Mapping Variables</a></li>
+  <li><a href="#customizing-plots" id="toc-customizing-plots" class="nav-link" data-scroll-target="#customizing-plots">Customizing Plots</a></li>
+  <li><a href="#exporting-plots" id="toc-exporting-plots" class="nav-link" data-scroll-target="#exporting-plots">Exporting plots</a></li>
   </ul>
 </nav>
     </div>
@@ -229,212 +249,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.2.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'tibble' was built under R version 4.2.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'dplyr' was built under R version 4.2.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.2     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-</div>
 <section id="data" class="level1">
 <h1>Data</h1>
-<p>This week we are going to start learning how to get to the cleaned data we have been using for the past two weeks. You can download the week 3 data <a href="">here</a>.</p>
-<p>Note that this week the data is in the <code>.RData</code> format. The <code>.RData</code> format is specific to R and allows us to easily dump multiple objects to a file exactly as the are inside of our R session. This format is not recommended for research as it limits analyses to only using R and could potentially not be compatible with a future R version. However, for today it will allow us to jump right into the data cleaning process.</p>
-<p>The <code>session3Data.RData</code> file contains 3 separate dataframes, <code>base_df_d</code>, <code>base_df_e</code>, and <code>base_df_f</code>. They each contain the equivalent set of columns from the <code>D</code>, <code>E</code>, and <code>F</code> NHANES data files for 2005-2006, 2007-2008, and 2009-2010, respectively.</p>
-<p>Let’s load and take a look at the data.</p>
+<p>We will be picking up where we left off with the data last week. If you have the data at hand you’re all set, or you can download the week 2 data <a href="">here</a>. You should check that the categorical variables you added last week are correctly encoded before continuing.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">file.choose</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>nhanes_processed <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.choose</span>()) </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: preview-data</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="fu">head</span>(nhanes_processed,<span class="dv">200</span>), <span class="at">rownames =</span> <span class="cn">FALSE</span>, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">10</span>, <span class="at">scrollX=</span>T), <span class="at">class =</span> <span class="st">'white-space: nowrap'</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_df_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      SEQN         RIDAGEYR           RIAGENDR           RIDRETH1        
- Min.   :31127   Length:10348       Length:10348       Length:10348      
- 1st Qu.:33714   Class :character   Class :character   Class :character  
- Median :36301   Mode  :character   Mode  :character   Mode  :character  
- Mean   :36301                                                           
- 3rd Qu.:38887                                                           
- Max.   :41474                                                           
-   DMDEDUC2           DMDBORN            INDFMPIR           OHXDECAY        
- Length:10348       Length:10348       Length:10348       Length:10348      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-   OHXREST             LBXGLU             LBXGH              BMXBMI         
- Length:10348       Length:10348       Length:10348       Length:10348      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-   Begin.Year      EndYear    
- Min.   :2005   Min.   :2006  
- 1st Qu.:2005   1st Qu.:2006  
- Median :2005   Median :2006  
- Mean   :2005   Mean   :2006  
- 3rd Qu.:2005   3rd Qu.:2006  
- Max.   :2005   Max.   :2006  </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_df_e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      SEQN         RIDAGEYR           RIAGENDR           RIDRETH1        
- Min.   :41475   Length:10149       Length:10149       Length:10149      
- 1st Qu.:44012   Class :character   Class :character   Class :character  
- Median :46549   Mode  :character   Mode  :character   Mode  :character  
- Mean   :46549                                                           
- 3rd Qu.:49086                                                           
- Max.   :51623                                                           
-   DMDEDUC2           DMDBORN2           INDFMPIR           OHXDECAY        
- Length:10149       Length:10149       Length:10149       Length:10149      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-   OHXREST             LBXGLU             LBXGH              BMXBMI         
- Length:10149       Length:10149       Length:10149       Length:10149      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-   Begin.Year      EndYear    
- Min.   :2007   Min.   :2008  
- 1st Qu.:2007   1st Qu.:2008  
- Median :2007   Median :2008  
- Mean   :2007   Mean   :2008  
- 3rd Qu.:2007   3rd Qu.:2008  
- Max.   :2007   Max.   :2008  </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_df_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      SEQN         RIDAGEYR           RIAGENDR           RIDRETH1        
- Min.   :51624   Length:10537       Length:10537       Length:10537      
- 1st Qu.:54258   Class :character   Class :character   Class :character  
- Median :56892   Mode  :character   Mode  :character   Mode  :character  
- Mean   :56892                                                           
- 3rd Qu.:59526                                                           
- Max.   :62160                                                           
-   DMDEDUC2           DMDBORN2           INDFMPIR           OHXDECAY        
- Length:10537       Length:10537       Length:10537       Length:10537      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-   OHXREST             LBXGLU             LBXGH              BMXBMI         
- Length:10537       Length:10537       Length:10537       Length:10537      
- Class :character   Class :character   Class :character   Class :character  
- Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-                                                                            
-                                                                            
-                                                                            
-   Begin.Year      EndYear    
- Min.   :2009   Min.   :2010  
- 1st Qu.:2009   1st Qu.:2010  
- Median :2009   Median :2010  
- Mean   :2009   Mean   :2010  
- 3rd Qu.:2009   3rd Qu.:2010  
- Max.   :2009   Max.   :2010  </code></pre>
-</div>
-</div>
-<section id="see-more-about-how-we-downloaded-the-data" class="level2 callout-info" data-collapse="true">
-<h2 class="anchored" data-anchor-id="see-more-about-how-we-downloaded-the-data">See more about how we downloaded the data</h2>
-<p>The NHANES data was downloaded using a packaged called <code>phonto</code>. <code>phonto</code> connects to a database of the NHANES data developed by the Center for Computational Biomedicine (CCB). The database is a relational database running on a virtual machine using the containerization software <a href="https://www.docker.com/">Docker</a>.</p>
-<p>We will be learning a bit more about this in the last week of class. The code used to download the data is shown here:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phonto)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>cols_d <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_D=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, <span class="st">"DMDBORN"</span>, <span class="st">"INDFMPIR"</span>), </span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">OHX_D =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">GLU_D =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>), <span class="at">GHB_D =</span> <span class="st">"LBXGH"</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">BMX_D=</span><span class="st">"BMXBMI"</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>base_df_d <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_d)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>cols_e <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_E=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, <span class="st">"DMDBORN2"</span>, <span class="st">"INDFMPIR"</span>), </span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">OHX_E =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">GLU_E =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>), <span class="at">GHB_E =</span> <span class="st">"LBXGH"</span>,</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">BMX_E =</span><span class="st">"BMXBMI"</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>base_df_e <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_e)</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>cols_f <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_F=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, <span class="st">"DMDBORN2"</span>, <span class="st">"INDFMPIR"</span>), </span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">OHXDEN_F =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">GLU_F =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>), <span class="at">GHB_F =</span> <span class="st">"LBXGH"</span>,</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">BMX_F =</span><span class="st">"BMXBMI"</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>base_df_f <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="preparing-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="preparing-the-data">Preparing the data</h2>
-<p>In the reading, we saw how to combine multiple sets of observations by appending datasets. However, before we need to make sure corresponding columns between years can be combined.</p>
-<p>NHANES will often change how it encodes or records different variables from year to year. Our first red flag are any columns whose name has changed. Let’s take a look at the column names.</p>
+<section id="first-steps-with-ggplot2" class="level1">
+<h1>First steps with ggplot2</h1>
+<p>As you saw in this week’s reading, ggplot2 utilizes a specific syntax for creating plots. We can summarize it as:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>DATA<span class="sc">&gt;</span>, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="sc">&lt;</span>MAPPINGS<span class="sc">&gt;</span>)) <span class="sc">+</span>  <span class="er">&lt;</span>GEOM_FUNCTION<span class="sc">&gt;</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Where we define a dataset, choose which variables map to which aspects of the plot, and then choose the <code>geom()</code> or type of plot to draw.</p>
+<p>Let’s plug the NHANES dataset into a plot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "SEQN"       "RIDAGEYR"   "RIAGENDR"   "RIDRETH1"   "DMDEDUC2"  
- [6] "DMDBORN"    "INDFMPIR"   "OHXDECAY"   "OHXREST"    "LBXGLU"    
-[11] "LBXGH"      "BMXBMI"     "Begin.Year" "EndYear"   </code></pre>
+<div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1">1</button><span id="annotated-cell-3-1" class="code-annotation-target"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-lines="1" data-code-annotation="1" data-code-cell="annotated-cell-3"><code>data</code> and <code>mapping</code> are positional arguments in the <code>ggplot</code> function, so we don’t have to name them. However, it can be good practice to include the argument names so that it’s immediately obvious what each argument is.</span>
+</dd>
+</dl>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "SEQN"       "RIDAGEYR"   "RIAGENDR"   "RIDRETH1"   "DMDEDUC2"  
- [6] "DMDBORN2"   "INDFMPIR"   "OHXDECAY"   "OHXREST"    "LBXGLU"    
-[11] "LBXGH"      "BMXBMI"     "Begin.Year" "EndYear"   </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "SEQN"       "RIDAGEYR"   "RIAGENDR"   "RIDRETH1"   "DMDEDUC2"  
- [6] "DMDBORN2"   "INDFMPIR"   "OHXDECAY"   "OHXREST"    "LBXGLU"    
-[11] "LBXGH"      "BMXBMI"     "Begin.Year" "EndYear"   </code></pre>
+<div class="cell-output-display">
+<p><img src="session3_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>We can also check for equality directly:</p>
+<p>Since we haven’t told <code>ggplot</code> what we want to display, we just get a blank plot. If we add some mappings for the x and y axes:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_d)[<span class="fu">colnames</span>(base_df_d) <span class="sc">!=</span> <span class="fu">colnames</span>(base_df_e)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "DMDBORN"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_e)[<span class="fu">colnames</span>(base_df_e) <span class="sc">!=</span> <span class="fu">colnames</span>(base_df_f)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>character(0)</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_f)[<span class="fu">colnames</span>(base_df_f) <span class="sc">!=</span> <span class="fu">colnames</span>(base_df_d)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "DMDBORN2"</code></pre>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed, <span class="fu">aes</span>(<span class="at">x =</span> hba1c, <span class="at">y =</span> plasma.glucose))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="session3_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>It looks like <code>DMDBORN</code> changed after 2006 to <code>DMDBORN2</code>. If we check the demographic variable definitions for the three collection cycles <a href="https://wwwn.cdc.gov/nchs/nhanes/2005-2006/DEMO_D.htm#DMDBORN">DEMO_D</a>, <a href="https://wwwn.cdc.gov/Nchs/Nhanes/2007-2008/DEMO_E.htm#DMDBORN2">DEMO_E</a>, and <a href="https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/DEMO_F.htm#DMDBORN2">DEMO_F</a> we can see that the encoding has changed over time.</p>
-<p>To continue the analysis, let’s also convert these dataframes into tibbles so we can take advantage of Tidyverse functionality.</p>
+<p>We now get labeled axes and scales based on the variable range. Finally, we can add a <code>geom()</code>. Let’s make a scatterplot, created with <code>geom_point()</code> in ggplot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>tib_d <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(base_df_d)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>tib_e <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(base_df_e)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>tib_f <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(base_df_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed, <span class="fu">aes</span>(<span class="at">x =</span> hba1c, <span class="at">y =</span> plasma.glucose)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1893 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="session3_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -447,53 +312,88 @@ Exercise
 </div>
 <div class="callout-body-container callout-body">
 <ol type="a">
-<li>Resolve the change the variable coding between the datasets. Use your own judgement on the best way to resolve this issue.</li>
+<li>Try making a histogram displaying age in years with <code>geom_histogram</code>. Do you agree with the authors’ decision in <a href="https://pubmed.ncbi.nlm.nih.gov/33892837/">Beheshti et. al.</a> to create two age categories to study this population?</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Change things to have the same sets of values</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> your code here</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Rename the columns to fit between the datasets</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>tib_e <span class="ot">&lt;-</span> <span class="fu">rename</span>(tib_e, <span class="at">DMDBORN =</span> DMDBORN2)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>tib_f <span class="ot">&lt;-</span> <span class="fu">rename</span>(tib_f, <span class="at">DMDBORN =</span> DMDBORN2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> make your histogram here</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> age.years)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">+</span> <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="session3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 <ol start="2" type="a">
-<li>Check table 1b to see how the authors chose to handle this in <a href="https://pubmed.ncbi.nlm.nih.gov/33892837/">Beheshti et. al.&nbsp;2021</a>. Do you think there were any other factors which went into their decision?</li>
+<li>Typically, the bars in a histogram touch each other. Why is that not the case here? Is there a parameter you could change or different <code>geom()</code> you could use which might work better in this situation?</li>
 </ol>
-</div>
-</div>
-</section>
-<section id="combining-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="combining-the-data">Combining the data</h2>
-<p>Now we can combine the data together.</p>
+<p>Try your solution out.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine all years together</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>tib_all <span class="ot">&lt;-</span> tib_d <span class="sc">%&gt;%</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(tib_e) <span class="sc">%&gt;%</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(tib_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> your improved age distribution code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="summary-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="summary-statistics">Summary Statistics</h2>
-<!-- ::: {.callout-tip appearance="minimal"} -->
-<!-- ## Exercise -->
-<!-- ::: -->
-</section>
-<section id="filter-relevant-population" class="level2">
-<h2 class="anchored" data-anchor-id="filter-relevant-population">Filter relevant population</h2>
-<p>Next we need to filter the summary population. Luckily, the paper provides total numbers of participants for most of the filtering steps performed. This makes it much easier for us to check our work.</p>
-<blockquote class="blockquote">
-<p>The total number of individuals who participated in the NHANES from 2005 to 2010 were 31,034 study-participants. Among them, 3,660 were nonedentulous adolescents (aged 13 to 18 years old at the time of screening) who had exam survey weights assigned. From those 3,660 adolescents, data to measure the main outcome variable (dental caries experience) were available for a final sample of 3,346 adolescents, representing the population of 24,386,135 U.S. adolescents after applying the NHANES sample weights, which was described and analyzed in this study.</p>
-</blockquote>
-<p>We can start by filtering on age. However, <code>RIDAGEYR</code> is currently not a numeric column. If we try converting <code>RIDAGEYR</code> to be numeric using <code>as.numeric</code>, we get a warning:</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Choose a numeric variable in the data and make a boxplot showing how it varies by subject ethnicity.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>all_ado <span class="ot">&lt;-</span> tib_all <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">RIDAGEYR =</span> <span class="fu">as.numeric</span>(RIDAGEYR)) <span class="co"># Convert age to be numeric</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#TODO your plot here</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed, <span class="fu">aes</span>(<span class="at">x =</span> ethnicity, <span class="at">y =</span> bmi)) <span class="sc">+</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: There was 1 warning in `mutate()`.
-ℹ In argument: `RIDAGEYR = as.numeric(RIDAGEYR)`.
-Caused by warning:
-! NAs introduced by coercion</code></pre>
+<pre><code>Warning: Removed 25 rows containing non-finite values (`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="session3_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="mapping-variables" class="level1">
+<h1>Mapping Variables</h1>
+<p>Beyond the actual axes we can use mappings to encode variables as various aspects of a plot. Some of the most commonly used other mapping types are <code>shape</code>, <code>fill</code>, <code>color</code>, <code>size</code>, and <code>linetype</code>.</p>
+<p>For instance, let’s take our scatterplot from before and color the points by diabetic status.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed, <span class="fu">aes</span>(<span class="at">x =</span> hba1c, <span class="at">y =</span> plasma.glucose, <span class="at">color =</span> diabetes)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1893 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="session3_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Remember we can also change parts of the plot outside of <code>aes()</code> to have them not depend on any variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed, <span class="fu">aes</span>(<span class="at">x =</span> hba1c, <span class="at">y =</span> plasma.glucose, <span class="at">color =</span> diabetes)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1893 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="session3_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can also have a single variable encoded into multiple parts of the plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed, <span class="fu">aes</span>(<span class="at">x =</span> hba1c, <span class="at">y =</span> plasma.glucose, <span class="at">color =</span> diabetes, <span class="at">shape =</span> diabetes)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1893 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="session3_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
@@ -507,35 +407,80 @@ Exercise
 </div>
 <div class="callout-body-container callout-body">
 <ol type="a">
-<li><p>What is causing this warning? Do we need to resolve it? <strong>Hint</strong> If we are getting <code>NA</code> when converting to numeric, then there must be some column entries which R cannot convert to be numbers.</p></li>
-<li><p>Once you’ve decided how to deal with the warning, filter <code>tib_all</code> to only include the desired population as described in the paper. Check how many rows you have at each step to double-check your work.</p></li>
+<li>Try coloring your boxplot from before by <code>age.years</code>. What happens? What about when you use <code>age.cat</code>? <em>Remember to use <code>fill</code> instead of <code>color</code> for shapes like boxplots.</em></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>all_ado <span class="ot">&lt;-</span> tib_all <span class="sc">%&gt;%</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(RIDAGEYR <span class="sc">&gt;=</span> <span class="dv">13</span> <span class="sc">&amp;</span> RIDAGEYR <span class="sc">&lt;=</span> <span class="dv">18</span>) <span class="sc">%&gt;%</span> <span class="co"># Gets the 3660 nonedentulous adolescents</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(OHXDECAY)) <span class="co"># Gets the 3346 with non-NA dental carie variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can't color by age since it's numeric, ggplot gives an error. </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed, <span class="fu">aes</span>(<span class="at">x =</span> ethnicity, <span class="at">y =</span> bmi, <span class="at">fill =</span> age.years)) <span class="sc">+</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 25 rows containing non-finite values (`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The following aesthetics were dropped during statistical transformation: fill
+ℹ This can happen when ggplot fails to infer the correct grouping structure in
+  the data.
+ℹ Did you forget to specify a `group` aesthetic or to convert a numerical
+  variable into a factor?</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="session3_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed, <span class="fu">aes</span>(<span class="at">x =</span> ethnicity, <span class="at">y =</span> bmi, <span class="at">fill =</span> age.cat)) <span class="sc">+</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 25 rows containing non-finite values (`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="session3_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ol start="2" type="a">
+<li>Now try flipping which variables are encoded in <code>x</code> and <code>fill</code>. Which version do you think works better?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed, <span class="fu">aes</span>(<span class="at">x =</span> age.cat, <span class="at">y =</span> bmi, <span class="at">fill =</span> ethnicity)) <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 25 rows containing non-finite values (`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="session3_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 </div>
 </div>
 </section>
-<section id="final-data-cleanup" class="level2">
-<h2 class="anchored" data-anchor-id="final-data-cleanup">Final data cleanup</h2>
-<p>We can choose to leave the variables with their NHANES column names or change them to be a bit more human-readable. Either way, we also want to convert each variable to it’s appropriate type.</p>
+<section id="customizing-plots" class="level1">
+<h1>Customizing Plots</h1>
+<p>Taking a figure all the way to publication-quality can require careful fine tuning. ggplot has a variety of useful themes and other ways to improve a figure’s appearance and readability.</p>
+<p>Here’s an example of some of what you can do. Note that changing the <code>fig.width</code> setting for the code block will not effect how the image looks when exported.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set columns to have appropriate types</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>converted_tib <span class="ot">&lt;-</span> <span class="fu">mutate</span>(all_ado,</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sequence.id =</span> SEQN,</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">age.years =</span> RIDAGEYR,</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">gender =</span> <span class="fu">as.factor</span>(RIAGENDR),</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ethnicity =</span> <span class="fu">as.factor</span>(RIDRETH1),</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">birthplace =</span> <span class="fu">as.factor</span>(DMDBORN),</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">family.PIR =</span> INDFMPIR,</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dental.decay.present =</span> (OHXDECAY <span class="sc">==</span> <span class="st">"Yes"</span>),</span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dental.restoration.present =</span> (OHXREST <span class="sc">==</span> <span class="st">"Yes"</span>),</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">plasma.glucose =</span> <span class="fu">as.numeric</span>(LBXGLU),</span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hba1c =</span> <span class="fu">as.numeric</span>(LBXGH),</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bmi =</span> <span class="fu">as.numeric</span>(BMXBMI), </span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.keep =</span> <span class="st">"unused"</span>) <span class="co">#keep none of the old columns we converted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Maybe we want a color scheme from a Wes Anderson movie:</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wesanderson)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Note that this font import can take multiple minutes to run</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">wes_palette</span>(<span class="st">"Zissou1"</span>, <span class="dv">5</span>, <span class="at">type =</span> <span class="st">"continuous"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed, <span class="fu">aes</span>(<span class="at">x =</span> hba1c, <span class="at">fill =</span> ethnicity)) <span class="sc">+</span> </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"HbA1C stratified by ethnicity"</span>) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a> <span class="fu">xlab</span>(<span class="st">"HbA1C (%)"</span>) <span class="sc">+</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a> <span class="fu">ylab</span>(<span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal, <span class="at">name =</span> <span class="st">"Ethnicity"</span>) <span class="sc">+</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">18</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 298 rows containing non-finite values (`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="session3_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="960"></p>
+</div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -547,25 +492,47 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Add a <code>diabetes</code> column to the dataset based on the guidelines from Beheshti et. al:</p>
-<blockquote class="blockquote">
-<p>Individuals with an HbA1C of at least 6.5 percent or a plasma-fasting glucose value of at least 126 mg/dl were considered diabetics; prediabetics were those whose HbA1C ranged from 5.7 percent to 6.4 percent and whose fasting plasma glucose remained within 100 to 125 mg/dl; the remaining study participants, who had less than 5.7 percent HbA1C and less than 100 mg/dl fasting plasma glucose, were classified as nondiabetics.</p>
-</blockquote>
-<p>It is reccomended to use <code>case_when</code>, but feel free to use any method you want.</p>
+<p>Use a figure you’ve already created, or choose a new plot to create. Try to get that figure to as close to publication-ready as possible. The <a href="https://r-graph-gallery.com/">R Graph Gallery</a> is a great place to look for inspiration on what you can do to improve your plots.</p>
+<p>If there’s something you want to change but don’t know how, try checking the <a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html">ggplot2 cheatsheet</a>, the <a href="https://epirhandbook.com/en/ggplot-basics.html">extended ggplot chapter</a>, and the <a href="https://ggplot2.tidyverse.org/">official documentation</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add diabetes column</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>converted_tib <span class="ot">&lt;-</span> converted_tib <span class="sc">%&gt;%</span> </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diabetes =</span> <span class="fu">case_when</span>(</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    hba1c <span class="sc">&gt;=</span> <span class="fl">6.5</span> <span class="sc">|</span> plasma.glucose <span class="sc">&gt;=</span> <span class="dv">126</span> <span class="sc">~</span> <span class="st">"diabetic"</span>,</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    hba1c <span class="sc">&gt;=</span> <span class="fl">5.7</span> <span class="sc">|</span> plasma.glucose <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"prediabetic"</span>,</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> <span class="st">"nondiabetic"</span></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> your plotting code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
-
-
 </section>
+<section id="exporting-plots" class="level1">
+<h1>Exporting plots</h1>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="https://jada.ada.org/content/authorinfo#Manuscript%20Preparation%20and%20Formatting">Journal of the American Dental Association (JADA) manuscript guidlines</a> list the following as their figure formatting requirements:</p>
+<blockquote class="blockquote">
+<p>Formats for Figures If your electronic artwork is created in a Microsoft Office application (Word, PowerPoint, Excel) then please supply “as is” in the native document format. Otherwise, regardless of the application used to create figures, the final artwork should be saved as or converted to 1 of the following formats:</p>
+<ul>
+<li>TIFF, JPEG, or PPT: Color or grayscale photographs (halftones): always use a minimum of 300 dpi.</li>
+<li>TIFF, JPEG, or PPT: Bitmapped line drawings: use a minimum of 1,000 dpi.</li>
+<li>TIFF, JPEG, or PPT: Combinations bitmapped line/halftone (color or grayscale): a minimum of 500 dpi is required.</li>
+</ul>
+</blockquote>
+<p>While <a href="https://www.nature.com/nature/for-authors/final-submission">Nature’s formatting guidelines</a> are</p>
+<p>Nature preferred formats are:</p>
+<blockquote class="blockquote">
+<p>Layered Photoshop (PSD) or TIFF format (high resolution, 300–600 dots per inch (dpi) for photographic images. In Photoshop, it is possible to create images with separate components on different layers. This is particularly useful for placing text labels or arrows over an image, as it allows them to be edited later. If you have done this, please send the Photoshop file (.psd) with the layers intact.</p>
+<p>Adobe Illustrator (AI), Postscript, Vector EPS or PDF format for figures containing line drawings and graphs, including figures combining text and line art with photographs or scans.</p>
+<p>If these formats are not possible, we can also accept the following formats: JPEG (high-resolution, 300–600 dpi), CorelDraw (up to version 8), Microsoft Word, Excel or PowerPoint.</p>
+</blockquote>
+<p>Export your figure using <code>ggsave</code> to comply with one of these sets of guidelines.</p>
+</div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->

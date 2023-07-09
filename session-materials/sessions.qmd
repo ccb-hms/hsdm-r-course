@@ -2,13 +2,25 @@
 
 This set of pages contains the in-class materials we will be using.
 
-You can browse the materials for each week here, but for class you need to download the materials and datasets. 
+You can browse the materials for each week on this website, but for class you need to download these materials and datasets. 
 
-## Week 1: Getting started with data
-[Download Week 1 Materials Here]()
+### Week 2: Getting started with data
+[Download Week 1 Materials Here](https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session2)
 
-## Week 2: Data visualization
-[Download Week 2 Materials Here]()
+### Week 3: Data visualization
+[Download Week 2 Materials Here](https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session3)
 
-## Week 3: Managing data
-[Download Week 3 Materials Here]()
+### Week 4: Managing data
+[Download Week 3 Materials Here](https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session4)
+
+### Week 5: Descriptive statistics and exploratory data analysis
+[Download Week 3 Materials Here](https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session5)
+
+### Week 6: Statistical tests and simple regression
+[Download Week 3 Materials Here](https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session6)
+
+### Week 7:  Regression analysis
+[Download Week 3 Materials Here](https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session7)
+
+### Week 8: Advanced data wrangling and accessing NHANES data
+[Download Week 3 Materials Here](https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session8)

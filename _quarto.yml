@@ -52,9 +52,13 @@ website:
     - title: "In-Class Materials"
       contents:
         - session-materials/sessions.qmd
-        - session-materials/session1/session1.qmd
         - session-materials/session2/session2.qmd
         - session-materials/session3/session3.qmd
+        - session-materials/session4/session4.qmd
+        - session-materials/session5/session5.qmd
+        - session-materials/session6/session6.qmd
+        - session-materials/session7/session7.qmd
+        - session-materials/session8/session8.qmd
 
     - title: "Resources"
       contents:
