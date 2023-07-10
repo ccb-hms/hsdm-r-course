@@ -67,7 +67,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -353,12 +352,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sec-rstudio" class="level1">
 <h1>Introduction to RStudio</h1>
 <section id="what-is-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-rstudio">What is RStudio?</h2>
+<h2 data-anchor-id="what-is-rstudio">What is RStudio?</h2>
 <p>RStudio is freely available open-source Integrated Development Environment (IDE). RStudio provides an environment with many features to make using R easier and is a great alternative to working on R in the terminal.</p>
 <p>You can see the complete RStudio user-interface cheatsheet (PDF) <a href="https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf">here</a></p>
 </section>
 <section id="creating-a-new-project-directory-in-rstudio" class="level2">
-<h2 class="anchored" data-anchor-id="creating-a-new-project-directory-in-rstudio">Creating a new project directory in RStudio</h2>
+<h2 data-anchor-id="creating-a-new-project-directory-in-rstudio">Creating a new project directory in RStudio</h2>
 <p>Let’s create a new project directory for the Research and Design course.</p>
 <ol type="1">
 <li>Open RStudio</li>
@@ -377,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 <section id="what-is-a-project-in-rstudio" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-a-project-in-rstudio">What is a project in RStudio?</h3>
+<h3 data-anchor-id="what-is-a-project-in-rstudio">What is a project in RStudio?</h3>
 <p>It is simply a directory that contains everything related your analyses for a specific project. RStudio projects are useful when you are working on context- specific analyses and you wish to keep them separate. When creating a project in RStudio you associate it with a working directory of your choice (either an existing one, or a new one). A <code>. RProj file</code> is created within that directory and that keeps track of your command history and variables in the environment. The <code>. RProj file</code> can be used to open the project in its current state but at a later date.</p>
 <p>When a project is <strong>(re) opened</strong> within RStudio the following actions are taken:</p>
 <ul>
@@ -392,7 +391,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="rstudio-interface" class="level2">
-<h2 class="anchored" data-anchor-id="rstudio-interface">RStudio Interface</h2>
+<h2 data-anchor-id="rstudio-interface">RStudio Interface</h2>
 <p><strong>The RStudio interface has four main panels:</strong></p>
 <ol type="1">
 <li><strong>Console</strong>: where you can type commands and see output. <em>The console is all you would see if you ran R in the command line without RStudio.</em></li>
@@ -402,9 +401,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 <section id="organizing-your-working-directory-setting-up" class="level2">
-<h2 class="anchored" data-anchor-id="organizing-your-working-directory-setting-up">Organizing your working directory &amp; setting up</h2>
+<h2 data-anchor-id="organizing-your-working-directory-setting-up">Organizing your working directory &amp; setting up</h2>
 <section id="viewing-your-working-directory" class="level3">
-<h3 class="anchored" data-anchor-id="viewing-your-working-directory">Viewing your working directory</h3>
+<h3 data-anchor-id="viewing-your-working-directory">Viewing your working directory</h3>
 <p>Before we organize our working directory, let’s check to see where our current working directory is located by typing into the console:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -426,7 +425,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="structuring-your-working-directory" class="level3">
-<h3 class="anchored" data-anchor-id="structuring-your-working-directory">Structuring your working directory</h3>
+<h3 data-anchor-id="structuring-your-working-directory">Structuring your working directory</h3>
 <p>To organize your working directory for a particular analysis, you typically want to separate the original data (raw data) from intermediate datasets. For instance, you may want to create a <code>data/</code> directory within your working directory that stores the raw data, and have a <code>results/</code> directory for intermediate datasets and a <code>figures/</code> directory for the plots you will generate.</p>
 <p>Let’s create these three directories within your working directory by clicking on <code>New Folder</code> within the <code>Files</code> tab.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -444,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="setting-up" class="level3">
-<h3 class="anchored" data-anchor-id="setting-up">Setting up</h3>
+<h3 data-anchor-id="setting-up">Setting up</h3>
 <p>This is more of a housekeeping task. We will be writing long lines of code in our script editor and want to make sure that the lines “wrap” and you don’t have to scroll back and forth to look at your long line of code.</p>
 <p>Click on “Tools” at the top of your RStudio screen and click on “Global Options” in the pull down menu.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -463,10 +462,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="interacting-with-r" class="level2">
-<h2 class="anchored" data-anchor-id="interacting-with-r">Interacting with R</h2>
+<h2 data-anchor-id="interacting-with-r">Interacting with R</h2>
 <p>Now that we have our interface and directory structure set up, let’s start playing with R! There are <strong>two main ways</strong> of interacting with R in RStudio: using the <strong>console</strong> or by using <strong>script editor</strong> (plain text files that contain your code).</p>
 <section id="console-window" class="level3">
-<h3 class="anchored" data-anchor-id="console-window">Console window</h3>
+<h3 data-anchor-id="console-window">Console window</h3>
 <p>The <strong>console window</strong> (in RStudio, the bottom left panel) is the place where R is waiting for you to tell it what to do, and where it will show the results of a command. You can type commands directly into the console, but they will be forgotten when you close the session.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -476,7 +475,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="script-editor" class="level3">
-<h3 class="anchored" data-anchor-id="script-editor">Script editor</h3>
+<h3 data-anchor-id="script-editor">Script editor</h3>
 <p>Best practice is to enter the commands in the <strong>script editor</strong>, and save the script. You are encouraged to comment liberally to describe the commands you are running using <code>#</code>. This way, you have a complete record of what you did, you can easily show others how you did it and you can do it again later on if needed.</p>
 <p><strong>The Rstudio script editor allows you to ‘send’ the current line or the currently highlighted text to the R console by clicking on the <code>Run</code> button in the upper-right hand corner of the script editor</strong>. Alternatively, you can run by simply pressing the <code>Ctrl</code> and <code>Enter</code> keys at the same time as a shortcut.</p>
 <p>Now let’s try entering commands to the <strong>script editor</strong> and using the comments character <code>#</code> to add descriptions and highlighting the text to run:</p>
@@ -510,7 +509,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Now R is trying to run that sentence as a command, and it doesn’t work. We get an error in the console <em>“Error: unexpected symbol in”I am” means that the R interpreter did not know what to do with that command.”</em></p>
 </section>
 <section id="console-command-prompt" class="level3">
-<h3 class="anchored" data-anchor-id="console-command-prompt">Console command prompt</h3>
+<h3 data-anchor-id="console-command-prompt">Console command prompt</h3>
 <p>Interpreting the command prompt can help understand when R is ready to accept commands. Below lists the different states of the command prompt and how you can exit a command:</p>
 <p><strong>Console is ready to accept commands</strong>: <code>&gt;</code>.</p>
 <p>If R is ready to accept commands, the R console shows a <code>&gt;</code> prompt.</p>
@@ -522,7 +521,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If you’re in Rstudio and you can’t figure out why your command isn’t running, you can click inside the console window and press <code>esc</code> to escape the command and bring back a new prompt <code>&gt;</code>.</p>
 </section>
 <section id="keyboard-shortcuts-in-rstudio" class="level3">
-<h3 class="anchored" data-anchor-id="keyboard-shortcuts-in-rstudio">Keyboard shortcuts in RStudio</h3>
+<h3 data-anchor-id="keyboard-shortcuts-in-rstudio">Keyboard shortcuts in RStudio</h3>
 <p>In addition to some of the shortcuts described earlier in this lesson, we have listed a few more that can be helpful as you work in RStudio.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -662,7 +661,7 @@ Take advantage of auto-complete
 </section>
 </section>
 <section id="r-syntax" class="level2">
-<h2 class="anchored" data-anchor-id="r-syntax">R syntax</h2>
+<h2 data-anchor-id="r-syntax">R syntax</h2>
 <p>Now that we know how to talk with R via the script editor or the console, we want to use R for something more than adding numbers. To do this, we need to know more about the R syntax.</p>
 <p>The main “parts of speech” in R (syntax) include:</p>
 <ul>
@@ -674,7 +673,7 @@ Take advantage of auto-complete
 <p>We will go through each of these “parts of speech” in more detail, starting with the assignment operator.</p>
 </section>
 <section id="assignment-operator" class="level2">
-<h2 class="anchored" data-anchor-id="assignment-operator">Assignment operator</h2>
+<h2 data-anchor-id="assignment-operator">Assignment operator</h2>
 <p>To do useful and interesting things in R, we need to assign <em>values</em> to <em>variables</em> using the assignment operator, <code>&lt;-</code>. For example, we can use the assignment operator to assign the value of <code>3</code> to <code>x</code> by executing:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -683,7 +682,7 @@ Take advantage of auto-complete
 <p><em>In RStudio, typing <code>Alt + -</code> (push <code>Alt</code> at the same time as the <code>-</code> key, on Mac type <code>option + -</code>) will write <code>&lt;-</code> in a single keystroke.</em></p>
 </section>
 <section id="variables" class="level2">
-<h2 class="anchored" data-anchor-id="variables">Variables</h2>
+<h2 data-anchor-id="variables">Variables</h2>
 <p>A variable is a symbolic name for (or reference to) information. Variables in computer programming are analogous to “buckets”, where information can be maintained and referenced. On the outside of the bucket is a name. When referring to the bucket, we use the name of the bucket, not the data stored in the bucket.</p>
 <p>In the example above, we created a variable or a ‘bucket’ called <code>x</code>. Inside we put a value, <code>3</code>.</p>
 <p>Let’s create another variable called <code>y</code> and give it a value of 5.</p>
@@ -852,13 +851,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

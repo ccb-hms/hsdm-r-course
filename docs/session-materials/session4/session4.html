@@ -8,7 +8,7 @@
 
 <meta name="author" content="Center for Computational Biomedicine">
 
-<title>Research Design and Analysis - Week 4 Notebook</title>
+<title>Research Design and Analysis - Week 4: Preparing Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -68,7 +68,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -145,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../session-materials/session4/session4.html">Week 4 Notebook</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../session-materials/session4/session4.html">Week 4: Preparing Data</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -166,43 +165,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session2/session2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 2 Notebook</span></a>
+ <span class="menu-text">Week 2: Markdown and introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session3/session3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 3 Notebook</span></a>
+ <span class="menu-text">Week 3: Plotting</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session4/session4.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Week 4 Notebook</span></a>
+ <span class="menu-text">Week 4: Preparing Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session5/session5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 5 Notebook</span></a>
+ <span class="menu-text">Week 5: Exploring survey data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session6/session6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 6 Notebook</span></a>
+ <span class="menu-text">Week 6: Statistical tests and basic regression</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session7/session7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 7 Notebook</span></a>
+ <span class="menu-text">Week 7: Advanced regression</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session8/session8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 2 Notebook</span></a>
+ <span class="menu-text">Week 8: Putting it all together</span></a>
   </div>
 </li>
     </ul>
@@ -232,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 4 Notebook</h1>
+<h1 class="title">Week 4: Preparing Data</h1>
 </div>
 
 
@@ -386,36 +385,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <section id="see-more-about-how-we-downloaded-the-data" class="level2 callout-info" data-collapse="true">
-<h2 class="anchored" data-anchor-id="see-more-about-how-we-downloaded-the-data">See more about how we downloaded the data</h2>
+<h2 data-anchor-id="see-more-about-how-we-downloaded-the-data">See more about how we downloaded the data</h2>
 <p>The NHANES data was downloaded using a packaged called <code>phonto</code>. <code>phonto</code> connects to a database of the NHANES data developed by the Center for Computational Biomedicine (CCB). The database is a relational database running on a virtual machine using the containerization software <a href="https://www.docker.com/">Docker</a>.</p>
 <p>We will be learning a bit more about this in the last week of class. The code used to download the data is shown here:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phonto)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>cols_d <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_D=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, <span class="st">"DMDBORN"</span>, <span class="st">"INDFMPIR"</span>), </span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">OHX_D =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">GLU_D =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>), <span class="at">GHB_D =</span> <span class="st">"LBXGH"</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">BMX_D=</span><span class="st">"BMXBMI"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>cols_d <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_D=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"DMDBORN"</span>, <span class="st">"INDFMPIR"</span>, <span class="st">"SDMVPSU"</span>, <span class="st">"SDMVSTRA"</span>), </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">OHX_D =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">GLU_D =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>, <span class="st">"WTSAF2YR"</span>), <span class="at">GHB_D =</span> <span class="st">"LBXGH"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">BMX_D=</span><span class="st">"BMXBMI"</span></span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>base_df_d <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_d)</span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>cols_e <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_E=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, <span class="st">"DMDBORN2"</span>, <span class="st">"INDFMPIR"</span>), </span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">OHX_E =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">GLU_E =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>), <span class="at">GHB_E =</span> <span class="st">"LBXGH"</span>,</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">BMX_E =</span><span class="st">"BMXBMI"</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>base_df_e <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_e)</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>cols_f <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_F=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, <span class="st">"DMDBORN2"</span>, <span class="st">"INDFMPIR"</span>), </span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">OHXDEN_F =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">GLU_F =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>), <span class="at">GHB_F =</span> <span class="st">"LBXGH"</span>,</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">BMX_F =</span><span class="st">"BMXBMI"</span></span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>base_df_f <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>cols_e <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_E=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, </span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"DMDBORN2"</span>, <span class="st">"INDFMPIR"</span>, <span class="st">"SDMVPSU"</span>, <span class="st">"SDMVSTRA"</span>), </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">OHX_E =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">GLU_E =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>, <span class="st">"WTSAF2YR"</span>), <span class="at">GHB_E =</span> <span class="st">"LBXGH"</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">BMX_E =</span><span class="st">"BMXBMI"</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>base_df_e <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_e)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>cols_f <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_F=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, </span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"DMDBORN2"</span>, <span class="st">"INDFMPIR"</span>, <span class="st">"SDMVPSU"</span>, <span class="st">"SDMVSTRA"</span>), </span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">OHXDEN_F =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>              <span class="at">GLU_F =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>, <span class="st">"WTSAF2YR"</span>), <span class="at">GHB_F =</span> <span class="st">"LBXGH"</span>,</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">BMX_F =</span><span class="st">"BMXBMI"</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>base_df_f <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_f)</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(base_df_d, base_df_e, base_df_f, <span class="at">file =</span> <span class="st">"jul7_hsdm_data.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="preparing-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="preparing-the-data">Preparing the data</h2>
+<h2 data-anchor-id="preparing-the-data">Preparing the data</h2>
 <p>In the reading, we saw how to combine multiple sets of observations by appending datasets. However, before we need to make sure corresponding columns between years can be combined.</p>
 <p>NHANES will often change how it encodes or records different variables from year to year. Our first red flag are any columns whose name has changed. Let’s take a look at the column names.</p>
 <div class="cell">
@@ -488,7 +490,7 @@ Exercise
 </div>
 </section>
 <section id="combining-the-data" class="level2">
-<h2 class="anchored" data-anchor-id="combining-the-data">Combining the data</h2>
+<h2 data-anchor-id="combining-the-data">Combining the data</h2>
 <p>Now we can combine the data together.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine all years together</span></span>
@@ -498,13 +500,13 @@ Exercise
 </div>
 </section>
 <section id="summary-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="summary-statistics">Summary Statistics</h2>
+<h2 data-anchor-id="summary-statistics">Summary Statistics</h2>
 <!-- ::: {.callout-tip appearance="minimal"} -->
 <!-- ## Exercise -->
 <!-- ::: -->
 </section>
 <section id="filter-relevant-population" class="level2">
-<h2 class="anchored" data-anchor-id="filter-relevant-population">Filter relevant population</h2>
+<h2 data-anchor-id="filter-relevant-population">Filter relevant population</h2>
 <p>Next we need to filter the summary population. Luckily, the paper provides total numbers of participants for most of the filtering steps performed. This makes it much easier for us to check our work.</p>
 <blockquote class="blockquote">
 <p>The total number of individuals who participated in the NHANES from 2005 to 2010 were 31,034 study-participants. Among them, 3,660 were nonedentulous adolescents (aged 13 to 18 years old at the time of screening) who had exam survey weights assigned. From those 3,660 adolescents, data to measure the main outcome variable (dental caries experience) were available for a final sample of 3,346 adolescents, representing the population of 24,386,135 U.S. adolescents after applying the NHANES sample weights, which was described and analyzed in this study.</p>
@@ -543,7 +545,7 @@ Exercise
 </div>
 </section>
 <section id="final-data-cleanup" class="level2">
-<h2 class="anchored" data-anchor-id="final-data-cleanup">Final data cleanup</h2>
+<h2 data-anchor-id="final-data-cleanup">Final data cleanup</h2>
 <p>We can choose to leave the variables with their NHANES column names or change them to be a bit more human-readable. Either way, we also want to convert each variable to it’s appropriate type.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set columns to have appropriate types</span></span>
@@ -728,13 +730,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

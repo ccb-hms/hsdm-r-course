@@ -72,5 +72,6 @@ format:
       light: flatly
       dark: darkly
     toc: true
+    anchor-sections: false
   pdf: 
     prefer-html: false

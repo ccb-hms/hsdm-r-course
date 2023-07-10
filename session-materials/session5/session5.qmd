@@ -1,10 +1,147 @@
 ---
-title: "Week 5 Notebook"
+title: "Week 5: Exploring survey data"
 author: "Center for Computational Biomedicine"
 format: 
-  html: 
-    anchor-sections: true
+  html: default
 code-annotations: select
 ---
 
+```{r}
+#| output: false
+library(tidyverse)
+library(survey)
+library(DT)
+```
+
 # Data
+Let's go back to the raw nhanes data, just after we combined the three years. 
+
+```{r}
+load("jul7_hsdm_data_allweight.RData")
+tib_d <- as_tibble(base_df_d)
+tib_e <- as_tibble(base_df_e)
+tib_f <- as_tibble(base_df_f)
+
+tib_e <- rename(tib_e, DMDBORN = DMDBORN2)
+tib_f <- rename(tib_f, DMDBORN = DMDBORN2)
+
+# Combine all years together
+tib_all <- tib_d %>%
+  bind_rows(tib_e) %>%
+  bind_rows(tib_f)
+all_nhanes <- tib_all
+```
+
+
+## Re-doing the analysis
+
+We need to keep the entire dataset in order to properly employ survey weights.
+Thus, we'll have to redo most of the processing we've done in previous weeks. 
+First, let's rename our columns to be a bit more human-readable.
+
+```{r}
+all_nhanes <- all_nhanes %>% 
+  mutate(
+   sequence.id = SEQN,
+   age.years = RIDAGEYR,
+   gender = as.factor(RIAGENDR),
+   ethnicity = as.factor(RIDRETH1),
+   birthplace = as.factor(DMDBORN),
+   family.PIR = INDFMPIR,
+   dental.decay.present = (OHXDECAY == "Yes"),
+   dental.restoration.present = (OHXREST == "Yes"),
+   plasma.glucose = as.numeric(LBXGLU),
+   hba1c = as.numeric(LBXGH),
+   bmi = as.numeric(BMXBMI), 
+   WTSAF2YR = as.numeric(WTSAF2YR),
+   WTINT2YR = as.numeric(WTINT2YR),
+   WTMEC2YR = as.numeric(WTMEC2YR),
+   SDMVPSU = as.numeric(SDMVPSU), 
+   SDMVSTRA = as.numeric(SDMVSTRA))
+```
+
+Since we already have the code, we can repeat it here in a single chain of piped
+statements. 
+
+```{r}
+all_nhanes <- all_nhanes %>%
+  mutate(age.years = as.numeric(age.years)) %>%
+  mutate(diabetes = case_when(
+    is.na(hba1c) & is.na(plasma.glucose) ~ NA,
+    hba1c >= 6.5 | plasma.glucose >= 126 ~ "diabetic",
+    hba1c >= 5.7 | plasma.glucose >= 100 ~ "prediabetic",
+    .default = "nondiabetic")) %>%
+  mutate(
+    age.cat = cut(
+    age.years,
+    breaks = c(13, 15, 18),
+    include.lowest = TRUE,
+    labels = c("13-15", "16-18"))) %>%
+  mutate(family.PIR.lt1 = str_replace(family.PIR,
+         "PIR value greater than or equa|Value greater than or equal to", "5.0")) %>%
+  mutate(family.PIR.lt1 = as.numeric(family.PIR.lt1) < 1.0)
+```
+
+### Removing NA weights
+
+Recall from the reading that we can't have any missing values in the survey design variables. 
+Note that since we are using the fasting weights in this analysis, which only include participants
+who had fasting glucose measurements taken, a significant proportion of rows will be removed. 
+
+::: callout-warning
+Despite the paper saying that they removed those without enough data to determine diabetic status, they did not remove those samples from their weighting calculations here. 
+:::
+
+::: {.callout-tip appearance="minimal"}
+## Exercise
+Remove all rows with `NA` for the main survey design variables; 
+`WTMEC2YR`, `SDMVPSU`, and `SDMVSTRA`.
+
+```{r}
+fst_nhanes <- all_nhanes %>%
+  drop_na(WTMEC2YR, SDMVPSU, SDMVSTRA)
+```
+:::
+
+
+### Creating combined survey weights
+
+Currently, our survey weights `WTSAF2YR` are for each 2 year cycle. 
+We need to combine them to represent the full 6-year period we are investigating. 
+Luckily NHANES has an [official guide](https://wwwn.cdc.gov/nchs/nhanes/tutorials/weighting.aspx) for combining these weights.
+It turns out, all we need to do is divide all weights by 3. 
+
+```{r}
+fst_nhanes <- fst_nhanes %>%
+  mutate(WTSAF6YR = WTMEC2YR * 1/3)
+```
+
+### Creating the survey design object
+
+```{r}
+nhanes_design <- svydesign(id     = ~SDMVPSU,
+                          strata  = ~SDMVSTRA,
+                          weights = ~WTSAF6YR,
+                          nest    = TRUE,
+                          data    = fst_nhanes)
+```
+
+Now we can take our data subset from the survey design object. 
+
+```{r}
+ado_design <- subset(nhanes_design, age.years >= 13 & age.years <= 18 & !is.na(dental.decay.present))
+```
+
+```{r}
+svymean(~age.years, ado_design, na.rm = TRUE)
+svymean(~gender, ado_design, na.rm = TRUE)
+```
+
+```{r}
+svytable(~age.cat, ado_design)
+svymean(~age.cat, ado_design, na.rm = TRUE)
+svytable(~ethnicity, ado_design)
+```
+
+::: {.callout-tip appearance="minimal"}
+:::

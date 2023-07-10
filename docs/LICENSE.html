@@ -33,7 +33,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -142,7 +141,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <section id="instructional-material" class="level2">
-<h2 class="anchored" data-anchor-id="instructional-material">Instructional Material</h2>
+<h2 data-anchor-id="instructional-material">Instructional Material</h2>
 <p>All Software Carpentry, Data Carpentry, and Library Carpentry instructional material is made available under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution license</a>. The following is a human-readable summary of (and not a substitute for) the <a href="https://creativecommons.org/licenses/by/4.0/legalcode">full legal text of the CC BY 4.0 license</a>.</p>
 <p>You are free:</p>
 <ul>
@@ -163,14 +162,14 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 <section id="software" class="level2">
-<h2 class="anchored" data-anchor-id="software">Software</h2>
+<h2 data-anchor-id="software">Software</h2>
 <p>Except where otherwise noted, the example programs and other software provided by Software Carpentry and Data Carpentry are made available under the <a href="https://opensource.org">OSI</a>-approved <a href="https://opensource.org/licenses/mit-license.html">MIT license</a>.</p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </section>
 <section id="trademark" class="level2">
-<h2 class="anchored" data-anchor-id="trademark">Trademark</h2>
+<h2 data-anchor-id="trademark">Trademark</h2>
 <p>“Software Carpentry” and “Data Carpentry” and their respective logos are registered trademarks of <a href="http://communityin.org/">Community Initiatives</a>.</p>
 
 
@@ -312,13 +311,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

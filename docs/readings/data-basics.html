@@ -67,7 +67,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -367,7 +366,7 @@ Extended Materials
 </div>
 <p>This week we are going to learn how to use R to manipulate data. This will include learning about core functions for manipulating and summarizing data, as well as using conditional statements to create subsets.</p>
 <section id="operators" class="level2">
-<h2 class="anchored" data-anchor-id="operators">Key operators, functions, and constants</h2>
+<h2 data-anchor-id="operators">Key operators, functions, and constants</h2>
 <p>An <strong>operators</strong> is a symbol or set of symbols representing some mathematical or logical operation. They are essentially equivalent to functions. R has a number of built-in operators, and libraries may add additional operators (such as the <code>%&gt;%</code> operator used in Tidyverse packages). Some examples of operators are:</p>
 <ul>
 <li>Definitional operators<br>
@@ -392,7 +391,7 @@ Extended Materials
 <!-- ======================================================= -->
 </section>
 <section id="assignment-operators" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="assignment-operators">Assignment operators</h2>
+<h2 class="unnumbered" data-anchor-id="assignment-operators">Assignment operators</h2>
 <p><strong><code>&lt;-</code></strong></p>
 <p>The basic assignment operator in R is <code>&lt;-</code>. Such that <code>object_name &lt;- value</code>.<br>
 This assignment operator can also be written as <code>=</code>. We advise use of <code>&lt;-</code> for general R use.<br>
@@ -400,7 +399,7 @@ We also advise surrounding such operators with spaces, for readability.</p>
 <!-- ======================================================= -->
 </section>
 <section id="relational-and-logical-operators" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="relational-and-logical-operators">Relational and logical operators</h2>
+<h2 class="unnumbered" data-anchor-id="relational-and-logical-operators">Relational and logical operators</h2>
 <p>Relational operators compare values and are often used when defining new variables and subsets of datasets. Here are the common relational operators in R:</p>
 <table class="table">
 <colgroup>
@@ -539,7 +538,7 @@ We also advise surrounding such operators with spaces, for readability.</p>
 <!-- ======================================================= -->
 </section>
 <section id="missing-values" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="missing-values">Missing values</h2>
+<h2 class="unnumbered" data-anchor-id="missing-values">Missing values</h2>
 <p>In R, missing values are represented by the special value <code>NA</code> (a “reserved” value) (capital letters N and A - not in quotation marks). <strong>To test whether a value is <code>NA</code>, use the special function <code>is.na()</code></strong>, which returns <code>TRUE</code> or <code>FALSE</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rdt_result <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Positive"</span>, <span class="st">"Suspected"</span>, <span class="st">"Positive"</span>, <span class="cn">NA</span>)   <span class="co"># two positive cases, one suspected, and one unknown</span></span>
@@ -552,10 +551,10 @@ We also advise surrounding such operators with spaces, for readability.</p>
 <!-- ======================================================= -->
 </section>
 <section id="mathematics-and-statistics" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="mathematics-and-statistics">Mathematics and statistics</h2>
+<h2 class="unnumbered" data-anchor-id="mathematics-and-statistics">Mathematics and statistics</h2>
 <p>All the operators and functions in this page are automatically available using <strong>base</strong> R.</p>
 <section id="mathematical-operators" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="mathematical-operators">Mathematical operators</h3>
+<h3 class="unnumbered" data-anchor-id="mathematical-operators">Mathematical operators</h3>
 <p>These are often used to perform addition, division, to create new columns, etc. Below are common mathematical operators in R. Whether you put spaces around the operators is not important.</p>
 <table class="table">
 <thead>
@@ -593,7 +592,7 @@ We also advise surrounding such operators with spaces, for readability.</p>
 </table>
 </section>
 <section id="mathematical-functions" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="mathematical-functions">Mathematical functions</h3>
+<h3 class="unnumbered" data-anchor-id="mathematical-functions">Mathematical functions</h3>
 <table class="table">
 <thead>
 <tr class="header">
@@ -647,7 +646,7 @@ We also advise surrounding such operators with spaces, for readability.</p>
 <p>Note: for <code>round()</code> the <code>digits =</code> specifies the number of decimal placed. Use <code>signif()</code> to round to a number of significant figures.</p>
 </section>
 <section id="statistical-functions" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="statistical-functions">Statistical functions</h3>
+<h3 class="unnumbered" data-anchor-id="statistical-functions">Statistical functions</h3>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -739,7 +738,7 @@ Warning
 </section>
 </section>
 <section id="other-useful-functions" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="other-useful-functions">Other useful functions</h2>
+<h2 class="unnumbered" data-anchor-id="other-useful-functions">Other useful functions</h2>
 <table class="table">
 <colgroup>
 <col style="width: 27%">
@@ -779,7 +778,7 @@ Warning
 <!-- ======================================================= -->
 </section>
 <section id="in" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="in"><code>%in%</code></h2>
+<h2 class="unnumbered" data-anchor-id="in"><code>%in%</code></h2>
 <p>A very useful operator for matching values, and for quickly assessing if a value is within a vector or dataframe.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>my_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -817,7 +816,7 @@ Warning
 </div>
 </section>
 <section id="tidyverse-functions" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="tidyverse-functions">Tidyverse functions</h2>
+<h2 class="unnumbered" data-anchor-id="tidyverse-functions">Tidyverse functions</h2>
 <p>We will be emphasizing use of the functions from the <a href="https://www.tidyverse.org/"><strong>tidyverse</strong></a> family of R packages. The functions we will be learning about are listed below.</p>
 <p>Many of these functions belong to the <a href="https://dplyr.tidyverse.org/"><strong>dplyr</strong></a> R package, which provides “verb” functions to solve data manipulation challenges (the name is a reference to a “data frame-<a href="https://www.thefreedictionary.com/plier#:~:text=also%20ply%C2%B7er%20(pl%C4%AB%E2%80%B2,holding%2C%20bending%2C%20or%20cutting.)%22">plier</a>. <strong>dplyr</strong> is part of the <strong>tidyverse</strong> family of R packages (which also includes <strong>ggplot2</strong>, <strong>tidyr</strong>, <strong>stringr</strong>, <strong>tibble</strong>, <strong>purrr</strong>, <strong>magrittr</strong>, and <strong>forcats</strong> among others).</p>
 <table class="table">
@@ -1072,13 +1071,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

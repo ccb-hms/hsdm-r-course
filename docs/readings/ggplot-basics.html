@@ -67,7 +67,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -426,7 +425,7 @@ Data Preparation
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <section id="import-data" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="import-data">Import data</h3>
+<h3 class="unnumbered" data-anchor-id="import-data">Import data</h3>
 <p>We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">click to download the “clean” linelist</a> (as .rds file).</p>
 <p>The first 50 rows of the linelist are displayed below. We will focus on the continuous variables <code>age</code>, <code>wt_kg</code> (weight in kilos), <code>ct_blood</code> (CT values), and <code>days_onset_hosp</code> (difference between onset date and hospitalisation).</p>
 <div class="cell">
@@ -690,7 +689,7 @@ Data Preparation
 </div>
 </section>
 <section id="general-cleaning" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="general-cleaning">General cleaning</h3>
+<h3 class="unnumbered" data-anchor-id="general-cleaning">General cleaning</h3>
 <p>Some simple ways we can prepare our data to make it better for plotting can include making the contents of the data better for display - which does not necessarily equate to better for data manipulation. For example:</p>
 <ul>
 <li>Replace <code>NA</code> values in a character column with the character string “Unknown”<br>
@@ -713,7 +712,7 @@ Data Preparation
 </div>
 </section>
 <section id="pivoting-longer" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="pivoting-longer">Pivoting longer</h3>
+<h3 class="unnumbered" data-anchor-id="pivoting-longer">Pivoting longer</h3>
 <p>As a matter of data structure, for <strong>ggplot2</strong> we often also want to pivot our data into <em>longer</em> formats. We will learn more about pivoting later; for now it’s enough to be aware that these two data formats exist.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -821,7 +820,7 @@ Data Preparation
 </div>
 </div>
 <section id="basics-of-ggplot" class="level2">
-<h2 class="anchored" data-anchor-id="basics-of-ggplot">Basics of ggplot</h2>
+<h2 data-anchor-id="basics-of-ggplot">Basics of ggplot</h2>
 <p><strong>“Grammar of graphics” - ggplot2</strong></p>
 <p>Plotting with <strong>ggplot2</strong> is based on “adding” plot layers and design elements on top of one another, with each command added to the previous ones with a plus symbol (<code>+</code>). The result is a multi-layer plot object that can be saved, modified, printed, exported, etc.</p>
 <blockquote class="blockquote">
@@ -852,7 +851,7 @@ Data Preparation
 <p>We will explain each component in the sections below.</p>
 </section>
 <section id="ggplot" class="level2">
-<h2 class="anchored" data-anchor-id="ggplot"><code>ggplot()</code></h2>
+<h2 data-anchor-id="ggplot"><code>ggplot()</code></h2>
 <p>The opening command of any ggplot2 plot is <code>ggplot()</code>. This command simply creates a blank canvas upon which to add layers. It “opens” the way for further layers to be added with a <code>+</code> symbol.</p>
 <p>Typically, the command <code>ggplot()</code> includes the <code>data =</code> argument for the plot. This sets the default dataset to be used for subsequent layers of the plot.</p>
 <p>This command will end with a <code>+</code> after its closing parentheses. This leaves the command “open”. The ggplot will only execute/appear when the full command includes a final layer <em>without</em> a <code>+</code> at the end.</p>
@@ -862,7 +861,7 @@ Data Preparation
 </div>
 </section>
 <section id="geoms" class="level2">
-<h2 class="anchored" data-anchor-id="geoms">Geoms</h2>
+<h2 data-anchor-id="geoms">Geoms</h2>
 <p>A blank canvas is certainly not sufficient - we need to create geometries (shapes) from our data (e.g.&nbsp;bar plots, histograms, scatter plots, box plots).</p>
 <p>This is done by adding layers “geoms” to the initial <code>ggplot()</code> command. There are many <strong>ggplot2</strong> functions that create “geoms”. Each of these functions begins with “geom_”, so we will refer to them generically as <code>geom_XXXX()</code>. There are over 40 geoms in <strong>ggplot2</strong> and many others created by fans. View them at the <a href="https://exts.ggplot2.tidyverse.org/gallery/">ggplot2 gallery</a>. Some common geoms are listed below:</p>
 <ul>
@@ -881,7 +880,7 @@ Data Preparation
 <p>In one plot you can display one or multiple geoms. Each is added to previous <strong>ggplot2</strong> commands with a <code>+</code>, and they are plotted sequentially such that later geoms are plotted on top of previous ones.</p>
 </section>
 <section id="ggplot_basics_mapping" class="level2">
-<h2 class="anchored" data-anchor-id="ggplot_basics_mapping">Mapping data to the plot</h2>
+<h2 data-anchor-id="ggplot_basics_mapping">Mapping data to the plot</h2>
 <p>Most geom functions must be told <em>what to use</em> to create their shapes - so you must tell them how they should <em>map (assign) columns in your data</em> to components of the plot like the axes, shape colors, shape sizes, etc. For most geoms, the <em>essential</em> components that must be mapped to columns in the data are the x-axis, and (if necessary) the y-axis.</p>
 <p>This “mapping” occurs with the <code>mapping =</code> argument. The mappings you provide to <code>mapping</code> must be wrapped in the <code>aes()</code> function, so you would write something like <code>mapping = aes(x = col1, y = col2)</code>, as shown below.</p>
 <p>Below, in the <code>ggplot()</code> command the data are set as the case <code>linelist</code>. In the <code>mapping = aes()</code> argument the column <code>age</code> is mapped to the x-axis, and the column <code>wt_kg</code> is mapped to the y-axis.</p>
@@ -902,7 +901,7 @@ Data Preparation
 </div>
 </div>
 <section id="plot-aesthetics" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="plot-aesthetics">Plot aesthetics</h3>
+<h3 class="unnumbered" data-anchor-id="plot-aesthetics">Plot aesthetics</h3>
 <p>In ggplot terminology a plot “aesthetic” has a specific meaning. It refers to a visual property of <em>plotted data</em>. Note that “aesthetic” here refers to the <em>data being plotted in geoms/shapes</em> - not the surrounding display such as titles, axis labels, background color, that you might associate with the word “aesthetics” in common English. In ggplot those details are called “themes” and are adjusted within a <code>theme()</code> command (see <a href="#ggplot_basics_themes">this section</a>).</p>
 <p>Therefore, plot object <em>aesthetics</em> can be colors, sizes, transparencies, placement, etc. <em>of the plotted data</em>. Not all geoms will have the same aesthetic options, but many can be used by most geoms. Here are some examples:</p>
 <ul>
@@ -930,7 +929,7 @@ Data Preparation
 </ol>
 </section>
 <section id="set-to-a-static-value" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="set-to-a-static-value">Set to a static value</h3>
+<h3 class="unnumbered" data-anchor-id="set-to-a-static-value">Set to a static value</h3>
 <p>If you want the plot object aesthetic to be static, that is - to be the same for every observation in the data, you write its assignment within the geom but <em>outside</em> of any <code>mapping = aes()</code> statement. These assignments could look like <code>size = 1</code> or <code>color = "blue"</code>. Here are two examples:</p>
 <ul>
 <li>In the first example, the <code>mapping = aes()</code> is in the <code>ggplot()</code> command and the axes are mapped to age and weight columns in the data. The plot aesthetics <code>color =</code>, <code>size =</code>, and <code>alpha =</code> (transparency) are assigned to static values. For clarity, this is done in the <code>geom_point()</code> function, as you may add other geoms afterward that would take different values for their plot aesthetics.<br>
@@ -958,7 +957,7 @@ Data Preparation
 </div>
 </section>
 <section id="scaled-to-column-values" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="scaled-to-column-values">Scaled to column values</h3>
+<h3 class="unnumbered" data-anchor-id="scaled-to-column-values">Scaled to column values</h3>
 <p>The alternative is to scale the plot object aesthetic by the values in a column. In this approach, the display of this aesthetic will depend on that observation’s value in that column of the data. If the column values are continuous, the display scale (legend) for that aesthetic will be continuous. If the column values are discrete, the legend will display each value and the plotted data will appear as distinctly “grouped” (read more in the <a href="#ggplotgroups">grouping</a> section of this page).</p>
 <p>To achieve this, you map that plot aesthetic to a <em>column name</em> (not in quotes). This must be done <em>within a <code>mapping = aes()</code> function</em> (note: there are several places in the code you can make these mapping assignments, as discussed <a href="##ggplot_basics_map_loc">below</a>).</p>
 <p>Two examples are below.</p>
@@ -1027,7 +1026,7 @@ Note
 </div>
 </section>
 <section id="ggplot_basics_map_loc" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ggplot_basics_map_loc">Where to make mapping assignments</h3>
+<h3 class="unnumbered" data-anchor-id="ggplot_basics_map_loc">Where to make mapping assignments</h3>
 <p>Aesthetic mapping within <code>mapping = aes()</code> can be written in several places in your plotting commands and can even be written more than once. This can be written in the top <code>ggplot()</code> command, and/or for each individual geom beneath. The nuances include:</p>
 <ul>
 <li>Mapping assignments made in the top <code>ggplot()</code> command will be inherited as defaults across any geom below, like how <code>x =</code> and <code>y =</code> are inherited</li>
@@ -1048,7 +1047,7 @@ Note
 </div>
 </section>
 <section id="ggplotgroups" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ggplotgroups">Groups</h3>
+<h3 class="unnumbered" data-anchor-id="ggplotgroups">Groups</h3>
 <p>You can easily group the data and “plot by group”. In fact, you have already done this!</p>
 <p>Assign the “grouping” column to the appropriate plot aesthetic, within a <code>mapping = aes()</code>. Above, we demonstrated this using continuous values when we assigned point <code>size =</code> to the column <code>age</code>. However this works the same way for discrete/categorical columns.</p>
 <p>For example, if you want points to be displayed by gender, you would set <code>mapping = aes(color = gender)</code>. A legend automatically appears. This assignment can be made within the <code>mapping = aes()</code> in the top <code>ggplot()</code> command (and be inherited by the geom), or it could be set in a separate <code>mapping = aes()</code> within the geom. Both approaches are shown below:</p>
@@ -1073,7 +1072,7 @@ Note
 </section>
 </section>
 <section id="ggplot_basics_facet" class="level2">
-<h2 class="anchored" data-anchor-id="ggplot_basics_facet">Facets / Small-multiples</h2>
+<h2 data-anchor-id="ggplot_basics_facet">Facets / Small-multiples</h2>
 <p>Facets, or “small-multiples”, are used to split one plot into a multi-panel figure, with one panel (“facet”) per group of data. The same type of plot is created multiple times, each one using a sub-group of the same dataset.</p>
 <p>Faceting is a functionality that comes with <strong>ggplot2</strong>, so the legends and axes of the facet “panels” are automatically aligned. We would need to use other packages to combine completely different plots (<strong>cowplot</strong> and <strong>patchwork</strong>) into one figure.</p>
 <p>Faceting is done with one of the following <strong>ggplot2</strong> functions:</p>
@@ -1124,7 +1123,7 @@ Note
 </div>
 </div>
 <section id="facet_wrap" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="facet_wrap"><code>facet_wrap()</code></h3>
+<h3 class="unnumbered" data-anchor-id="facet_wrap"><code>facet_wrap()</code></h3>
 <p>For the moment, let’s focus on the columns <code>malaria_tot</code> and <code>District</code>. Ignore the age-specific count columns for now. We will plot epidemic curves with <code>geom_col()</code>, which produces a column for each day at the specified y-axis height given in column <code>malaria_tot</code> (the data are already daily counts, so we use <code>geom_col()</code> - see <a href="#ggplot_basics_bars">the “Bar plot” section below</a>).</p>
 <p>When we add the command <code>facet_wrap()</code>, we specify a tilde and then the column to facet on (<code>District</code> in this case). You can place another column on the left side of the tilde, - this will create one facet for each combination - but we recommend you do this with <code>facet_grid()</code> instead. In this use case, one facet is created for each unique value of <code>District</code>.</p>
 <div class="cell">
@@ -1143,7 +1142,7 @@ Note
 </div>
 </section>
 <section id="facet_grid" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="facet_grid"><code>facet_grid()</code></h3>
+<h3 class="unnumbered" data-anchor-id="facet_grid"><code>facet_grid()</code></h3>
 <p>We can use a <code>facet_grid()</code> approach to cross two variables. Let’s say we want to cross <code>District</code> and age. Well, we need to do some data transformations on the age columns to get these data into ggplot-preferred “long” format. The age groups all have their own columns - we want them in a single column called <code>age_group</code> and another called <code>num_cases</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>malaria_age <span class="ot">&lt;-</span> malaria_data <span class="sc">%&gt;%</span></span>
@@ -1193,7 +1192,7 @@ Note
 </div>
 </section>
 <section id="free-or-fixed-axes" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="free-or-fixed-axes">Free or fixed axes</h3>
+<h3 class="unnumbered" data-anchor-id="free-or-fixed-axes">Free or fixed axes</h3>
 <p>The axes scales displayed when faceting are by default the same (fixed) across all the facets. This is helpful for cross-comparison, but not always appropriate.</p>
 <p>When using <code>facet_wrap()</code> or <code>facet_grid()</code>, we can add <code>scales = "free_y"</code> to “free” or release the y-axes of the panels to scale appropriately to their data subset. This is particularly useful if the actual counts are small for one of the subcategories and trends are otherwise hard to see. Instead of “free_y” we can also write “free_x” to do the same for the x-axis (e.g.&nbsp;for dates) or “free” for both axes. Note that in <code>facet_grid</code>, the y scales will be the same for facets in the same row, and the x scales will be the same for facets in the same column.</p>
 <p>When using <code>facet_grid</code> only, we can add <code>space = "free_y"</code> or <code>space = "free_x"</code> so that the actual height or width of the facet is weighted to the values of the figure within. This only works if <code>scales = "free"</code> (y or x) is already applied.</p>
@@ -1214,7 +1213,7 @@ Note
 </section>
 </section>
 <section id="exporting-plots" class="level2">
-<h2 class="anchored" data-anchor-id="exporting-plots">Exporting plots</h2>
+<h2 data-anchor-id="exporting-plots">Exporting plots</h2>
 <p>Exporting ggplots is made easy with the <code>ggsave()</code> function from <strong>ggplot2</strong>. It can work in two ways, either:</p>
 <ul>
 <li>Specify the name of the plot object, then the file path and name with extension
@@ -1231,7 +1230,7 @@ Note
 <p>You can also specify the arguments <code>width =</code>, <code>height =</code>, and <code>units =</code> (either “in”, “cm”, or “mm”). You can also specify <code>dpi =</code> with a number for plot resolution (e.g.&nbsp;300). See the function details by entering <code>?ggsave</code> or reading the <a href="https://ggplot2.tidyverse.org/reference/ggsave.html">documentation online</a>.</p>
 </section>
 <section id="labels" class="level2">
-<h2 class="anchored" data-anchor-id="labels">Labels</h2>
+<h2 data-anchor-id="labels">Labels</h2>
 <p>Surely you will want to add or adjust the plot’s labels. These are most easily done within the <code>labs()</code> function which is added to the plot with <code>+</code> just as the geoms were.</p>
 <p>Within <code>labs()</code> you can provide character strings to these arguements:</p>
 <ul>
@@ -1268,7 +1267,7 @@ Note
 <p>Note how in the caption assignment we used <code>str_glue()</code> from the <strong>stringr</strong> package to implant dynamic R code within the string text. The caption will show the “Data as of:” date that reflects the maximum hospitalization date in the linelist.</p>
 </section>
 <section id="plot-continuous-data" class="level2">
-<h2 class="anchored" data-anchor-id="plot-continuous-data">Plot continuous data</h2>
+<h2 data-anchor-id="plot-continuous-data">Plot continuous data</h2>
 <p>Throughout this page, you have already seen many examples of plotting continuous data. Here we briefly consolidate these and present a few variations.<br>
 Visualisations covered here include:</p>
 <ul>
@@ -1288,7 +1287,7 @@ Visualisations covered here include:</p>
 <li><strong>Heat plots</strong> for three continuous variables</li>
 </ul>
 <section id="histograms" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="histograms">Histograms</h3>
+<h3 class="unnumbered" data-anchor-id="histograms">Histograms</h3>
 <p>Histograms may look like bar charts, but are distinct because they measure the distribution of a <em>continuous</em> variable. There are no spaces between the “bars”, and only one column is provided to <code>geom_histogram()</code>.</p>
 <p>Below is code for generating <strong>histograms</strong>, which group continuous data into ranges and display in adjacent bars of varying height. This is done using <code>geom_histogram()</code>. See the <a href="#ggplot_basics_bars">“Bar plot” section</a> of the ggplot basics page to understand difference between <code>geom_histogram()</code>, <code>geom_bar()</code>, and <code>geom_col()</code>.</p>
 <p>We will show the distribution of ages of cases. Within <code>mapping = aes()</code> specify which column you want to see the distribution of. You can assign this column to either the x or the y axis.</p>
@@ -1393,7 +1392,7 @@ Visualisations covered here include:</p>
 <p>Read more in detail about histograms at the <strong>tidyverse</strong> <a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">page on geom_histogram()</a>.</p>
 </section>
 <section id="box-plots" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="box-plots">Box plots</h3>
+<h3 class="unnumbered" data-anchor-id="box-plots">Box plots</h3>
 <p>Box plots are common, but have important limitations. They can obscure the actual distribution - e.g.&nbsp;a bi-modal distribution. See this <a href="https://www.r-graph-gallery.com/boxplot.html">R graph gallery</a> and this <a href="https://www.data-to-viz.com/caveat/boxplot.html">data-to-viz article</a> for more details. However, they do nicely display the inter-quartile range and outliers - so they can be overlaid on top of other types of plots that show the distribution in more detail.</p>
 <p>Below we remind you of the various components of a boxplot:</p>
 <div class="cell" data-layout-align="center">
@@ -1427,7 +1426,7 @@ Visualisations covered here include:</p>
 </div>
 </section>
 <section id="violin-jitter-and-sina-plots" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="violin-jitter-and-sina-plots">Violin, jitter, and sina plots</h3>
+<h3 class="unnumbered" data-anchor-id="violin-jitter-and-sina-plots">Violin, jitter, and sina plots</h3>
 <p>Below is code for creating <strong>violin plots</strong> (<code>geom_violin</code>) and <strong>jitter plots</strong> (<code>geom_jitter</code>) to show distributions. You can specify that the fill or color is also determined by the data, by inserting these options within <code>aes()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A) Jitter plot by group</span></span>
@@ -1483,7 +1482,7 @@ Visualisations covered here include:</p>
 </div>
 </section>
 <section id="two-continuous-variables" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="two-continuous-variables">Two continuous variables</h3>
+<h3 class="unnumbered" data-anchor-id="two-continuous-variables">Two continuous variables</h3>
 <p>Following similar syntax, <code>geom_point()</code> will allow you to plot two continuous variables against each other in a <strong>scatter plot</strong>. This is useful for showing actual values rather than their distributions. A basic scatter plot of age vs weight is shown in (A). In (B) we again use <code>facet_grid()</code> to show the relationship between two continuous variables in the linelist.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic scatter plot of weight and age</span></span>
@@ -1507,17 +1506,17 @@ Visualisations covered here include:</p>
 </div>
 </section>
 <section id="three-continuous-variables" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="three-continuous-variables">Three continuous variables</h3>
+<h3 class="unnumbered" data-anchor-id="three-continuous-variables">Three continuous variables</h3>
 <p>You can display three continuous variables by utilizing the <code>fill =</code> argument to create a <em>heat plot</em>. The color of each “cell” will reflect the value of the third continuous column of data. There are ways to make 3D plots in R, but for applied epidemiology these are often difficult to interpret and therefore less useful for decision-making.</p>
 </section>
 </section>
 <section id="plot-categorical-data" class="level2">
-<h2 class="anchored" data-anchor-id="plot-categorical-data">Plot categorical data</h2>
+<h2 data-anchor-id="plot-categorical-data">Plot categorical data</h2>
 <p>Categorical data can be character values, could be logical (TRUE/FALSE), or factors.</p>
 <section id="preparation" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="preparation">Preparation</h3>
+<h3 class="unnumbered" data-anchor-id="preparation">Preparation</h3>
 <section id="data-structure" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="data-structure">Data structure</h4>
+<h4 class="unnumbered" data-anchor-id="data-structure">Data structure</h4>
 <p>The first thing to understand about your categorical data is whether it exists as raw observations like a linelist of cases, or as a summary or aggregate data frame that holds counts or proportions. The state of your data will impact which plotting function you use:</p>
 <ul>
 <li>If your data are raw observations with one row per observation, you will likely use <code>geom_bar()</code><br>
@@ -1526,7 +1525,7 @@ Visualisations covered here include:</p>
 </ul>
 </section>
 <section id="column-class-and-value-ordering" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="column-class-and-value-ordering">Column class and value ordering</h4>
+<h4 class="unnumbered" data-anchor-id="column-class-and-value-ordering">Column class and value ordering</h4>
 <p>Next, examine the class of the columns you want to plot. We look at <code>hospital</code>, first with <code>class()</code> from <strong>base</strong> R, and with <code>tabyl()</code> from <strong>janitor</strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View class of hospital column - we can see it is a character</span></span>
@@ -1574,7 +1573,7 @@ Visualisations covered here include:</p>
 </section>
 </section>
 <section id="ggplot_basics_bars" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ggplot_basics_bars"><code>geom_bar()</code></h3>
+<h3 class="unnumbered" data-anchor-id="ggplot_basics_bars"><code>geom_bar()</code></h3>
 <p>Use <code>geom_bar()</code> if you want bar height (or the height of stacked bar components) to reflect <em>the number of relevant rows in the data</em>. These bars will have gaps between them, unless the <code>width =</code> plot aesthetic is adjusted.</p>
 <ul>
 <li>Provide only one axis column assignment (typically x-axis). If you provide x and y, you will get <code>Error: stat_count() can only have an x or y aesthetic.</code><br>
@@ -1609,7 +1608,7 @@ Visualisations covered here include:</p>
 </div>
 </section>
 <section id="geom_col" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="geom_col"><code>geom_col()</code></h3>
+<h3 class="unnumbered" data-anchor-id="geom_col"><code>geom_col()</code></h3>
 <p>Use <code>geom_col()</code> if you want bar height (or height of stacked bar components) to reflect pre-calculated <em>values</em> that exists in the data. Often, these are summary or “aggregated” counts, or proportions.</p>
 <p>Provide column assignments for <em>both</em> axes to <code>geom_col()</code>. Typically your x-axis column is discrete and your y-axis column is numeric.</p>
 <p>Let’s say we have this dataset <code>outcomes</code>:</p>
@@ -1690,7 +1689,7 @@ Visualisations covered here include:</p>
 </section>
 </section>
 <section id="ggplot_basics_themes" class="level2">
-<h2 class="anchored" data-anchor-id="ggplot_basics_themes">Themes</h2>
+<h2 data-anchor-id="ggplot_basics_themes">Themes</h2>
 <p>One of the best parts of <strong>ggplot2</strong> is the amount of control you have over the plot - you can define anything! As mentioned above, the design of the plot that is <em>not</em> related to the data shapes/geometries are adjusted within the <code>theme()</code> function. For example, the plot background color, presence/absence of gridlines, and the font/size/color/alignment of text (titles, subtitles, captions, axis text…). These adjustments can be done in one of two ways:</p>
 <ul>
 <li>Add a <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html"><em>complete theme</em></a> <code>theme_()</code> function to make sweeping adjustments - these include <code>theme_classic()</code>, <code>theme_minimal()</code>, <code>theme_dark()</code>, <code>theme_light()</code> <code>theme_grey()</code>, <code>theme_bw()</code> among others<br>
@@ -1698,7 +1697,7 @@ Visualisations covered here include:</p>
 <li>Adjust each tiny aspect of the plot individually within <code>theme()</code></li>
 </ul>
 <section id="complete-themes" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="complete-themes">Complete themes</h3>
+<h3 class="unnumbered" data-anchor-id="complete-themes">Complete themes</h3>
 <p>As they are quite straight-forward, we will demonstrate the complete theme functions below and will not describe them further here. Note that any micro-adjustments with <code>theme()</code> should be made <em>after</em> use of a complete theme.</p>
 <p>Write them with empty parentheses.</p>
 <div class="cell">
@@ -1736,7 +1735,7 @@ Visualisations covered here include:</p>
 </div>
 </section>
 <section id="modify-theme" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="modify-theme">Modify theme</h3>
+<h3 class="unnumbered" data-anchor-id="modify-theme">Modify theme</h3>
 <p>The <code>theme()</code> function can take a large number of arguments, each of which edits a very specific aspect of the plot. There is no way we could cover all of the arguments, but we will describe the general pattern for them and show you how to find the argument name that you need. The basic syntax is this:</p>
 <ol type="1">
 <li>Within <code>theme()</code> write the argument name for the plot element you want to edit, like <code>plot.title =</code><br>
@@ -1877,10 +1876,10 @@ Tip
 </section>
 </section>
 <section id="ggplot_tips_colors" class="level2">
-<h2 class="anchored" data-anchor-id="ggplot_tips_colors">Scales for color, fill, axes, etc.</h2>
+<h2 data-anchor-id="ggplot_tips_colors">Scales for color, fill, axes, etc.</h2>
 <p>In <strong>ggplot2</strong>, when aesthetics of plotted data (e.g.&nbsp;size, color, shape, fill, plot axis) are mapped to columns in the data, the exact display can be adjusted with the corresponding “scale” command. In this section we explain some common scale adjustments.</p>
 <section id="color-schemes" class="level3">
-<h3 class="anchored" data-anchor-id="color-schemes">Color schemes</h3>
+<h3 data-anchor-id="color-schemes">Color schemes</h3>
 <p>One thing that can initially be difficult to understand with <strong>ggplot2</strong> is control of color schemes. Note that this section discusses the color of <em>plot objects</em> (geoms/shapes) such as points, bars, lines, tiles, etc.</p>
 <p>To control “color” of <em>plot objects</em> you will be adjusting either the <code>color =</code> aesthetic (the <em>exterior</em> color) or the <code>fill =</code> aesthetic (the <em>interior</em> color). One exception to this pattern is <code>geom_point()</code>, where you really only get to control <code>color =</code>, which controls the color of the point (interior and exterior).</p>
 <p>When setting colour or fill you can use colour names recognized by R like <code>"red"</code> (see <a href="http://sape.inf.usi.ch/quick-reference/ggplot2/colour">complete list</a> or enter <code>?colors</code>), or a specific hex colour such as <code>"#ff0505"</code>.</p>
@@ -1932,7 +1931,7 @@ Tip
 </div>
 </section>
 <section id="ggplot_tips_scales" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="ggplot_tips_scales">Scales</h3>
+<h3 class="unnumbered" data-anchor-id="ggplot_tips_scales">Scales</h3>
 <p>Once you map a column to a plot aesthetic (e.g.&nbsp;<code>x =</code>, <code>y =</code>, <code>fill =</code>, <code>color =</code>…), your plot will gain a scale/legend. See above how the scale can be continuous, discrete, date, etc. values depending on the class of the assigned column. If you have multiple aesthetics mapped to columns, your plot will have multiple scales.</p>
 <p>You can control the scales with the appropriate <code>scales_()</code> function. The scale functions of <strong>ggplot()</strong> have 3 parts that are written like this: <code>scale_AESTHETIC_METHOD()</code>.</p>
 <ol type="1">
@@ -1945,13 +1944,13 @@ Tip
 <p>Be sure that you use the correct function for the scale! Otherwise your scale command will not appear to change anything. If you have multiple scales, you may use multiple scale functions to adjust them! For example:</p>
 </section>
 <section id="scale-arguments" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="scale-arguments">Scale arguments</h3>
+<h3 class="unnumbered" data-anchor-id="scale-arguments">Scale arguments</h3>
 <p>Each kind of scale has its own arguments, though there is some overlap. Query the function like <code>?scale_color_discrete</code> in the R console to see the function argument documentation.</p>
 <p>For continuous scales, use <code>breaks =</code> to provide a sequence of values with <code>seq()</code> (take <code>to =</code>, <code>from =</code>, and <code>by =</code> as shown in the example below. Set <code>expand = c(0,0)</code> to eliminate padding space around the axes (this can be used on any <code>_x_</code> or <code>_y_</code> scale.</p>
 <p>For discrete scales, you can adjust the order of level appearance with <code>breaks =</code>, and how the values display with the <code>labels =</code> argument. Provide a character vector to each of those (see example below). You can also drop <code>NA</code> easily by setting <code>na.translate = FALSE</code>.</p>
 </section>
 <section id="manual-adjustments" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="manual-adjustments">Manual adjustments</h3>
+<h3 class="unnumbered" data-anchor-id="manual-adjustments">Manual adjustments</h3>
 <p>One of the most useful tricks is using “manual” scaling functions to explicitly assign colors as you desire. These are functions with the syntax <code>scale_xxx_manual()</code> (e.g.&nbsp;<code>scale_colour_manual()</code> or <code>scale_fill_manual()</code>). Each of the below arguments are demonstrated in the code example below.</p>
 <ul>
 <li>Assign colors to data values with the <code>values =</code> argument<br>
@@ -2007,7 +2006,7 @@ Tip
 </div>
 </section>
 <section id="continuous-axes-scales" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="continuous-axes-scales">Continuous axes scales</h3>
+<h3 class="unnumbered" data-anchor-id="continuous-axes-scales">Continuous axes scales</h3>
 <p>When data are mapping to the plot axes, these too can be adjusted with scales commands. A common example is adjusting the display of an axis (e.g.&nbsp;y-axis) that is mapped to a column with continuous data.</p>
 <p>We may want to adjust the breaks or display of the values in the ggplot using <code>scale_y_continuous()</code>. As noted above, use the argument <code>breaks =</code> to provide a sequence of values that will serve as “breaks” along the scale. These are the values at which numbers will display. To this argument, you can provide a <code>c()</code> vector containing the desired break values, or you can provide a regular sequence of numbers using the <strong>base</strong> R function <code>seq()</code>. This <code>seq()</code> function accepts <code>to =</code>, <code>from =</code>, and <code>by =</code>.</p>
 <div class="cell">
@@ -2034,7 +2033,7 @@ Tip
 </div>
 </div>
 <section id="display-percents" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="display-percents">Display percents</h4>
+<h4 class="unnumbered" data-anchor-id="display-percents">Display percents</h4>
 <p>If your original data values are proportions, you can easily display them as percents with “%” by providing <code>labels = scales::percent</code> in your scales command, as shown below.</p>
 <p>While an alternative would be to convert the values to character and add a “%” character to the end, this approach will cause complications because your data will no longer be continuous numeric values.</p>
 <div class="cell">
@@ -2083,7 +2082,7 @@ Tip
 </div>
 </section>
 <section id="log-scale" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="log-scale">Log scale</h4>
+<h4 class="unnumbered" data-anchor-id="log-scale">Log scale</h4>
 <p>To transform a continuous axis to log scale, add <code>trans = "log2"</code> to the scale command. For purposes of example, we create a data frame of regions with their respective <code>preparedness_index</code> and cumulative cases values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
@@ -2135,7 +2134,7 @@ Tip
 </section>
 </section>
 <section id="gradient-scales" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="gradient-scales">Gradient scales</h3>
+<h3 class="unnumbered" data-anchor-id="gradient-scales">Gradient scales</h3>
 <p>Fill gradient scales can involve additional nuance. The defaults are usually quite pleasing, but you may want to adjust the values, cutoffs, etc.</p>
 <p>To demonstrate how to adjust a continuous color scale, we’ll use a data set that contains the ages of cases and of sources in a contact tracing case.</p>
 <div class="cell">
@@ -2217,9 +2216,9 @@ Tip
 </div>
 </section>
 <section id="palettes" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="palettes">Palettes</h3>
+<h3 class="unnumbered" data-anchor-id="palettes">Palettes</h3>
 <section id="colorbrewer-and-viridis" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="colorbrewer-and-viridis">Colorbrewer and Viridis</h4>
+<h4 class="unnumbered" data-anchor-id="colorbrewer-and-viridis">Colorbrewer and Viridis</h4>
 <p>More generally, if you want predefined palettes, you can use the <code>scale_xxx_brewer</code> or <code>scale_xxx_viridis_y</code> functions.</p>
 <p>The ‘brewer’ functions can draw from <a href="colorbrewer.org">colorbrewer.org</a> palettes.</p>
 <p>The ‘viridis’ functions draw from viridis (colourblind friendly!) palettes, which “provide colour maps that are perceptually uniform in both colour and black-and-white. They are also designed to be perceived by viewers with common forms of colour blindness.” (read more <a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">here</a> and <a href="https://bids.github.io/colormap/">here</a>). Define if the palette is discrete, continuous, or binned by specifying this at the end of the function (e.g.&nbsp;discrete is <code>scale_xxx_viridis_d</code>).</p>
@@ -2280,7 +2279,7 @@ Tip
 </section>
 </section>
 <section id="change-order-of-discrete-variables" class="level2">
-<h2 class="anchored" data-anchor-id="change-order-of-discrete-variables">Change order of discrete variables</h2>
+<h2 data-anchor-id="change-order-of-discrete-variables">Change order of discrete variables</h2>
 <p>Changing the order that discrete variables appear in is often difficult to understand for people who are new to <code>ggplot2</code> graphs. It’s easy to understand how to do this however once you understand how <code>ggplot2</code> handles discrete variables under the hood. Generally speaking, if a discrete varaible is used, it is automatically converted to a <code>factor</code> type - which orders factors by alphabetical order by default. To handle this, you simply have to reorder the factor levels to reflect the order you would like them to appear in the chart. For more detailed information on how to reorder <code>factor</code> objects, see the factor section of the guide.</p>
 <p>We can look at a common example using age groups - by default the 5-9 age group will be placed in the middle of the age groups (given alphanumeric order), but we can move it behind the 0-4 age group of the chart by releveling the factors.</p>
 <div class="cell">
@@ -2300,10 +2299,10 @@ Tip
 </div>
 </section>
 <section id="advanced-ggplot-optional" class="level2">
-<h2 class="anchored" data-anchor-id="advanced-ggplot-optional">Advanced ggplot (optional)</h2>
+<h2 data-anchor-id="advanced-ggplot-optional">Advanced ggplot (optional)</h2>
 <p>These are a collection of less common plot types, ggplot2 extensions, and advanced examples of some of the things you can do visualizing data in R.</p>
 <section id="contour-lines" class="level3">
-<h3 class="anchored" data-anchor-id="contour-lines">Contour lines</h3>
+<h3 data-anchor-id="contour-lines">Contour lines</h3>
 <p>Contour plots are helpful when you have many points that might cover each other (“overplotting”). The case-source data used above are again plotted, but more simply using <code>stat_density2d()</code> and <code>stat_density2d_filled()</code> to produce discrete contour levels - like a topographical map. Read more about the statistics <a href="https://ggplot2.tidyverse.org/reference/geom_density_2d.html">here</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>case_source_relationships <span class="sc">%&gt;%</span> </span>
@@ -2328,7 +2327,7 @@ Tip
 </div>
 </section>
 <section id="marginal-distributions" class="level3">
-<h3 class="anchored" data-anchor-id="marginal-distributions">Marginal distributions</h3>
+<h3 data-anchor-id="marginal-distributions">Marginal distributions</h3>
 <p>To show the distributions on the edges of a <code>geom_point()</code> scatterplot, you can use the <strong>ggExtra</strong> package and its function <code>ggMarginal()</code>. Save your original ggplot as an object, then pass it to <code>ggMarginal()</code> as shown below. Here are the key arguments:</p>
 <ul>
 <li>You must specify the <code>type =</code> as either “histogram”, “density” “boxplot”, “violin”, or “densigram”.<br>
@@ -2391,7 +2390,7 @@ Tip
 <!-- ======================================================= -->
 </section>
 <section id="smart-labeling" class="level3">
-<h3 class="anchored" data-anchor-id="smart-labeling">Smart Labeling</h3>
+<h3 data-anchor-id="smart-labeling">Smart Labeling</h3>
 <p>In <strong>ggplot2</strong>, it is also possible to add text to plots. However, this comes with the notable limitation where text labels often clash with data points in a plot, making them look messy or hard to read. There is no ideal way to deal with this in the base package, but there is a <strong>ggplot2</strong> add-on, known as <strong>ggrepel</strong> that makes dealing with this very simple!</p>
 <p>The <strong>ggrepel</strong> package provides two new functions, <code>geom_label_repel()</code> and <code>geom_text_repel()</code>, which replace <code>geom_label()</code> and <code>geom_text()</code>. Simply use these functions instead of the base functions to produce neat labels. Within the function, map the aesthetics <code>aes()</code> as always, but include the argument <code>label =</code> to which you provide a column name containing the values you want to display (e.g.&nbsp;patient id, or name, etc.). You can make more complex labels by combining columns and newlines (<code>\n</code>) within <code>str_glue()</code> as shown below.</p>
 <p>A few tips:</p>
@@ -2475,7 +2474,7 @@ Tip
 <!-- ======================================================= -->
 </section>
 <section id="highlighting" class="level3">
-<h3 class="anchored" data-anchor-id="highlighting">Highlighting</h3>
+<h3 data-anchor-id="highlighting">Highlighting</h3>
 <p>Highlighting specific elements in a chart is a useful way to draw attention to a specific instance of a variable while also providing information on the dispersion of the full dataset. While this is not easily done in base <strong>ggplot2</strong>, there is an external package that can help to do this known as <strong>gghighlight</strong>. This is easy to use within the ggplot syntax.</p>
 <p>The <strong>gghighlight</strong> package uses the <code>gghighlight()</code> function to achieve this effect. To use this function, supply a logical statement to the function - this can have quite flexible outcomes, but here we’ll show an example of the age distribution of cases in our linelist, highlighting them by outcome.</p>
 <div class="cell">
@@ -2513,7 +2512,7 @@ Tip
 </div>
 </section>
 <section id="plotting-multiple-datasets" class="level3">
-<h3 class="anchored" data-anchor-id="plotting-multiple-datasets">Plotting multiple datasets</h3>
+<h3 data-anchor-id="plotting-multiple-datasets">Plotting multiple datasets</h3>
 <p>Note that properly aligning axes to plot from multiple datasets in the same plot can be difficult. Consider one of the following strategies:</p>
 <ul>
 <li>Merge the data prior to plotting, and convert to “long” format with a column reflecting the dataset<br>
@@ -2523,7 +2522,7 @@ Tip
 <!-- ======================================================= -->
 </section>
 <section id="combine-plots" class="level3">
-<h3 class="anchored" data-anchor-id="combine-plots">Combine plots</h3>
+<h3 data-anchor-id="combine-plots">Combine plots</h3>
 <p>Two packages that are very useful for combining plots are <strong>cowplot</strong> and <strong>patchwork</strong>. In this page we will mostly focus on <strong>cowplot</strong>, with occassional use of <strong>patchwork</strong>.</p>
 <p>Here is the online <a href="https://cran.r-project.org/web/packages/cowplot/vignettes/introduction.html">introduction to cowplot</a>. You can read the more extensive documentation for each function online <a href="https://www.rdocumentation.org/packages/cowplot/versions/1.1.1">here</a>. We will cover a few of the most common use cases and functions below.</p>
 <p>The <strong>cowplot</strong> package works in tandem with <strong>ggplot2</strong> - essentially, you use it to arrange and combine ggplots and their legends into compound figures. It can also accept <strong>base</strong> R graphics.</p>
@@ -2536,7 +2535,7 @@ Tip
 </div>
 <p>While faceting is a convenient approach to plotting, sometimes its not possible to get the results you want from its relatively restrictive approach. Here, you may choose to combine plots by sticking them together into a larger plot. There are three well known packages that are great for this - <strong>cowplot</strong>, <strong>gridExtra</strong>, and <strong>patchwork</strong>. However, these packages largely do the same things, so we’ll focus on <strong>cowplot</strong> for this section.</p>
 <section id="plot_grid" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="plot_grid"><code>plot_grid()</code></h4>
+<h4 class="unnumbered" data-anchor-id="plot_grid"><code>plot_grid()</code></h4>
 <p>The <strong>cowplot</strong> package has a fairly wide range of functions, but the easiest use of it can be achieved through the use of <code>plot_grid()</code>. This is effectively a way to arrange predefined plots in a grid formation. We can work through another example with the malaria dataset - here we can plot the total cases by district, and also show the epidemic curve over time.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>malaria_data <span class="ot">&lt;-</span> rio<span class="sc">::</span><span class="fu">import</span>(<span class="st">"data/malaria_facility_count_data.rds"</span>)</span>
@@ -2572,7 +2571,7 @@ Tip
 </div>
 </section>
 <section id="combine-legends" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="combine-legends">Combine legends</h4>
+<h4 class="unnumbered" data-anchor-id="combine-legends">Combine legends</h4>
 <p>If your plots have the same legend, combining them is relatively straight-forward. Simple use the <strong>cowplot</strong> approach above to combine the plots, but remove the legend from one of them (de-duplicate).</p>
 <p>If your plots have different legends, you must use an alternative approach:</p>
 <ol type="1">
@@ -2676,7 +2675,7 @@ Tip
 <p><span style="color: darkgreen;"><strong><em>TIP:</em></strong> Fun note - the “cow” in <strong>cowplot</strong> comes from the creator’s name - Claus O. Wilke.</span></p>
 </section>
 <section id="inset-plots" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="inset-plots">Inset plots</h4>
+<h4 class="unnumbered" data-anchor-id="inset-plots">Inset plots</h4>
 <p>You can inset one plot in another using <strong>cowplot</strong>. Here are things to be aware of:</p>
 <ul>
 <li>Define the main plot with <code>theme_half_open()</code> from <strong>cowplot</strong>; it may be best to have the legend either on top or bottom<br>
@@ -2864,13 +2863,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

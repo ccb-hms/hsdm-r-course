@@ -1,9 +1,8 @@
 ---
-title: "Week 2 Notebook"
+title: "Week 8: Putting it all together"
 author: "Center for Computational Biomedicine"
 format: 
-  html: 
-    anchor-sections: true
+  html: default
 code-annotations: select
 ---
 

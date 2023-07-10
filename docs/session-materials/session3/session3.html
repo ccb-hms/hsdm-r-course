@@ -8,7 +8,7 @@
 
 <meta name="author" content="Center for Computational Biomedicine">
 
-<title>Research Design and Analysis - Week 3 Notebook</title>
+<title>Research Design and Analysis - Week 3: Plotting</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -68,7 +68,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -145,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../session-materials/session3/session3.html">Week 3 Notebook</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../session-materials/session3/session3.html">Week 3: Plotting</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -166,43 +165,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session2/session2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 2 Notebook</span></a>
+ <span class="menu-text">Week 2: Markdown and introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session3/session3.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Week 3 Notebook</span></a>
+ <span class="menu-text">Week 3: Plotting</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session4/session4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 4 Notebook</span></a>
+ <span class="menu-text">Week 4: Preparing Data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session5/session5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 5 Notebook</span></a>
+ <span class="menu-text">Week 5: Exploring survey data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session6/session6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 6 Notebook</span></a>
+ <span class="menu-text">Week 6: Statistical tests and basic regression</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session7/session7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 7 Notebook</span></a>
+ <span class="menu-text">Week 7: Advanced regression</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session8/session8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 2 Notebook</span></a>
+ <span class="menu-text">Week 8: Putting it all together</span></a>
   </div>
 </li>
     </ul>
@@ -228,7 +227,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 3 Notebook</h1>
+<h1 class="title">Week 3: Plotting</h1>
 </div>
 
 
@@ -275,7 +274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="1" data-code-cell="annotated-cell-3" data-code-annotation="1"><code>data</code> and <code>mapping</code> are positional arguments in the <code>ggplot</code> function, so we don’t have to name them. However, it can be good practice to include the argument names so that it’s immediately obvious what each argument is.</span>
+<span data-code-cell="annotated-cell-3" data-code-annotation="1" data-code-lines="1"><code>data</code> and <code>mapping</code> are positional arguments in the <code>ggplot</code> function, so we don’t have to name them. However, it can be good practice to include the argument names so that it’s immediately obvious what each argument is.</span>
 </dd>
 </dl>
 </div>
@@ -671,13 +670,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

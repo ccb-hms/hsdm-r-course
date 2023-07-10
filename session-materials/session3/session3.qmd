@@ -1,9 +1,8 @@
 ---
-title: "Week 3 Notebook"
+title: "Week 3: Plotting"
 author: "Center for Computational Biomedicine"
 format: 
-  html: 
-    anchor-sections: true
+  html: default
 code-annotations: select
 ---
 

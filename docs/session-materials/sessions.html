@@ -33,7 +33,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -65,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -105,31 +104,79 @@ ul.task-list li input[type="checkbox"] {
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../session-materials/sessions.html">Sessions</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#sessions" id="toc-sessions" class="nav-link active" data-scroll-target="#sessions">Sessions</a>
-  <ul class="collapse">
-  <li><a href="#week-2-getting-started-with-data" id="toc-week-2-getting-started-with-data" class="nav-link" data-scroll-target="#week-2-getting-started-with-data">Week 2: Getting started with data</a></li>
-  <li><a href="#week-3-data-visualization" id="toc-week-3-data-visualization" class="nav-link" data-scroll-target="#week-3-data-visualization">Week 3: Data visualization</a></li>
-  <li><a href="#week-4-managing-data" id="toc-week-4-managing-data" class="nav-link" data-scroll-target="#week-4-managing-data">Week 4: Managing data</a></li>
-  <li><a href="#week-5-descriptive-statistics-and-exploratory-data-analysis" id="toc-week-5-descriptive-statistics-and-exploratory-data-analysis" class="nav-link" data-scroll-target="#week-5-descriptive-statistics-and-exploratory-data-analysis">Week 5: Descriptive statistics and exploratory data analysis</a></li>
-  <li><a href="#week-6-statistical-tests-and-simple-regression" id="toc-week-6-statistical-tests-and-simple-regression" class="nav-link" data-scroll-target="#week-6-statistical-tests-and-simple-regression">Week 6: Statistical tests and simple regression</a></li>
-  <li><a href="#week-7-regression-analysis" id="toc-week-7-regression-analysis" class="nav-link" data-scroll-target="#week-7-regression-analysis">Week 7: Regression analysis</a></li>
-  <li><a href="#week-8-advanced-data-wrangling-and-accessing-nhanes-data" id="toc-week-8-advanced-data-wrangling-and-accessing-nhanes-data" class="nav-link" data-scroll-target="#week-8-advanced-data-wrangling-and-accessing-nhanes-data">Week 8: Advanced data wrangling and accessing NHANES data</a></li>
-  </ul></li>
-  </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="sessions.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../session-materials/sessions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Sessions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../session-materials/session2/session2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 2: Markdown and introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../session-materials/session3/session3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 3: Plotting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../session-materials/session4/session4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 4: Preparing Data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../session-materials/session5/session5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 5: Exploring survey data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../session-materials/session6/session6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 6: Statistical tests and basic regression</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../session-materials/session7/session7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 7: Advanced regression</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../session-materials/session8/session8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Week 8: Putting it all together</span></a>
+  </div>
+</li>
+    </ul>
     </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-right" id="quarto-document-content">
 
 
 
@@ -138,31 +185,31 @@ ul.task-list li input[type="checkbox"] {
 <p>This set of pages contains the in-class materials we will be using.</p>
 <p>You can browse the materials for each week on this website, but for class you need to download these materials and datasets.</p>
 <section id="week-2-getting-started-with-data" class="level3">
-<h3 class="anchored" data-anchor-id="week-2-getting-started-with-data">Week 2: Getting started with data</h3>
+<h3 data-anchor-id="week-2-getting-started-with-data">Week 2: Getting started with data</h3>
 <p><a href="https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session2">Download Week 1 Materials Here</a></p>
 </section>
 <section id="week-3-data-visualization" class="level3">
-<h3 class="anchored" data-anchor-id="week-3-data-visualization">Week 3: Data visualization</h3>
+<h3 data-anchor-id="week-3-data-visualization">Week 3: Data visualization</h3>
 <p><a href="https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session3">Download Week 2 Materials Here</a></p>
 </section>
 <section id="week-4-managing-data" class="level3">
-<h3 class="anchored" data-anchor-id="week-4-managing-data">Week 4: Managing data</h3>
+<h3 data-anchor-id="week-4-managing-data">Week 4: Managing data</h3>
 <p><a href="https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session4">Download Week 3 Materials Here</a></p>
 </section>
 <section id="week-5-descriptive-statistics-and-exploratory-data-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="week-5-descriptive-statistics-and-exploratory-data-analysis">Week 5: Descriptive statistics and exploratory data analysis</h3>
+<h3 data-anchor-id="week-5-descriptive-statistics-and-exploratory-data-analysis">Week 5: Descriptive statistics and exploratory data analysis</h3>
 <p><a href="https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session5">Download Week 3 Materials Here</a></p>
 </section>
 <section id="week-6-statistical-tests-and-simple-regression" class="level3">
-<h3 class="anchored" data-anchor-id="week-6-statistical-tests-and-simple-regression">Week 6: Statistical tests and simple regression</h3>
+<h3 data-anchor-id="week-6-statistical-tests-and-simple-regression">Week 6: Statistical tests and simple regression</h3>
 <p><a href="https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session6">Download Week 3 Materials Here</a></p>
 </section>
 <section id="week-7-regression-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="week-7-regression-analysis">Week 7: Regression analysis</h3>
+<h3 data-anchor-id="week-7-regression-analysis">Week 7: Regression analysis</h3>
 <p><a href="https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session7">Download Week 3 Materials Here</a></p>
 </section>
 <section id="week-8-advanced-data-wrangling-and-accessing-nhanes-data" class="level3">
-<h3 class="anchored" data-anchor-id="week-8-advanced-data-wrangling-and-accessing-nhanes-data">Week 8: Advanced data wrangling and accessing NHANES data</h3>
+<h3 data-anchor-id="week-8-advanced-data-wrangling-and-accessing-nhanes-data">Week 8: Advanced data wrangling and accessing NHANES data</h3>
 <p><a href="https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session8">Download Week 3 Materials Here</a></p>
 
 
@@ -305,13 +352,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

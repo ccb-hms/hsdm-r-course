@@ -67,7 +67,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -368,15 +367,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Survey analysis</h1>
 <!-- ======================================================= -->
 <section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<h2 data-anchor-id="overview">Overview</h2>
 <p>Ideally, survey respondents represent a completely random sample of the study population. However, this is rarely the case. Selection bias, non-random patterns in who responds to a survey, as well as other biases can influence the demographic makeup of survey respondents to be different than that of the study population. To help combat this large-scale surveys, include NHANES, often include <strong>survey weights</strong>.</p>
 <p>In this chapter, we will use survey weights to calculate estimated statistics for an entire population based on a survey sample. Most survey R packages rely on the <a href="https://cran.r-project.org/web/packages/survey/index.html"><strong>survey</strong> package</a> for doing weighted analysis.</p>
 <!-- ======================================================= -->
 </section>
 <section id="preparation" class="level2">
-<h2 class="anchored" data-anchor-id="preparation">Preparation</h2>
+<h2 data-anchor-id="preparation">Preparation</h2>
 <section id="packages" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="packages">Packages</h3>
+<h3 class="unnumbered" data-anchor-id="packages">Packages</h3>
 <p>This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize <code>p_load()</code> from <strong>pacman</strong>, which installs the package if necessary <em>and</em> loads it for use. You can also load packages with <code>library()</code> from <strong>base</strong> R. See the page on [R basics] for more information on R packages.<br>
 Here we also demonstrate using the <code>p_load_gh()</code> function from <strong>pacman</strong> to install a load a package from github which has not yet been published on CRAN.</p>
 <div class="cell">
@@ -399,7 +398,7 @@ Here we also demonstrate using the <code>p_load_gh()</code> function from <stron
 </div>
 </section>
 <section id="load-data" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="load-data">Load data</h3>
+<h3 class="unnumbered" data-anchor-id="load-data">Load data</h3>
 <p>The example dataset used in this section:</p>
 <ul>
 <li>fictional mortality survey data.</li>
@@ -420,8 +419,8 @@ Here we also demonstrate using the <code>p_load_gh()</code> function from <stron
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5d7be979132773722487" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5d7be979132773722487">{"x":{"filter":"none","vertical":false,"data":[[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["2018-04-15T00:00:00Z","2018-03-04T00:00:00Z","2018-04-16T00:00:00Z","2018-01-23T00:00:00Z","2018-01-09T00:00:00Z","2018-03-07T00:00:00Z","2018-02-18T00:00:00Z","2018-04-12T00:00:00Z","2018-04-17T00:00:00Z","2018-01-05T00:00:00Z"],[null,null,null,null,null,null,null,null,null,null],["village_1","village_1","village_10","village_5","village_3","village_8","other","village_7","village_4","village_2"],[null,null,null,null,null,null,null,null,null,null],[1,1,10,5,3,8,11,7,4,2],[9,1,15,6,18,14,17,16,13,14],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["yes","no","no","yes","no","yes","no","yes","yes","yes"],[null,"no_benefit","neg_experience",null,"other",null,"no_benefit",null,null,null],[null,null,null,null,null,null,null,null,null,null],[6,null,null,8,null,5,null,6,5,5],["female",null,null,"female",null,"male",null,"male","male","female"],[26,null,null,3,null,22,null,33,96,18],[null,null,null,36,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no",null,null,"no",null,"yes",null,"yes","yes","yes"],["yes",null,null,null,null,"yes",null,"no","no","no"],["secondary",null,null,null,null,"secondary",null,null,null,null],["no",null,null,"no",null,"yes",null,"no","yes","yes"],[null,null,null,null,null,"yes",null,null,"no","no"],["yes",null,null,null,null,null,null,null,null,"yes"],["no",null,null,"no",null,"yes",null,"yes","no","yes"],["yes",null,null,"no",null,"no",null,"no","yes","yes"],["no",null,null,null,null,null,null,null,"no","no"],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"no",null,"no",null,"yes","no","no"],["no",null,null,null,null,null,null,"no",null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no","no","no","no","no","no","no","no","yes","no"],[null,null,null,null,null,null,null,null,"no",null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,"dont_know",null],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"yes",null,"no",null,"yes","no","no"],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["sexual",null,null,"sexual",null,null,null,"shot",null,null],["0",null,null,"0",null,null,null,"0",null,null],["1",null,null,"1",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"1",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],[9,1,183,83,58,146,205,130,72,33],[1,1,1,1,1,1,1,1,1,1],["9_1","1_1","183_1","83_1","58_1","146_1","205_1","130_1","72_1","33_1"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>start<\/th>\n      <th>end<\/th>\n      <th>today<\/th>\n      <th>deviceid<\/th>\n      <th>date<\/th>\n      <th>team_number<\/th>\n      <th>village_name<\/th>\n      <th>village_other<\/th>\n      <th>cluster_number<\/th>\n      <th>household_number<\/th>\n      <th>households_building<\/th>\n      <th>random_hh<\/th>\n      <th>random_hh_note<\/th>\n      <th>consent<\/th>\n      <th>no_consent_reason<\/th>\n      <th>no_consent_other<\/th>\n      <th>member_number<\/th>\n      <th>sex<\/th>\n      <th>age_years<\/th>\n      <th>age_months_calc<\/th>\n      <th>age_months<\/th>\n      <th>bednet<\/th>\n      <th>read_write<\/th>\n      <th>education_level<\/th>\n      <th>measles_vaccination<\/th>\n      <th>vaccination_card<\/th>\n      <th>pregnant<\/th>\n      <th>malaria_treatment<\/th>\n      <th>arrived<\/th>\n      <th>remember_arrival<\/th>\n      <th>arrived_date<\/th>\n      <th>left<\/th>\n      <th>remember_departure<\/th>\n      <th>left_date<\/th>\n      <th>born<\/th>\n      <th>remember_dob<\/th>\n      <th>birthday_date<\/th>\n      <th>died<\/th>\n      <th>remember_death<\/th>\n      <th>death_date<\/th>\n      <th>cause<\/th>\n      <th>cause_other<\/th>\n      <th>violent_episode<\/th>\n      <th>violent_episodes_number<\/th>\n      <th>violence_nature_other<\/th>\n      <th>violence_nature<\/th>\n      <th>violence_nature/beaten<\/th>\n      <th>violence_nature/sexual<\/th>\n      <th>violence_nature/shot<\/th>\n      <th>violence_nature/detained_kidnapped<\/th>\n      <th>violence_nature/other<\/th>\n      <th>violence_nature/no_response<\/th>\n      <th>index<\/th>\n      <th>index_y<\/th>\n      <th>uid<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[8,9,16,18,19,20,52,53]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-af9f96a38bbaafb922f5" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-af9f96a38bbaafb922f5">{"x":{"filter":"none","vertical":false,"data":[[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["2018-04-15T00:00:00Z","2018-03-04T00:00:00Z","2018-04-16T00:00:00Z","2018-01-23T00:00:00Z","2018-01-09T00:00:00Z","2018-03-07T00:00:00Z","2018-02-18T00:00:00Z","2018-04-12T00:00:00Z","2018-04-17T00:00:00Z","2018-01-05T00:00:00Z"],[null,null,null,null,null,null,null,null,null,null],["village_1","village_1","village_10","village_5","village_3","village_8","other","village_7","village_4","village_2"],[null,null,null,null,null,null,null,null,null,null],[1,1,10,5,3,8,11,7,4,2],[9,1,15,6,18,14,17,16,13,14],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["yes","no","no","yes","no","yes","no","yes","yes","yes"],[null,"no_benefit","neg_experience",null,"other",null,"no_benefit",null,null,null],[null,null,null,null,null,null,null,null,null,null],[6,null,null,8,null,5,null,6,5,5],["female",null,null,"female",null,"male",null,"male","male","female"],[26,null,null,3,null,22,null,33,96,18],[null,null,null,36,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no",null,null,"no",null,"yes",null,"yes","yes","yes"],["yes",null,null,null,null,"yes",null,"no","no","no"],["secondary",null,null,null,null,"secondary",null,null,null,null],["no",null,null,"no",null,"yes",null,"no","yes","yes"],[null,null,null,null,null,"yes",null,null,"no","no"],["yes",null,null,null,null,null,null,null,null,"yes"],["no",null,null,"no",null,"yes",null,"yes","no","yes"],["yes",null,null,"no",null,"no",null,"no","yes","yes"],["no",null,null,null,null,null,null,null,"no","no"],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"no",null,"no",null,"yes","no","no"],["no",null,null,null,null,null,null,"no",null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["no","no","no","no","no","no","no","no","yes","no"],[null,null,null,null,null,null,null,null,"no",null],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,"dont_know",null],[null,null,null,null,null,null,null,null,null,null],["yes",null,null,"yes",null,"no",null,"yes","no","no"],[null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null],["sexual",null,null,"sexual",null,null,null,"shot",null,null],["0",null,null,"0",null,null,null,"0",null,null],["1",null,null,"1",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"1",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],["0",null,null,"0",null,null,null,"0",null,null],[9,1,183,83,58,146,205,130,72,33],[1,1,1,1,1,1,1,1,1,1],["9_1","1_1","183_1","83_1","58_1","146_1","205_1","130_1","72_1","33_1"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>start<\/th>\n      <th>end<\/th>\n      <th>today<\/th>\n      <th>deviceid<\/th>\n      <th>date<\/th>\n      <th>team_number<\/th>\n      <th>village_name<\/th>\n      <th>village_other<\/th>\n      <th>cluster_number<\/th>\n      <th>household_number<\/th>\n      <th>households_building<\/th>\n      <th>random_hh<\/th>\n      <th>random_hh_note<\/th>\n      <th>consent<\/th>\n      <th>no_consent_reason<\/th>\n      <th>no_consent_other<\/th>\n      <th>member_number<\/th>\n      <th>sex<\/th>\n      <th>age_years<\/th>\n      <th>age_months_calc<\/th>\n      <th>age_months<\/th>\n      <th>bednet<\/th>\n      <th>read_write<\/th>\n      <th>education_level<\/th>\n      <th>measles_vaccination<\/th>\n      <th>vaccination_card<\/th>\n      <th>pregnant<\/th>\n      <th>malaria_treatment<\/th>\n      <th>arrived<\/th>\n      <th>remember_arrival<\/th>\n      <th>arrived_date<\/th>\n      <th>left<\/th>\n      <th>remember_departure<\/th>\n      <th>left_date<\/th>\n      <th>born<\/th>\n      <th>remember_dob<\/th>\n      <th>birthday_date<\/th>\n      <th>died<\/th>\n      <th>remember_death<\/th>\n      <th>death_date<\/th>\n      <th>cause<\/th>\n      <th>cause_other<\/th>\n      <th>violent_episode<\/th>\n      <th>violent_episodes_number<\/th>\n      <th>violence_nature_other<\/th>\n      <th>violence_nature<\/th>\n      <th>violence_nature/beaten<\/th>\n      <th>violence_nature/sexual<\/th>\n      <th>violence_nature/shot<\/th>\n      <th>violence_nature/detained_kidnapped<\/th>\n      <th>violence_nature/other<\/th>\n      <th>violence_nature/no_response<\/th>\n      <th>index<\/th>\n      <th>index_y<\/th>\n      <th>uid<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[8,9,16,18,19,20,52,53]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>We also want to import the data on sampling population so that we can produce appropriate weights. This data can be in different formats, however we would suggest to have it as seen below (this can just be typed in to an excel).</p>
@@ -433,8 +432,8 @@ Here we also demonstrate using the <code>p_load_gh()</code> function from <stron
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-61b4e7117283a90ba965" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-61b4e7117283a90ba965">{"x":{"filter":"none","vertical":false,"data":[["0-2","3-14","15-29","30-44","45+","0-2","3-14","15-29","30-44","45+"],["male","male","male","male","male","female","female","female","female","female"],[0.034,0.1811,0.138,0.0808,0.0661,0.034,0.1811,0.138,0.0808,0.0661],[340,1811,1380,808,661,340,1811,1380,808,661],["district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_group<\/th>\n      <th>sex<\/th>\n      <th>proportions<\/th>\n      <th>population<\/th>\n      <th>health_district<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f74b020aa4cd353b1030" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f74b020aa4cd353b1030">{"x":{"filter":"none","vertical":false,"data":[["0-2","3-14","15-29","30-44","45+","0-2","3-14","15-29","30-44","45+"],["male","male","male","male","male","female","female","female","female","female"],[0.034,0.1811,0.138,0.0808,0.0661,0.034,0.1811,0.138,0.0808,0.0661],[340,1811,1380,808,661,340,1811,1380,808,661],["district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a","district_a"]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_group<\/th>\n      <th>sex<\/th>\n      <th>proportions<\/th>\n      <th>population<\/th>\n      <th>health_district<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[2,3]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>For cluster surveys you may want to add survey weights at the cluster level. You could read this data in as above. Alternatively if there are only a few counts, these could be entered as below in to a tibble. In any case you will need to have one column with a cluster identifier which matches your survey data, and another column with the number of households in each cluster.</p>
@@ -448,7 +447,7 @@ Here we also demonstrate using the <code>p_load_gh()</code> function from <stron
 </div>
 </section>
 <section id="clean-data" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="clean-data">Clean data</h3>
+<h3 class="unnumbered" data-anchor-id="clean-data">Clean data</h3>
 <p>The below makes sure that the date column is in the appropriate format. There are several other ways of doing this, however using the dictionary to define dates is quick and easy.</p>
 <p>We also create an age group variable using the <code>age_categories()</code> function from <strong>epikit</strong>. In addition, we create a character variable defining which district the various clusters are in. Finally, we recode all of the yes/no variables to TRUE/FALSE variables - otherwise these cant be used by the <strong>survey</strong> proportion functions.</p>
 <div class="cell">
@@ -515,7 +514,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </section>
 </section>
 <section id="survey-data" class="level2">
-<h2 class="anchored" data-anchor-id="survey-data">Survey data</h2>
+<h2 data-anchor-id="survey-data">Survey data</h2>
 <p>There numerous different sampling designs that can be used for surveys. Here we will demonstrate code for: - Stratified - Cluster - Stratified and cluster</p>
 <p>As described above (depending on how you design your questionnaire) the data for each level would be exported as a separate dataset. In our example there is one level for households and one level for individuals within those households.</p>
 <p>These two levels are linked by a unique identifier. For a Kobo dataset this variable is “_index” at the household level, which matches the “_parent_index” at the individual level. This will create new rows for household with each matching individual, see the handbook section on <a href="https://epirhandbook.com/joining-data.html">joining</a> for details.</p>
@@ -533,7 +532,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <!-- ======================================================= -->
 </section>
 <section id="observation-time" class="level2">
-<h2 class="anchored" data-anchor-id="observation-time">Observation time</h2>
+<h2 data-anchor-id="observation-time">Observation time</h2>
 <p>For mortality surveys we want to now how long each individual was present for in the location to be able to calculate an appropriate mortality rate for our period of interest. This is not relevant to all surveys, but particularly for mortality surveys this is important as they are conducted frequently among mobile or displaced populations.</p>
 <p>To do this we first define our time period of interest, also known as a recall period (i.e.&nbsp;the time that participants are asked to report on when answering questions). We can then use this period to set inappropriate dates to missing, i.e.&nbsp;if deaths are reported from outside the period of interest.</p>
 <div class="cell">
@@ -614,7 +613,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <!-- ======================================================= -->
 </section>
 <section id="weighting" class="level2">
-<h2 class="anchored" data-anchor-id="weighting">Weighting</h2>
+<h2 data-anchor-id="weighting">Weighting</h2>
 <p>It is important that you drop erroneous observations before adding survey weights. For example if you have observations with negative observation time, you will need to check those (you can do this with the <code>assert_positive_timespan()</code> function from <strong>sitrep</strong>. Another thing is if you want to drop empty rows (e.g.&nbsp;with <code>drop_na(uid)</code>) or remove duplicates (see handbook section on [De-duplication] for details). Those without consent need to be dropped too.</p>
 <p>In this example we filter for the cases we want to drop and store them in a separate data frame - this way we can describe those that were excluded from the survey. We then use the <code>anti_join()</code> function from <strong>dplyr</strong> to remove these dropped cases from our survey data.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -681,13 +680,13 @@ Warning
 <!-- ======================================================= -->
 </section>
 <section id="survey-design-objects" class="level2">
-<h2 class="anchored" data-anchor-id="survey-design-objects">Survey design objects</h2>
+<h2 data-anchor-id="survey-design-objects">Survey design objects</h2>
 <p>Create survey object according to your study design. Used the same way as data frames to calculate weight proportions etc. Make sure that all necessary variables are created before this.</p>
 <p>There are four options, comment out those you do not use: - Simple random - Stratified - Cluster - Stratified cluster</p>
 <p>For this template - we will pretend that we cluster surveys in two separate strata (health districts A and B). So to get overall estimates we need have combined cluster and strata weights.</p>
 <p>As mentioned previously, there are two packages available for doing this. The classic one is <strong>survey</strong> and then there is a wrapper package called <strong>srvyr</strong> that makes tidyverse-friendly objects and functions. We will demonstrate both, but note that most of the code in this chapter will use <strong>srvyr</strong> based objects. The one exception is that the <strong>gtsummary</strong> package only accepts <strong>survey</strong> objects.</p>
 <section id="survey-package" class="level3">
-<h3 class="anchored" data-anchor-id="survey-package"><strong>Survey</strong> package</h3>
+<h3 data-anchor-id="survey-package"><strong>Survey</strong> package</h3>
 <p>The <strong>survey</strong> package effectively uses <strong>base</strong> <em>R</em> coding, and so it is not possible to use pipes (<code>%&gt;%</code>) or other <strong>dplyr</strong> syntax. With the <strong>survey</strong> package we use the <code>svydesign()</code> function to define a survey object with appropriate clusters, weights and strata.</p>
 <p><span style="color: black;"><strong><em>NOTE:</em></strong> we need to use the tilde (<code>~</code>) in front of variables, this is because the package uses the <strong>base</strong> <em>R</em> syntax of assigning variables based on formulae. </span></p>
 <div class="cell">
@@ -723,7 +722,7 @@ Warning
 </section>
 </section>
 <section id="descriptive-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="descriptive-analysis">Descriptive analysis</h2>
+<h2 data-anchor-id="descriptive-analysis">Descriptive analysis</h2>
 <p>In this section we will focus on how to investigate and visualize bias in a sample. We will also look at visualising population flow in a survey setting using alluvial/sankey diagrams.</p>
 <p>In general, you should consider including the following descriptive analyses:</p>
 <ul>
@@ -733,7 +732,7 @@ Warning
 <li>Median (range) number of households per cluster and individuals per household</li>
 </ul>
 <section id="sampling-bias" class="level3">
-<h3 class="anchored" data-anchor-id="sampling-bias">Sampling bias</h3>
+<h3 data-anchor-id="sampling-bias">Sampling bias</h3>
 <p>Compare the proportions in each age group between your sample and the source population. This is important to be able to highlight potential sampling bias. You could similarly repeat this looking at distributions by sex.</p>
 <p>Note that these p-values are just indicative, and a descriptive discussion (or visualisation with age-pyramids below) of the distributions in your study sample compared to the source population is more important than the binomial test itself. This is because increasing sample size will more often than not lead to differences that may be irrelevant after weighting your data.</p>
 <div class="cell">
@@ -801,10 +800,10 @@ Warning
 </section>
 </section>
 <section id="weighted-proportions" class="level2">
-<h2 class="anchored" data-anchor-id="weighted-proportions">Weighted proportions</h2>
+<h2 data-anchor-id="weighted-proportions">Weighted proportions</h2>
 <p>This section will detail how to produce tables for weighted counts and proportions, with associated confidence intervals and design effect.</p>
 <section id="survey-package-1" class="level3">
-<h3 class="anchored" data-anchor-id="survey-package-1"><strong>Survey</strong> package</h3>
+<h3 data-anchor-id="survey-package-1"><strong>Survey</strong> package</h3>
 <p>We can use the <code>svyciprop()</code> function from <strong>survey</strong> to get weighted proportions and accompanying 95% confidence intervals. An appropriate design effect can be extracted using the <code>svymean()</code> rather than <code>svyprop()</code> function. It is worth noting that <code>svyprop()</code> only appears to accept variables between 0 and 1 (or TRUE/FALSE), so categorical variables will not work.</p>
 <p><span style="color: black;"><strong><em>NOTE:</em></strong> Functions from <strong>survey</strong> also accept <strong>srvyr</strong> design objects, but here we have used the <strong>survey</strong> design object just for consistency </span></p>
 <div class="cell">
@@ -890,10 +889,10 @@ died 0.0514 0.0208  0.12</code></pre>
 </section>
 </section>
 <section id="weighted-ratios" class="level2">
-<h2 class="anchored" data-anchor-id="weighted-ratios">Weighted ratios</h2>
+<h2 data-anchor-id="weighted-ratios">Weighted ratios</h2>
 <p>Similarly for weighted ratios (such as for mortality ratios) you can use <code>survey:::svyratio</code>:</p>
 <section id="survey-package-2" class="level3">
-<h3 class="anchored" data-anchor-id="survey-package-2"><strong>Survey</strong> package</h3>
+<h3 data-anchor-id="survey-package-2"><strong>Survey</strong> package</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ratio <span class="ot">&lt;-</span> <span class="fu">svyratio</span>(<span class="sc">~</span>died, </span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">denominator =</span> <span class="sc">~</span>obstime, </span>
@@ -1052,13 +1051,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

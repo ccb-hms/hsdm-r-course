@@ -33,7 +33,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -311,22 +310,22 @@ ul.task-list li input[type="checkbox"] {
 <p>In this module of the course, we will be learning how to use R to analyze data. This workbook will contain pre-class readings, in-class materials, and links to additional resources.</p>
 <p>Most of this workbook has been adapted from <a href="https://epirhandbook.com/en/index.html">The Epidemiologist R Handbook</a>. You can find more details at the bottom of this page.</p>
 <section id="why-learn-r" class="level2">
-<h2 class="anchored" data-anchor-id="why-learn-r">Why learn R?</h2>
+<h2 data-anchor-id="why-learn-r">Why learn R?</h2>
 <p>As stated on the <a href="https://www.r-project.org/about.html">R project website</a>, R is a programming language and environment for statistical computing and graphics. It is highly versatile, extendable, and community-driven.</p>
 <section id="r-does-not-involve-lots-of-pointing-and-clicking-and-thats-a-good-thing" class="level3">
-<h3 class="anchored" data-anchor-id="r-does-not-involve-lots-of-pointing-and-clicking-and-thats-a-good-thing">R does not involve lots of pointing and clicking, and that’s a good thing</h3>
+<h3 data-anchor-id="r-does-not-involve-lots-of-pointing-and-clicking-and-thats-a-good-thing">R does not involve lots of pointing and clicking, and that’s a good thing</h3>
 <p>The learning curve might be steeper than with other software, but with R, the results of your analysis do not rely on remembering a succession of pointing and clicking, but instead on a series of written commands, and that’s a good thing! So, if you want to redo your analysis because you collected more data, you don’t have to remember which button you clicked in which order to obtain your results; you just have to run your script again.</p>
 <p>Working with scripts makes the steps you used in your analysis clear, and the code you write can be inspected by someone else who can give you feedback and spot mistakes.</p>
 <p>Working with scripts forces you to have a deeper understanding of what you are doing, and facilitates your learning and comprehension of the methods you use.</p>
 </section>
 <section id="r-code-is-great-for-reproducibility" class="level3">
-<h3 class="anchored" data-anchor-id="r-code-is-great-for-reproducibility">R code is great for reproducibility</h3>
+<h3 data-anchor-id="r-code-is-great-for-reproducibility">R code is great for reproducibility</h3>
 <p>Reproducibility means that someone else (including your future self) can obtain the same results from the same dataset when using the same analysis code.</p>
 <p>R integrates with other tools to generate manuscripts or reports from your code. If you collect more data, or fix a mistake in your dataset, the figures and the statistical tests in your manuscript or report are updated automatically.</p>
 <p>An increasing number of journals and funding agencies expect analyses to be reproducible, so knowing R will give you an edge with these requirements.</p>
 </section>
 <section id="r-is-interdisciplinary-and-extensible" class="level3">
-<h3 class="anchored" data-anchor-id="r-is-interdisciplinary-and-extensible">R is interdisciplinary and extensible</h3>
+<h3 data-anchor-id="r-is-interdisciplinary-and-extensible">R is interdisciplinary and extensible</h3>
 <p>With 10000+ packages<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> that can be installed to extend its capabilities, R provides a framework that allows you to combine statistical approaches from many scientific disciplines to best suit the analytical framework you need to analyse your data. For instance, R has packages for image analysis, GIS, time series, population genetics, and a lot more.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -340,26 +339,26 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </section>
 <section id="r-works-on-data-of-all-shapes-and-sizes" class="level3">
-<h3 class="anchored" data-anchor-id="r-works-on-data-of-all-shapes-and-sizes">R works on data of all shapes and sizes</h3>
+<h3 data-anchor-id="r-works-on-data-of-all-shapes-and-sizes">R works on data of all shapes and sizes</h3>
 <p>The skills you learn with R scale easily with the size of your dataset. Whether your dataset has hundreds or millions of lines, it won’t make much difference to you.</p>
 <p>R is designed for data analysis. It comes with special data structures and data types that make handling of missing data and statistical factors convenient.</p>
 <p>R can connect to spreadsheets, databases, and many other data formats, on your computer or on the web.</p>
 </section>
 <section id="r-produces-high-quality-graphics" class="level3">
-<h3 class="anchored" data-anchor-id="r-produces-high-quality-graphics">R produces high-quality graphics</h3>
+<h3 data-anchor-id="r-produces-high-quality-graphics">R produces high-quality graphics</h3>
 <p>The plotting functionalities in R are extensive, and allow you to adjust any aspect of your graph to convey most effectively the message from your data.</p>
 </section>
 <section id="r-has-a-large-and-welcoming-community" class="level3">
-<h3 class="anchored" data-anchor-id="r-has-a-large-and-welcoming-community">R has a large and welcoming community</h3>
+<h3 data-anchor-id="r-has-a-large-and-welcoming-community">R has a large and welcoming community</h3>
 <p>Thousands of people use R daily. Many of them are willing to help you through mailing lists and websites such as <a href="https://stackoverflow.com/">Stack Overflow</a>, or on the <a href="https://community.rstudio.com/">RStudio community</a>. These broad user communities extend to specialised areas such as bioinformatics. One such subset of the R community is <a href="https://bioconductor.org/">Bioconductor</a>, a scientific project for analysis and comprehension “of data from current and emerging biological assays.” Another example is <a href="https://rladies.org/">R-Ladies</a>, a worldwide organization whose mission is to promote gender diversity in the R community. It is one of the largest organizations of R users and likely has a chapter near you!</p>
 </section>
 <section id="not-only-is-r-free-but-it-is-also-open-source-and-cross-platform" class="level3">
-<h3 class="anchored" data-anchor-id="not-only-is-r-free-but-it-is-also-open-source-and-cross-platform">Not only is R free, but it is also open-source and cross-platform</h3>
+<h3 data-anchor-id="not-only-is-r-free-but-it-is-also-open-source-and-cross-platform">Not only is R free, but it is also open-source and cross-platform</h3>
 <p>Anyone can inspect the source code to see how R works. Because of this transparency, there is less chance for mistakes, and if you (or someone else) find some, you can report and fix bugs.</p>
 </section>
 </section>
 <section id="sources-and-references" class="level2">
-<h2 class="anchored" data-anchor-id="sources-and-references">Sources and References</h2>
+<h2 data-anchor-id="sources-and-references">Sources and References</h2>
 <p>Most of the materials in this workbook have been adapted from <a href="https://epirhandbook.com/en/index.html">The Epidemiologist R Handbook</a> with some changes made and materials incorporated from other sources. These additional sources are attributed in the chapters they are a part of. The Epidemiologist R Handbook is licensed by Applied Epi Incorporated under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).</p>
 
 
@@ -508,13 +507,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

@@ -1,9 +1,8 @@
 ---
-title: "Week 7 Notebook"
+title: "Week 7: Advanced regression"
 author: "Center for Computational Biomedicine"
 format: 
-  html: 
-    anchor-sections: true
+  html: default
 code-annotations: select
 ---
 

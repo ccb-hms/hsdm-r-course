@@ -33,7 +33,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -135,16 +134,16 @@ ul.task-list li input[type="checkbox"] {
 
 <p>Instructor learning materials for data analysis module of Research Design and Analysis, 2023.</p>
 <section id="details" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="details">Details</h3>
+<h3 class="unnumbered" data-anchor-id="details">Details</h3>
 <p><i class="fa-solid fa-calendar" aria-label="calendar"></i> &nbsp; July 17 - July 21</p>
 <p><i class="fa-solid fa-map-marker" aria-label="map-marker"></i> &nbsp; Zoom (hybrid TBD)</p>
 </section>
 <section id="instructors" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="instructors">Instructors</h3>
+<h3 class="unnumbered" data-anchor-id="instructors">Instructors</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
 <section id="fa-user-robert-gentleman-phd" class="level5">
-<h5 class="anchored" data-anchor-id="fa-user-robert-gentleman-phd"><i class="fa-solid fa-user" aria-label="user"></i> &nbsp; Robert Gentleman, PhD</h5>
+<h5 data-anchor-id="fa-user-robert-gentleman-phd"><i class="fa-solid fa-user" aria-label="user"></i> &nbsp; Robert Gentleman, PhD</h5>
 <blockquote class="blockquote">
 <p><i class="fa-solid fa-university" aria-label="university"></i> &nbsp; Executive Director, <a href="https://computationalbiomed.hms.harvard.edu/">Center for Computational Biomedicine</a></p>
 <p><i class="fa-solid fa-envelope" aria-label="envelope"></i> &nbsp; <a href="mailto:Robert_Gentleman@hms.harvard.edu">robert_gentleman@hms.harvard.edu</a></p>
@@ -155,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 </div><div class="column" style="width:50%;">
 <section id="fa-user-chris-magnano-phd" class="level5">
-<h5 class="anchored" data-anchor-id="fa-user-chris-magnano-phd"><i class="fa-solid fa-user" aria-label="user"></i> &nbsp; Chris Magnano, PhD</h5>
+<h5 data-anchor-id="fa-user-chris-magnano-phd"><i class="fa-solid fa-user" aria-label="user"></i> &nbsp; Chris Magnano, PhD</h5>
 <blockquote class="blockquote">
 <p><i class="fa-solid fa-university" aria-label="university"></i> &nbsp; Curriculum Fellow, <a href="https://computationalbiomed.hms.harvard.edu/">Center for Computational Biomedicine</a></p>
 <p><i class="fa-solid fa-envelope" aria-label="envelope"></i> &nbsp; <a href="mailto:christopher_magnano@hms.harvard.edu">christopher_magnano@hms.harvard.edu</a></p>
@@ -306,13 +305,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

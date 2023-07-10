@@ -67,7 +67,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -363,7 +362,7 @@ Extended Materials
 </div>
 </div>
 <section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">Data</h2>
+<h2 data-anchor-id="data">Data</h2>
 <p>We will continue to use the same <code>linelist</code> data we saw during Session 0. This is a fictional Ebola outbreak, expanded from the ebola_sim practice dataset in the <code>outbreaks</code> package.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"linelist_cleaned.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -630,7 +629,7 @@ Extended Materials
 </div>
 </section>
 <section id="select-or-re-order-columns" class="level2">
-<h2 class="anchored" data-anchor-id="select-or-re-order-columns">Select or re-order columns</h2>
+<h2 data-anchor-id="select-or-re-order-columns">Select or re-order columns</h2>
 <p>Use <code>select()</code> from <strong>dplyr</strong> to select the columns you want to retain, and to specify their order in the data frame.</p>
 <p><strong>Here are ALL the column names in the linelist at this point in the cleaning pipe chain:</strong></p>
 <div class="cell">
@@ -649,7 +648,7 @@ Extended Materials
 </div>
 </div>
 <section id="keep-columns" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="keep-columns">Keep columns</h3>
+<h3 class="unnumbered" data-anchor-id="keep-columns">Keep columns</h3>
 <p><strong>Select only the columns you want to remain</strong></p>
 <p>Put their names in the <code>select()</code> command, with no quotation marks. They will appear in the data frame in the order you provide. Note that if you include a column that does not exist, R will return an error (see use of <code>any_of()</code> below if you want no error in this situation).</p>
 <div class="cell">
@@ -664,7 +663,7 @@ Extended Materials
 </div>
 </section>
 <section id="remove-columns" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="remove-columns">Remove columns</h3>
+<h3 class="unnumbered" data-anchor-id="remove-columns">Remove columns</h3>
 <p><strong>Indicate which columns to remove</strong> by placing a minus symbol “-” in front of the column name (e.g.&nbsp;<code>select(-outcome)</code>), or a vector of column names (as below). All other columns will be retained.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
@@ -687,7 +686,7 @@ Extended Materials
 </div>
 </section>
 <section id="standalone" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="standalone">Standalone</h3>
+<h3 class="unnumbered" data-anchor-id="standalone">Standalone</h3>
 <p><code>select()</code> can also be used as an independent command (not in a pipe chain). In this case, the first argument is the original dataframe to be operated upon.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new linelist with id and age-related columns</span></span>
@@ -702,10 +701,10 @@ Extended Materials
 </section>
 </section>
 <section id="column-creation-and-transformation" class="level2">
-<h2 class="anchored" data-anchor-id="column-creation-and-transformation">Column creation and transformation</h2>
+<h2 data-anchor-id="column-creation-and-transformation">Column creation and transformation</h2>
 <p>In addition to selecting columns, we can create new columns with <code>mutate()</code>. The syntax is: <code>mutate(new_column_name = value or transformation)</code>. <code>mutate()</code> can also be used to modify an existing column.</p>
 <section id="new-columns" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="new-columns">New columns</h3>
+<h3 class="unnumbered" data-anchor-id="new-columns">New columns</h3>
 <p>The most basic <code>mutate()</code> command to create a new column might look like this. It creates a new column <code>new_col</code> where the value in every row is 10.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
@@ -900,7 +899,7 @@ Transmute
 </div>
 </section>
 <section id="convert-column-class" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="convert-column-class">Convert column class</h3>
+<h3 class="unnumbered" data-anchor-id="convert-column-class">Convert column class</h3>
 <p>Columns containing values that are dates, numbers, or logical values (TRUE/FALSE) will only behave as expected if they are correctly classified. There is a difference between “2” of class character and 2 of class numeric! There are ways to set column class during the import commands, but this is often cumbersome.</p>
 <p>First, let’s run some checks on important columns to see if they are the correct class. Currently, the class of the <code>age</code> column is character. To perform quantitative analyses, we need these numbers to be recognized as numeric!</p>
 <div class="cell">
@@ -918,12 +917,12 @@ Transmute
 </section>
 </section>
 <section id="filter-rows" class="level2">
-<h2 class="anchored" data-anchor-id="filter-rows">Filter rows</h2>
+<h2 data-anchor-id="filter-rows">Filter rows</h2>
 <p>A typical cleaning step after you have cleaned the columns and re-coded values is to <em>filter</em> the data frame for specific rows using the <strong>dplyr</strong> verb <code>filter()</code>.</p>
 <p>Within <code>filter()</code>, specify the logic that must be <code>TRUE</code> for a row in the dataset to be kept. Below we show how to filter rows based on simple and complex logical conditions.</p>
 <!-- ======================================================= -->
 <section id="simple-filter" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="simple-filter">Simple filter</h3>
+<h3 class="unnumbered" data-anchor-id="simple-filter">Simple filter</h3>
 <p>This simple example re-defines the dataframe <code>linelist</code> as itself, having filtered the rows to meet a logical condition. <strong>Only the rows where the logical statement within the parentheses evaluates to <code>TRUE</code> are kept.</strong></p>
 <p>In this example, the logical statement is <code>gender == "f"</code>, which is asking whether the value in the column <code>gender</code> is equal to “f” (case sensitive).</p>
 <p>Before the filter is applied, the number of rows in <code>linelist</code> is <code>nrow(linelist)</code>.</p>
@@ -934,11 +933,11 @@ Transmute
 <p>After the filter is applied, the number of rows in <code>linelist</code> is <code>linelist %&gt;% filter(gender == "f") %&gt;% nrow()</code>.</p>
 </section>
 <section id="complex-filter" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="complex-filter">Complex filter</h3>
+<h3 class="unnumbered" data-anchor-id="complex-filter">Complex filter</h3>
 <p>More complex logical statements can be constructed using parentheses <code>( )</code>, OR <code>|</code>, negate <code>!</code>, <code>%in%</code>, and AND <code>&amp;</code> operators. An example is below:</p>
 <p>Note: You can use the <code>!</code> operator in front of a logical criteria to negate it. For example, <code>!is.na(column)</code> evaluates to true if the column value is <em>not</em> missing. Likewise <code>!column %in% c("a", "b", "c")</code> evaluates to true if the column value is <em>not</em> in the vector.</p>
 <section id="examine-the-data" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="examine-the-data">Examine the data</h4>
+<h4 class="unnumbered" data-anchor-id="examine-the-data">Examine the data</h4>
 <p>Below is a simple one-line command to create a histogram of onset dates. See that a second smaller outbreak from 2012-2013 is also included in this raw dataset. <strong>For our analyses, we want to remove entries from this earlier outbreak.</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(linelist<span class="sc">$</span>date_onset, <span class="at">breaks =</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -948,7 +947,7 @@ Transmute
 </div>
 </section>
 <section id="how-filters-handle-missing-numeric-and-date-values" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="how-filters-handle-missing-numeric-and-date-values">How filters handle missing numeric and date values</h4>
+<h4 class="unnumbered" data-anchor-id="how-filters-handle-missing-numeric-and-date-values">How filters handle missing numeric and date values</h4>
 <p>Can we just filter by <code>date_onset</code> to rows after June 2013? <strong>Caution! Applying the code <code>filter(date_onset &gt; as.Date("2013-06-01")))</code> would remove any rows in the later epidemic with a missing date of onset!</strong></p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -966,7 +965,7 @@ Conditions with NA
 </section>
 </section>
 <section id="standalone-1" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="standalone-1">Standalone</h3>
+<h3 class="unnumbered" data-anchor-id="standalone-1">Standalone</h3>
 <p>Filtering can also be done as a stand-alone command (not part of a pipe chain). Like other <strong>dplyr</strong> verbs, in this case the first argument must be the dataset itself.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe &lt;- filter(dataframe, condition(s) for rows to keep)</span></span>
@@ -983,7 +982,7 @@ Conditions with NA
 </section>
 </section>
 <section id="arrange-and-sort" class="level2">
-<h2 class="anchored" data-anchor-id="arrange-and-sort">Arrange and sort</h2>
+<h2 data-anchor-id="arrange-and-sort">Arrange and sort</h2>
 <p>Use the <strong>dplyr</strong> function <code>arrange()</code> to sort or order the rows by column values.</p>
 <p>Simple list the columns in the order they should be sorted on. Specify <code>.by_group = TRUE</code> if you want the sorting to to first occur by any <em>groupings</em> applied to the data.</p>
 <p>By default, column will be sorted in “ascending” order (which applies to numeric and also to character columns). You can sort a variable in “descending” order by wrapping it with <code>desc()</code>.</p>
@@ -1134,13 +1133,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

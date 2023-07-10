@@ -67,7 +67,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -370,9 +369,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <!-- ======================================================= -->
 <section id="preparation" class="level2">
-<h2 class="anchored" data-anchor-id="preparation">Preparation</h2>
+<h2 data-anchor-id="preparation">Preparation</h2>
 <section id="load-packages" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="load-packages">Load packages</h3>
+<h3 class="unnumbered" data-anchor-id="load-packages">Load packages</h3>
 <p>This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize <code>p_load()</code> from <strong>pacman</strong>, which installs the package if necessary <em>and</em> loads it for use. You can also load installed packages with <code>library()</code> from <strong>base</strong> R. See the page on [R basics] for more information on R packages.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
@@ -389,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="import-data" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="import-data">Import data</h3>
+<h3 class="unnumbered" data-anchor-id="import-data">Import data</h3>
 <p>We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">click to download the “clean” linelist</a> (as .rds file). Import your data with the <code>import()</code> function from the <strong>rio</strong> package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export] page for details).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import the linelist</span></span>
@@ -398,10 +397,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 <section id="base-r" class="level2">
-<h2 class="anchored" data-anchor-id="base-r"><strong>base</strong> R</h2>
+<h2 data-anchor-id="base-r"><strong>base</strong> R</h2>
 <p>You can use <strong>base</strong> R functions to conduct statistical tests. The commands are relatively simple and results will print to the R Console for simple viewing. However, the outputs are usually lists and so are harder to manipulate if you want to use the results in subsequent operations.</p>
 <section id="t-tests" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="t-tests">T-tests</h3>
+<h3 class="unnumbered" data-anchor-id="t-tests">T-tests</h3>
 <p>A <a href="https://en.wikipedia.org/wiki/Student%27s_t-test">t-test</a>, also called “Student’s t-Test”, is typically used to determine if there is a significant difference between the means of some numeric variable between two groups. Here we’ll show the syntax to do this test depending on whether the columns are in the same data frame.</p>
 <p><strong>Syntax 1:</strong> This is the syntax when your numeric and categorical columns are in the same data frame. Provide the numeric column on the left side of the equation and the categorical column on the right side. Specify the dataset to <code>data =</code>. Optionally, set <code>paired = TRUE</code>, and <code>conf.level =</code> (0.95 default), and <code>alternative =</code> (either “two.sided”, “less”, or “greater”). Enter <code>?t.test</code> for more details.</p>
 <div class="cell">
@@ -431,14 +430,14 @@ mean in group f mean in group m
 </div>
 </section>
 <section id="shapiro-wilk-test" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="shapiro-wilk-test">Shapiro-Wilk test</h3>
+<h3 class="unnumbered" data-anchor-id="shapiro-wilk-test">Shapiro-Wilk test</h3>
 <p>The <a href="https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test">Shapiro-Wilk test</a> can be used to determine whether a sample came from a normally-distributed population (an assumption of many other tests and analysis, such as the t-test). However, this can only be used on a sample between 3 and 5000 observations. For larger samples a <a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">quantile-quantile plot</a> may be helpful.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(linelist<span class="sc">$</span>age_years)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="wilcoxon-rank-sum-test" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="wilcoxon-rank-sum-test">Wilcoxon rank sum test</h3>
+<h3 class="unnumbered" data-anchor-id="wilcoxon-rank-sum-test">Wilcoxon rank sum test</h3>
 <p>The Wilcoxon rank sum test, also called the <a href="https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test">Mann–Whitney U test</a>, is often used to help determine if two numeric samples are from the same distribution when their populations are not normally distributed or have unequal variance.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## compare age distribution by outcome group with a wilcox test</span></span>
@@ -454,7 +453,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </section>
 <section id="kruskal-wallis-test" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="kruskal-wallis-test">Kruskal-Wallis test</h3>
+<h3 class="unnumbered" data-anchor-id="kruskal-wallis-test">Kruskal-Wallis test</h3>
 <p>The <a href="https://en.wikipedia.org/wiki/Kruskal%E2%80%93Wallis_one-way_analysis_of_variance">Kruskal-Wallis test</a> is an extension of the Wilcoxon rank sum test that can be used to test for differences in the distribution of more than two samples. When only two samples are used it gives identical results to the Wilcoxon rank sum test.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## compare age distribution by outcome group with a kruskal-wallis test</span></span>
@@ -469,7 +468,7 @@ Kruskal-Wallis chi-squared = 0.045675, df = 1, p-value = 0.8308</code></pre>
 </div>
 </section>
 <section id="chi-squared-test" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="chi-squared-test">Chi-squared test</h3>
+<h3 class="unnumbered" data-anchor-id="chi-squared-test">Chi-squared test</h3>
 <p><a href="https://en.wikipedia.org/wiki/Chi-squared_test">Pearson’s Chi-squared test</a> is used in testing for significant differences between categorical croups.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## compare the proportions in each group with a chi-squared test</span></span>
@@ -485,7 +484,7 @@ X-squared = 0.0011841, df = 1, p-value = 0.9725</code></pre>
 </section>
 </section>
 <section id="correlations" class="level2">
-<h2 class="anchored" data-anchor-id="correlations">Correlations</h2>
+<h2 data-anchor-id="correlations">Correlations</h2>
 <p>Correlation between numeric variables can be investigated using the <strong>tidyverse</strong><br>
 <strong>corrr</strong> package. It allows you to compute correlations using Pearson, Kendall tau or Spearman rho. The package creates a table and also has a function to automatically plot the values.</p>
 <div class="cell">
@@ -531,7 +530,7 @@ X-squared = 0.0011841, df = 1, p-value = 0.9725</code></pre>
 <!-- ======================================================= -->
 </section>
 <section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<h2 data-anchor-id="resources">Resources</h2>
 <p>Much of the information in this page is adapted from these resources and vignettes online:</p>
 <p><a href="http://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html">gtsummary</a> <a href="https://dplyr.tidyverse.org/articles/grouping.html">dplyr</a> <a href="https://corrr.tidymodels.org/articles/using-corrr.html">corrr</a> <a href="http://www.sthda.com/english/wiki/correlation-test-between-two-variables-in-r">sthda correlation</a></p>
 
@@ -675,13 +674,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

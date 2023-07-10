@@ -1,9 +1,8 @@
 ---
-title: "Week 4 Notebook"
+title: "Week 4: Preparing Data"
 author: "Center for Computational Biomedicine"
 format: 
-  html: 
-    anchor-sections: true
+  html: default
 code-annotations: select
 ---
 
@@ -54,28 +53,31 @@ The code used to download the data is shown here:
 ```r
 library(phonto)
 library(DBI)
-library(DT)
 
-cols_d = list(DEMO_D=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", "DMDBORN", "INDFMPIR"), 
-            OHX_D =c("OHXDECAY", "OHXREST"),
-            GLU_D =c("LBXGLU"), GHB_D = "LBXGH",
-            BMX_D="BMXBMI"
+cols_d = list(DEMO_D=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", 
+                       "DMDBORN", "INDFMPIR", "SDMVPSU", "SDMVSTRA"), 
+              OHX_D =c("OHXDECAY", "OHXREST"),
+              GLU_D =c("LBXGLU", "WTSAF2YR"), GHB_D = "LBXGH",
+              BMX_D="BMXBMI"
 )
 base_df_d <- jointQuery(cols_d)
 
-cols_e = list(DEMO_E=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", "DMDBORN2", "INDFMPIR"), 
-            OHX_E =c("OHXDECAY", "OHXREST"),
-            GLU_E =c("LBXGLU"), GHB_E = "LBXGH",
-            BMX_E ="BMXBMI"
+cols_e = list(DEMO_E=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", 
+                       "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA"), 
+              OHX_E =c("OHXDECAY", "OHXREST"),
+              GLU_E =c("LBXGLU", "WTSAF2YR"), GHB_E = "LBXGH",
+              BMX_E ="BMXBMI"
 )
 base_df_e <- jointQuery(cols_e)
 
-cols_f = list(DEMO_F=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", "DMDBORN2", "INDFMPIR"), 
-            OHXDEN_F =c("OHXDECAY", "OHXREST"),
-            GLU_F =c("LBXGLU"), GHB_F = "LBXGH",
-            BMX_F ="BMXBMI"
+cols_f = list(DEMO_F=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", 
+                       "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA"), 
+              OHXDEN_F =c("OHXDECAY", "OHXREST"),
+              GLU_F =c("LBXGLU", "WTSAF2YR"), GHB_F = "LBXGH",
+              BMX_F ="BMXBMI"
 )
 base_df_f <- jointQuery(cols_f)
+save(base_df_d, base_df_e, base_df_f, file = "jul7_hsdm_data.RData")
 ```
 :::
 

@@ -67,7 +67,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
@@ -384,7 +383,7 @@ Extended Materials
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"linelist_cleaned.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="column-names" class="level2">
-<h2 class="anchored" data-anchor-id="column-names">Column names</h2>
+<h2 data-anchor-id="column-names">Column names</h2>
 <p>In R, column <em>names</em> are the “header” or “top” value of a column. They are used to refer to columns in the code, and serve as a default label in figures.</p>
 <p>Other statistical software such as SAS and STATA use <em>“labels”</em> that co-exist as longer printed versions of the shorter column names. While R does offer the possibility of adding column labels to the data, this is not emphasized in most practice. To make column names “printer-friendly” for figures, one typically adjusts their display within the plotting commands that create the outputs.</p>
 <p>As R column names are used very often, so they must have “clean” syntax. We suggest the following:</p>
@@ -413,7 +412,7 @@ Extended Materials
 </div>
 </div>
 <section id="rename-by-column-position" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="rename-by-column-position">Rename by column position</h4>
+<h4 class="unnumbered" data-anchor-id="rename-by-column-position">Rename by column position</h4>
 <p>You can also rename by column position, instead of column name, for example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(<span class="at">newNameForFirstColumn  =</span> <span class="dv">1</span>,</span>
@@ -421,7 +420,7 @@ Extended Materials
 </div>
 </section>
 <section id="rename-via-select-and-summarise" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="rename-via-select-and-summarise">Rename via <code>select()</code> and <code>summarise()</code></h4>
+<h4 class="unnumbered" data-anchor-id="rename-via-select-and-summarise">Rename via <code>select()</code> and <code>summarise()</code></h4>
 <p>As a shortcut, you can also rename columns within the <strong>dplyr</strong> <code>select()</code> and <code>summarise()</code> functions. <code>select()</code> is used to keep only certain columns and <code>summarise()</code> is used when grouping data. These functions also uses the format <code>new_name = old_name</code>. Here is an example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>linelist_raw <span class="sc">%&gt;%</span> </span>
@@ -431,14 +430,14 @@ Extended Materials
 </div>
 </section>
 <section id="other-conisderations-with-column-names" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="other-conisderations-with-column-names">Other conisderations with column names</h3>
+<h3 class="unnumbered" data-anchor-id="other-conisderations-with-column-names">Other conisderations with column names</h3>
 <section id="empty-excel-column-names" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="empty-excel-column-names">Empty Excel column names</h4>
+<h4 class="unnumbered" data-anchor-id="empty-excel-column-names">Empty Excel column names</h4>
 <p>R cannot have dataset columns that do not have column names (headers). So, if you import an Excel dataset with data but no column headers, R will fill-in the headers with names like “…1” or “…2”. The number represents the column number (e.g.&nbsp;if the 4th column in the dataset has no header, then R will name it “…4”).</p>
 <p>You can clean these names manually by referencing their position number (see example above), or their assigned name (<code>linelist_raw$...1</code>).</p>
 </section>
 <section id="merged-excel-column-names-and-cells" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="merged-excel-column-names-and-cells">Merged Excel column names and cells</h4>
+<h4 class="unnumbered" data-anchor-id="merged-excel-column-names-and-cells">Merged Excel column names and cells</h4>
 <p>Merged cells in an Excel file are a common occurrence when receiving data. Merged cells can be nice for human reading of data, but are not “tidy data” and cause many problems for machine reading of data. R cannot accommodate merged cells.</p>
 <p>One solution to deal with merged cells is to import the data with the function <code>readWorkbook()</code> from the package <strong>openxlsx</strong>. Set the argument <code>fillMergedCells = TRUE</code>. This gives the value in a merged cell to all cells within the merge range.</p>
 <div class="cell">
@@ -448,7 +447,7 @@ Extended Materials
 </section>
 </section>
 <section id="revisiting-select" class="level2">
-<h2 class="anchored" data-anchor-id="revisiting-select">Revisiting select</h2>
+<h2 data-anchor-id="revisiting-select">Revisiting select</h2>
 <p>Two weeks ago we learned to use <code>select()</code> to select the columns we wanted to keep.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># linelist dataset is piped through select() command, and names() prints just the column names</span></span>
@@ -462,7 +461,7 @@ Extended Materials
 </div>
 <p>Let’s look at some more complicated scenarios when we need to think a bit deeper on how we’re selecting or choosing columns in our data.</p>
 <section id="clean_tidyselect" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="clean_tidyselect">“tidyselect” helper functions</h3>
+<h3 class="unnumbered" data-anchor-id="clean_tidyselect">“tidyselect” helper functions</h3>
 <p>These helper functions exist to make it easy to specify columns to keep, discard, or transform. They are from the package <strong>tidyselect</strong>, which is included in <strong>tidyverse</strong> and underlies how columns are selected in <strong>dplyr</strong> functions.</p>
 <p>For example, if you want to re-order the columns, <code>everything()</code> is a useful function to signify “all other columns not yet mentioned”. The command below moves columns <code>date_onset</code> and <code>date_hospitalisation</code> to the beginning (left) of the dataset, but keeps all the other columns afterward. Note that <code>everything()</code> is written with empty parentheses:</p>
 <div class="cell">
@@ -556,7 +555,7 @@ Extended Materials
 </section>
 </section>
 <section id="deduplication" class="level2">
-<h2 class="anchored" data-anchor-id="deduplication">Deduplication</h2>
+<h2 data-anchor-id="deduplication">Deduplication</h2>
 <p>In a later week we will learn more about how to de-duplicate data. Only a very simple row de-duplication example is presented here.</p>
 <p>The package <strong>dplyr</strong> offers the <code>distinct()</code> function. This function examines every row and reduce the data frame to only the unique rows. That is, it removes rows that are 100% duplicates.</p>
 <p>When evaluating duplicate rows, it takes into account a range of columns - by default it considers all columns. As shown in the de-duplication page, you can adjust this column range so that the uniqueness of rows is only evaluated in regards to certain columns.</p>
@@ -603,7 +602,7 @@ Extended Materials
 </div>
 <!-- ======================================================= -->
 <section id="grouping" class="level2">
-<h2 class="anchored" data-anchor-id="grouping">Grouping</h2>
+<h2 data-anchor-id="grouping">Grouping</h2>
 <p>The function <code>group_by()</code> from <strong>dplyr</strong> groups the rows by the unique values in the column specified to it. If multiple columns are specified, rows are grouped by the unique combinations of values across the columns. Each unique value (or combination of values) constitutes a group. Subsequent changes to the dataset or calculations can then be performed within the context of each group.</p>
 <p>For example, the command below takes the <code>linelist</code> and groups the rows by unique values in the column <code>outcome</code>, saving the output as a new data frame <code>ll_by_outcome</code>. The grouping column(s) are placed inside the parentheses of the function <code>group_by()</code>.</p>
 <div class="cell">
@@ -640,7 +639,7 @@ Extended Materials
 </div>
 </div>
 <section id="unique-groups" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="unique-groups">Unique groups</h3>
+<h3 class="unnumbered" data-anchor-id="unique-groups">Unique groups</h3>
 <p><strong>The groups created reflect each unique combination of values across the grouping columns.</strong></p>
 <p>To see the groups <em>and the number of rows in each group</em>, pass the grouped data to <code>tally()</code>. To see just the unique groups without counts you can pass to <code>group_keys()</code>.</p>
 <p>See below that there are <strong>three</strong> unique values in the grouping column <code>outcome</code>: “Death”, “Recover”, and <code>NA</code>. See that there were <code>nrow(linelist %&gt;% filter(outcome == "Death"))</code> deaths, <code>nrow(linelist %&gt;% filter(outcome == "Recover"))</code> recoveries, and <code>nrow(linelist %&gt;% filter(is.na(outcome)))</code> with no outcome recorded.</p>
@@ -680,7 +679,7 @@ Extended Materials
 </div>
 </section>
 <section id="new-columns" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="new-columns">New columns</h3>
+<h3 class="unnumbered" data-anchor-id="new-columns">New columns</h3>
 <p>You can also create a new grouping column <em>within</em> the <code>group_by()</code> statement. This is equivalent to calling <code>mutate()</code> before the <code>group_by()</code>. For a quick tabulation this style can be handy, but for more clarity in your code consider creating this column in its own <code>mutate()</code> step and then piping to <code>group_by()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group dat based on a binary column created *within* the group_by() command</span></span>
@@ -699,7 +698,7 @@ Extended Materials
 </div>
 </section>
 <section id="adddrop-grouping-columns" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="adddrop-grouping-columns">Add/drop grouping columns</h3>
+<h3 class="unnumbered" data-anchor-id="adddrop-grouping-columns">Add/drop grouping columns</h3>
 <p>By default, if you run <code>group_by()</code> on data that are already grouped, the old groups will be removed and the new one(s) will apply. If you want to add new groups to the existing ones, include the argument <code>.add = TRUE</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grouped by outcome</span></span>
@@ -715,7 +714,7 @@ Extended Materials
 </section>
 </section>
 <section id="un-group" class="level2">
-<h2 class="anchored" data-anchor-id="un-group">Un-group</h2>
+<h2 data-anchor-id="un-group">Un-group</h2>
 <p>Data that have been grouped will remain grouped until specifically ungrouped via <code>ungroup()</code>. If you forget to ungroup, it can lead to incorrect calculations! Below is an example of removing all groupings:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
@@ -745,7 +744,7 @@ Tip
 </div>
 </section>
 <section id="group_summarise" class="level2">
-<h2 class="anchored" data-anchor-id="group_summarise">Summarise</h2>
+<h2 data-anchor-id="group_summarise">Summarise</h2>
 <p>See the <strong>dplyr</strong> section of the [Descriptive tables] page for a detailed description of how to produce summary tables with <code>summarise()</code>. Here we briefly address how its behavior changes when applied to grouped data.</p>
 <p>The <strong>dplyr</strong> function <code>summarise()</code> (or <code>summarize()</code>) takes a data frame and converts it into a <em>new</em> summary data frame, with columns containing summary statistics that you define. On an ungrouped data frame, the summary statistics will be calculated from all rows. Applying <code>summarise()</code> to grouped data produces those summary statistics <em>for each group</em>.</p>
 <p>The syntax of <code>summarise()</code> is such that you provide the name(s) of the <strong>new</strong> summary column(s), an equals sign, and then a statistical function to apply to the data, as shown below. For example, <code>min()</code>, <code>max()</code>, <code>median()</code>, or <code>sd()</code>. Within the statistical function, list the column to be operated on and any relevant argument (e.g.&nbsp;<code>na.rm = TRUE</code>). You can use <code>sum()</code> to count the number of rows that meet a logical criteria (with double equals <code>==</code>).</p>
@@ -786,10 +785,10 @@ Tip
 </div>
 </section>
 <section id="counts-and-tallies" class="level2">
-<h2 class="anchored" data-anchor-id="counts-and-tallies">Counts and tallies</h2>
+<h2 data-anchor-id="counts-and-tallies">Counts and tallies</h2>
 <p><code>count()</code> and <code>tally()</code> provide similar functionality but are different. Read more about the distinction between <code>tally()</code> and <code>count()</code> <a href="https://dplyr.tidyverse.org/reference/tally.html">here</a></p>
 <section id="tally" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="tally"><code>tally()</code></h3>
+<h3 class="unnumbered" data-anchor-id="tally"><code>tally()</code></h3>
 <p><code>tally()</code> is shorthand for <code>summarise(n = n())</code>, and <em>does not</em> group data. Thus, to achieve grouped tallys it must follow a <code>group_by()</code> command. You can add <code>sort = TRUE</code> to see the largest groups first.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
@@ -814,7 +813,7 @@ Tip
 </div>
 </section>
 <section id="count" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="count"><code>count()</code></h3>
+<h3 class="unnumbered" data-anchor-id="count"><code>count()</code></h3>
 <p>In contrast, <code>count()</code> does the following:</p>
 <ol type="1">
 <li>applies <code>group_by()</code> on the specified column(s)<br>
@@ -860,7 +859,7 @@ Tip
 </div>
 </section>
 <section id="add-counts" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="add-counts">Add counts</h3>
+<h3 class="unnumbered" data-anchor-id="add-counts">Add counts</h3>
 <p>In contrast to <code>count()</code> and <code>summarise()</code>, you can use <code>add_count()</code> to <em>add</em> a new column <code>n</code> with the counts of rows per group <em>while retaining all the other data frame columns</em>.</p>
 <p>This means that a group’s count number, in the new column <code>n</code>, will be printed in each row of the group. For demonstration purposes, we add this column and then re-arrange the columns for easier viewing. See the section below on <a href="#group_filter_grp_size">filter on group size</a> for another example.</p>
 <div class="cell">
@@ -893,7 +892,7 @@ Tip
 </div>
 </section>
 <section id="add-totals" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="add-totals">Add totals</h3>
+<h3 class="unnumbered" data-anchor-id="add-totals">Add totals</h3>
 <p>To easily add total <em>sum</em> rows or columns after using <code>tally()</code> or <code>count()</code> you can use the <code>tabyl</code> function from <code>janitor</code>. This package also offers functions like <code>adorn_totals()</code> and <code>adorn_percentages()</code> to add totals and convert to show percentages. Below is a brief example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span>                                  <span class="co"># case linelist</span></span>
@@ -923,17 +922,17 @@ Tip
 <p>To add more complex totals rows that involve summary statistics other than <em>sums</em>, see <a href="#tbl_dplyr_totals">this section of the Descriptive Tables page</a>.</p>
 </section>
 <section id="arranging-grouped-data" class="level3">
-<h3 class="anchored" data-anchor-id="arranging-grouped-data">Arranging grouped data</h3>
+<h3 data-anchor-id="arranging-grouped-data">Arranging grouped data</h3>
 <p>Using the <strong>dplyr</strong> verb <code>arrange()</code> to order the rows in a data frame behaves the same when the data are grouped, <em>unless</em> you set the argument <code>.by_group =TRUE</code>. In this case the rows are ordered first by the grouping columns and then by any other columns you specify to <code>arrange()</code>.</p>
 </section>
 <section id="filter-on-grouped-data" class="level3">
-<h3 class="anchored" data-anchor-id="filter-on-grouped-data">Filter on grouped data</h3>
+<h3 data-anchor-id="filter-on-grouped-data">Filter on grouped data</h3>
 <section id="filter" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="filter"><code>filter()</code></h4>
+<h4 class="unnumbered" data-anchor-id="filter"><code>filter()</code></h4>
 <p>When applied in conjunction with functions that evaluate the data frame (like <code>max()</code>, <code>min()</code>, <code>mean()</code>), these functions will now be applied to the groups. For example, if you want to filter and keep rows where patients are above the median age, this will now apply per group - filtering to keep rows above the <em>group’s</em> median age.</p>
 </section>
 <section id="slice-rows-per-group" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="slice-rows-per-group">Slice rows per group</h4>
+<h4 class="unnumbered" data-anchor-id="slice-rows-per-group">Slice rows per group</h4>
 <p>The <strong>dplyr</strong> function <code>slice()</code>, which <a href="https://dplyr.tidyverse.org/reference/slice.html">filters rows based on their position</a> in the data, can also be applied per group. Remember to account for sorting the data within each group to get the desired “slice”.</p>
 <p>For example, to retrieve only the latest 5 admissions from each hospital:</p>
 <ol type="1">
@@ -976,7 +975,7 @@ Tip
 <p>See the [De-duplication] page for more examples and detail on <code>slice()</code>.</p>
 </section>
 <section id="group_filter_grp_size" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="group_filter_grp_size">Filter on group size</h4>
+<h4 class="unnumbered" data-anchor-id="group_filter_grp_size">Filter on group size</h4>
 <p>The function <code>add_count()</code> adds a column <code>n</code> to the original data giving the number of rows in that row’s group.</p>
 <p>Shown below, <code>add_count()</code> is applied to the column <code>hospital</code>, so the values in the new column <code>n</code> reflect the number of rows in that row’s hospital group. Note how values in column <code>n</code> are repeated. In the example below, the column name <code>n</code> could be changed using <code>name =</code> within <code>add_count()</code>. For demonstration purposes we re-arrange the columns with <code>select()</code>.</p>
 <div class="cell">
@@ -1016,7 +1015,7 @@ Tip
 </section>
 </section>
 <section id="mutate-on-grouped-data" class="level3">
-<h3 class="anchored" data-anchor-id="mutate-on-grouped-data">Mutate on grouped data</h3>
+<h3 data-anchor-id="mutate-on-grouped-data">Mutate on grouped data</h3>
 <p>To retain all columns and rows (not summarise) and <em>add a new column containing group statistics</em>, use <code>mutate()</code> after <code>group_by()</code> instead of <code>summarise()</code>.</p>
 <p>This is useful if you want group statistics in the original dataset <em>with all other columns present</em> - e.g.&nbsp;for calculations that compare one row to its group.</p>
 <p>For example, this code below calculates the difference between a row’s delay-to-admission and the median delay for their hospital. The steps are:</p>
@@ -1063,15 +1062,15 @@ Tip
 </div>
 </section>
 <section id="select-on-grouped-data" class="level3">
-<h3 class="anchored" data-anchor-id="select-on-grouped-data">Select on grouped data</h3>
+<h3 data-anchor-id="select-on-grouped-data">Select on grouped data</h3>
 <p>The verb <code>select()</code> works on grouped data, but the grouping columns are always included (even if not mentioned in <code>select()</code>). If you do not want these grouping columns, use <code>ungroup()</code> first.</p>
 </section>
 </section>
 <section id="appending-datasets" class="level2">
-<h2 class="anchored" data-anchor-id="appending-datasets">Appending Datasets</h2>
+<h2 data-anchor-id="appending-datasets">Appending Datasets</h2>
 <p>We often need to combine multiple sources of data. Later on we’ll see more complex methods for combining data based on matching ID’s or other values. However, to start we’ll look at the case where we want to add additional observations to a dataset. You can also think of this as “appending” or “adding” rows.</p>
 <section id="bind-rows" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="bind-rows">Bind rows</h3>
+<h3 class="unnumbered" data-anchor-id="bind-rows">Bind rows</h3>
 <p>To bind rows of one data frame to the bottom of another data frame, use <code>bind_rows()</code> from <strong>dplyr</strong>. It is very inclusive, so any column present in either data frame will be included in the output. A few notes:</p>
 <ul>
 <li>Unlike the <strong>base</strong> R version <code>row.bind()</code>, <strong>dplyr</strong>’s <code>bind_rows()</code> does not require that the order of columns be the same in both data frames. As long as the column names are spelled identically, it will align them correctly.<br>
@@ -1283,13 +1282,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
