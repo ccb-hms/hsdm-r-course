@@ -214,15 +214,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a>
-  <ul class="collapse">
-  <li><a href="#re-doing-the-analysis" id="toc-re-doing-the-analysis" class="nav-link" data-scroll-target="#re-doing-the-analysis">Re-doing the analysis</a>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
+  <li><a href="#re-doing-a-analysis" id="toc-re-doing-a-analysis" class="nav-link" data-scroll-target="#re-doing-a-analysis">Re-doing a analysis</a></li>
+  <li><a href="#preparing-survey-analysis" id="toc-preparing-survey-analysis" class="nav-link" data-scroll-target="#preparing-survey-analysis">Preparing Survey Analysis</a>
   <ul class="collapse">
   <li><a href="#removing-na-weights" id="toc-removing-na-weights" class="nav-link" data-scroll-target="#removing-na-weights">Removing NA weights</a></li>
   <li><a href="#creating-combined-survey-weights" id="toc-creating-combined-survey-weights" class="nav-link" data-scroll-target="#creating-combined-survey-weights">Creating combined survey weights</a></li>
   <li><a href="#creating-the-survey-design-object" id="toc-creating-the-survey-design-object" class="nav-link" data-scroll-target="#creating-the-survey-design-object">Creating the survey design object</a></li>
   </ul></li>
-  </ul></li>
+  <li><a href="#survey-analysis" id="toc-survey-analysis" class="nav-link" data-scroll-target="#survey-analysis">Survey Analysis</a></li>
+  <li><a href="#creating-a-summary-table" id="toc-creating-a-summary-table" class="nav-link" data-scroll-target="#creating-a-summary-table">Creating a summary table</a></li>
   </ul>
 </nav>
     </div>
@@ -255,7 +256,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(officer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="data" class="level1">
 <h1>Data</h1>
@@ -275,8 +278,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(tib_f)</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>all_nhanes <span class="ot">&lt;-</span> tib_all</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="re-doing-the-analysis" class="level2">
-<h2 data-anchor-id="re-doing-the-analysis">Re-doing the analysis</h2>
+</section>
+<section id="re-doing-a-analysis" class="level1">
+<h1>Re-doing a analysis</h1>
 <p>We need to keep the entire dataset in order to properly employ survey weights. Thus, we’ll have to redo most of the processing we’ve done in previous weeks. First, let’s rename our columns to be a bit more human-readable.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>all_nhanes <span class="ot">&lt;-</span> all_nhanes <span class="sc">%&gt;%</span> </span>
@@ -323,8 +327,11 @@ Caused by warning:
 ! NAs introduced by coercion</code></pre>
 </div>
 </div>
-<section id="removing-na-weights" class="level3">
-<h3 data-anchor-id="removing-na-weights">Removing NA weights</h3>
+</section>
+<section id="preparing-survey-analysis" class="level1">
+<h1>Preparing Survey Analysis</h1>
+<section id="removing-na-weights" class="level2">
+<h2 data-anchor-id="removing-na-weights">Removing NA weights</h2>
 <p>Recall from the reading that we can’t have any missing values in the survey design variables. Note that since we are using the fasting weights in this analysis, which only include participants who had fasting glucose measurements taken, a significant proportion of rows will be removed.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -357,16 +364,16 @@ Exercise
 </div>
 </div>
 </section>
-<section id="creating-combined-survey-weights" class="level3">
-<h3 data-anchor-id="creating-combined-survey-weights">Creating combined survey weights</h3>
+<section id="creating-combined-survey-weights" class="level2">
+<h2 data-anchor-id="creating-combined-survey-weights">Creating combined survey weights</h2>
 <p>Currently, our survey weights <code>WTSAF2YR</code> are for each 2 year cycle. We need to combine them to represent the full 6-year period we are investigating. Luckily NHANES has an <a href="https://wwwn.cdc.gov/nchs/nhanes/tutorials/weighting.aspx">official guide</a> for combining these weights. It turns out, all we need to do is divide all weights by 3.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fst_nhanes <span class="ot">&lt;-</span> fst_nhanes <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">WTSAF6YR =</span> WTMEC2YR <span class="sc">*</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="creating-the-survey-design-object" class="level3">
-<h3 data-anchor-id="creating-the-survey-design-object">Creating the survey design object</h3>
+<section id="creating-the-survey-design-object" class="level2">
+<h2 data-anchor-id="creating-the-survey-design-object">Creating the survey design object</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>nhanes_design <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">id     =</span> <span class="sc">~</span>SDMVPSU,</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">strata  =</span> <span class="sc">~</span>SDMVSTRA,</span>
@@ -378,6 +385,10 @@ Exercise
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ado_design <span class="ot">&lt;-</span> <span class="fu">subset</span>(nhanes_design, age.years <span class="sc">&gt;=</span> <span class="dv">13</span> <span class="sc">&amp;</span> age.years <span class="sc">&lt;=</span> <span class="dv">18</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(dental.decay.present))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+</section>
+<section id="survey-analysis" class="level1">
+<h1>Survey Analysis</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">svymean</span>(<span class="sc">~</span>age.years, ado_design, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -415,6 +426,13 @@ Other Race - Including Multi-R
                        1494563 </code></pre>
 </div>
 </div>
+</section>
+<section id="creating-a-summary-table" class="level1">
+<h1>Creating a summary table</h1>
+<p>Let’s recreate Table 1a. from the Beheshti paper.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#svyby(formula = ~dental.restoration.present, by = ~age.cat, design = ado_design, FUN = svyciprop)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -427,8 +445,6 @@ Other Race - Including Multi-R
 </div>
 
 
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->

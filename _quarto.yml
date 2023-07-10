@@ -25,7 +25,6 @@ website:
         - readings/readings.qmd
         - section: "Week 0"
           contents:
-            - readings/install.qmd
             - readings/rstudio.qmd
             - readings/basics.qmd
         - section: "Week 2"
@@ -62,6 +61,8 @@ website:
 
     - title: "Resources"
       contents:
+        - resources/install.qmd
+        - resources/install-docker.qmd
         - resources/resources.qmd
         - resources/getting-help.qmd
         # navigation items

@@ -6,5 +6,32 @@ format:
 code-annotations: select
 ---
 
-# Data
+# Overview
+
+This week there will be minimal initial code. 
+Instead, you will be putting into practice everything you've learned over the past 8 weeks by extending the analysis in [Beheshti et. al. 2021](https://pubmed.ncbi.nlm.nih.gov/33892837/). 
+You can choose between the following extensions, or extend the analysis in some other way. 
+
+## Option 1: Incorporate additional variables
+
+## Option 2: Explore a different subpopulation
+
+## Option 3: Try additional models
+
+# Analysis
+
+## Data aquisition
+
+## Data cleaning
+
+## Transform variables
+
+## Create survey design object and subset
+
+## Summarize population
+
+## Model Relationship
+
+## Conclusion
+
 

@@ -11,6 +11,8 @@ code-annotations: select
 library(tidyverse)
 library(survey)
 library(DT)
+library(flextable)
+library(officer)
 ```
 
 # Data
@@ -33,7 +35,7 @@ all_nhanes <- tib_all
 ```
 
 
-## Re-doing the analysis
+# Re-doing a analysis
 
 We need to keep the entire dataset in order to properly employ survey weights.
 Thus, we'll have to redo most of the processing we've done in previous weeks. 
@@ -82,7 +84,9 @@ all_nhanes <- all_nhanes %>%
   mutate(family.PIR.lt1 = as.numeric(family.PIR.lt1) < 1.0)
 ```
 
-### Removing NA weights
+# Preparing Survey Analysis
+
+## Removing NA weights
 
 Recall from the reading that we can't have any missing values in the survey design variables. 
 Note that since we are using the fasting weights in this analysis, which only include participants
@@ -104,7 +108,7 @@ fst_nhanes <- all_nhanes %>%
 :::
 
 
-### Creating combined survey weights
+## Creating combined survey weights
 
 Currently, our survey weights `WTSAF2YR` are for each 2 year cycle. 
 We need to combine them to represent the full 6-year period we are investigating. 
@@ -116,7 +120,7 @@ fst_nhanes <- fst_nhanes %>%
   mutate(WTSAF6YR = WTMEC2YR * 1/3)
 ```
 
-### Creating the survey design object
+## Creating the survey design object
 
 ```{r}
 nhanes_design <- svydesign(id     = ~SDMVPSU,
@@ -132,6 +136,8 @@ Now we can take our data subset from the survey design object.
 ado_design <- subset(nhanes_design, age.years >= 13 & age.years <= 18 & !is.na(dental.decay.present))
 ```
 
+# Survey Analysis
+
 ```{r}
 svymean(~age.years, ado_design, na.rm = TRUE)
 svymean(~gender, ado_design, na.rm = TRUE)
@@ -142,6 +148,15 @@ svytable(~age.cat, ado_design)
 svymean(~age.cat, ado_design, na.rm = TRUE)
 svytable(~ethnicity, ado_design)
 ```
+
+# Creating a summary table
+
+Let's recreate Table 1a. from the Beheshti paper.
+
+```{r}
+#svyby(formula = ~dental.restoration.present, by = ~age.cat, design = ado_design, FUN = svyciprop)
+```
+
 
 ::: {.callout-tip appearance="minimal"}
 :::
