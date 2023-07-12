@@ -165,9 +165,9 @@ You can select files or folders by right/command clicking on them, then select `
 
 ![Saving a file to outside docker](../img/docker-save.png)
 
-### Connecting to the container
+## Connecting to the container
 
-## Running RStudio
+### Running RStudio
 
 Once the Docker container is running, you can connect to it by pointing your web browser to port 8787.
 To do this, simply type `http://localhost:8787` into your browser's address bar. 
@@ -176,7 +176,7 @@ You will then be in an RStudio instance inside the container.
 
 ![Running RStudio in your browser](../img/docker-rstudio-running.png)
 
-## Connecting to the SQL server directly
+### Connecting to the SQL server directly
 
 Database connectivity is enabled on TCP port 1433 on the host. Any standard tools that work with SQL Server (Azure Data Studio, SSMS, ODBC, JDBC) can be aimed at this port on the host to work with the DBs in the container.
 
@@ -188,7 +188,7 @@ For instance, in Azure Data Studio you can connect to `localhost` using the user
 
 
 
-## SSH
+### SSH
 
 You can can ssh into the container, e.g.:
 
@@ -202,6 +202,6 @@ If you are running SSH on the same host where the container is running:
 ssh USER@localhost -p 2200 -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null
 ```
 
-## More Details
+### More Details
 
 You can find more details and some example scripts for running the SQL server on its [Github page](https://github.com/ccb-hms/NHANES).

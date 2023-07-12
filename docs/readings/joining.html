@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Research Design and Analysis – joining</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.28/datatables.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="../site_libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="../site_libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="../site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="../site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="../site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="../site_libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Research Design and Analysis</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../readings/readings.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Readings</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../session-materials/sessions.html" rel="" target="">
+ <span class="menu-text">In-Class Materials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resources/resources.html" rel="" target="">
+ <span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../readings/joining.html">Week 8</a></li><li class="breadcrumb-item"><a href="../readings/joining.html">Joining data</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/readings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Week 0</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to RStudio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">R Basics</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Week 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/data-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Core Data Functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/using-tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Data Operations</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/recoding-values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recoding Values</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Week 3</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/ggplot-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data visualization</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Week 4</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/manage-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Managing Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Week 5</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/descriptive-statistics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descriptive analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/formatting-tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tables for presentation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/survey-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Survey analysis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Week 6</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/missing-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Missing data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/simple-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Simple statistical tests</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">Week 7</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Univariate and multivariable regression</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+ <span class="menu-text">Week 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/joining.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Joining data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/pivoting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pivoting data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#joining-data" id="toc-joining-data" class="nav-link active" data-scroll-target="#joining-data">Joining data</a>
+  <ul class="collapse">
+  <li><a href="#preparation" id="toc-preparation" class="nav-link" data-scroll-target="#preparation">Preparation</a>
+  <ul class="collapse">
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">Load packages</a></li>
+  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">Import data</a></li>
+  <li><a href="#example-datasets" id="toc-example-datasets" class="nav-link" data-scroll-target="#example-datasets">Example datasets</a></li>
+  <li><a href="#pre-cleaning" id="toc-pre-cleaning" class="nav-link" data-scroll-target="#pre-cleaning">Pre-cleaning</a></li>
+  </ul></li>
+  <li><a href="#dplyr-joins" id="toc-dplyr-joins" class="nav-link" data-scroll-target="#dplyr-joins"><strong>dplyr</strong> joins</a>
+  <ul class="collapse">
+  <li><a href="#general-syntax" id="toc-general-syntax" class="nav-link" data-scroll-target="#general-syntax">General syntax</a></li>
+  <li><a href="#left-and-right-joins" id="toc-left-and-right-joins" class="nav-link" data-scroll-target="#left-and-right-joins">Left and right joins</a></li>
+  <li><a href="#full-join" id="toc-full-join" class="nav-link" data-scroll-target="#full-join">Full join</a></li>
+  <li><a href="#inner-join" id="toc-inner-join" class="nav-link" data-scroll-target="#inner-join">Inner join</a></li>
+  <li><a href="#semi-join" id="toc-semi-join" class="nav-link" data-scroll-target="#semi-join">Semi join</a></li>
+  <li><a href="#anti-join" id="toc-anti-join" class="nav-link" data-scroll-target="#anti-join">Anti join</a></li>
+  </ul></li>
+  <li><a href="#binding-and-aligning" id="toc-binding-and-aligning" class="nav-link" data-scroll-target="#binding-and-aligning">Binding and aligning</a>
+  <ul class="collapse">
+  <li><a href="#bind-rows" id="toc-bind-rows" class="nav-link" data-scroll-target="#bind-rows">Bind rows</a></li>
+  <li><a href="#bind-columns" id="toc-bind-columns" class="nav-link" data-scroll-target="#bind-columns">Bind columns</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="joining.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="joining-data" class="level1">
+<h1>Joining data</h1>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="../img/left-join.gif" class="img-fluid" style="width:50.0%"></p>
+</div>
+</div>
+<p><em>Above: an animated example of a left join (<a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">image source</a>)</em></p>
+<p>This page describes ways to “join”, “match”, “link” “bind”, and otherwise combine data frames.</p>
+<p>It is uncommon that your epidemiological analysis or workflow does not involve multiple sources of data, and the linkage of multiple datasets. Perhaps you need to connect laboratory data to patient clinical outcomes, or Google mobility data to infectious disease trends, or even a dataset at one stage of analysis to a transformed version of itself.</p>
+<p>In this page we demonstrate code to:</p>
+<ul>
+<li>Conduct <em>joins</em> of two data frames such that rows are matched based on common values in identifier columns<br>
+</li>
+<li>Join two data frames based on <em>probabilistic</em> (likely) matches between values<br>
+</li>
+<li>Expand a data frame by directly <em>binding</em> or (“appending”) rows or columns from another data frame</li>
+</ul>
+<!-- ======================================================= -->
+<section id="preparation" class="level2">
+<h2 data-anchor-id="preparation">Preparation</h2>
+<section id="load-packages" class="level3 unnumbered">
+<h3 class="unnumbered" data-anchor-id="load-packages">Load packages</h3>
+<p>This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize <code>p_load()</code> from <strong>pacman</strong>, which installs the package if necessary <em>and</em> loads it for use. You can also load installed packages with <code>library()</code> from <strong>base</strong> R. See the page on [R basics] for more information on R packages.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  rio,            <span class="co"># import and export</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  here,           <span class="co"># locate files </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  tidyverse,      <span class="co"># data management and visualisation</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  RecordLinkage,  <span class="co"># probabilistic matches</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  fastLink        <span class="co"># probabilistic matches</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="import-data" class="level3 unnumbered">
+<h3 class="unnumbered" data-anchor-id="import-data">Import data</h3>
+<p>To begin, we import the cleaned linelist of cases from a simulated Ebola epidemic. If you want to follow along, <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">click to download the “clean” linelist</a> (as .rds file). Import data with the <code>import()</code> function from the <strong>rio</strong> package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export] page for details).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import case linelist </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"linelist_cleaned.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The first 50 rows of the linelist are displayed below.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-c53a4b86652b4ecaf100" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c53a4b86652b4ecaf100">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"2\" data-max=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399075200000\" data-max=\"1406419200000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399939200000\" data-max=\"1.407024e+12\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400025600000\" data-max=\"1407110400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400371200000\" data-max=\"1410566400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-29&quot;,&quot;30-49&quot;,&quot;50-69&quot;,&quot;70+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-24&quot;,&quot;25-29&quot;,&quot;30-34&quot;,&quot;35-39&quot;,&quot;40-44&quot;,&quot;45-49&quot;,&quot;50-54&quot;,&quot;55-59&quot;,&quot;60-64&quot;,&quot;65-69&quot;,&quot;70-74&quot;,&quot;75-79&quot;,&quot;80-84&quot;,&quot;85+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"-13.2697246824573\" data-max=\"-13.209391925612\" data-scale=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"8.45171855856465\" data-max=\"8.48802917129884\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"100\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"11\" data-max=\"241\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"20\" data-max=\"24\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"35.9\" data-max=\"38\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"428.994082840237\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"2\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.46183062600728,8.46272931462646,8.46144367534271,8.46191259217774,8.47292327643506,8.48401630165138,8.45837125340844,8.47761705512509,8.47570184950483,8.47779946878972,8.47145134147474,8.47804840685363,8.48528034195779,8.46957530395867,8.45957352078114,8.47404889511544,8.48802917129884,8.473437335922,8.48408263734462,8.46242233645879,8.47026822126572,8.46398447480533,8.4641347894342,8.45623094629607,8.48334624336805,8.47493999153642,8.47832062438022,8.4693933891765,8.48480589906514,8.47121232619015,8.48438437371817,8.48466158574339,8.47714159984428,8.46238127010609,8.45568597813113,8.4632880274758,8.47940722413856,8.46353857052336,8.46178968158864,8.47508713872833,8.45825808128071,8.4532568143863,8.4732571907655,8.47911586641933,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.8184429761563,16.0652496292635,22.4965706447188,71.4144019043841,41.6171224732461,62.0953890870657,0,16.8376536925366,22.7903289734443,53.4119897959184,24.2802636142907,22.4600343506408,54.320987654321,41.0578432556455,28.5664819944598,17.0320552013276,25.0412914912888,38.7172182043977,27.3876813705495,31.5555555555556,14.8069075945662,30.8839811199813,26.6193433895297,59.375,96.6183574879227,19.2394748755093,84.9403122130395,18.4199377406104,27.7722674072605,41.3223140495868,17.2080666586161,24.1671624033314,15.7218971089178,428.994082840237,27.9930220292912,243.261012491782,20.2395007589813,30.527446435638,25.15589569161,47,39.04,31.0661643201798,77.9683671196257,29.5165961238583,166.493236212279,100.308641975309,37.76,20.6037803457852,23.458562375267],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<!-- ======================================================= -->
+</section>
+<section id="example-datasets" class="level3 unnumbered">
+<h3 class="unnumbered" data-anchor-id="example-datasets">Example datasets</h3>
+<p>In the joining section below, we will use the following datasets:</p>
+<ol type="1">
+<li>A “miniature” version of the case <code>linelist</code>, containing only the columns <code>case_id</code>, <code>date_onset</code>, and <code>hospital</code>, and only the first 10 rows<br>
+</li>
+<li>A separate data frame named <code>hosp_info</code>, which contains more details about each hospital</li>
+</ol>
+<p>In the section on probabilistic matching, we will use two different small datasets. The code to create those datasets is given in that section.</p>
+<section id="joins_llmini" class="level4 unnumbered">
+<h4 class="unnumbered" data-anchor-id="joins_llmini">“Miniature” case linelist</h4>
+<p>Below is the the miniature case linelist, which contains only 10 rows and only columns <code>case_id</code>, <code>date_onset</code>, and <code>hospital</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>linelist_mini <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span>                 <span class="co"># start with original linelist</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case_id, date_onset, hospital) <span class="sc">%&gt;%</span>   <span class="co"># select columns</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)                                    <span class="co"># only take the first 10 rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3f8495abc6007743fbd0" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3f8495abc6007743fbd0">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca"],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="joins_hosp_info" class="level4 unnumbered">
+<h4 class="unnumbered" data-anchor-id="joins_hosp_info">Hospital information data frame</h4>
+<p>Below is the code to create a separate data frame with additional information about seven hospitals (the catchment population, and the level of care available). Note that the name “Military Hospital” belongs to two different hospitals - one a primary level serving 10000 residents and the other a secondary level serving 50280 residents.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the hospital information data frame</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>hosp_info <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">hosp_name     =</span> <span class="fu">c</span>(<span class="st">"central hospital"</span>, <span class="st">"military"</span>, <span class="st">"military"</span>, <span class="st">"port"</span>, <span class="st">"St. Mark's"</span>, <span class="st">"ignace"</span>, <span class="st">"sisters"</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">catchment_pop =</span> <span class="fu">c</span>(<span class="dv">1950280</span>, <span class="dv">40500</span>, <span class="dv">10000</span>, <span class="dv">50280</span>, <span class="dv">12000</span>, <span class="dv">5000</span>, <span class="dv">4200</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">level         =</span> <span class="fu">c</span>(<span class="st">"Tertiary"</span>, <span class="st">"Secondary"</span>, <span class="st">"Primary"</span>, <span class="st">"Secondary"</span>, <span class="st">"Secondary"</span>, <span class="st">"Primary"</span>, <span class="st">"Primary"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here is this data frame:</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-776a49cdb20ef6d016a2" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-776a49cdb20ef6d016a2">{"x":{"filter":"none","vertical":false,"data":[["central hospital","military","military","port","St. Mark's","ignace","sisters"],[1950280,40500,10000,50280,12000,5000,4200],["Tertiary","Secondary","Primary","Secondary","Secondary","Primary","Primary"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hosp_name<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":7,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[7,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<!-- ======================================================= -->
+</section>
+</section>
+<section id="pre-cleaning" class="level3 unnumbered">
+<h3 class="unnumbered" data-anchor-id="pre-cleaning">Pre-cleaning</h3>
+<p>Traditional joins (non-probabilistic) are case-sensitive and require exact character matches between values in the two data frames. To demonstrate some of the cleaning steps you might need to do before initiating a join, we will clean and align the <code>linelist_mini</code> and <code>hosp_info</code> datasets now.</p>
+<p><strong>Identify differences</strong></p>
+<p>We need the values of the <code>hosp_name</code> column in the <code>hosp_info</code> data frame to match the values of the <code>hospital</code> column in the <code>linelist_mini</code> data frame.</p>
+<p>Here are the values in the <code>linelist_mini</code> data frame, printed with the <strong>base</strong> R function <code>unique()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(linelist_mini<span class="sc">$</span>hospital)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Other"                               
+[2] "Missing"                             
+[3] "St. Mark's Maternity Hospital (SMMH)"
+[4] "Port Hospital"                       
+[5] "Military Hospital"                   </code></pre>
+</div>
+</div>
+<p>and here are the values in the <code>hosp_info</code> data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(hosp_info<span class="sc">$</span>hosp_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "central hospital" "military"         "port"             "St. Mark's"      
+[5] "ignace"           "sisters"         </code></pre>
+</div>
+</div>
+<p>You can see that while some of the hospitals exist in both data frames, there are many differences in spelling.</p>
+<p><strong>Align values</strong></p>
+<p>We begin by cleaning the values in the <code>hosp_info</code> data frame. As explained in the [Cleaning data and core functions] page, we can re-code values with logical criteria using <strong>dplyr</strong>’s <code>case_when()</code> function. For the four hospitals that exist in both data frames we change the values to align with the values in <code>linelist_mini</code>. The other hospitals we leave the values as they are (<code>TRUE ~ hosp_name</code>).</p>
+<p><span style="color: orange;"><strong><em>CAUTION:</em></strong> Typically when cleaning one should create a new column (e.g.&nbsp;<code>hosp_name_clean</code>), but for ease of demonstration we show modification of the old column</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>hosp_info <span class="ot">&lt;-</span> hosp_info <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">hosp_name =</span> <span class="fu">case_when</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>      <span class="co"># criteria                         # new value</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>      hosp_name <span class="sc">==</span> <span class="st">"military"</span>          <span class="sc">~</span> <span class="st">"Military Hospital"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      hosp_name <span class="sc">==</span> <span class="st">"port"</span>              <span class="sc">~</span> <span class="st">"Port Hospital"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>      hosp_name <span class="sc">==</span> <span class="st">"St. Mark's"</span>        <span class="sc">~</span> <span class="st">"St. Mark's Maternity Hospital (SMMH)"</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      hosp_name <span class="sc">==</span> <span class="st">"central hospital"</span>  <span class="sc">~</span> <span class="st">"Central Hospital"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                             <span class="sc">~</span> hosp_name</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The hospital names that appear in both data frames are aligned. There are two hospitals in <code>hosp_info</code> that are not present in <code>linelist_mini</code> - we will deal with these later, in the join.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(hosp_info<span class="sc">$</span>hosp_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Central Hospital"                    
+[2] "Military Hospital"                   
+[3] "Port Hospital"                       
+[4] "St. Mark's Maternity Hospital (SMMH)"
+[5] "ignace"                              
+[6] "sisters"                             </code></pre>
+</div>
+</div>
+<p>Prior to a join, it is often easiest to convert a column to all lowercase or all uppercase. If you need to convert all values in a column to UPPER or lower case, use <code>mutate()</code> and wrap the column with one of these functions from <strong>stringr</strong>, as shown in the page on [Characters and strings].</p>
+<p><code>str_to_upper()</code><br>
+<code>str_to_upper()</code><br>
+<code>str_to_title()</code></p>
+<!-- ======================================================= -->
+</section>
+</section>
+<section id="dplyr-joins" class="level2">
+<h2 data-anchor-id="dplyr-joins"><strong>dplyr</strong> joins</h2>
+<p>The <strong>dplyr</strong> package offers several different join functions. <strong>dplyr</strong> is included in the <strong>tidyverse</strong> package. These join functions are described below, with simple use cases.</p>
+<p>Many thanks to <a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">https://github.com/gadenbuie</a> for the informative gifs!</p>
+<!-- ======================================================= -->
+<section id="general-syntax" class="level3 unnumbered">
+<h3 class="unnumbered" data-anchor-id="general-syntax">General syntax</h3>
+<p>The join commands can be run as standalone commands to join two data frames into a new object, or they can be used within a pipe chain (<code>%&gt;%</code>) to merge one data frame into another as it is being cleaned or otherwise modified.</p>
+<p>In the example below, the function <code>left_join()</code> is used as a standalone command to create the a new <code>joined_data</code> data frame. The inputs are data frames 1 and 2 (<code>df1</code> and <code>df2</code>). The first data frame listed is the baseline data frame, and the second one listed is joined <em>to</em> it.</p>
+<p>The third argument <code>by =</code> is where you specify the columns in each data frame that will be used to aligns the rows in the two data frames. If the names of these columns are different, provide them within a <code>c()</code> vector as shown below, where the rows are matched on the basis of common values between the column <code>ID</code> in <code>df1</code> and the column <code>identifier</code> in <code>df2</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Join based on common values between column "ID" (first data frame) and column "identifier" (second data frame)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(df1, df2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"ID"</span> <span class="ot">=</span> <span class="st">"identifier"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If the <code>by</code> columns in both data frames have the exact same name, you can just provide this one name, within quotes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Joint based on common values in column "ID" in both data frames</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(df1, df2, <span class="at">by =</span> <span class="st">"ID"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you are joining the data frames based on common values across multiple fields, list these fields within the <code>c()</code> vector. This example joins rows if the values in three columns in each dataset align exactly.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># join based on same first name, last name, and age</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(df1, df2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"name"</span> <span class="ot">=</span> <span class="st">"firstname"</span>, <span class="st">"surname"</span> <span class="ot">=</span> <span class="st">"lastname"</span>, <span class="st">"Age"</span> <span class="ot">=</span> <span class="st">"age"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The join commands can also be run within a pipe chain. This will modify the data frame being piped.</p>
+<p>In the example below, <code>df1</code> is is passed through the pipes, <code>df2</code> is joined to it, and <code>df</code> is thus modified and re-defined.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> df1 <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(date_onset <span class="sc">&lt;</span> <span class="fu">as.Date</span>(<span class="st">"2020-03-05"</span>)) <span class="sc">%&gt;%</span> <span class="co"># miscellaneous cleaning </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(df2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"ID"</span> <span class="ot">=</span> <span class="st">"identifier"</span>))    <span class="co"># join df2 to df1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><span style="color: orange;"><strong><em>CAUTION:</em></strong> Joins are case-specific! Therefore it is useful to convert all values to lowercase or uppercase prior to joining. See the page on characters/strings.</span></p>
+<!-- ======================================================= -->
+</section>
+<section id="left-and-right-joins" class="level3 unnumbered">
+<h3 class="unnumbered" data-anchor-id="left-and-right-joins">Left and right joins</h3>
+<p><strong>A left or right join is commonly used to add information to a data frame</strong> - new information is added only to rows that already existed in the baseline data frame. These are common joins in epidemiological work as they are used to add information from one dataset into another.</p>
+<p>In using these joins, the written order of the data frames in the command is important*.</p>
+<ul>
+<li>In a <em>left join</em>, the <em>first</em> data frame written is the baseline<br>
+</li>
+<li>In a <em>right join</em>, the <em>second</em> data frame written is the baseline</li>
+</ul>
+<p><strong>All rows of the baseline data frame are kept.</strong> Information in the other (secondary) data frame is joined to the baseline data frame <em>only if there is a match via the identifier column(s)</em>. In addition:</p>
+<ul>
+<li>Rows in the secondary data frame that do not match are dropped.<br>
+</li>
+<li>If there are many baseline rows that match to one row in the secondary data frame (many-to-one), the secondary information is added to <em>each matching baseline row</em>.<br>
+</li>
+<li>If a baseline row matches to multiple rows in the secondary data frame (one-to-many), all combinations are given, meaning <em>new rows may be added to your returned data frame!</em></li>
+</ul>
+<p>Animated examples of left and right joins (<a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">image source</a>)</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="../img/left-join.gif" class="img-fluid" style="width:50.0%"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="../img/right-join.gif" class="img-fluid" style="width:50.0%"></p>
+</div>
+</div>
+<p><strong>Example</strong></p>
+<p>Below is the output of a <code>left_join()</code> of <code>hosp_info</code> (secondary data frame, <a href="#joins_hosp_info">view here</a>) <em>into</em> <code>linelist_mini</code> (baseline data frame, <a href="#joins_llmini">view here</a>). The original <code>linelist_mini</code> has <code>nrow(linelist_mini)</code> rows. The modified <code>linelist_mini</code> is displayed. Note the following:</p>
+<ul>
+<li>Two new columns, <code>catchment_pop</code> and <code>level</code> have been added on the left side of <code>linelist_mini</code><br>
+</li>
+<li>All original rows of the baseline data frame <code>linelist_mini</code> are kept<br>
+</li>
+<li>Any original rows of <code>linelist_mini</code> for “Military Hospital” are duplicated because it matched to <em>two</em> rows in the secondary data frame, so both combinations are returned<br>
+</li>
+<li>The join identifier column of the secondary dataset (<code>hosp_name</code>) has disappeared because it is redundant with the identifier column in the primary dataset (<code>hospital</code>)<br>
+</li>
+<li>When a baseline row did not match to any secondary row (e.g.&nbsp;when <code>hospital</code> is “Other” or “Missing”), <code>NA</code> (blank) fills in the columns from the secondary data frame<br>
+</li>
+<li>Rows in the secondary data frame with no match to the baseline data frame (“sisters” and “ignace” hospitals) were dropped</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>linelist_mini <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(hosp_info, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"hospital"</span> <span class="ot">=</span> <span class="st">"hosp_name"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in left_join(., hosp_info, by = c(hospital = "hosp_name")): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 5 of `x` matches multiple rows in `y`.
+ℹ Row 4 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e0006d0bbec3e678a8a8" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-e0006d0bbec3e678a8a8">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","893f25","be99c8","07e3e8","369449","f393b4","1389ca"],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing"],[null,null,12000,50280,40500,10000,50280,null,null,null,null],[null,null,"Secondary","Secondary","Secondary","Primary","Secondary",null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":11,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,11,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<section id="should-i-use-a-right-join-or-a-left-join" class="level4 unnumbered">
+<h4 class="unnumbered" data-anchor-id="should-i-use-a-right-join-or-a-left-join">“Should I use a right join, or a left join?”</h4>
+<p>To answer the above question, ask yourself “which data frame should retain all of its rows?” - use this one as the baseline. A <em>left join</em> keep all the rows in the first data frame written in the command, whereas a <em>right join</em> keeps all the rows in the second data frame.</p>
+<p>The two commands below achieve the same output - 10 rows of <code>hosp_info</code> joined <em>into</em> a <code>linelist_mini</code> baseline, but they use different joins. The result is that the column order will differ based on whether <code>hosp_info</code> arrives from the right (in the left join) or arrives from the left (in the right join). The order of the rows may also shift accordingly. But both of these consequences can be subsequently addressed, using <code>select()</code> to re-order columns or <code>arrange()</code> to sort rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The two commands below achieve the same data, but with differently ordered rows and columns</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(linelist_mini, hosp_info, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"hospital"</span> <span class="ot">=</span> <span class="st">"hosp_name"</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">right_join</span>(hosp_info, linelist_mini, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"hosp_name"</span> <span class="ot">=</span> <span class="st">"hospital"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here is the result of <code>hosp_info</code> into <code>linelist_mini</code> via a left join (new columns incoming from the right)</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in left_join(linelist_mini, hosp_info, by = c(hospital = "hosp_name")): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 5 of `x` matches multiple rows in `y`.
+ℹ Row 4 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-79b3348126493e8a2bb0" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-79b3348126493e8a2bb0">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","893f25","be99c8","07e3e8","369449","f393b4","1389ca"],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing"],[null,null,12000,50280,40500,10000,50280,null,null,null,null],[null,null,"Secondary","Secondary","Secondary","Primary","Secondary",null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":11,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,11,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Here is the result of <code>hosp_info</code> into <code>linelist_mini</code> via a right join (new columns incoming from the left)</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in right_join(hosp_info, linelist_mini, by = c(hosp_name = "hospital")): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 4 of `x` matches multiple rows in `y`.
+ℹ Row 5 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3ffa8b68879e8ae875b7" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3ffa8b68879e8ae875b7">{"x":{"filter":"none","vertical":false,"data":[["Military Hospital","Military Hospital","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Other","Missing","Missing","Missing","Missing","Missing"],[40500,10000,50280,50280,12000,null,null,null,null,null,null],["Secondary","Primary","Secondary","Secondary","Secondary",null,null,null,null,null,null],["893f25","893f25","b8812a","be99c8","11f8ea","5fe599","8689b7","07e3e8","369449","f393b4","1389ca"],["2014-05-21","2014-05-21","2014-05-18","2014-05-22","2014-05-16","2014-05-13","2014-05-13","2014-05-27","2014-06-02","2014-06-05","2014-06-05"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hosp_name<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":11,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,11,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Also consider whether your use-case is within a pipe chain (<code>%&gt;%</code>). If the dataset in the pipes is the baseline, you will likely use a left join to add data to it.</p>
+<!-- ======================================================= -->
+</section>
+</section>
+<section id="full-join" class="level3 unnumbered">
+<h3 class="unnumbered" data-anchor-id="full-join">Full join</h3>
+<p><strong>A full join is the most <em>inclusive</em> of the joins</strong> - it returns all rows from both data frames.</p>
+<p>If there are any rows present in one and not the other (where no match was found), the data frame will include them and become longer. <code>NA</code> missing values are used to fill-in any gaps created. As you join, watch the number of columns and rows carefully to troubleshoot case-sensitivity and exact character matches.</p>
+<p>The “baseline” data frame is the one written first in the command. Adjustment of this will not impact which records are returned by the join, but it can impact the resulting column order, row order, and which identifier columns are retained.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="../img/full-join.gif" class="img-fluid" style="width:50.0%"></p>
+</div>
+</div>
+<p>Animated example of a full join (<a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">image source</a>)</p>
+<p><strong>Example</strong></p>
+<p>Below is the output of a <code>full_join()</code> of <code>hosp_info</code> (originally <code>nrow(hosp_info)</code>, <a href="#joins_hosp_info">view here</a>) <em>into</em> <code>linelist_mini</code> (originally <code>nrow(linelist_mini)</code>, <a href="#joins_llmini">view here</a>). Note the following:</p>
+<ul>
+<li>All baseline rows are kept (<code>linelist_mini</code>)<br>
+</li>
+<li>Rows in the secondary that do not match to the baseline are kept (“ignace” and “sisters”), with values in the corresponding baseline columns <code>case_id</code> and <code>onset</code> filled in with missing values<br>
+</li>
+<li>Likewise, rows in the baseline data frame that do not match to the secondary (“Other” and “Missing”) are kept, with secondary columns <code>catchment_pop</code> and <code>level</code> filled-in with missing values<br>
+</li>
+<li>In the case of one-to-many or many-to-one matches (e.g.&nbsp;rows for “Military Hospital”), all possible combinations are returned (lengthening the final data frame)<br>
+</li>
+<li>Only the identifier column from the baseline is kept (<code>hospital</code>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>linelist_mini <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(hosp_info, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"hospital"</span> <span class="ot">=</span> <span class="st">"hosp_name"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in full_join(., hosp_info, by = c(hospital = "hosp_name")): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 5 of `x` matches multiple rows in `y`.
+ℹ Row 4 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e10423e44052d1d6c273" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-e10423e44052d1d6c273">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","893f25","be99c8","07e3e8","369449","f393b4","1389ca",null,null,null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05",null,null,null],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Central Hospital","ignace","sisters"],[null,null,12000,50280,40500,10000,50280,null,null,null,null,1950280,5000,4200],[null,null,"Secondary","Secondary","Secondary","Primary","Secondary",null,null,null,null,"Tertiary","Primary","Primary"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":15,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<!-- ======================================================= -->
+</section>
+<section id="inner-join" class="level3 unnumbered">
+<h3 class="unnumbered" data-anchor-id="inner-join">Inner join</h3>
+<p><strong>An inner join is the most <em>restrictive</em> of the joins</strong> - it returns only rows with matches across both data frames.<br>
+This means that the number of rows in the baseline data frame may actually <em>reduce</em>. Adjustment of which data frame is the “baseline” (written first in the function) will not impact which rows are returned, but it will impact the column order, row order, and which identifier columns are retained.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="../img/inner-join.gif" class="img-fluid" style="width:50.0%"></p>
+</div>
+</div>
+<p>Animated example of an inner join (<a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">image source</a>)</p>
+<p><strong>Example</strong></p>
+<p>Below is the output of an <code>inner_join()</code> of <code>linelist_mini</code> (baseline) with <code>hosp_info</code> (secondary). Note the following:</p>
+<ul>
+<li>Baseline rows with no match to the secondary data are removed (rows where <code>hospital</code> is “Missing” or “Other”)<br>
+</li>
+<li>Likewise, rows from the secondary data frame that had no match in the baseline are removed (rows where <code>hosp_name</code> is “sisters” or “ignace”)<br>
+</li>
+<li>Only the identifier column from the baseline is kept (<code>hospital</code>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>linelist_mini <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(hosp_info, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"hospital"</span> <span class="ot">=</span> <span class="st">"hosp_name"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in inner_join(., hosp_info, by = c(hospital = "hosp_name")): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 5 of `x` matches multiple rows in `y`.
+ℹ Row 4 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6ec50b28e53dd2ee0f51" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6ec50b28e53dd2ee0f51">{"x":{"filter":"none","vertical":false,"data":[["11f8ea","b8812a","893f25","893f25","be99c8"],["2014-05-16","2014-05-18","2014-05-21","2014-05-21","2014-05-22"],["St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Military Hospital","Port Hospital"],[12000,50280,40500,10000,50280],["Secondary","Secondary","Secondary","Primary","Secondary"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":12,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,12,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<!-- ======================================================= -->
+</section>
+<section id="semi-join" class="level3 unnumbered">
+<h3 class="unnumbered" data-anchor-id="semi-join">Semi join</h3>
+<p>A semi join is a “filtering join” which uses another dataset <em>not to add rows or columns, but to perform filtering</em>.</p>
+<p>A <strong>semi-join keeps all observations in the baseline data frame that have a match in the secondary data frame</strong> (but does not add new columns nor duplicate any rows for multiple matches). Read more about these “filtering” joins <a href="https://towardsdatascience.com/level-up-with-semi-joins-in-r-a068426096e0">here</a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="../img/semi-join.gif" class="img-fluid" style="width:50.0%"></p>
+</div>
+</div>
+<p>Animated example of a semi join (<a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">image source</a>)</p>
+<p>As an example, the below code returns rows from the <code>hosp_info</code> data frame that have matches in <code>linelist_mini</code> based on hospital name.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>hosp_info <span class="sc">%&gt;%</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">semi_join</span>(linelist_mini, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"hosp_name"</span> <span class="ot">=</span> <span class="st">"hospital"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                             hosp_name catchment_pop     level
+1                    Military Hospital         40500 Secondary
+2                    Military Hospital         10000   Primary
+3                        Port Hospital         50280 Secondary
+4 St. Mark's Maternity Hospital (SMMH)         12000 Secondary</code></pre>
+</div>
+</div>
+<!-- ======================================================= -->
+</section>
+<section id="anti-join" class="level3 unnumbered">
+<h3 class="unnumbered" data-anchor-id="anti-join">Anti join</h3>
+<p><strong>The anti join is another “filtering join” that returns rows in the baseline data frame that <em>do not</em> have a match in the secondary data frame.</strong></p>
+<p>Read more about filtering joins <a href="https://towardsdatascience.com/level-up-with-semi-joins-in-r-a068426096e0">here</a>.</p>
+<p>Common scenarios for an anti-join include identifying records not present in another data frame, troubleshooting spelling in a join (reviewing records that <em>should have</em> matched), and examining records that were excluded after another join.</p>
+<p><strong>As with <code>right_join()</code> and <code>left_join()</code>, the <em>baseline</em> data frame (listed first) is important</strong>. The returned rows are from the baseline data frame only. Notice in the gif below that row in the secondary data frame (purple row 4) is not returned even though it does not match with the baseline.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="../img/anti-join.gif" class="img-fluid" style="width:50.0%"></p>
+</div>
+</div>
+<p>Animated example of an anti join (<a href="https://github.com/gadenbuie/tidyexplain/tree/master/images">image source</a>)</p>
+<section id="simple-anti_join-example" class="level4 unnumbered">
+<h4 class="unnumbered" data-anchor-id="simple-anti_join-example">Simple <code>anti_join()</code> example</h4>
+<p>For a simple example, let’s find the <code>hosp_info</code> hospitals that do not have any cases present in <code>linelist_mini</code>. We list <code>hosp_info</code> first, as the baseline data frame. The hospitals which are not present in <code>linelist_mini</code> are returned.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>hosp_info <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(linelist_mini, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"hosp_name"</span> <span class="ot">=</span> <span class="st">"hospital"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-81052add5242a126d5de" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-81052add5242a126d5de">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","ignace","sisters"],[1950280,5000,4200],["Tertiary","Primary","Primary"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hosp_name<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":12,"columnDefs":[{"className":"dt-right","targets":1}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,12,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="complex-anti_join-example" class="level4 unnumbered">
+<h4 class="unnumbered" data-anchor-id="complex-anti_join-example">Complex <code>anti_join()</code> example</h4>
+<p>For another example, let us say we ran an <code>inner_join()</code> between <code>linelist_mini</code> and <code>hosp_info</code>. This returns only a subset of the original <code>linelist_mini</code> records, as some are not present in <code>hosp_info</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>linelist_mini <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(hosp_info, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"hospital"</span> <span class="ot">=</span> <span class="st">"hosp_name"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in inner_join(., hosp_info, by = c(hospital = "hosp_name")): Detected an unexpected many-to-many relationship between `x` and `y`.
+ℹ Row 5 of `x` matches multiple rows in `y`.
+ℹ Row 4 of `y` matches multiple rows in `x`.
+ℹ If a many-to-many relationship is expected, set `relationship =
+  "many-to-many"` to silence this warning.</code></pre>
+</div>
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f38fdacf03217a9134c1" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f38fdacf03217a9134c1">{"x":{"filter":"none","vertical":false,"data":[["11f8ea","b8812a","893f25","893f25","be99c8"],["2014-05-16","2014-05-18","2014-05-21","2014-05-21","2014-05-22"],["St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Military Hospital","Port Hospital"],[12000,50280,40500,10000,50280],["Secondary","Secondary","Secondary","Primary","Secondary"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n      <th>catchment_pop<\/th>\n      <th>level<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>To review the <code>linelist_mini</code> records that were excluded during the inner join, we can run an anti-join with the same settings (<code>linelist_mini</code> as the baseline).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>linelist_mini <span class="sc">%&gt;%</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(hosp_info, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"hospital"</span> <span class="ot">=</span> <span class="st">"hosp_name"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4013d5c3a12452369506" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-4013d5c3a12452369506">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","07e3e8","369449","f393b4","1389ca"],["2014-05-13","2014-05-13","2014-05-27","2014-06-02","2014-06-05","2014-06-05"],["Other","Missing","Missing","Missing","Missing","Missing"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>date_onset<\/th>\n      <th>hospital<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>To see the <code>hosp_info</code> records that were excluded in the inner join, we could also run an anti-join with <code>hosp_info</code> as the baseline data frame.</p>
+</section>
+</section>
+</section>
+<section id="binding-and-aligning" class="level2">
+<h2 data-anchor-id="binding-and-aligning">Binding and aligning</h2>
+<p>Another method of combining two data frames is “binding” them together. You can also think of this as “appending” or “adding” rows or columns.</p>
+<p>This section will also discuss how to “align” the order of rows of one data frame to the order in another data frame. This topic is discussed below in the section on Binding columns.</p>
+<section id="bind-rows" class="level3 unnumbered">
+<h3 class="unnumbered" data-anchor-id="bind-rows">Bind rows</h3>
+<p>To bind rows of one data frame to the bottom of another data frame, use <code>bind_rows()</code> from <strong>dplyr</strong>. It is very inclusive, so any column present in either data frame will be included in the output. A few notes:</p>
+<ul>
+<li>Unlike the <strong>base</strong> R version <code>row.bind()</code>, <strong>dplyr</strong>’s <code>bind_rows()</code> does not require that the order of columns be the same in both data frames. As long as the column names are spelled identically, it will align them correctly.<br>
+</li>
+<li>You can optionally specify the argument <code>.id =</code>. Provide a character column name. This will produce a new column that serves to identify which data frame each row originally came from.<br>
+</li>
+<li>You can use <code>bind_rows()</code> on a <code>list</code> of similarly-structured data frames to combine them into one data frame. See an example in the [Iteration, loops, and lists] page involving the import of multiple linelists with <strong>purrr</strong>.</li>
+</ul>
+<p>One common example of row binding is to bind a “total” row onto a descriptive table made with <strong>dplyr</strong>’s <code>summarise()</code> function. Below we create a table of case counts and median CT values by hospital with a total row.</p>
+<p>The function <code>summarise()</code> is used on data grouped by hospital to return a summary data frame by hospital. But the function <code>summarise()</code> does not automatically produce a “totals” row, so we create it by summarising the data <em>again</em>, but with the data not grouped by hospital. This produces a second data frame of just one row. We can then bind these data frames together to achieve the final table.</p>
+<p>See other worked examples like this in the [Descriptive tables] and [Tables for presentation] pages.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create core table</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="do">###################</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>hosp_summary <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(hospital) <span class="sc">%&gt;%</span>                        <span class="co"># Group data by hospital</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(                                    <span class="co"># Create new summary columns of indicators of interest</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> <span class="fu">n</span>(),                                  <span class="co"># Number of rows per hospital-outcome group     </span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ct_value_med =</span> <span class="fu">median</span>(ct_blood, <span class="at">na.rm=</span>T))     <span class="co"># median CT value per group</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here is the <code>hosp_summary</code> data frame:</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-78f4a4aa82e06386d2e9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-78f4a4aa82e06386d2e9">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],[454,896,1469,885,1762,422],[22,21,21,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Create a data frame with the “total” statistics (<em>not grouped by hospital</em>). This will return just one row.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create totals</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="do">###############</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>totals <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> <span class="fu">n</span>(),                               <span class="co"># Number of rows for whole dataset     </span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ct_value_med =</span> <span class="fu">median</span>(ct_blood, <span class="at">na.rm=</span>T))  <span class="co"># Median CT for whole dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And below is that <code>totals</code> data frame. Note how there are only two columns. These columns are also in <code>hosp_summary</code>, but there is one column in <code>hosp_summary</code> that is not in <code>totals</code> (<code>hospital</code>).</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-729d28ea896aaeeb7aa7" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-729d28ea896aaeeb7aa7">{"x":{"filter":"none","vertical":false,"data":[[5888],[22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[0,1]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Now we can bind the rows together with <code>bind_rows()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind data frames together</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(hosp_summary, totals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can view the result. See how in the final row, an empty <code>NA</code> value fills in for the column <code>hospital</code> that was not in <code>hosp_summary</code>. As explained in the [Tables for presentation] page, you could “fill-in” this cell with “Total” using <code>replace_na()</code>.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d20030581ad69c8c7c92" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d20030581ad69c8c7c92">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)",null],[454,896,1469,885,1762,422,5888],[22,21,21,22,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="bind-columns" class="level3 unnumbered">
+<h3 class="unnumbered" data-anchor-id="bind-columns">Bind columns</h3>
+<p>There is a similar <strong>dplyr</strong> function <code>bind_cols()</code> which you can use to combine two data frames sideways. Note that rows are matched to each other <em>by position</em> (not like a <em>join</em> above) - for example the 12th row in each data frame will be aligned.</p>
+<p>For an example, we bind several summary tables together. In order to do this, we also demonstrate how to re-arrange the order of rows in one data frame to match the order in another data frame, with <code>match()</code>.</p>
+<p>Here we define <code>case_info</code> as a summary data frame of linelist cases, by hospital, with the number of cases and the number of deaths.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Case information</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>case_info <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(hospital) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> <span class="fu">n</span>(),</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">deaths =</span> <span class="fu">sum</span>(outcome <span class="sc">==</span> <span class="st">"Death"</span>, <span class="at">na.rm=</span>T)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-eab5fc41040cfd1f92bf" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-eab5fc41040cfd1f92bf">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],[454,896,1469,885,1762,422],[193,399,611,395,785,199]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>deaths<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>And let’s say that here is a different data frame <code>contact_fu</code> containing information on the percent of exposed contacts investigated and “followed-up”, again by hospital.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>contact_fu <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">hospital =</span> <span class="fu">c</span>(<span class="st">"St. Mark's Maternity Hospital (SMMH)"</span>, <span class="st">"Military Hospital"</span>, <span class="st">"Missing"</span>, <span class="st">"Central Hospital"</span>, <span class="st">"Port Hospital"</span>, <span class="st">"Other"</span>),</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">investigated =</span> <span class="fu">c</span>(<span class="st">"80%"</span>, <span class="st">"82%"</span>, <span class="cn">NA</span>, <span class="st">"78%"</span>, <span class="st">"64%"</span>, <span class="st">"55%"</span>),</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">per_fu =</span> <span class="fu">c</span>(<span class="st">"60%"</span>, <span class="st">"25%"</span>, <span class="cn">NA</span>, <span class="st">"20%"</span>, <span class="st">"75%"</span>, <span class="st">"80%"</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3fdc067fb654d9b2238b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3fdc067fb654d9b2238b">{"x":{"filter":"none","vertical":false,"data":[["St. Mark's Maternity Hospital (SMMH)","Military Hospital","Missing","Central Hospital","Port Hospital","Other"],["80%","82%",null,"78%","64%","55%"],["60%","25%",null,"20%","75%","80%"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>investigated<\/th>\n      <th>per_fu<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Note that the hospitals are the same, but are in different orders in each data frame. The easiest solution would be to use a <code>left_join()</code> on the <code>hospital</code> column, but you could also use <code>bind_cols()</code> with one extra step.</p>
+<section id="use-match-to-align-ordering" class="level4 unnumbered">
+<h4 class="unnumbered" data-anchor-id="use-match-to-align-ordering">Use <code>match()</code> to align ordering</h4>
+<p>Because the row orders are different, a simple <code>bind_cols()</code> command would result in a mis-match of data. To fix this we can use <code>match()</code> from <strong>base</strong> R to align the rows of a data frame in the same order as in another. We assume for this approach that there are no duplicate values in either data frame.</p>
+<p>When we use <code>match()</code>, the syntax is <code>match(TARGET ORDER VECTOR, DATA FRAME COLUMN TO CHANGE)</code>, where the first argument is the desired order (either a stand-alone vector, or in this case a column in a data frame), and the second argument is the data frame column in the data frame that will be re-ordered. The output of <code>match()</code> is a vector of numbers representing the correct position ordering. You can read more with <code>?match</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">match</span>(case_info<span class="sc">$</span>hospital, contact_fu<span class="sc">$</span>hospital)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4 2 3 6 5 1</code></pre>
+</div>
+</div>
+<p>You can use this numeric vector to re-order the data frame - place it within subset brackets <code>[ ]</code> <em>before the comma</em>. Read more about <strong>base</strong> R bracket subset syntax in the [R basics] page. The command below creates a new data frame, defined as the old one in which the rows are ordered in the numeric vector above.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>contact_fu_aligned <span class="ot">&lt;-</span> contact_fu[<span class="fu">match</span>(case_info<span class="sc">$</span>hospital, contact_fu<span class="sc">$</span>hospital),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2bad6c4fdfa85700fce7" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-2bad6c4fdfa85700fce7">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],["78%","82%",null,"55%","64%","80%"],["20%","25%",null,"80%","75%","60%"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>investigated<\/th>\n      <th>per_fu<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Now we can bind the data frame columns together, with the correct row order. Note that some columns are duplicated and will require cleaning with <code>rename()</code>. Read more aboout <code>bind_rows()</code> <a href="https://dplyr.tidyverse.org/reference/bind.html">here</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_cols</span>(case_info, contact_fu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+• `hospital` -&gt; `hospital...1`
+• `hospital` -&gt; `hospital...4`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  hospital...1                     cases deaths hospital...4 investigated per_fu
+  &lt;chr&gt;                            &lt;int&gt;  &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt; 
+1 Central Hospital                   454    193 St. Mark's … 80%          60%   
+2 Military Hospital                  896    399 Military Ho… 82%          25%   
+3 Missing                           1469    611 Missing      &lt;NA&gt;         &lt;NA&gt;  
+4 Other                              885    395 Central Hos… 78%          20%   
+5 Port Hospital                     1762    785 Port Hospit… 64%          75%   
+6 St. Mark's Maternity Hospital (…   422    199 Other        55%          80%   </code></pre>
+</div>
+</div>
+<p>A <strong>base</strong> R alternative to <code>bind_cols</code> is <code>cbind()</code>, which performs the same operation.</p>
+
+
+</section>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

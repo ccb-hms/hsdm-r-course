@@ -168,12 +168,14 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#details" id="toc-details" class="nav-link" data-scroll-target="#details">Details</a></li>
   <li><a href="#confirming-that-the-container-is-running" id="toc-confirming-that-the-container-is-running" class="nav-link" data-scroll-target="#confirming-that-the-container-is-running">Confirming that the container is running</a></li>
   <li><a href="#inspecting-the-container" id="toc-inspecting-the-container" class="nav-link" data-scroll-target="#inspecting-the-container">Inspecting the container</a></li>
-  <li><a href="#connecting-to-the-container" id="toc-connecting-to-the-container" class="nav-link" data-scroll-target="#connecting-to-the-container">Connecting to the container</a></li>
   </ul></li>
+  <li><a href="#connecting-to-the-container" id="toc-connecting-to-the-container" class="nav-link" data-scroll-target="#connecting-to-the-container">Connecting to the container</a>
+  <ul class="collapse">
   <li><a href="#running-rstudio" id="toc-running-rstudio" class="nav-link" data-scroll-target="#running-rstudio">Running RStudio</a></li>
   <li><a href="#connecting-to-the-sql-server-directly" id="toc-connecting-to-the-sql-server-directly" class="nav-link" data-scroll-target="#connecting-to-the-sql-server-directly">Connecting to the SQL server directly</a></li>
   <li><a href="#ssh" id="toc-ssh" class="nav-link" data-scroll-target="#ssh">SSH</a></li>
   <li><a href="#more-details" id="toc-more-details" class="nav-link" data-scroll-target="#more-details">More Details</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="install-docker.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -327,12 +329,11 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="connecting-to-the-container" class="level3">
-<h3 data-anchor-id="connecting-to-the-container">Connecting to the container</h3>
 </section>
-</section>
-<section id="running-rstudio" class="level2">
-<h2 data-anchor-id="running-rstudio">Running RStudio</h2>
+<section id="connecting-to-the-container" class="level2">
+<h2 data-anchor-id="connecting-to-the-container">Connecting to the container</h2>
+<section id="running-rstudio" class="level3">
+<h3 data-anchor-id="running-rstudio">Running RStudio</h3>
 <p>Once the Docker container is running, you can connect to it by pointing your web browser to port 8787. To do this, simply type <code>http://localhost:8787</code> into your browser’s address bar. You’ll then need to login using <code>USER</code> and <code>PASSWORD</code> or whatever you set <code>CONTAINER_USER_USERNAME</code> and <code>CONTAINER_USER_PASSWORD</code> to when creating the container. You will then be in an RStudio instance inside the container.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -341,8 +342,8 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="connecting-to-the-sql-server-directly" class="level2">
-<h2 data-anchor-id="connecting-to-the-sql-server-directly">Connecting to the SQL server directly</h2>
+<section id="connecting-to-the-sql-server-directly" class="level3">
+<h3 data-anchor-id="connecting-to-the-sql-server-directly">Connecting to the SQL server directly</h3>
 <p>Database connectivity is enabled on TCP port 1433 on the host. Any standard tools that work with SQL Server (Azure Data Studio, SSMS, ODBC, JDBC) can be aimed at this port on the host to work with the DBs in the container.</p>
 <p>If you are already familiar with relational databases, this can be a great option for accessing the NHANES data.</p>
 <p>For instance, in Azure Data Studio you can connect to <code>localhost</code> using the username <code>SA</code> and password <code>yourStrong(!)Password</code> or whatever <code>SA_PASSWORD</code> was set to when you created the container. Note that you’ll have to set the authentication to <code>SQL Login</code>.</p>
@@ -353,18 +354,19 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="ssh" class="level2">
-<h2 data-anchor-id="ssh">SSH</h2>
+<section id="ssh" class="level3">
+<h3 data-anchor-id="ssh">SSH</h3>
 <p>You can can ssh into the container, e.g.:</p>
 <pre><code>ssh USER@HOST_ADDRESS -p 2200 -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null</code></pre>
 <p>If you are running SSH on the same host where the container is running:</p>
 <pre><code>ssh USER@localhost -p 2200 -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null</code></pre>
 </section>
-<section id="more-details" class="level2">
-<h2 data-anchor-id="more-details">More Details</h2>
+<section id="more-details" class="level3">
+<h3 data-anchor-id="more-details">More Details</h3>
 <p>You can find more details and some example scripts for running the SQL server on its <a href="https://github.com/ccb-hms/NHANES">Github page</a>.</p>
 
 
+</section>
 </section>
 </section>
 

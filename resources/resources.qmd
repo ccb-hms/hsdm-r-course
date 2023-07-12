@@ -62,6 +62,10 @@ This is an online R resource specifically for [Excel users](https://jules32.gith
 - The **tidyverse** reference pages on [group_by()](https://dplyr.tidyverse.org/reference/group_by.html) and [grouping](https://dplyr.tidyverse.org/articles/grouping.html)  
 - This page on [Data manipulation](https://itsalocke.com/files/DataManipulationinR.pdf)  
 - [Summarize with conditions in dplyr](https://stackoverflow.com/questions/23528862/summarize-with-conditions-in-dplyr)  
+- A helpful tutorial on pivoting [tutorial](https://datacarpentry.org/r-socialsci/03-dplyr-tidyr/index.html)
+- The [tidyverse page on joins](https://dplyr.tidyverse.org/reference/join.html)  
+- The [R for Data Science page on relational data](https://r4ds.had.co.nz/relational-data.html)  
+
 
 #### Surveys
 

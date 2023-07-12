@@ -52,6 +52,7 @@ all_nhanes <- all_nhanes %>%
    family.PIR = INDFMPIR,
    dental.decay.present = (OHXDECAY == "Yes"),
    dental.restoration.present = (OHXREST == "Yes"),
+   dental.caries = dental.decay.present | dental.restoration.present, 
    plasma.glucose = as.numeric(LBXGLU),
    hba1c = as.numeric(LBXGH),
    bmi = as.numeric(BMXBMI), 
@@ -134,6 +135,12 @@ Now we can take our data subset from the survey design object.
 
 ```{r}
 ado_design <- subset(nhanes_design, age.years >= 13 & age.years <= 18 & !is.na(dental.decay.present))
+
+#Also make a tibble of this data to analyze
+ado_data <- fst_nhanes %>%
+  filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% # Gets the 3660 nonedentulous adolescents
+  filter(!is.na(OHXDECAY)) %>% # Gets the 3346 with non-NA dental carie variable
+  filter(!is.na(diabetes))
 ```
 
 # Survey Analysis
@@ -144,7 +151,7 @@ svymean(~gender, ado_design, na.rm = TRUE)
 ```
 
 ```{r}
-svytable(~age.cat, ado_design)
+svytable(~age.cat + dental.caries, ado_design)
 svymean(~age.cat, ado_design, na.rm = TRUE)
 svytable(~ethnicity, ado_design)
 ```
@@ -155,6 +162,34 @@ Let's recreate Table 1a. from the Beheshti paper.
 
 ```{r}
 #svyby(formula = ~dental.restoration.present, by = ~age.cat, design = ado_design, FUN = svyciprop)
+svychisq(~ethnicity + dental.caries, ado_design)
+
+#svytable(~ethnicity + dental.caries, ado_design)
+
+#svytable(~birthplace, ado_design)
+
+#chisq.test(table(ado_data$ethnicity, ado_data$dental.caries))
+
+#chisq.test(svytable(~ethnicity + dental.caries, ado_design))
+
+#svytable(~birthplace, ado_design)
+```
+```{r}
+
+# Model 1
+logit1 <- (svyglm(dental.caries~I(diabetes == "diabetic"), family=quasibinomial, design=ado_design, na.action = na.omit))
+exp(coef(logit1))
+
+model <- glm(dental.caries~I(diabetes == "diabetic"), family = "binomial", data = ado_data)
+exp(coef(model))
+
+# Model 2
+logit2 <- (svyglm(dental.caries~I(diabetes == "diabetic") + ethnicity + gender + age.years, family=quasibinomial, design=ado_design, na.action = na.omit))
+exp(coef(logit2))
+# Model 3
+# Model 4
+# Model 5
+
 ```
 
 

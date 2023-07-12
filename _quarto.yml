@@ -47,6 +47,13 @@ website:
           contents:
             - readings/missing-data.qmd
             - readings/simple-tests.qmd
+        - section: "Week 7"
+          contents:
+            - readings/regression.qmd
+        - section: "Week 8"
+          contents:
+            - readings/joining.qmd
+            - readings/pivoting.qmd
 
     - title: "In-Class Materials"
       contents:
