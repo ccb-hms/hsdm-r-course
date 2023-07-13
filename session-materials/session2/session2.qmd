@@ -178,7 +178,7 @@ This is an example of a markdown list.
 -   There are `r under_15` samples with an age under 15.
 -   There are `r underweight` samples who are underweight (BMI below 18.5).
 -   There are `r overweight` samples who are of a overweight (BMI between 25 and 29.9).
--   There are `r decay_or_restore` samples who either have dental decay present or dental restoration present (or both).
+-   There are `r decay_or_restore` samples who either have dental caries experience.
 -   There are `r white_and_medpg` samples who are Non-Hispanic White and whose plasma glucose is greater than the median.\
 :::
 
@@ -187,6 +187,8 @@ This is an example of a markdown list.
 If we take a look at Table 1a in [Beheshti et. al.](https://pubmed.ncbi.nlm.nih.gov/33892837/) we can see that all variable have been reported as categories. This is a common practice which allows the use of categorical tests such as the $\chi^2$ test. However, this means we need to transform our numeric variables into these categories.
 
 Recall that `mutate` can be used to create new columns out of old columns. We can combine this with `cut` to create new categories.
+
+CHRISTODO: Change this to first use basic conditionals, then show how to use cut
 
 ```{r}
 nhanes_ado <- nhanes_ado %>%

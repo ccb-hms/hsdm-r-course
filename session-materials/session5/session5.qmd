@@ -19,7 +19,7 @@ library(officer)
 Let's go back to the raw nhanes data, just after we combined the three years. 
 
 ```{r}
-load("jul7_hsdm_data_allweight.RData")
+load("nhanes_beheshti_data.RData")
 tib_d <- as_tibble(base_df_d)
 tib_e <- as_tibble(base_df_e)
 tib_f <- as_tibble(base_df_f)
@@ -39,50 +39,76 @@ all_nhanes <- tib_all
 
 We need to keep the entire dataset in order to properly employ survey weights.
 Thus, we'll have to redo most of the processing we've done in previous weeks. 
-First, let's rename our columns to be a bit more human-readable.
-
-```{r}
-all_nhanes <- all_nhanes %>% 
-  mutate(
-   sequence.id = SEQN,
-   age.years = RIDAGEYR,
-   gender = as.factor(RIAGENDR),
-   ethnicity = as.factor(RIDRETH1),
-   birthplace = as.factor(DMDBORN),
-   family.PIR = INDFMPIR,
-   dental.decay.present = (OHXDECAY == "Yes"),
-   dental.restoration.present = (OHXREST == "Yes"),
-   dental.caries = dental.decay.present | dental.restoration.present, 
-   plasma.glucose = as.numeric(LBXGLU),
-   hba1c = as.numeric(LBXGH),
-   bmi = as.numeric(BMXBMI), 
-   WTSAF2YR = as.numeric(WTSAF2YR),
-   WTINT2YR = as.numeric(WTINT2YR),
-   WTMEC2YR = as.numeric(WTMEC2YR),
-   SDMVPSU = as.numeric(SDMVPSU), 
-   SDMVSTRA = as.numeric(SDMVSTRA))
-```
-
 Since we already have the code, we can repeat it here in a single chain of piped
 statements. 
 
 ```{r}
-all_nhanes <- all_nhanes %>%
-  mutate(age.years = as.numeric(age.years)) %>%
-  mutate(diabetes = case_when(
-    is.na(hba1c) & is.na(plasma.glucose) ~ NA,
-    hba1c >= 6.5 | plasma.glucose >= 126 ~ "diabetic",
-    hba1c >= 5.7 | plasma.glucose >= 100 ~ "prediabetic",
-    .default = "nondiabetic")) %>%
-  mutate(
-    age.cat = cut(
-    age.years,
-    breaks = c(13, 15, 18),
-    include.lowest = TRUE,
-    labels = c("13-15", "16-18"))) %>%
-  mutate(family.PIR.lt1 = str_replace(family.PIR,
-         "PIR value greater than or equa|Value greater than or equal to", "5.0")) %>%
-  mutate(family.PIR.lt1 = as.numeric(family.PIR.lt1) < 1.0)
+all_nhanes <- mutate(all_nhanes,
+                   # Numeric Variables
+                   LBXGLU = as.numeric(LBXGLU),
+                   LBXGH = as.numeric(LBXGH),
+                   BMXBMI = as.numeric(BMXBMI),
+                   WTSAF2YR = as.numeric(WTSAF2YR),
+                   WTINT2YR = as.numeric(WTINT2YR),
+                   WTMEC2YR = as.numeric(WTMEC2YR),
+                   SDMVPSU = as.numeric(SDMVPSU), 
+                   SDMVSTRA = as.numeric(SDMVSTRA),
+                   RIDAGEYR = as.numeric(RIDAGEYR),
+                   
+                   # Basic Categories
+                   RIAGENDR = as.factor(RIAGENDR),
+                   RIDRETH1 = as.factor(RIDRETH1),
+                   DMDBORN = noquote(DMDBORN), # Remove quotes
+                   DMDBORN = as.factor(DMDBORN),
+                   OHXDECAY = (OHXDECAY == "Yes"),
+                   OHXREST = (OHXREST == "Yes"),
+                   
+                   #Complex Categories
+                   diabetes = case_when(
+                    is.na(LBXGH) & is.na(LBXGLU) ~ NA,
+                    LBXGH >= 6.5 | LBXGLU >= 126 ~ "diabetic",
+                    LBXGH >= 5.7 | LBXGLU >= 100 ~ "prediabetic",
+                    .default = "nondiabetic"),
+                  
+                   age.cat = cut(
+                    RIDAGEYR,
+                    breaks = c(13, 15, 18),
+                    include.lowest = TRUE,
+                    labels = c("13-15", "16-18")),
+                 
+                   plasma.glucose.cat = case_when(
+                   LBXGLU < 100 ~ "<100 mg/dl",
+                   LBXGLU < 126 ~ ">=100 mg/dl and <126 mg/dl", 
+                   LBXGLU >= 126 ~ ">=126 mg/dl",
+                   .default = NA),
+                 
+                  hba1c.cat = case_when(
+                   LBXGH < 5.7 ~ "<5.7%",
+                   LBXGH >= 5.7 ~ ">=5.7% and <6.5%",
+                   LBXGH >= 6.5 ~ ">= 6.5%",
+                   .default = NA),
+                 
+                  bmi.cat = case_when( #Technically we should also have an underweight category
+                   BMXBMI < 25 ~ "Normal", 
+                   BMXBMI < 30 ~ "Overweight",
+                   BMXBMI >= 30 ~ "Obese",
+                   .default = NA), 
+                 
+                  family.PIR.cat = case_when(
+                   INDFMPIR == "PIR value greater than or equa" ~ ">= 1",
+                   INDFMPIR == "Value greater than or equal to" ~ ">= 1",
+                   as.numeric(INDFMPIR) >= 1 ~ ">=1",
+                   as.numeric(INDFMPIR) < 1 ~ "<1",
+                   .default = NA),
+                  family.PIR.car = as.numeric(family.PIR.cat) < 1.0,
+                 
+                  birthplace = case_when(
+                   DMDBORN == "Born in 50 US States or Washi" ~ "Within the US",
+                   is.na(DMDBORN) ~ NA,
+                   DMDBORN == "Don't Know" ~ NA,
+                   DMDBORN == "Refused" ~ NA,
+                   .default = "Outside the US"),
+                  dental.caries = OHXDECAY | OHXREST)
 ```
 
 # Preparing Survey Analysis
@@ -103,11 +129,10 @@ Remove all rows with `NA` for the main survey design variables;
 `WTMEC2YR`, `SDMVPSU`, and `SDMVSTRA`.
 
 ```{r}
-fst_nhanes <- all_nhanes %>%
+wt_nhanes <- all_nhanes %>%
   drop_na(WTMEC2YR, SDMVPSU, SDMVSTRA)
 ```
 :::
-
 
 ## Creating combined survey weights
 
@@ -117,8 +142,8 @@ Luckily NHANES has an [official guide](https://wwwn.cdc.gov/nchs/nhanes/tutorial
 It turns out, all we need to do is divide all weights by 3. 
 
 ```{r}
-fst_nhanes <- fst_nhanes %>%
-  mutate(WTSAF6YR = WTMEC2YR * 1/3)
+wt_nhanes <- wt_nhanes %>%
+  mutate(WTMEC6YR = WTMEC2YR * 1/3)
 ```
 
 ## Creating the survey design object
@@ -126,18 +151,18 @@ fst_nhanes <- fst_nhanes %>%
 ```{r}
 nhanes_design <- svydesign(id     = ~SDMVPSU,
                           strata  = ~SDMVSTRA,
-                          weights = ~WTSAF6YR,
+                          weights = ~WTMEC6YR,
                           nest    = TRUE,
-                          data    = fst_nhanes)
+                          data    = wt_nhanes)
 ```
 
 Now we can take our data subset from the survey design object. 
 
 ```{r}
-ado_design <- subset(nhanes_design, age.years >= 13 & age.years <= 18 & !is.na(dental.decay.present))
+ado_design <- subset(nhanes_design, RIDAGEYR >= 13 & RIDAGEYR <= 18 & !is.na(OHXDECAY))
 
 #Also make a tibble of this data to analyze
-ado_data <- fst_nhanes %>%
+ado_data <- wt_nhanes %>%
   filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% # Gets the 3660 nonedentulous adolescents
   filter(!is.na(OHXDECAY)) %>% # Gets the 3346 with non-NA dental carie variable
   filter(!is.na(diabetes))
@@ -146,52 +171,28 @@ ado_data <- fst_nhanes %>%
 # Survey Analysis
 
 ```{r}
-svymean(~age.years, ado_design, na.rm = TRUE)
-svymean(~gender, ado_design, na.rm = TRUE)
+svymean(~RIDAGEYR, ado_design, na.rm = TRUE)
+svymean(~RIAGENDR, ado_design, na.rm = TRUE)
 ```
 
 ```{r}
 svytable(~age.cat + dental.caries, ado_design)
 svymean(~age.cat, ado_design, na.rm = TRUE)
-svytable(~ethnicity, ado_design)
+svytable(~RIDRETH1, ado_design)
 ```
 
 # Creating a summary table
 
 Let's recreate Table 1a. from the Beheshti paper.
 
+# Are summary statistics enough?
+
+
+
 ```{r}
-#svyby(formula = ~dental.restoration.present, by = ~age.cat, design = ado_design, FUN = svyciprop)
-svychisq(~ethnicity + dental.caries, ado_design)
-
-#svytable(~ethnicity + dental.caries, ado_design)
-
-#svytable(~birthplace, ado_design)
-
-#chisq.test(table(ado_data$ethnicity, ado_data$dental.caries))
-
-#chisq.test(svytable(~ethnicity + dental.caries, ado_design))
-
-#svytable(~birthplace, ado_design)
+library(datasets)
+datasets::anscombe
 ```
-```{r}
-
-# Model 1
-logit1 <- (svyglm(dental.caries~I(diabetes == "diabetic"), family=quasibinomial, design=ado_design, na.action = na.omit))
-exp(coef(logit1))
-
-model <- glm(dental.caries~I(diabetes == "diabetic"), family = "binomial", data = ado_data)
-exp(coef(model))
-
-# Model 2
-logit2 <- (svyglm(dental.caries~I(diabetes == "diabetic") + ethnicity + gender + age.years, family=quasibinomial, design=ado_design, na.action = na.omit))
-exp(coef(logit2))
-# Model 3
-# Model 4
-# Model 5
-
-```
-
 
 ::: {.callout-tip appearance="minimal"}
 :::

@@ -13,14 +13,13 @@ library(tidyverse)
 # Data
 
 This week we are going to start learning how to get to the cleaned data we have been using for the past two weeks. 
-You can download the week 3 data [here]().
 
 Note that this week the data is in the `.RData` format.
 The `.RData` format is specific to R and allows us to easily dump multiple objects to a file exactly as the are inside of our R session. 
 This format is not recommended for research as it limits analyses to only using R and could potentially not be compatible with a future R version. 
 However, for today it will allow us to jump right into the data cleaning process. 
 
-The `session3Data.RData` file contains 3 separate dataframes, `base_df_d`, `base_df_e`, and `base_df_f`.
+The `nhanes_beheshti_data.RData` file contains 3 separate dataframes, `base_df_d`, `base_df_e`, and `base_df_f`.
 They each contain the equivalent set of columns from the `D`, `E`, and `F` NHANES data files for 2005-2006, 2007-2008, and 2009-2010, respectively.  
 
 Let's load and take a look at the data.
@@ -55,7 +54,8 @@ library(phonto)
 library(DBI)
 
 cols_d = list(DEMO_D=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", 
-                       "DMDBORN", "INDFMPIR", "SDMVPSU", "SDMVSTRA"), 
+                       "DMDBORN", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
+                       "WTINT2YR", "WTMEC2YR"), 
               OHX_D =c("OHXDECAY", "OHXREST"),
               GLU_D =c("LBXGLU", "WTSAF2YR"), GHB_D = "LBXGH",
               BMX_D="BMXBMI"
@@ -63,7 +63,8 @@ cols_d = list(DEMO_D=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2",
 base_df_d <- jointQuery(cols_d)
 
 cols_e = list(DEMO_E=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", 
-                       "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA"), 
+                       "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
+                       "WTINT2YR", "WTMEC2YR"), 
               OHX_E =c("OHXDECAY", "OHXREST"),
               GLU_E =c("LBXGLU", "WTSAF2YR"), GHB_E = "LBXGH",
               BMX_E ="BMXBMI"
@@ -71,13 +72,14 @@ cols_e = list(DEMO_E=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2",
 base_df_e <- jointQuery(cols_e)
 
 cols_f = list(DEMO_F=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", 
-                       "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA"), 
+                       "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
+                       "WTINT2YR", "WTMEC2YR"), 
               OHXDEN_F =c("OHXDECAY", "OHXREST"),
               GLU_F =c("LBXGLU", "WTSAF2YR"), GHB_F = "LBXGH",
               BMX_F ="BMXBMI"
 )
 base_df_f <- jointQuery(cols_f)
-save(base_df_d, base_df_e, base_df_f, file = "jul7_hsdm_data.RData")
+save(base_df_d, base_df_e, base_df_f, file = "nhanes_beheshti_data.RData")
 ```
 :::
 
@@ -131,6 +133,7 @@ tib_f <- rename(tib_f, DMDBORN = DMDBORN2)
 ```
 
 b. Check table 1b to see how the authors chose to handle this in [Beheshti et. al. 2021](https://pubmed.ncbi.nlm.nih.gov/33892837/). Do you think there were any other factors which went into their decision?
+
 :::
 
 ## Combining the data
@@ -144,15 +147,18 @@ tib_all <- tib_d %>%
   bind_rows(tib_f)
 ```
 
-## Summary Statistics
 
-
-
-<!-- ::: {.callout-tip appearance="minimal"} -->
-<!-- ## Exercise -->
-<!-- ::: -->
- 
 ## Filter relevant population
+
+::: callout-tip
+## Which order should I process my data in?
+
+Choosing the order to perform data cleaning steps depends on a competing factors.
+
+1. **Where information is needed**: Even if an analysis is being performed on only a subset of dataset, the full dataset can help inform data processing decisions such as how to handle missing data. Next week, we'll see that when using survey sample weights we need to use the full dataset to infer population statistics, and thus will need to clean and transform variables before getting the adolecent population. 
+2. **Processing speed**: Smaller datasets are both faster to process and take up less memory than larger datasets. Thus, performing steps which eliminate data first can result in a faster-running computational pipeline. Modern computers can handle most basic data-cleaning operations on hundreds of thousands of observations in seconds, so most of the time we don't need to worry about speed. However, for large datasets or complex algorithms it may become necessary to first reduce the size of your data before performing further cleaning steps. 
+
+:::
 
 Next we need to filter the summary population. 
 Luckily, the paper provides total numbers of participants for most of the filtering steps performed. 
@@ -187,33 +193,95 @@ a. What is causing this warning? Do we need to resolve it?
 b. Once you've decided how to deal with the warning, filter `tib_all` to only include the desired population as described in the paper. Check how many rows you have at each step to double-check your work. 
 
 ```{r}
-all_ado <- tib_all %>%
+all_ado <- all_ado %>%
   filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% # Gets the 3660 nonedentulous adolescents
   filter(!is.na(OHXDECAY)) # Gets the 3346 with non-NA dental carie variable
 ```
 
 :::
 
-## Final data cleanup
+## Data cleaning pipeline
 
 We can choose to leave the variables with their NHANES column names or change them to be a bit more human-readable. 
-Either way, we also want to convert each variable to it's appropriate type. 
+Either way, we also want to convert each variable to it's appropriate type or category. 
+
+### Numeric variables
+Let's start by converting numeric columns:
 
 ```{r}
-# Set columns to have appropriate types
-converted_tib <- mutate(all_ado,
-                   sequence.id = SEQN,
-                   age.years = RIDAGEYR,
-                   gender = as.factor(RIAGENDR),
-                   ethnicity = as.factor(RIDRETH1),
-                   birthplace = as.factor(DMDBORN),
-                   family.PIR = INDFMPIR,
-                   dental.decay.present = (OHXDECAY == "Yes"),
-                   dental.restoration.present = (OHXREST == "Yes"),
-                   plasma.glucose = as.numeric(LBXGLU),
-                   hba1c = as.numeric(LBXGH),
-                   bmi = as.numeric(BMXBMI), 
-                   .keep = "unused") #keep none of the old columns we converted
+# Set numeric columns to be numeric
+cleaned_ado <- mutate(all_ado,
+                   LBXGLU = as.numeric(LBXGLU),
+                   LBXGH = as.numeric(LBXGH),
+                   BMXBMI = as.numeric(BMXBMI))
+```
+
+### Categorical variables
+
+```{r}
+cleaned_ado <- mutate(cleaned_ado,
+                   RIAGENDR = as.factor(RIAGENDR),
+                   RIDRETH1 = as.factor(RIDRETH1),
+                   DMDBORN = noquote(DMDBORN), # Remove quotes
+                   DMDBORN = as.factor(DMDBORN),
+                   OHXDECAY = (OHXDECAY == "Yes"),
+                   OHXREST = (OHXREST == "Yes"))
+
+```
+
+### New variables
+
+We need to create the variables mentioned in the paper are not directly present in NHANES.
+For some variables such as country of birth, we could store the categories in `DMDBorn` but this way we can also keep the original distribution.  
+
+```{r}
+# Set columns to categories as in the paper
+cleaned_ado <- mutate(cleaned_ado,
+                    diabetes = case_when(
+                      is.na(LBXGH) & is.na(LBXGLU) ~ NA,
+                     LBXGH >= 6.5 | LBXGLU >= 126 ~ "diabetic",
+                     LBXGH >= 5.7 | LBXGLU >= 100 ~ "prediabetic",
+                      .default = "nondiabetic"),
+                    
+                    age.cat = cut(
+                      age.years,
+                      breaks = c(13, 15, 18),
+                      include.lowest = TRUE,
+                      labels = c("13-15", "16-18")),
+                   
+                    plasma.glucose.cat = case_when(
+                     LBXGLU < 100 ~ "<100 mg/dl"
+                     LBXGLU < 126 ~ ">=100 mg/dl and <126 mg/dl", 
+                     LBXGLU >= 126 ~ ">=126 mg/dl"
+                     .default ~ NA),
+                   
+                   hba1c.cat = case_when(
+                     LBXGH < 5.7 ~ "<5.7%",
+                     LBXGH >= 5.7 ~ ">=5.7% and <6.5%",
+                     LBXGH >= 6.5 ~ ">= 6.5%"
+                     .default ~ NA),
+                   
+                   bmi.cat = case_when( #Technically we should also have an underweight category
+                     BMXBMI < 25 ~ "Normal", 
+                     BMXBMI < 30 ~ "Overweight",
+                     BMXBMI >= 30 ~ "Obese",
+                     .default ~ NA), 
+                   
+                   family.PIR.cat = case_when(
+                     INDFMPIR == "PIR value greater than or equa" ~ ">= 1"
+                     INDFMPIR == "Value greater than or equal to" ~ ">= 1",
+                     as.numeric(INDFMPIR) >= 1 ~ ">=1",
+                     as.numeric(INDFMPIR) < 1 ~ "<1"
+                     .default ~ NA),
+                   family.PIR.car = as.numeric(family.PIR.cat) < 1.0,
+                   
+                   birthplace = case_when(
+                     DMDBORN == "Born in 50 US States or Washi" ~ "Within the US",
+                     is.na(DMDBORN) ~ NA,
+                     DMDBORN == "Don't Know" ~ NA,
+                     DMDBorn == "Refused" ~ NA,
+                    .default ~ "Outside the US"),
+                   dental.caries = OHXDECAY | OHXREST)
 
 ```
 
@@ -231,15 +299,44 @@ study participants, who had less than 5.7 percent HbA1C
 and less than 100 mg/dl fasting plasma glucose, were classified
 as nondiabetics.
 
-It is reccomended to use `case_when`, but feel free to use any method you want. 
+It is recommended to use `case_when`, but feel free to use any method you want. 
+
+*Hint: remember to account for missing data! When should `diabetes` be `NA`?
 
 ```{r}
 # Add diabetes column
 converted_tib <- converted_tib %>% 
   mutate(diabetes = case_when(
+    is.na(hba1c) & is.na(plasma.glucose) ~ NA,
     hba1c >= 6.5 | plasma.glucose >= 126 ~ "diabetic",
     hba1c >= 5.7 | plasma.glucose >= 100 ~ "prediabetic",
     .default = "nondiabetic"
   ))
 ```
 :::
+
+## Summary Statistics
+
+### Counts of categorical data
+
+Many of the NHANES values are are categorical data, bur right now are stored as text. 
+We can look at what values exist by converting them to factors: 
+
+```{r}
+tib_all %>%
+  mutate(across(c(RIAGENDR, RIDRETH1, DMDEDUC2, DMDBORN), as.factor), .keep = "none") %>%
+  summary()
+```
+
+### Summarize groups
+
+We can use `group_by` and `summarize` to see summary statistics by various subgroups. 
+For instance, let's take a look at education and gender. 
+
+```{r}
+tib_all %>%
+  group_by(RIAGENDR, DMDEDUC2) %>%
+  summarize(n = n())
+```
+
+
