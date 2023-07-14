@@ -396,7 +396,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-anchor-id="preparation">Preparation</h2>
 <section id="load-packages" class="level3 unnumbered">
 <h3 class="unnumbered" data-anchor-id="load-packages">Load packages</h3>
-<p>This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize <code>p_load()</code> from <strong>pacman</strong>, which installs the package if necessary <em>and</em> loads it for use. You can also load installed packages with <code>library()</code> from <strong>base</strong> R. See the page on [R basics] for more information on R packages.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  rio,          <span class="co"># File import</span></span>
@@ -410,76 +409,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  parameters,   <span class="co"># alternative to tidy up results from regressions</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  see          <span class="co"># alternative to visualise forest plots</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Installing package into 'C:/Users/Chris/AppData/Local/R/win-library/4.2'
-(as 'lib' is unspecified)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>also installing the dependencies 'bayestestR', 'datawizard', 'insight'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: unable to access index for repository http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.2:
-  cannot open URL 'http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.2/PACKAGES'</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>package 'bayestestR' successfully unpacked and MD5 sums checked
-package 'datawizard' successfully unpacked and MD5 sums checked
-package 'insight' successfully unpacked and MD5 sums checked
-package 'parameters' successfully unpacked and MD5 sums checked
-
-The downloaded binary packages are in
-    C:\Users\Chris\AppData\Local\Temp\Rtmp2fbb6y\downloaded_packages</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-parameters installed</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'parameters' was built under R version 4.2.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Installing package into 'C:/Users/Chris/AppData/Local/R/win-library/4.2'
-(as 'lib' is unspecified)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>also installing the dependencies 'correlation', 'effectsize', 'modelbased', 'performance'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: unable to access index for repository http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.2:
-  cannot open URL 'http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.2/PACKAGES'</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>package 'correlation' successfully unpacked and MD5 sums checked
-package 'effectsize' successfully unpacked and MD5 sums checked
-package 'modelbased' successfully unpacked and MD5 sums checked
-package 'performance' successfully unpacked and MD5 sums checked
-package 'see' successfully unpacked and MD5 sums checked
-
-The downloaded binary packages are in
-    C:\Users\Chris\AppData\Local\Temp\Rtmp2fbb6y\downloaded_packages</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-see installed</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'see' was built under R version 4.2.3</code></pre>
-</div>
 </div>
 </section>
 <section id="import-data" class="level3 unnumbered">
 <h3 class="unnumbered" data-anchor-id="import-data">Import data</h3>
-<p>We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">click to download the “clean” linelist</a> (as .rds file). Import your data with the <code>import()</code> function from the <strong>rio</strong> package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export] page for details).</p>
+<p>We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href="https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds" class="download-button">click to download the “clean” linelist</a> (as .rds file).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import the linelist</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"linelist_cleaned.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import the linelist</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"linelist_cleaned.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The first 50 rows of the linelist are displayed below.</p>
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-67c8a4c69c0941e6f6f9" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-67c8a4c69c0941e6f6f9">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.46183062600728,8.46272931462646,8.46144367534271,8.46191259217774,8.47292327643506,8.48401630165138,8.45837125340844,8.47761705512509,8.47570184950483,8.47779946878972,8.47145134147474,8.47804840685363,8.48528034195779,8.46957530395867,8.45957352078114,8.47404889511544,8.48802917129884,8.473437335922,8.48408263734462,8.46242233645879,8.47026822126572,8.46398447480533,8.4641347894342,8.45623094629607,8.48334624336805,8.47493999153642,8.47832062438022,8.4693933891765,8.48480589906514,8.47121232619015,8.48438437371817,8.48466158574339,8.47714159984428,8.46238127010609,8.45568597813113,8.4632880274758,8.47940722413856,8.46353857052336,8.46178968158864,8.47508713872833,8.45825808128071,8.4532568143863,8.4732571907655,8.47911586641933,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.8184429761563,16.0652496292635,22.4965706447188,71.4144019043841,41.6171224732461,62.0953890870657,0,16.8376536925366,22.7903289734443,53.4119897959184,24.2802636142907,22.4600343506408,54.320987654321,41.0578432556455,28.5664819944598,17.0320552013276,25.0412914912888,38.7172182043977,27.3876813705495,31.5555555555556,14.8069075945662,30.8839811199813,26.6193433895297,59.375,96.6183574879227,19.2394748755093,84.9403122130395,18.4199377406104,27.7722674072605,41.3223140495868,17.2080666586161,24.1671624033314,15.7218971089178,428.994082840237,27.9930220292912,243.261012491782,20.2395007589813,30.527446435638,25.15589569161,47,39.04,31.0661643201798,77.9683671196257,29.5165961238583,166.493236212279,100.308641975309,37.76,20.6037803457852,23.458562375267],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-017034a197e998e62b22" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-017034a197e998e62b22">{"x":{"filter":"none","vertical":false,"data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.461830626007281,8.462729314626459,8.461443675342711,8.46191259217774,8.472923276435059,8.48401630165138,8.458371253408441,8.477617055125091,8.47570184950483,8.477799468789719,8.47145134147474,8.478048406853629,8.48528034195779,8.469575303958671,8.45957352078114,8.474048895115439,8.488029171298839,8.473437335922,8.484082637344621,8.46242233645879,8.470268221265719,8.463984474805329,8.464134789434199,8.456230946296071,8.48334624336805,8.47493999153642,8.47832062438022,8.469393389176499,8.48480589906514,8.47121232619015,8.48438437371817,8.484661585743391,8.477141599844281,8.462381270106089,8.455685978131131,8.4632880274758,8.47940722413856,8.46353857052336,8.461789681588639,8.47508713872833,8.458258081280711,8.4532568143863,8.4732571907655,8.479115866419329,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.81844297615629,16.06524962926347,22.49657064471879,71.41440190438405,41.61712247324614,62.09538908706566,0,16.83765369253662,22.79032897344431,53.41198979591836,24.28026361429067,22.46003435064077,54.32098765432099,41.05784325564545,28.56648199445983,17.03205520132763,25.04129149128882,38.7172182043977,27.3876813705495,31.55555555555556,14.80690759456621,30.88398111998135,26.61934338952972,59.37499999999999,96.61835748792272,19.23947487550928,84.94031221303948,18.41993774061044,27.77226740726046,41.32231404958677,17.20806665861611,24.16716240333135,15.72189710891781,428.9940828402366,27.99302202929125,243.2610124917817,20.23950075898128,30.52744643563797,25.15589569160998,47,39.04,31.06616432017979,77.96836711962574,29.51659612385831,166.4932362122789,100.3086419753086,37.76,20.60378034578518,23.45856237526698],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -489,25 +433,25 @@ see installed</code></pre>
 <h4 class="unnumbered" data-anchor-id="store-explanatory-variables">Store explanatory variables</h4>
 <p>We store the names of the explanatory columns as a character vector. This will be referenced later.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## define variables of interest </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>explanatory_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"gender"</span>, <span class="st">"fever"</span>, <span class="st">"chills"</span>, <span class="st">"cough"</span>, <span class="st">"aches"</span>, <span class="st">"vomit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## define variables of interest </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>explanatory_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"gender"</span>, <span class="st">"fever"</span>, <span class="st">"chills"</span>, <span class="st">"cough"</span>, <span class="st">"aches"</span>, <span class="st">"vomit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="convert-to-1s-and-0s" class="level4 unnumbered">
 <h4 class="unnumbered" data-anchor-id="convert-to-1s-and-0s">Convert to 1’s and 0’s</h4>
-<p>Below we convert the explanatory columns from “yes”/“no”, “m”/“f”, and “dead”/“alive” to <strong>1 / 0</strong>, to cooperate with the expectations of logistic regression models. To do this efficiently, used <code>across()</code> from <strong>dplyr</strong> to transform multiple columns at one time. The function we apply to each column is <code>case_when()</code> (also <strong>dplyr</strong>) which applies logic to convert specified values to 1’s and 0’s. See sections on <code>across()</code> and <code>case_when()</code> in the <a href="#clean_across">Cleaning data and core functions page</a>).</p>
+<p>Below we convert the explanatory columns from “yes”/“no”, “m”/“f”, and “dead”/“alive” to <strong>1 / 0</strong>, to cooperate with the expectations of logistic regression models. To do this efficiently, used <code>across()</code> from <strong>dplyr</strong> to transform multiple columns at one time. The function we apply to each column is <code>case_when()</code> (also <strong>dplyr</strong>) which applies logic to convert specified values to 1’s and 0’s.</p>
 <p>Note: the “.” below represents the column that is being processed by <code>across()</code> at that moment.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## convert dichotomous variables to 0/1 </span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span>  </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(                                      </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">all_of</span>(<span class="fu">c</span>(explanatory_vars, <span class="st">"outcome"</span>)),  <span class="do">## for each column listed and "outcome"</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span><span class="fu">case_when</span>(                              </span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>      . <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"m"</span>, <span class="st">"yes"</span>, <span class="st">"Death"</span>)   <span class="sc">~</span> <span class="dv">1</span>,           <span class="do">## recode male, yes and death to 1</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>      . <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"no"</span>,  <span class="st">"Recover"</span>) <span class="sc">~</span> <span class="dv">0</span>,           <span class="do">## female, no and recover to 0</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                            <span class="sc">~</span> <span class="cn">NA_real_</span>)    <span class="do">## otherwise set to missing</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## convert dichotomous variables to 0/1 </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span>  </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(                                      </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">all_of</span>(<span class="fu">c</span>(explanatory_vars, <span class="st">"outcome"</span>)),  <span class="do">## for each column listed and "outcome"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span><span class="fu">case_when</span>(                              </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      . <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"m"</span>, <span class="st">"yes"</span>, <span class="st">"Death"</span>)   <span class="sc">~</span> <span class="dv">1</span>,           <span class="do">## recode male, yes and death to 1</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>      . <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"f"</span>, <span class="st">"no"</span>,  <span class="st">"Recover"</span>) <span class="sc">~</span> <span class="dv">0</span>,           <span class="do">## female, no and recover to 0</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span>                            <span class="sc">~</span> <span class="cn">NA_real_</span>)    <span class="do">## otherwise set to missing</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="drop-rows-with-missing-values" class="level4 unnumbered">
@@ -516,12 +460,12 @@ see installed</code></pre>
 <p>The first thing we must to is make sure our <code>explanatory_vars</code> vector includes the column <code>age</code> (<code>age</code> would have produced an error in the previous <code>case_when()</code> operation, which was only for dichotomous variables). Then we pipe the <code>linelist</code> to <code>drop_na()</code> to remove any rows with missing values in the <code>outcome</code> column or any of the <code>explanatory_vars</code> columns.</p>
 <p>Before running the code, the number of rows in the <code>linelist</code> is <code>nrow(linelist)</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## add in age_category to the explanatory vars </span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>explanatory_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(explanatory_vars, <span class="st">"age_cat"</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="do">## drop rows with missing information for variables of interest </span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(<span class="fu">any_of</span>(<span class="fu">c</span>(<span class="st">"outcome"</span>, explanatory_vars)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## add in age_category to the explanatory vars </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>explanatory_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(explanatory_vars, <span class="st">"age_cat"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">## drop rows with missing information for variables of interest </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(<span class="fu">any_of</span>(<span class="fu">c</span>(<span class="st">"outcome"</span>, explanatory_vars)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The number of rows remaining in <code>linelist</code> is <code>nrow(linelist)</code>.</p>
 <!-- ======================================================= -->
@@ -530,7 +474,7 @@ see installed</code></pre>
 </section>
 <section id="univariate" class="level2">
 <h2 data-anchor-id="univariate">Univariate</h2>
-<p>Just like in the page on <a href="https://epirhandbook.com/descriptive-tables.html">Descriptive tables</a>, your use case will determine which R package you use. We present two options for doing univariate analysis:</p>
+<p>Your use case will determine which R package you use. We present two options for doing univariate analysis:</p>
 <ul>
 <li>Use functions available in <strong>base</strong> R to quickly print results to the console. Use the <strong>broom</strong> package to tidy up the outputs.<br>
 </li>
@@ -544,11 +488,11 @@ see installed</code></pre>
 <p>The <strong>base</strong> R function <code>lm()</code> perform linear regression, assessing the relationship between numeric response and explanatory variables that are assumed to have a linear relationship.</p>
 <p>Provide the equation as a formula, with the response and explanatory column names separated by a tilde <code>~</code>. Also, specify the dataset to <code>data =</code>. Define the model results as an R object, to use later.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>lm_results <span class="ot">&lt;-</span> <span class="fu">lm</span>(ht_cm <span class="sc">~</span> age, <span class="at">data =</span> linelist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lm_results <span class="ot">&lt;-</span> <span class="fu">lm</span>(ht_cm <span class="sc">~</span> age, <span class="at">data =</span> linelist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can then run <code>summary()</code> on the model results to see the coefficients (Estimates), P-value, residuals, and other measures.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -572,7 +516,7 @@ F-statistic: 1.375e+04 on 1 and 4165 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <p>Alternatively you can use the <code>tidy()</code> function from the <strong>broom</strong> package to pull the results in to a table. What the results tell us is that for each year increase in age the height increases by 3.5 cm and this is statistically significant.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lm_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(lm_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   term        estimate std.error statistic p.value
@@ -583,27 +527,27 @@ F-statistic: 1.375e+04 on 1 and 4165 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <p>You can then also use this regression to add it to a <strong>ggplot</strong>, to do this we first pull the points for the observed data and the fitted line in to one data frame using the <code>augment()</code> function from <strong>broom</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">## pull the regression points and observed data in to one dataset</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span> <span class="fu">augment</span>(lm_results)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="do">## plot the data using age as the x-axis </span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(points, <span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span> </span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## add points for height </span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> ht_cm)) <span class="sc">+</span> </span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## add your regression line </span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> .fitted), <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## pull the regression points and observed data in to one dataset</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span> <span class="fu">augment</span>(lm_results)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="do">## plot the data using age as the x-axis </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(points, <span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="do">## add points for height </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> ht_cm)) <span class="sc">+</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="do">## add your regression line </span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> .fitted), <span class="at">colour =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="regression_files/figure-html/lin_reg_res_plot-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>It is also possible to add a simple linear regression straight straight in <strong>ggplot</strong> using the <code>geom_smooth()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## add your data to a plot </span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(linelist, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> ht_cm)) <span class="sc">+</span> </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">## show points</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="do">## add a linear regression </span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## add your data to a plot </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(linelist, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> ht_cm)) <span class="sc">+</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">## show points</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="do">## add a linear regression </span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -618,8 +562,8 @@ F-statistic: 1.375e+04 on 1 and 4165 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The function <code>glm()</code> from the <strong>stats</strong> package (part of <strong>base</strong> R) is used to fit Generalized Linear Models (GLM).</p>
 <p><code>glm()</code> can be used for univariate and multivariable logistic regression (e.g.&nbsp;to get Odds Ratios). Here are the core parts:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arguments for glm()</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(formula, family, data, weights, subset, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arguments for glm()</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(formula, family, data, weights, subset, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><code>formula =</code> The model is provided to <code>glm()</code> as an equation, with the outcome on the left and explanatory variables on the right of a tilde <code>~</code>.<br>
@@ -677,16 +621,12 @@ F-statistic: 1.375e+04 on 1 and 4165 DF,  p-value: &lt; 2.2e-16</code></pre>
 <h4 class="unnumbered" data-anchor-id="univariate-glm">Univariate <code>glm()</code></h4>
 <p>In this example we are assessing the association between different age categories and the outcome of death (coded as 1 in the Preparation section). Below is a univariate model of <code>outcome</code> by <code>age_cat</code>. We save the model output as <code>model</code> and then print it with <code>summary()</code> to the console. Note the estimates provided are the <em>log odds</em> and that the baseline level is the first factor level of <code>age_cat</code> (“0-4”).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(outcome <span class="sc">~</span> age_cat, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> linelist)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(outcome <span class="sc">~</span> age_cat, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> linelist)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
 glm(formula = outcome ~ age_cat, family = "binomial", data = linelist)
-
-Deviance Residuals: 
-   Min      1Q  Median      3Q     Max  
--1.339  -1.278   1.024   1.080   1.354  
 
 Coefficients:
               Estimate Std. Error z value Pr(&gt;|z|)   
@@ -710,20 +650,16 @@ AIC: 5721.1
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 </div>
-<p>To alter the baseline level of a given variable, ensure the column is class Factor and move the desired level to the first position with <code>fct_relevel()</code> (see page on [Factors]). For example, below we take column <code>age_cat</code> and set “20-29” as the baseline before piping the modified data frame into <code>glm()</code>.</p>
+<p>To alter the baseline level of a given variable, ensure the column is class Factor and move the desired level to the first position with <code>fct_relevel()</code>. For example, below we take column <code>age_cat</code> and set “20-29” as the baseline before piping the modified data frame into <code>glm()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_cat =</span> <span class="fu">fct_relevel</span>(age_cat, <span class="st">"20-29"</span>, <span class="at">after =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(<span class="at">formula =</span> outcome <span class="sc">~</span> age_cat, <span class="at">family =</span> <span class="st">"binomial"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_cat =</span> <span class="fu">fct_relevel</span>(age_cat, <span class="st">"20-29"</span>, <span class="at">after =</span> <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(<span class="at">formula =</span> outcome <span class="sc">~</span> age_cat, <span class="at">family =</span> <span class="st">"binomial"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
 glm(formula = outcome ~ age_cat, family = "binomial", data = .)
-
-Deviance Residuals: 
-   Min      1Q  Median      3Q     Max  
--1.339  -1.278   1.024   1.080   1.354  
 
 Coefficients:
              Estimate Std. Error z value Pr(&gt;|z|)    
@@ -756,9 +692,9 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <li>Get the <em>exponentiated</em> log odds ratio estimates and confidence intervals by passing the model to <code>tidy()</code> and setting <code>exponentiate = TRUE</code> and <code>conf.int = TRUE</code>.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(outcome <span class="sc">~</span> age_cat, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> linelist) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="at">exponentiate =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span>        <span class="co"># exponentiate and produce CIs</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="at">digits =</span> <span class="dv">2</span>))  <span class="co"># round all numeric columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(outcome <span class="sc">~</span> age_cat, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> linelist) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>(<span class="at">exponentiate =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span>        <span class="co"># exponentiate and produce CIs</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="at">digits =</span> <span class="dv">2</span>))  <span class="co"># round all numeric columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There was 1 warning in `mutate()`.
 ℹ In argument: `across(where(is.numeric), round, digits = 2)`.
@@ -777,60 +713,49 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8c8a4c5a20feee0f3841" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8c8a4c5a20feee0f3841">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.26,0.94,1.15,0.99,1.03,1.07,0.68,0.53],[0.07,0.1,0.11,0.11,0.1,0.11,0.26,0.92],[3.21,-0.62,1.29,-0.05,0.27,0.56,-1.5,-0.7],[0,0.54,0.2,0.96,0.79,0.58,0.13,0.49],[1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07],[1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-267f31982ee7bb51a1cf" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-267f31982ee7bb51a1cf">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.26,0.9399999999999999,1.15,0.99,1.03,1.07,0.68,0.53],[0.07000000000000001,0.1,0.11,0.11,0.1,0.11,0.26,0.92],[3.21,-0.62,1.29,-0.05,0.27,0.5600000000000001,-1.5,-0.7],[0,0.54,0.2,0.96,0.79,0.58,0.13,0.49],[1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07000000000000001],[1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <ol start="2" type="1">
-<li>Combine these model results with a table of counts. Below, we create the a counts cross-table with the <code>tabyl()</code> function from <strong>janitor</strong>, as covered in the [Descriptive tables] page.</li>
+<li>Combine these model results with a table of counts. Below, we create the a counts cross-table with the <code>tabyl()</code> function from <strong>janitor</strong>.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>counts_table <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">tabyl</span>(age_cat, outcome)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>counts_table <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">tabyl</span>(age_cat, outcome)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<!-- * Group rows by outcome, and get counts by age category   -->
-<!-- * Pivot wider so the column are `age_cat`, `0`, and `1`   -->
-<!-- * Remove row for `NA` `age_cat`, if applicable, to align with the model results   -->
-<!-- ```{r} -->
-
-<!-- counts_table <- linelist %>%  -->
-<!--   filter(!is.na(outcome) & !is.na(age_cat)) %>%    # ensure outcome and age_cat are present  -->
-<!--   group_by(outcome) %>%                            # get counts of variable of interest grouped by outcome -->
-<!--   count(age_cat) %>%   ## gets number or rows by unique outcome-age category combinations   -->
-<!--   pivot_wider(names_from = outcome, values_from = n)    ## spread data to wide format (as in cross-tabulation) -->
-<!-- ``` -->
 <p>Here is what this <code>counts_table</code> data frame looks like:</p>
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-057e26ea368dea04a26b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-057e26ea368dea04a26b">{"x":{"filter":"none","vertical":false,"data":[["0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+"],[338,365,273,238,345,228,35,3],[427,433,396,299,448,307,30,2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_cat<\/th>\n      <th>0<\/th>\n      <th>1<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-11721fb0f14fb86cdc64" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-11721fb0f14fb86cdc64">{"x":{"filter":"none","vertical":false,"data":[["0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+"],[338,365,273,238,345,228,35,3],[427,433,396,299,448,307,30,2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_cat<\/th>\n      <th>0<\/th>\n      <th>1<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Now we can bind the <code>counts_table</code> and the <code>model</code> results together horizontally with <code>bind_cols()</code> (<strong>dplyr</strong>). Remember that with <code>bind_cols()</code> the rows in the two data frames must be aligned perfectly. In this code, because we are binding within a pipe chain, we use <code>.</code> to represent the piped object <code>counts_table</code> as we bind it to <code>model</code>. To finish the process, we use <code>select()</code> to pick the desired columns and their order, and finally apply the <strong>base</strong> R <code>round()</code> function across all numeric columns to specify 2 decimal places.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> counts_table <span class="sc">%&gt;%</span>           <span class="co"># begin with table of counts</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(., model) <span class="sc">%&gt;%</span>              <span class="co"># combine with the outputs of the regression </span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, estimate,          <span class="co"># select and re-order cols</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>         conf.low, conf.high, p.value) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="at">digits =</span> <span class="dv">2</span>)) <span class="do">## round to 2 decimal places</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> counts_table <span class="sc">%&gt;%</span>           <span class="co"># begin with table of counts</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(., model) <span class="sc">%&gt;%</span>              <span class="co"># combine with the outputs of the regression </span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, estimate,          <span class="co"># select and re-order cols</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>         conf.low, conf.high, p.value) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="at">digits =</span> <span class="dv">2</span>)) <span class="do">## round to 2 decimal places</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here is what the combined data frame looks like, printed nicely as an image with a function from <strong>flextable</strong>. The [Tables for presentation] explains how to customize such tables with <strong>flextable</strong>, or or you can use numerous other packages such as <strong>knitr</strong> or <strong>GT</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> combined <span class="sc">%&gt;%</span> </span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">qflextable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> combined <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">qflextable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="looping-multiple-univariate-models" class="level4 unnumbered">
 <h4 class="unnumbered" data-anchor-id="looping-multiple-univariate-models">Looping multiple univariate models</h4>
 <p>Below we present a method using <code>glm()</code> and <code>tidy()</code> for a more simple approach, see the section on <strong>gtsummary</strong>.</p>
-<p>To run the models on several exposure variables to produce univariate odds ratios (i.e.&nbsp;not controlling for each other), you can use the approach below. It uses <code>str_c()</code> from <strong>stringr</strong> to create univariate formulas (see [Characters and strings]), runs the <code>glm()</code> regression on each formula, passes each <code>glm()</code> output to <code>tidy()</code> and finally collapses all the model outputs together with <code>bind_rows()</code> from <strong>tidyr</strong>. This approach uses <code>map()</code> from the package <strong>purrr</strong> to iterate - see the page on [Iteration, loops, and lists] for more information on this tool.</p>
+<p>To run the models on several exposure variables to produce univariate odds ratios (i.e.&nbsp;not controlling for each other), you can use the approach below. It uses <code>str_c()</code> from <strong>stringr</strong> to create univariate formulas (see [Characters and strings]), runs the <code>glm()</code> regression on each formula, passes each <code>glm()</code> output to <code>tidy()</code> and finally collapses all the model outputs together with <code>bind_rows()</code> from <strong>tidyr</strong>. This approach uses <code>map()</code> from the package <strong>purrr</strong> to iterate.</p>
 <ol type="1">
 <li><p>Create a vector of column names of the explanatory variables. We already have this as <code>explanatory_vars</code> from the Preparation section of this page.</p></li>
 <li><p>Use <code>str_c()</code> to create multiple string formulas, with <code>outcome</code> on the left, and a column name from <code>explanatory_vars</code> on the right. The period <code>.</code> substitutes for the column name in <code>explanatory_vars</code>.</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>explanatory_vars <span class="sc">%&gt;%</span> <span class="fu">str_c</span>(<span class="st">"outcome ~ "</span>, .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>explanatory_vars <span class="sc">%&gt;%</span> <span class="fu">str_c</span>(<span class="st">"outcome ~ "</span>, .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "outcome ~ gender"  "outcome ~ fever"   "outcome ~ chills" 
 [4] "outcome ~ cough"   "outcome ~ aches"   "outcome ~ vomit"  
@@ -843,71 +768,71 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <li><p>Finally the output of the second <code>map()</code> (a list of tidied data frames) is condensed with <code>bind_rows()</code>, resulting in one data frame with all the univariate results.</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> explanatory_vars <span class="sc">%&gt;%</span>       <span class="co"># begin with variables of interest</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(<span class="st">"outcome ~ "</span>, .) <span class="sc">%&gt;%</span>         <span class="co"># combine each variable into formula ("outcome ~ variable of interest")</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># iterate through each univariate formula</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(                               </span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.f =</span> <span class="sc">~</span><span class="fu">glm</span>(                       <span class="co"># pass the formulas one-by-one to glm()</span></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">formula =</span> <span class="fu">as.formula</span>(.x),      <span class="co"># within glm(), the string formula is .x</span></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">family =</span> <span class="st">"binomial"</span>,           <span class="co"># specify type of glm (logistic)</span></span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> linelist)) <span class="sc">%&gt;%</span>          <span class="co"># dataset</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tidy up each of the glm regression outputs from above</span></span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">.f =</span> <span class="sc">~</span><span class="fu">tidy</span>(</span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>      .x, </span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">exponentiate =</span> <span class="cn">TRUE</span>,           <span class="co"># exponentiate </span></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">conf.int =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span>          <span class="co"># return confidence intervals</span></span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># collapse the list of regression outputs in to one data frame</span></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># round all numeric columns</span></span>
-<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="at">digits =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> explanatory_vars <span class="sc">%&gt;%</span>       <span class="co"># begin with variables of interest</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(<span class="st">"outcome ~ "</span>, .) <span class="sc">%&gt;%</span>         <span class="co"># combine each variable into formula ("outcome ~ variable of interest")</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># iterate through each univariate formula</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(                               </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.f =</span> <span class="sc">~</span><span class="fu">glm</span>(                       <span class="co"># pass the formulas one-by-one to glm()</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">formula =</span> <span class="fu">as.formula</span>(.x),      <span class="co"># within glm(), the string formula is .x</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">family =</span> <span class="st">"binomial"</span>,           <span class="co"># specify type of glm (logistic)</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> linelist)) <span class="sc">%&gt;%</span>          <span class="co"># dataset</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># tidy up each of the glm regression outputs from above</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">.f =</span> <span class="sc">~</span><span class="fu">tidy</span>(</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>      .x, </span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">exponentiate =</span> <span class="cn">TRUE</span>,           <span class="co"># exponentiate </span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">conf.int =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span>          <span class="co"># return confidence intervals</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># collapse the list of regression outputs in to one data frame</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># round all numeric columns</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="at">digits =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This time, the end object <code>models</code> is longer because it now represents the combined results of several univariate regressions. Click through to see all the rows of <code>model</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6ecc04c855053c76ca6b" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6ecc04c855053c76ca6b">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","(Intercept)","fever","(Intercept)","chills","(Intercept)","cough","(Intercept)","aches","(Intercept)","vomit","(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.28,1,1.28,1,1.28,1.03,1.14,1.15,1.29,0.93,1.23,1.09,1.26,0.94,1.15,0.99,1.03,1.07,0.68,0.53],[0.04,0.06,0.07,0.08,0.03,0.08,0.08,0.09,0.03,0.1,0.04,0.06,0.07,0.1,0.11,0.11,0.1,0.11,0.26,0.92],[5.67,-0.04,3.44,0.01,6.98,0.41,1.53,1.58,7.78,-0.66,4.67,1.39,3.21,-0.62,1.29,-0.05,0.27,0.56,-1.5,-0.7],[0,0.97,0,0.99,0,0.68,0.13,0.11,0,0.51,0,0.17,0,0.54,0.2,0.96,0.79,0.58,0.13,0.49],[1.18,0.88,1.11,0.85,1.19,0.89,0.97,0.97,1.21,0.76,1.13,0.96,1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07],[1.4,1.13,1.48,1.17,1.37,1.21,1.34,1.37,1.38,1.14,1.34,1.23,1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1af7b69a3be960f03597" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1af7b69a3be960f03597">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","(Intercept)","fever","(Intercept)","chills","(Intercept)","cough","(Intercept)","aches","(Intercept)","vomit","(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.28,1,1.28,1,1.28,1.03,1.14,1.15,1.29,0.93,1.23,1.09,1.26,0.9399999999999999,1.15,0.99,1.03,1.07,0.68,0.53],[0.04,0.06,0.07000000000000001,0.08,0.03,0.08,0.08,0.09,0.03,0.1,0.04,0.06,0.07000000000000001,0.1,0.11,0.11,0.1,0.11,0.26,0.92],[5.67,-0.04,3.44,0.01,6.98,0.41,1.53,1.58,7.78,-0.66,4.67,1.39,3.21,-0.62,1.29,-0.05,0.27,0.5600000000000001,-1.5,-0.7],[0,0.97,0,0.99,0,0.68,0.13,0.11,0,0.51,0,0.17,0,0.54,0.2,0.96,0.79,0.58,0.13,0.49],[1.18,0.88,1.11,0.85,1.19,0.89,0.97,0.97,1.21,0.76,1.13,0.96,1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07000000000000001],[1.4,1.13,1.48,1.17,1.37,1.21,1.34,1.37,1.38,1.14,1.34,1.23,1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>As before, we can create a counts table from the <code>linelist</code> for each explanatory variable, bind it to <code>models</code>, and make a nice table. We begin with the variables, and iterate through them with <code>map()</code>. We iterate through a user-defined function which involves creating a counts table with <strong>dplyr</strong> functions. Then the results are combined and bound with the <code>models</code> model results.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="do">## for each explanatory variable</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>univ_tab_base <span class="ot">&lt;-</span> explanatory_vars <span class="sc">%&gt;%</span> </span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="at">.f =</span> </span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>{linelist <span class="sc">%&gt;%</span>                <span class="do">## begin with linelist</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">group_by</span>(outcome) <span class="sc">%&gt;%</span>     <span class="do">## group data set by outcome</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">count</span>(.data[[.x]]) <span class="sc">%&gt;%</span>    <span class="do">## produce counts for variable of interest</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pivot_wider</span>(              <span class="do">## spread to wide format (as in cross-tabulation)</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">names_from =</span> outcome,</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">values_from =</span> n) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">drop_na</span>(.data[[.x]]) <span class="sc">%&gt;%</span>         <span class="do">## drop rows with missings</span></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rename</span>(<span class="st">"variable"</span> <span class="ot">=</span> .x) <span class="sc">%&gt;%</span>      <span class="do">## change variable of interest column to "variable"</span></span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="fu">as.character</span>(variable))} <span class="do">## convert to character, else non-dichotomous (categorical) variables come out as factor and cant be merged</span></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="do">## collapse the list of count outputs in to one data frame</span></span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="do">## merge with the outputs of the regression </span></span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(., models) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>  <span class="do">## only keep columns interested in </span></span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, estimate, conf.low, conf.high, p.value) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>  <span class="do">## round decimal places</span></span>
-<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="at">digits =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## for each explanatory variable</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>univ_tab_base <span class="ot">&lt;-</span> explanatory_vars <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="at">.f =</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>{linelist <span class="sc">%&gt;%</span>                <span class="do">## begin with linelist</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">group_by</span>(outcome) <span class="sc">%&gt;%</span>     <span class="do">## group data set by outcome</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">count</span>(.data[[.x]]) <span class="sc">%&gt;%</span>    <span class="do">## produce counts for variable of interest</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pivot_wider</span>(              <span class="do">## spread to wide format (as in cross-tabulation)</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">names_from =</span> outcome,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">values_from =</span> n) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">drop_na</span>(.data[[.x]]) <span class="sc">%&gt;%</span>         <span class="do">## drop rows with missings</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rename</span>(<span class="st">"variable"</span> <span class="ot">=</span> .x) <span class="sc">%&gt;%</span>      <span class="do">## change variable of interest column to "variable"</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="fu">as.character</span>(variable))} <span class="do">## convert to character, else non-dichotomous (categorical) variables come out as factor and cant be merged</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>  <span class="do">## collapse the list of count outputs in to one data frame</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>  <span class="do">## merge with the outputs of the regression </span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(., models) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>  <span class="do">## only keep columns interested in </span></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(term, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, estimate, conf.low, conf.high, p.value) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>  <span class="do">## round decimal places</span></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="at">digits =</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Below is what the data frame looks like. See the page on [Tables for presentation] for ideas on how to further convert this table to pretty HTML output (e.g.&nbsp;with <strong>flextable</strong>).</p>
+<p>Below is what the data frame looks like.</p>
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3ff506b2632b2da9cf5d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-3ff506b2632b2da9cf5d">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","(Intercept)","fever","(Intercept)","chills","(Intercept)","cough","(Intercept)","aches","(Intercept)","vomit","(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[909,916,340,1485,1472,353,272,1553,1636,189,931,894,338,365,273,238,345,228,35,3],[1168,1174,436,1906,1877,465,309,2033,2114,228,1144,1198,427,433,396,299,448,307,30,2],[1.28,1,1.28,1,1.28,1.03,1.14,1.15,1.29,0.93,1.23,1.09,1.26,0.94,1.15,0.99,1.03,1.07,0.68,0.53],[1.18,0.88,1.11,0.85,1.19,0.89,0.97,0.97,1.21,0.76,1.13,0.96,1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07],[1.4,1.13,1.48,1.17,1.37,1.21,1.34,1.37,1.38,1.14,1.34,1.23,1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2],[0,0.97,0,0.99,0,0.68,0.13,0.11,0,0.51,0,0.17,0,0.54,0.2,0.96,0.79,0.58,0.13,0.49]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>0<\/th>\n      <th>1<\/th>\n      <th>estimate<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n      <th>p.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-57c510390f7bdb87b794" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-57c510390f7bdb87b794">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","(Intercept)","fever","(Intercept)","chills","(Intercept)","cough","(Intercept)","aches","(Intercept)","vomit","(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[909,916,340,1485,1472,353,272,1553,1636,189,931,894,338,365,273,238,345,228,35,3],[1168,1174,436,1906,1877,465,309,2033,2114,228,1144,1198,427,433,396,299,448,307,30,2],[1.28,1,1.28,1,1.28,1.03,1.14,1.15,1.29,0.93,1.23,1.09,1.26,0.9399999999999999,1.15,0.99,1.03,1.07,0.68,0.53],[1.18,0.88,1.11,0.85,1.19,0.89,0.97,0.97,1.21,0.76,1.13,0.96,1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07000000000000001],[1.4,1.13,1.48,1.17,1.37,1.21,1.34,1.37,1.38,1.14,1.34,1.23,1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2],[0,0.97,0,0.99,0,0.68,0.13,0.11,0,0.51,0,0.17,0,0.54,0.2,0.96,0.79,0.58,0.13,0.49]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>0<\/th>\n      <th>1<\/th>\n      <th>estimate<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n      <th>p.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <!-- ======================================================= -->
@@ -915,42 +840,42 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 </section>
 <section id="reg_gt_uni" class="level3 unnumbered">
 <h3 class="unnumbered" data-anchor-id="reg_gt_uni"><strong>gtsummary</strong> package</h3>
-<p>Below we present the use of <code>tbl_uvregression()</code> from the <strong>gtsummary</strong> package. Just like in the page on <a href="https://epirhandbook.com/descriptive-tables.html">Descriptive tables</a>, <strong>gtsummary</strong> functions do a good job of running statistics <em>and</em> producing professional-looking outputs. This function produces a table of univariate regression results.</p>
+<p>Below we present the use of <code>tbl_uvregression()</code> from the <strong>gtsummary</strong> package. <strong>gtsummary</strong> functions do a good job of running statistics <em>and</em> producing professional-looking outputs. This function produces a table of univariate regression results.</p>
 <p>We select only the necessary columns from the <code>linelist</code> (explanatory variables and the outcome variable) and pipe them into <code>tbl_uvregression()</code>. We are going to run univariate regression on each of the columns we defined as <code>explanatory_vars</code> in the data Preparation section (gender, fever, chills, cough, aches, vomit, and age_cat).</p>
 <p>Within the function itself, we provide the <code>method =</code> as <code>glm</code> (no quotes), the <code>y =</code> outcome column (<code>outcome</code>), specify to <code>method.args =</code> that we want to run logistic regression via <code>family = binomial</code>, and we tell it to exponentiate the results.</p>
 <p>The output is HTML and contains the counts</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>univ_tab <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(explanatory_vars, outcome) <span class="sc">%&gt;%</span> <span class="do">## select variables of interest</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_uvregression</span>(                         <span class="do">## produce univariate table</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> glm,                           <span class="do">## define regression want to run (generalised linear model)</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> outcome,                            <span class="do">## define outcome variable</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> binomial),  <span class="do">## define what type of glm want to run (logistic)</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">exponentiate =</span> <span class="cn">TRUE</span>                     <span class="do">## exponentiate to produce odds ratios (rather than log odds)</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="do">## view univariate results table </span></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>univ_tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>univ_tab <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(explanatory_vars, outcome) <span class="sc">%&gt;%</span> <span class="do">## select variables of interest</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_uvregression</span>(                         <span class="do">## produce univariate table</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> glm,                           <span class="do">## define regression want to run (generalised linear model)</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> outcome,                            <span class="do">## define outcome variable</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> binomial),  <span class="do">## define what type of glm want to run (logistic)</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">exponentiate =</span> <span class="cn">TRUE</span>                     <span class="do">## exponentiate to produce odds ratios (rather than log odds)</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="do">## view univariate results table </span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>univ_tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="hiegjbgwzm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hiegjbgwzm table {
+<div id="bqubxjyglc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bqubxjyglc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hiegjbgwzm thead, #hiegjbgwzm tbody, #hiegjbgwzm tfoot, #hiegjbgwzm tr, #hiegjbgwzm td, #hiegjbgwzm th {
+#bqubxjyglc thead, #bqubxjyglc tbody, #bqubxjyglc tfoot, #bqubxjyglc tr, #bqubxjyglc td, #bqubxjyglc th {
   border-style: none;
 }
 
-#hiegjbgwzm p {
+#bqubxjyglc p {
   margin: 0;
   padding: 0;
 }
 
-#hiegjbgwzm .gt_table {
+#bqubxjyglc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -976,12 +901,12 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-left-color: #D3D3D3;
 }
 
-#hiegjbgwzm .gt_caption {
+#bqubxjyglc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hiegjbgwzm .gt_title {
+#bqubxjyglc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -993,7 +918,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-bottom-width: 0;
 }
 
-#hiegjbgwzm .gt_subtitle {
+#bqubxjyglc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1005,7 +930,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-top-width: 0;
 }
 
-#hiegjbgwzm .gt_heading {
+#bqubxjyglc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1017,13 +942,13 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-right-color: #D3D3D3;
 }
 
-#hiegjbgwzm .gt_bottom_border {
+#bqubxjyglc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hiegjbgwzm .gt_col_headings {
+#bqubxjyglc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1038,7 +963,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-right-color: #D3D3D3;
 }
 
-#hiegjbgwzm .gt_col_heading {
+#bqubxjyglc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1058,7 +983,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   overflow-x: hidden;
 }
 
-#hiegjbgwzm .gt_column_spanner_outer {
+#bqubxjyglc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1070,15 +995,15 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   padding-right: 4px;
 }
 
-#hiegjbgwzm .gt_column_spanner_outer:first-child {
+#bqubxjyglc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hiegjbgwzm .gt_column_spanner_outer:last-child {
+#bqubxjyglc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hiegjbgwzm .gt_column_spanner {
+#bqubxjyglc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1090,11 +1015,11 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   width: 100%;
 }
 
-#hiegjbgwzm .gt_spanner_row {
+#bqubxjyglc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hiegjbgwzm .gt_group_heading {
+#bqubxjyglc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1120,7 +1045,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   text-align: left;
 }
 
-#hiegjbgwzm .gt_empty_group_heading {
+#bqubxjyglc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1135,15 +1060,15 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   vertical-align: middle;
 }
 
-#hiegjbgwzm .gt_from_md > :first-child {
+#bqubxjyglc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hiegjbgwzm .gt_from_md > :last-child {
+#bqubxjyglc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hiegjbgwzm .gt_row {
+#bqubxjyglc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1162,7 +1087,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   overflow-x: hidden;
 }
 
-#hiegjbgwzm .gt_stub {
+#bqubxjyglc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1175,7 +1100,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   padding-right: 5px;
 }
 
-#hiegjbgwzm .gt_stub_row_group {
+#bqubxjyglc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1189,15 +1114,15 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   vertical-align: top;
 }
 
-#hiegjbgwzm .gt_row_group_first td {
+#bqubxjyglc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hiegjbgwzm .gt_row_group_first th {
+#bqubxjyglc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hiegjbgwzm .gt_summary_row {
+#bqubxjyglc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1207,16 +1132,16 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   padding-right: 5px;
 }
 
-#hiegjbgwzm .gt_first_summary_row {
+#bqubxjyglc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hiegjbgwzm .gt_first_summary_row.thick {
+#bqubxjyglc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hiegjbgwzm .gt_last_summary_row {
+#bqubxjyglc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1226,7 +1151,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-bottom-color: #D3D3D3;
 }
 
-#hiegjbgwzm .gt_grand_summary_row {
+#bqubxjyglc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1236,7 +1161,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   padding-right: 5px;
 }
 
-#hiegjbgwzm .gt_first_grand_summary_row {
+#bqubxjyglc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1246,7 +1171,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-top-color: #D3D3D3;
 }
 
-#hiegjbgwzm .gt_last_grand_summary_row_top {
+#bqubxjyglc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1256,11 +1181,11 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-bottom-color: #D3D3D3;
 }
 
-#hiegjbgwzm .gt_striped {
+#bqubxjyglc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hiegjbgwzm .gt_table_body {
+#bqubxjyglc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1269,7 +1194,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-bottom-color: #D3D3D3;
 }
 
-#hiegjbgwzm .gt_footnotes {
+#bqubxjyglc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1283,7 +1208,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-right-color: #D3D3D3;
 }
 
-#hiegjbgwzm .gt_footnote {
+#bqubxjyglc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1292,7 +1217,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   padding-right: 5px;
 }
 
-#hiegjbgwzm .gt_sourcenotes {
+#bqubxjyglc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1306,7 +1231,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-right-color: #D3D3D3;
 }
 
-#hiegjbgwzm .gt_sourcenote {
+#bqubxjyglc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1314,63 +1239,63 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   padding-right: 5px;
 }
 
-#hiegjbgwzm .gt_left {
+#bqubxjyglc .gt_left {
   text-align: left;
 }
 
-#hiegjbgwzm .gt_center {
+#bqubxjyglc .gt_center {
   text-align: center;
 }
 
-#hiegjbgwzm .gt_right {
+#bqubxjyglc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hiegjbgwzm .gt_font_normal {
+#bqubxjyglc .gt_font_normal {
   font-weight: normal;
 }
 
-#hiegjbgwzm .gt_font_bold {
+#bqubxjyglc .gt_font_bold {
   font-weight: bold;
 }
 
-#hiegjbgwzm .gt_font_italic {
+#bqubxjyglc .gt_font_italic {
   font-style: italic;
 }
 
-#hiegjbgwzm .gt_super {
+#bqubxjyglc .gt_super {
   font-size: 65%;
 }
 
-#hiegjbgwzm .gt_footnote_marks {
+#bqubxjyglc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hiegjbgwzm .gt_asterisk {
+#bqubxjyglc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hiegjbgwzm .gt_indent_1 {
+#bqubxjyglc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hiegjbgwzm .gt_indent_2 {
+#bqubxjyglc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hiegjbgwzm .gt_indent_3 {
+#bqubxjyglc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hiegjbgwzm .gt_indent_4 {
+#bqubxjyglc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hiegjbgwzm .gt_indent_5 {
+#bqubxjyglc .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1490,18 +1415,14 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <p>Here we use <code>glm()</code> but add more variables to the right side of the equation, separated by plus symbols (<code>+</code>).</p>
 <p>To run the model with all of our explanatory variables we would run:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>mv_reg <span class="ot">&lt;-</span> <span class="fu">glm</span>(outcome <span class="sc">~</span> gender <span class="sc">+</span> fever <span class="sc">+</span> chills <span class="sc">+</span> cough <span class="sc">+</span> aches <span class="sc">+</span> vomit <span class="sc">+</span> age_cat, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> linelist)</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mv_reg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>mv_reg <span class="ot">&lt;-</span> <span class="fu">glm</span>(outcome <span class="sc">~</span> gender <span class="sc">+</span> fever <span class="sc">+</span> chills <span class="sc">+</span> cough <span class="sc">+</span> aches <span class="sc">+</span> vomit <span class="sc">+</span> age_cat, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> linelist)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mv_reg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
 glm(formula = outcome ~ gender + fever + chills + cough + aches + 
     vomit + age_cat, family = "binomial", data = linelist)
-
-Deviance Residuals: 
-   Min      1Q  Median      3Q     Max  
--1.383  -1.279   1.029   1.078   1.346  
 
 Coefficients:
               Estimate Std. Error z value Pr(&gt;|z|)
@@ -1531,26 +1452,26 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <p>If you want to include two variables and an interaction between them you can separate them with an asterisk <code>*</code> instead of a <code>+</code>. Separate them with a colon <code>:</code> if you are only specifying the interaction. For example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(outcome <span class="sc">~</span> gender <span class="sc">+</span> age_cat <span class="sc">*</span> fever, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> linelist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(outcome <span class="sc">~</span> gender <span class="sc">+</span> age_cat <span class="sc">*</span> fever, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> linelist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><em>Optionally</em>, you can use this code to leverage the pre-defined vector of column names and re-create the above command using <code>str_c()</code>. This might be useful if your explanatory variable names are changing, or you don’t want to type them all out again.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="do">## run a regression with all variables of interest </span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>mv_reg <span class="ot">&lt;-</span> explanatory_vars <span class="sc">%&gt;%</span>  <span class="do">## begin with vector of explanatory column names</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(<span class="at">collapse =</span> <span class="st">"+"</span>) <span class="sc">%&gt;%</span>     <span class="do">## combine all names of the variables of interest separated by a plus</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(<span class="st">"outcome ~ "</span>, .) <span class="sc">%&gt;%</span>    <span class="do">## combine the names of variables of interest with outcome in formula style</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(<span class="at">family =</span> <span class="st">"binomial"</span>,      <span class="do">## define type of glm as logistic,</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> linelist)          <span class="do">## define your dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## run a regression with all variables of interest </span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>mv_reg <span class="ot">&lt;-</span> explanatory_vars <span class="sc">%&gt;%</span>  <span class="do">## begin with vector of explanatory column names</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(<span class="at">collapse =</span> <span class="st">"+"</span>) <span class="sc">%&gt;%</span>     <span class="do">## combine all names of the variables of interest separated by a plus</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(<span class="st">"outcome ~ "</span>, .) <span class="sc">%&gt;%</span>    <span class="do">## combine the names of variables of interest with outcome in formula style</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glm</span>(<span class="at">family =</span> <span class="st">"binomial"</span>,      <span class="do">## define type of glm as logistic,</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> linelist)          <span class="do">## define your dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="building-the-model" class="level4 unnumbered">
 <h4 class="unnumbered" data-anchor-id="building-the-model">Building the model</h4>
 <p>You can build your model step-by-step, saving various models that include certain explanatory variables. You can compare these models with likelihood-ratio tests using <code>lrtest()</code> from the package <strong>lmtest</strong>, as below:</p>
 <p><span style="color: black;"><strong><em>NOTE:</em></strong> Using <strong>base</strong> <code>anova(model1, model2, test = "Chisq)</code> produces the same results </span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(outcome <span class="sc">~</span> age_cat, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> linelist)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(outcome <span class="sc">~</span> age_cat <span class="sc">+</span> gender, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> linelist)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">lrtest</span>(model1, model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(outcome <span class="sc">~</span> age_cat, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> linelist)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(outcome <span class="sc">~</span> age_cat <span class="sc">+</span> gender, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> linelist)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">lrtest</span>(model1, model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Likelihood ratio test
 
@@ -1563,27 +1484,27 @@ Model 2: outcome ~ age_cat + gender
 </div>
 <p>Another option is to take the model object and apply the <code>step()</code> function from the <strong>stats</strong> package. Specify which variable selection direction you want use when building the model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">## choose a model using forward selection based on AIC</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="do">## you can also do "backward" or "both" by adjusting the direction</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>final_mv_reg <span class="ot">&lt;-</span> mv_reg <span class="sc">%&gt;%</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step</span>(<span class="at">direction =</span> <span class="st">"forward"</span>, <span class="at">trace =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## choose a model using forward selection based on AIC</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="do">## you can also do "backward" or "both" by adjusting the direction</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>final_mv_reg <span class="ot">&lt;-</span> mv_reg <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step</span>(<span class="at">direction =</span> <span class="st">"forward"</span>, <span class="at">trace =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can also turn off scientific notation in your R session, for clarity:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen=</span><span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen=</span><span class="dv">999</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As described in the section on univariate analysis, pass the model output to <code>tidy()</code> to exponentiate the log odds and CIs. Finally we round all numeric columns to two decimal places. Scroll through to see all the rows.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>mv_tab_base <span class="ot">&lt;-</span> final_mv_reg <span class="sc">%&gt;%</span> </span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">exponentiate =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span>  <span class="do">## get a tidy dataframe of estimates </span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="at">digits =</span> <span class="dv">2</span>))          <span class="do">## round </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>mv_tab_base <span class="ot">&lt;-</span> final_mv_reg <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>(<span class="at">exponentiate =</span> <span class="cn">TRUE</span>, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span>  <span class="do">## get a tidy dataframe of estimates </span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), round, <span class="at">digits =</span> <span class="dv">2</span>))          <span class="do">## round </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here is what the resulting data frame looks like:</p>
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-fc51f421b30a7ff28e98" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fc51f421b30a7ff28e98">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","fever","chills","cough","aches","vomit","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.07,1,1,1.03,1.15,0.93,1.09,0.94,1.15,0.99,1.03,1.06,0.68,0.52],[0.13,0.07,0.08,0.08,0.09,0.1,0.06,0.1,0.11,0.11,0.1,0.12,0.26,0.92],[0.52,0.04,0.05,0.43,1.54,-0.68,1.37,-0.62,1.27,-0.1,0.26,0.51,-1.48,-0.71],[0.6,0.97,0.96,0.67,0.12,0.5,0.17,0.53,0.2,0.92,0.8,0.61,0.14,0.48],[0.83,0.88,0.86,0.89,0.96,0.76,0.96,0.77,0.93,0.79,0.84,0.85,0.4,0.07],[1.39,1.14,1.18,1.21,1.37,1.14,1.23,1.15,1.41,1.24,1.26,1.33,1.13,3.19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3d75945f62bd6e38bb97" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3d75945f62bd6e38bb97">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","fever","chills","cough","aches","vomit","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.07,1,1,1.03,1.15,0.93,1.09,0.9399999999999999,1.15,0.99,1.03,1.06,0.68,0.52],[0.13,0.07000000000000001,0.08,0.08,0.09,0.1,0.06,0.1,0.11,0.11,0.1,0.12,0.26,0.92],[0.52,0.04,0.05,0.43,1.54,-0.68,1.37,-0.62,1.27,-0.1,0.26,0.51,-1.48,-0.71],[0.6,0.97,0.96,0.67,0.12,0.5,0.17,0.53,0.2,0.92,0.8,0.61,0.14,0.48],[0.83,0.88,0.86,0.89,0.96,0.76,0.96,0.77,0.93,0.79,0.84,0.85,0.4,0.07000000000000001],[1.39,1.14,1.18,1.21,1.37,1.14,1.23,1.15,1.41,1.24,1.26,1.33,1.13,3.19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <!-- ======================================================= -->
@@ -1595,31 +1516,31 @@ Model 2: outcome ~ age_cat + gender
 <h4 class="unnumbered" data-anchor-id="combine-with-gtsummary">Combine with <strong>gtsummary</strong></h4>
 <p>The <strong>gtsummary</strong> package provides the <code>tbl_regression()</code> function, which will take the outputs from a regression (<code>glm()</code> in this case) and produce an nice summary table.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="do">## show results table of final regression </span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>mv_tab <span class="ot">&lt;-</span> <span class="fu">tbl_regression</span>(final_mv_reg, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">## show results table of final regression </span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>mv_tab <span class="ot">&lt;-</span> <span class="fu">tbl_regression</span>(final_mv_reg, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s see the table:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>mv_tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>mv_tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="kmaopybfgk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kmaopybfgk table {
+<div id="gryohrbprs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gryohrbprs table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kmaopybfgk thead, #kmaopybfgk tbody, #kmaopybfgk tfoot, #kmaopybfgk tr, #kmaopybfgk td, #kmaopybfgk th {
+#gryohrbprs thead, #gryohrbprs tbody, #gryohrbprs tfoot, #gryohrbprs tr, #gryohrbprs td, #gryohrbprs th {
   border-style: none;
 }
 
-#kmaopybfgk p {
+#gryohrbprs p {
   margin: 0;
   padding: 0;
 }
 
-#kmaopybfgk .gt_table {
+#gryohrbprs .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1645,12 +1566,12 @@ Model 2: outcome ~ age_cat + gender
   border-left-color: #D3D3D3;
 }
 
-#kmaopybfgk .gt_caption {
+#gryohrbprs .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kmaopybfgk .gt_title {
+#gryohrbprs .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1662,7 +1583,7 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-width: 0;
 }
 
-#kmaopybfgk .gt_subtitle {
+#gryohrbprs .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1674,7 +1595,7 @@ Model 2: outcome ~ age_cat + gender
   border-top-width: 0;
 }
 
-#kmaopybfgk .gt_heading {
+#gryohrbprs .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1686,13 +1607,13 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#kmaopybfgk .gt_bottom_border {
+#gryohrbprs .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kmaopybfgk .gt_col_headings {
+#gryohrbprs .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1707,7 +1628,7 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#kmaopybfgk .gt_col_heading {
+#gryohrbprs .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1727,7 +1648,7 @@ Model 2: outcome ~ age_cat + gender
   overflow-x: hidden;
 }
 
-#kmaopybfgk .gt_column_spanner_outer {
+#gryohrbprs .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1739,15 +1660,15 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 4px;
 }
 
-#kmaopybfgk .gt_column_spanner_outer:first-child {
+#gryohrbprs .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kmaopybfgk .gt_column_spanner_outer:last-child {
+#gryohrbprs .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kmaopybfgk .gt_column_spanner {
+#gryohrbprs .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1759,11 +1680,11 @@ Model 2: outcome ~ age_cat + gender
   width: 100%;
 }
 
-#kmaopybfgk .gt_spanner_row {
+#gryohrbprs .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kmaopybfgk .gt_group_heading {
+#gryohrbprs .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1789,7 +1710,7 @@ Model 2: outcome ~ age_cat + gender
   text-align: left;
 }
 
-#kmaopybfgk .gt_empty_group_heading {
+#gryohrbprs .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1804,15 +1725,15 @@ Model 2: outcome ~ age_cat + gender
   vertical-align: middle;
 }
 
-#kmaopybfgk .gt_from_md > :first-child {
+#gryohrbprs .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kmaopybfgk .gt_from_md > :last-child {
+#gryohrbprs .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kmaopybfgk .gt_row {
+#gryohrbprs .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1831,7 +1752,7 @@ Model 2: outcome ~ age_cat + gender
   overflow-x: hidden;
 }
 
-#kmaopybfgk .gt_stub {
+#gryohrbprs .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1844,7 +1765,7 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#kmaopybfgk .gt_stub_row_group {
+#gryohrbprs .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1858,15 +1779,15 @@ Model 2: outcome ~ age_cat + gender
   vertical-align: top;
 }
 
-#kmaopybfgk .gt_row_group_first td {
+#gryohrbprs .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kmaopybfgk .gt_row_group_first th {
+#gryohrbprs .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kmaopybfgk .gt_summary_row {
+#gryohrbprs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1876,16 +1797,16 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#kmaopybfgk .gt_first_summary_row {
+#gryohrbprs .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kmaopybfgk .gt_first_summary_row.thick {
+#gryohrbprs .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kmaopybfgk .gt_last_summary_row {
+#gryohrbprs .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1895,7 +1816,7 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-color: #D3D3D3;
 }
 
-#kmaopybfgk .gt_grand_summary_row {
+#gryohrbprs .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1905,7 +1826,7 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#kmaopybfgk .gt_first_grand_summary_row {
+#gryohrbprs .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1915,7 +1836,7 @@ Model 2: outcome ~ age_cat + gender
   border-top-color: #D3D3D3;
 }
 
-#kmaopybfgk .gt_last_grand_summary_row_top {
+#gryohrbprs .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1925,11 +1846,11 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-color: #D3D3D3;
 }
 
-#kmaopybfgk .gt_striped {
+#gryohrbprs .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kmaopybfgk .gt_table_body {
+#gryohrbprs .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1938,7 +1859,7 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-color: #D3D3D3;
 }
 
-#kmaopybfgk .gt_footnotes {
+#gryohrbprs .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1952,7 +1873,7 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#kmaopybfgk .gt_footnote {
+#gryohrbprs .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1961,7 +1882,7 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#kmaopybfgk .gt_sourcenotes {
+#gryohrbprs .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1975,7 +1896,7 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#kmaopybfgk .gt_sourcenote {
+#gryohrbprs .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1983,63 +1904,63 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#kmaopybfgk .gt_left {
+#gryohrbprs .gt_left {
   text-align: left;
 }
 
-#kmaopybfgk .gt_center {
+#gryohrbprs .gt_center {
   text-align: center;
 }
 
-#kmaopybfgk .gt_right {
+#gryohrbprs .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kmaopybfgk .gt_font_normal {
+#gryohrbprs .gt_font_normal {
   font-weight: normal;
 }
 
-#kmaopybfgk .gt_font_bold {
+#gryohrbprs .gt_font_bold {
   font-weight: bold;
 }
 
-#kmaopybfgk .gt_font_italic {
+#gryohrbprs .gt_font_italic {
   font-style: italic;
 }
 
-#kmaopybfgk .gt_super {
+#gryohrbprs .gt_super {
   font-size: 65%;
 }
 
-#kmaopybfgk .gt_footnote_marks {
+#gryohrbprs .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kmaopybfgk .gt_asterisk {
+#gryohrbprs .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kmaopybfgk .gt_indent_1 {
+#gryohrbprs .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kmaopybfgk .gt_indent_2 {
+#gryohrbprs .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kmaopybfgk .gt_indent_3 {
+#gryohrbprs .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kmaopybfgk .gt_indent_4 {
+#gryohrbprs .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kmaopybfgk .gt_indent_5 {
+#gryohrbprs .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2127,29 +2048,29 @@ Model 2: outcome ~ age_cat + gender
 </div>
 <p>You can also combine several different output tables produced by <strong>gtsummary</strong> with the <code>tbl_merge()</code> function. We now combine the multivariable results with the <strong>gtsummary</strong> <em>univariate</em> results that we created <a href="#reg_gt_uni">above</a>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="do">## combine with univariate results </span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_merge</span>(</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tbls =</span> <span class="fu">list</span>(univ_tab, mv_tab),                          <span class="co"># combine</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">tab_spanner =</span> <span class="fu">c</span>(<span class="st">"**Univariate**"</span>, <span class="st">"**Multivariable**"</span>)) <span class="co"># set header names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="do">## combine with univariate results </span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_merge</span>(</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tbls =</span> <span class="fu">list</span>(univ_tab, mv_tab),                          <span class="co"># combine</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">tab_spanner =</span> <span class="fu">c</span>(<span class="st">"**Univariate**"</span>, <span class="st">"**Multivariable**"</span>)) <span class="co"># set header names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="wnkeclomei" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wnkeclomei table {
+<div id="qrpymexwja" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qrpymexwja table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wnkeclomei thead, #wnkeclomei tbody, #wnkeclomei tfoot, #wnkeclomei tr, #wnkeclomei td, #wnkeclomei th {
+#qrpymexwja thead, #qrpymexwja tbody, #qrpymexwja tfoot, #qrpymexwja tr, #qrpymexwja td, #qrpymexwja th {
   border-style: none;
 }
 
-#wnkeclomei p {
+#qrpymexwja p {
   margin: 0;
   padding: 0;
 }
 
-#wnkeclomei .gt_table {
+#qrpymexwja .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2175,12 +2096,12 @@ Model 2: outcome ~ age_cat + gender
   border-left-color: #D3D3D3;
 }
 
-#wnkeclomei .gt_caption {
+#qrpymexwja .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wnkeclomei .gt_title {
+#qrpymexwja .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2192,7 +2113,7 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-width: 0;
 }
 
-#wnkeclomei .gt_subtitle {
+#qrpymexwja .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2204,7 +2125,7 @@ Model 2: outcome ~ age_cat + gender
   border-top-width: 0;
 }
 
-#wnkeclomei .gt_heading {
+#qrpymexwja .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2216,13 +2137,13 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#wnkeclomei .gt_bottom_border {
+#qrpymexwja .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wnkeclomei .gt_col_headings {
+#qrpymexwja .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2237,7 +2158,7 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#wnkeclomei .gt_col_heading {
+#qrpymexwja .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2257,7 +2178,7 @@ Model 2: outcome ~ age_cat + gender
   overflow-x: hidden;
 }
 
-#wnkeclomei .gt_column_spanner_outer {
+#qrpymexwja .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2269,15 +2190,15 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 4px;
 }
 
-#wnkeclomei .gt_column_spanner_outer:first-child {
+#qrpymexwja .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wnkeclomei .gt_column_spanner_outer:last-child {
+#qrpymexwja .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wnkeclomei .gt_column_spanner {
+#qrpymexwja .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2289,11 +2210,11 @@ Model 2: outcome ~ age_cat + gender
   width: 100%;
 }
 
-#wnkeclomei .gt_spanner_row {
+#qrpymexwja .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wnkeclomei .gt_group_heading {
+#qrpymexwja .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2319,7 +2240,7 @@ Model 2: outcome ~ age_cat + gender
   text-align: left;
 }
 
-#wnkeclomei .gt_empty_group_heading {
+#qrpymexwja .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2334,15 +2255,15 @@ Model 2: outcome ~ age_cat + gender
   vertical-align: middle;
 }
 
-#wnkeclomei .gt_from_md > :first-child {
+#qrpymexwja .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wnkeclomei .gt_from_md > :last-child {
+#qrpymexwja .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wnkeclomei .gt_row {
+#qrpymexwja .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2361,7 +2282,7 @@ Model 2: outcome ~ age_cat + gender
   overflow-x: hidden;
 }
 
-#wnkeclomei .gt_stub {
+#qrpymexwja .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2374,7 +2295,7 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#wnkeclomei .gt_stub_row_group {
+#qrpymexwja .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2388,15 +2309,15 @@ Model 2: outcome ~ age_cat + gender
   vertical-align: top;
 }
 
-#wnkeclomei .gt_row_group_first td {
+#qrpymexwja .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wnkeclomei .gt_row_group_first th {
+#qrpymexwja .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wnkeclomei .gt_summary_row {
+#qrpymexwja .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2406,16 +2327,16 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#wnkeclomei .gt_first_summary_row {
+#qrpymexwja .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wnkeclomei .gt_first_summary_row.thick {
+#qrpymexwja .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wnkeclomei .gt_last_summary_row {
+#qrpymexwja .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2425,7 +2346,7 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-color: #D3D3D3;
 }
 
-#wnkeclomei .gt_grand_summary_row {
+#qrpymexwja .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2435,7 +2356,7 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#wnkeclomei .gt_first_grand_summary_row {
+#qrpymexwja .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2445,7 +2366,7 @@ Model 2: outcome ~ age_cat + gender
   border-top-color: #D3D3D3;
 }
 
-#wnkeclomei .gt_last_grand_summary_row_top {
+#qrpymexwja .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2455,11 +2376,11 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-color: #D3D3D3;
 }
 
-#wnkeclomei .gt_striped {
+#qrpymexwja .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wnkeclomei .gt_table_body {
+#qrpymexwja .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2468,7 +2389,7 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-color: #D3D3D3;
 }
 
-#wnkeclomei .gt_footnotes {
+#qrpymexwja .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2482,7 +2403,7 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#wnkeclomei .gt_footnote {
+#qrpymexwja .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2491,7 +2412,7 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#wnkeclomei .gt_sourcenotes {
+#qrpymexwja .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2505,7 +2426,7 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#wnkeclomei .gt_sourcenote {
+#qrpymexwja .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2513,63 +2434,63 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#wnkeclomei .gt_left {
+#qrpymexwja .gt_left {
   text-align: left;
 }
 
-#wnkeclomei .gt_center {
+#qrpymexwja .gt_center {
   text-align: center;
 }
 
-#wnkeclomei .gt_right {
+#qrpymexwja .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wnkeclomei .gt_font_normal {
+#qrpymexwja .gt_font_normal {
   font-weight: normal;
 }
 
-#wnkeclomei .gt_font_bold {
+#qrpymexwja .gt_font_bold {
   font-weight: bold;
 }
 
-#wnkeclomei .gt_font_italic {
+#qrpymexwja .gt_font_italic {
   font-style: italic;
 }
 
-#wnkeclomei .gt_super {
+#qrpymexwja .gt_super {
   font-size: 65%;
 }
 
-#wnkeclomei .gt_footnote_marks {
+#qrpymexwja .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wnkeclomei .gt_asterisk {
+#qrpymexwja .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wnkeclomei .gt_indent_1 {
+#qrpymexwja .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wnkeclomei .gt_indent_2 {
+#qrpymexwja .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wnkeclomei .gt_indent_3 {
+#qrpymexwja .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wnkeclomei .gt_indent_4 {
+#qrpymexwja .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wnkeclomei .gt_indent_5 {
+#qrpymexwja .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2739,23 +2660,23 @@ Model 2: outcome ~ age_cat + gender
 <li>Use <code>round()</code> with two decimal places on all the column that are class Double</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="do">## combine univariate and multivariable tables </span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(univ_tab_base, mv_tab_base, <span class="at">by =</span> <span class="st">"term"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">## choose columns and rename them</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( <span class="co"># new name =  old name</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"characteristic"</span> <span class="ot">=</span> term, </span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"recovered"</span>      <span class="ot">=</span> <span class="st">"0"</span>, </span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"dead"</span>           <span class="ot">=</span> <span class="st">"1"</span>, </span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"univ_or"</span>        <span class="ot">=</span> estimate.x, </span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"univ_ci_low"</span>    <span class="ot">=</span> conf.low.x, </span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"univ_ci_high"</span>   <span class="ot">=</span> conf.high.x,</span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"univ_pval"</span>      <span class="ot">=</span> p.value.x, </span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mv_or"</span>          <span class="ot">=</span> estimate.y, </span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mvv_ci_low"</span>     <span class="ot">=</span> conf.low.y, </span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mv_ci_high"</span>     <span class="ot">=</span> conf.high.y,</span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mv_pval"</span>        <span class="ot">=</span> p.value.y </span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.double), round, <span class="dv">2</span>))   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="do">## combine univariate and multivariable tables </span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(univ_tab_base, mv_tab_base, <span class="at">by =</span> <span class="st">"term"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">## choose columns and rename them</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( <span class="co"># new name =  old name</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"characteristic"</span> <span class="ot">=</span> term, </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"recovered"</span>      <span class="ot">=</span> <span class="st">"0"</span>, </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"dead"</span>           <span class="ot">=</span> <span class="st">"1"</span>, </span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"univ_or"</span>        <span class="ot">=</span> estimate.x, </span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"univ_ci_low"</span>    <span class="ot">=</span> conf.low.x, </span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"univ_ci_high"</span>   <span class="ot">=</span> conf.high.x,</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"univ_pval"</span>      <span class="ot">=</span> p.value.x, </span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mv_or"</span>          <span class="ot">=</span> estimate.y, </span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mvv_ci_low"</span>     <span class="ot">=</span> conf.low.y, </span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mv_ci_high"</span>     <span class="ot">=</span> conf.high.y,</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"mv_pval"</span>        <span class="ot">=</span> p.value.y </span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.double), round, <span class="dv">2</span>))   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 20 × 11
    characteristic recovered  dead univ_or univ_ci_low univ_ci_high univ_pval

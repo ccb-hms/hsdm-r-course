@@ -12,7 +12,9 @@ Instructor learning materials for data analysis module of Research Design and An
 
 {{< fa calendar >}} &nbsp; July 17 - July 21
 
-{{< fa map-marker >}} &nbsp; Zoom (hybrid TBD)
+{{< fa map-marker >}} &nbsp; Room 106, Research and Education Building (190 Longwood Ave, Boston, MA)
+
+{{< fa video >}} &nbsp; Same Zoom room for all sessions and office hours on calendar invite
 
 ### Instructors {.unnumbered}
 
@@ -27,9 +29,9 @@ Instructor learning materials for data analysis module of Research Design and An
 >
 > **Office Hours**
 > 
-> {{< fa calendar >}} &nbsp; TBD
-> 
-> {{< fa map-marker >}} &nbsp; TBD
+> {{< fa calendar >}} &nbsp; July 19, 9am - 10am and July 21, 8:30am - 9:30am
+>
+> {{< fa map-marker >}} &nbsp; Room 106, Research and Education Building (Zoom option available)
 
 :::
 
@@ -42,9 +44,9 @@ Instructor learning materials for data analysis module of Research Design and An
 >
 > **Office Hours**
 >
-> {{< fa calendar >}} &nbsp; TBD
+> {{< fa calendar >}} &nbsp; July 18, 9am - 10am and July 20, 4pm - 5pm
 >
-> {{< fa map-marker >}} &nbsp; TBD
+> {{< fa map-marker >}} &nbsp; Zoom only
 
 :::
 

@@ -34,8 +34,7 @@ library(janitor)
 ```
 
 ### Import data {.unnumbered}
-
-We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file).
+We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file)..
 
 ```{r}
 #| echo: False
@@ -47,8 +46,7 @@ The first 50 rows of the linelist are displayed below. We will focus on the cont
 
 ```{r, message=FALSE, echo=F}
 # display the linelist data as a table
-# DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
-head(linelist, 50)
+DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
 ### General cleaning {.unnumbered}

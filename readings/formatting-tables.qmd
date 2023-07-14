@@ -108,8 +108,6 @@ There are many other R packages that can be used to craft tables for presentatio
 
 ### Load packages {.unnumbered} 
 
-Install and load **flextable**. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load packages with `library()` from **base** R. See the page on [R basics] for more information on R packages.  
-
 ```{r}
 pacman::p_load(
   rio,            # import/export
@@ -122,7 +120,7 @@ pacman::p_load(
 
 ### Import data {.unnumbered}  
 
-To begin, we import the cleaned linelist of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import data with the `import()` function from the **rio** package (it handles many file types like .xlsx, .csv, .rds - see the [Import and export] page for details). 
+To begin, we import the cleaned linelist of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/epirhandbook/Epi_R_handbook/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). 
 
 
 ```{r, echo=F}
@@ -137,9 +135,7 @@ linelist <- import("linelist_cleaned.rds")
 
 ### Prepare table {.unnumbered}  
 
-*Before* beginning to use **flextable** you will need to *create* your table as a data frame. See the page on [Descriptive tables] and [Pivoting data] to learn how to create a data frame using packages such as **janitor** and **dplyr**. You must arrange the content in rows and columns as you want it displayed. Then, the data frame will be passed to **flextable** to display it with colors, headers, fonts, etc. 
-  
-Below is an example from the [Descriptive tables] page of converting the case `linelist` into a data frame that summarises patient outcomes and CT values by hospital, with a Totals row at the bottom. The output is saved as `table`.  
+*Before* beginning to use **flextable** you will need to *create* your table as a data frame as we have seen in the previous chapter: 
 
 ```{r message=FALSE, warning=FALSE}
 table <- linelist %>% 

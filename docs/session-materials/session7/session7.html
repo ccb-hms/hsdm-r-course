@@ -8,7 +8,7 @@
 
 <meta name="author" content="Center for Computational Biomedicine">
 
-<title>Research Design and Analysis - Week 7: Advanced regression</title>
+<title>Research Design and Analysis - Week 7: Regression Models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -62,6 +96,18 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+<script src="../../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../../site_libs/datatables-binding-0.28/datatables.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../../site_libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="../../site_libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="../../site_libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="../../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="../../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -110,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../session-materials/session7/session7.html">Week 7: Advanced regression</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../session-materials/session7/session7.html">Week 7: Regression Models</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -155,13 +201,13 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session6/session6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 6: Statistical tests and basic regression</span></a>
+ <span class="menu-text">Week 6: Statistical tests</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session7/session7.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Week 7: Advanced regression</span></a>
+ <span class="menu-text">Week 7: Regression Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -180,7 +226,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
+  <li><a href="#another-nhanes-example" id="toc-another-nhanes-example" class="nav-link active" data-scroll-target="#another-nhanes-example">Another NHANES example</a>
+  <ul class="collapse">
+  <li><a href="#spline-models" id="toc-spline-models" class="nav-link" data-scroll-target="#spline-models">Spline Models</a></li>
+  <li><a href="#sex" id="toc-sex" class="nav-link" data-scroll-target="#sex">Sex</a></li>
+  </ul></li>
+  <li><a href="#recreating-the-analysis-from-behesht-et-al" id="toc-recreating-the-analysis-from-behesht-et-al" class="nav-link" data-scroll-target="#recreating-the-analysis-from-behesht-et-al">Recreating the analysis from Behesht et al</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#models" id="toc-models" class="nav-link" data-scroll-target="#models">Models</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -189,7 +244,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 7: Advanced regression</h1>
+<h1 class="title">Week 7: Regression Models</h1>
 </div>
 
 
@@ -210,10 +265,325 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="data" class="level1">
-<h1>Data</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(officer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="another-nhanes-example" class="level1">
+<h1>Another NHANES example</h1>
+<p>Let’s take a look at a different NHANES dataset and explore the relationship between cholesterol and age.</p>
+<p>There are 6063 observations, some are incomplete and have missing values for some covariates. There are 22 covariates, which as we’ve seen have cryptic names and you need to use the meta-data to resolve them.</p>
+<p>We load up the data and the metadata. In the metadata we have a textual description of the phenotype, the short name, and the target. The target tells us which of the sampled individuals was eligible to answer the question.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nhanesDataPath <span class="ot">=</span> <span class="st">""</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"d4.rda"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"metaD.rda"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(metaD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a9b1a6f1b5a23d4d9de4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-a9b1a6f1b5a23d4d9de4">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],["RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2","WTINT2YR","SDMVPSU","SDMVSTRA","INDFMPIR","BPQ050A","BPQ020","BPQ080","BPQ100D","LBDHDD","LBXGH","DIQ010","DIQ050","DIQ070","DIQ160","BMXBMI","LBXTC"],["Age in years at screening","Gender","Race/Hispanic origin","Education level - Adults 20+","Full sample 2 year interview weight","Masked variance pseudo-PSU","Masked variance pseudo-stratum","Ratio of family income to poverty","Now taking prescribed medicine for HBP","Ever told you had high blood pressure","Doctor told you - high cholesterol level","Now taking prescribed medicine","Direct HDL-Cholesterol (mg/dL)","Glycohemoglobin (%)","Doctor told you have diabetes","Taking insulin now","Take diabetic pills to lower blood sugar","Ever told you have prediabetes","Body Mass Index (kg/m**2)","Total Cholesterol (mg/dL)"],["Age in years of the participant at the time of screening. Individuals 80 and over are topcoded at 80 years of age.","Gender of the participant.","Recode of reported race and Hispanic origin information","What is the highest grade or level of school {you have/SP has} completed or the highest degree {you have/s/he has} received?","Full sample 2 year interview weight.","Masked variance unit pseudo-PSU variable for variance estimation","Masked variance unit pseudo-stratum variable for variance estimation","A ratio of family income to poverty guidelines.","HELP AVAILABLE (Are you/Is SP) now taking prescribed medicine","{Have you/Has SP} ever been told by a doctor or other health professional that {you/s/he} had hypertension also called high blood pressure?","{Have you/Has SP} ever been told by a doctor or other health professional that {your/his/her} blood cholesterol level was high?","(Are you/Is SP) now following this advice to take prescribed medicine?","Direct HDL-Cholesterol (mg/dL)","Glycohemoglobin (%)","The next questions are about specific medical conditions. {Other than during pregnancy {have you/has SP}/{Have you/Has SP}} ever been told by a doctor or health professional that {you have/{he/she/SP} has} diabetes or sugar diabetes?","{Is SP/Are you} now taking insulin","{Is SP/Are you} now taking diabetic pills to lower {{his/her}/your} blood sugar? These are sometimes called oral agents or oral hypoglycemic agents.","{Have you/Has SP} ever been told by a doctor or other health professional that {you have/SP has} any of the following: prediabetes impaired fasting glucose impaired glucose tolerance borderline diabetes or that {your/her/his} blood sugar is higher than normal but not high enough to be called diabetes or sugar diabetes?","Body Mass Index (kg/m**2)","Total Cholesterol (mg/dL)"],["Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 20 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 16 YEARS - 150 YEARS","Both males and females 16 YEARS - 150 YEARS","Both males and females 16 YEARS - 150 YEARS","Both males and females 16 YEARS - 150 YEARS","Both males and females 6 YEARS - 150 YEARS","Both males and females 12 YEARS - 150 YEARS","Both males and females 1 YEARS - 150 YEARS","Both males and females 1 YEARS - 150 YEARS","Both males and females 1 YEARS - 150 YEARS","Both males and females 12 YEARS - 150 YEARS","Both males and females 2 YEARS - 150 YEARS","Both males and females 6 YEARS - 150 YEARS"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>VariableName<\/th>\n      <th>SASLabel<\/th>\n      <th>EnglishText<\/th>\n      <th>Target<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>We will look at the relationship between the variable LBXTC (which is Total Cholesterol in mg/dL measured by a blood draw) and the age of the participant in years.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="session7_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>And we can see that plotting, over-plotting is a substantial issue here. You might also notice what seems like a lot of data at age 80, this is because any age over 80 was truncated to 80 to prevent reidentification of survey participants. In a complete analysis, this should probably be adjusted for in some way, but we will ignore it for now.</p>
+<p>We can try some other methods, such as <code>hexbin</code> plotting and <code>smoothScatter</code></p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="session7_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Now we can see a few outliers - with extremely high serum cholesterol. We get a sense that the trend is not exactly a straight line, but rather a parabola, lower for the young and the old and a bit higher in the middle.</p>
+<p>We fit a linear model first.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">=</span> <span class="fu">lm</span>(d4<span class="sc">$</span>LBXTC <span class="sc">~</span> d4<span class="sc">$</span>RIDAGEYR)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = d4$LBXTC ~ d4$RIDAGEYR)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-114.68  -27.95   -2.91   23.34  357.19 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 170.0140     1.4340  118.56   &lt;2e-16 ***
+d4$RIDAGEYR   0.3708     0.0285   13.01   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 41.24 on 5689 degrees of freedom
+  (372 observations deleted due to missingness)
+Multiple R-squared:  0.02891,   Adjusted R-squared:  0.02874 
+F-statistic: 169.4 on 1 and 5689 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm1<span class="sc">$</span>fitted.values, lm1<span class="sc">$</span>residuals)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">##fit a loess curve</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>l2 <span class="ot">=</span> <span class="fu">loess</span>(lm1<span class="sc">$</span>residuals <span class="sc">~</span> lm1<span class="sc">$</span>fitted.values)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>pl <span class="ot">=</span> <span class="fu">predict</span>(l2, <span class="at">newdata=</span><span class="fu">sort</span>(lm1<span class="sc">$</span>fitted.values))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x=</span><span class="fu">sort</span>(lm1<span class="sc">$</span>fitted.values), <span class="at">y=</span>pl, <span class="at">col=</span><span class="st">"blue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>, <span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="session7_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Notice that both terms in the model are very significant, but that the multiple <span class="math inline">\(R^2\)</span> is only around 2%. So age, in years, is not explaining very much of the variation. But because we have such a large data set, the parameter estimates are found to be significantly different from zero.</p>
+<section id="spline-models" class="level2">
+<h2 data-anchor-id="spline-models">Spline Models</h2>
+<ul>
+<li>when a linear model does not appear sufficient we can try other models.</li>
+<li>one choice is to use natural splines, which are very flexible</li>
+<li>they are based on B-splines with the previso that the model is linear outside the range of the data</li>
+<li>based on the initial analysis, we chose to use df=7, which gives five internal knots when fitting the splines</li>
+<li>you have almost 6,000 degrees of freedom here, so using up a few to get a more appropriate fit seems good.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"splines"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">=</span> <span class="fu">lm</span>(d4<span class="sc">$</span>LBXTC <span class="sc">~</span> <span class="fu">ns</span>(d4<span class="sc">$</span>RIDAGEYR, <span class="at">df=</span><span class="dv">7</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = d4$LBXTC ~ ns(d4$RIDAGEYR, df = 7))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-113.43  -26.32   -2.88   22.47  343.31 
+
+Coefficients:
+                         Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)               154.799      2.178  71.071  &lt; 2e-16 ***
+ns(d4$RIDAGEYR, df = 7)1   39.956      3.379  11.826  &lt; 2e-16 ***
+ns(d4$RIDAGEYR, df = 7)2   32.705      4.074   8.028 1.20e-15 ***
+ns(d4$RIDAGEYR, df = 7)3   55.583      3.637  15.283  &lt; 2e-16 ***
+ns(d4$RIDAGEYR, df = 7)4   42.275      3.725  11.347  &lt; 2e-16 ***
+ns(d4$RIDAGEYR, df = 7)5   30.111      3.352   8.984  &lt; 2e-16 ***
+ns(d4$RIDAGEYR, df = 7)6   41.098      5.758   7.137 1.07e-12 ***
+ns(d4$RIDAGEYR, df = 7)7   15.992      2.478   6.453 1.19e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 39.62 on 5683 degrees of freedom
+  (372 observations deleted due to missingness)
+Multiple R-squared:  0.1044,    Adjusted R-squared:  0.1033 
+F-statistic: 94.65 on 7 and 5683 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<ul>
+<li>we can use standard tools for comparing models</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm1, lm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Model 1: d4$LBXTC ~ d4$RIDAGEYR
+Model 2: d4$LBXTC ~ ns(d4$RIDAGEYR, df = 7)
+  Res.Df     RSS Df Sum of Sq      F    Pr(&gt;F)    
+1   5689 9674185                                  
+2   5683 8922039  6    752146 79.848 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Notice also that the multiple <span class="math inline">\(R^2\)</span> went up to about 10%, a pretty substantial increase, suggesting that the curvilinear nature of the relationship is substantial.</p>
+<p>The residual standard error also decreased by about 5%.</p>
+<p>We have lost the simple explanation that comes from fitting a linear model. We cannot say that your serum cholesterol increases by <span class="math inline">\(a\)</span> units per year, but that model was wrong, so it really shouldn’t be used.</p>
+<p>We can use the regression model we fit to make predictions for any one, and these are substantially more accurate.</p>
+<ul>
+<li>even though the regression summary prints out a different row for each spline term, they are not independent variables, and you need to either retain them all, or retain none of them</li>
+</ul>
+</section>
+<section id="sex" class="level2">
+<h2 data-anchor-id="sex">Sex</h2>
+<ul>
+<li>next we might want to start to add other variables and explore the different relationships.</li>
+<li>let’s consider sex, for now we will leave out age, and just try to understand what happens with sex</li>
+<li>first I will fit the model without an intercept</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>lm3 <span class="ot">=</span> <span class="fu">lm</span>(LBXTC <span class="sc">~</span> RIAGENDR<span class="dv">-1</span>, <span class="at">data=</span>d4)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = LBXTC ~ RIAGENDR - 1, data = d4)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-107.55  -29.55   -3.55   24.21  360.45 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+RIAGENDRMale   184.5534     0.7974   231.4   &lt;2e-16 ***
+RIAGENDRFemale 189.7914     0.7692   246.7   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 41.76 on 5689 degrees of freedom
+  (372 observations deleted due to missingness)
+Multiple R-squared:  0.9526,    Adjusted R-squared:  0.9526 
+F-statistic: 5.722e+04 on 2 and 5689 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<ul>
+<li><p>here we can see the mean for males is a bit higher than for females</p></li>
+<li><p>both are significant and notice how large the multiple <span class="math inline">\(R^2\)</span> value is</p></li>
+<li><p>this is not a very interesting test - we are asking if the mean is zero, which isn’t even physically possible</p></li>
+<li><p>our model is <span class="math display">\[
+y_i = \beta_M \cdot 1_{M,i} + \beta_F \cdot 1_{F,i}
+\]</span></p></li>
+<li><p>where <span class="math inline">\(1_{M,i}\)</span> is 1 if the <span class="math inline">\(i^{th}\)</span> case is male and zero otherwise, similarly for <span class="math inline">\(1_{F,i}\)</span></p></li>
+<li><p>instead we ask if the mean for males is different than that for females <span class="math display">\[
+y_i = \beta_0 + \beta_1 \cdot 1_{F,i}
+\]</span></p></li>
+<li><p>so that <span class="math inline">\(E[Y|M] = \beta_0\)</span> and <span class="math inline">\(E[Y|F] = \beta_0 + \beta_1\)</span></p></li>
+<li><p><span class="math inline">\(\beta_1\)</span> estimates the difference in mean between male and female</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lm3 <span class="ot">=</span> <span class="fu">lm</span>(LBXTC <span class="sc">~</span> RIAGENDR, <span class="at">data=</span>d4)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = LBXTC ~ RIAGENDR, data = d4)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-107.55  -29.55   -3.55   24.21  360.45 
+
+Coefficients:
+               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    184.5534     0.7974 231.434  &lt; 2e-16 ***
+RIAGENDRFemale   5.2380     1.1080   4.728 2.33e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 41.76 on 5689 degrees of freedom
+  (372 observations deleted due to missingness)
+Multiple R-squared:  0.003913,  Adjusted R-squared:  0.003738 
+F-statistic: 22.35 on 1 and 5689 DF,  p-value: 2.327e-06</code></pre>
+</div>
+</div>
+<ul>
+<li>now we see an Intercept term (that will be the overall mean)</li>
+<li>and the estimate for females is represents how they differ, if it is zero then there is no difference in total cholesterol between men and women</li>
+</ul>
+</section>
+</section>
+<section id="recreating-the-analysis-from-behesht-et-al" class="level1">
+<h1>Recreating the analysis from Behesht et al</h1>
+<section id="data" class="level2">
+<h2 data-anchor-id="data">Data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"processed_beheshti.RData"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>wt_nhanes <span class="ot">&lt;-</span> all_nhanes <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(WTMEC2YR, SDMVPSU, SDMVSTRA) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">WTMEC6YR =</span> WTMEC2YR <span class="sc">*</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create survey design object</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>nhanes_design <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">id     =</span> <span class="sc">~</span>SDMVPSU,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">strata  =</span> <span class="sc">~</span>SDMVSTRA,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">weights =</span> <span class="sc">~</span>WTMEC6YR,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">nest    =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data    =</span> wt_nhanes)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Subset the study population</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>ado_design <span class="ot">&lt;-</span> <span class="fu">subset</span>(nhanes_design, RIDAGEYR <span class="sc">&gt;=</span> <span class="dv">13</span> <span class="sc">&amp;</span> RIDAGEYR <span class="sc">&lt;=</span> <span class="dv">18</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(OHXDECAY))</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Also make a tibble of this data to analyze</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>ado_data <span class="ot">&lt;-</span> wt_nhanes <span class="sc">%&gt;%</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(RIDAGEYR <span class="sc">&gt;=</span> <span class="dv">13</span> <span class="sc">&amp;</span> RIDAGEYR <span class="sc">&lt;=</span> <span class="dv">18</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(OHXDECAY)) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(diabetes))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="models" class="level2">
+<h2 data-anchor-id="models">Models</h2>
+<p>Let’s recreate the analysis shown in table 2 of the Beheshti analysis. The table’s caption explains the 5 different models:</p>
+<blockquote class="blockquote">
+<p>Model 1=crude (unadjusted); model 2=controlled for age, race/ethnicity, gender; model 3=controlled for age, race/ethnicity, gender, BMI; model 4=controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio; model 5=controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth.</p>
+</blockquote>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Discussion
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Does the paper give enough detail to reproduce its logistic regression analysis?</p>
+<p>Why or why not?</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Below model 1 has been reproduced. See if you can recreate models 2-5.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1: Unadjusted</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>dia_logit1 <span class="ot">&lt;-</span> (<span class="fu">svyglm</span>(dental.caries<span class="sc">~</span><span class="fu">I</span>(diabetes <span class="sc">==</span> <span class="st">"diabetic"</span>), <span class="at">family=</span>quasibinomial, <span class="at">design=</span>ado_design, <span class="at">na.action =</span> na.omit))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(dia_logit1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  (Intercept) I(diabetes == "diabetic")TRUE 
+                     1.287895                      2.906902 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pre_logit1 <span class="ot">&lt;-</span> (<span class="fu">svyglm</span>(dental.caries<span class="sc">~</span><span class="fu">I</span>(diabetes <span class="sc">==</span> <span class="st">"prediabetic"</span>), <span class="at">family=</span>quasibinomial, <span class="at">design=</span>ado_design, <span class="at">na.action =</span> na.omit))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(pre_logit1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     (Intercept) I(diabetes == "prediabetic")TRUE 
+                        1.294750                         0.983911 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2: Controlled for age, race/ethnicity, gender</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>logit2 <span class="ot">&lt;-</span> (<span class="fu">svyglm</span>(dental.caries<span class="sc">~</span><span class="fu">I</span>(diabetes <span class="sc">==</span> <span class="st">"diabetic"</span>) <span class="sc">+</span> RIDRETH1 <span class="sc">+</span> RIAGENDR <span class="sc">+</span> <span class="fu">as.factor</span>(RIDAGEYR), <span class="at">family=</span>quasibinomial, <span class="at">design=</span>ado_design, <span class="at">na.action =</span> na.omit))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(logit2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                           (Intercept)          I(diabetes == "diabetic")TRUE 
+                             1.7505063                              2.4045668 
+            RIDRETH1Non-Hispanic Black             RIDRETH1Non-Hispanic White 
+                             0.7599633                              0.5950892 
+                RIDRETH1Other Hispanic RIDRETH1Other Race - Including Multi-R 
+                             0.8247868                              0.8500890 
+                          RIAGENDRMale                  as.factor(RIDAGEYR)14 
+                             0.8138086                              0.9083337 
+                 as.factor(RIDAGEYR)15                  as.factor(RIDAGEYR)16 
+                             1.2446610                              1.1863763 
+                 as.factor(RIDAGEYR)17                  as.factor(RIDAGEYR)18 
+                             1.3941078                              1.6976249 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 3: Controlled for age, race/ethnicity, gender, BMI</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 4: Controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 5: Controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

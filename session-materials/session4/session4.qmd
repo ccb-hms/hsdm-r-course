@@ -25,7 +25,7 @@ They each contain the equivalent set of columns from the `D`, `E`, and `F` NHANE
 Let's load and take a look at the data.
 
 ```{r}
-load(file.choose())
+load("nhanes_beheshti_data.RData")
 ```
 ```{r}
 summary(base_df_d)
@@ -237,50 +237,46 @@ For some variables such as country of birth, we could store the categories in `D
 ```{r}
 # Set columns to categories as in the paper
 cleaned_ado <- mutate(cleaned_ado,
-                    diabetes = case_when(
-                      is.na(LBXGH) & is.na(LBXGLU) ~ NA,
-                     LBXGH >= 6.5 | LBXGLU >= 126 ~ "diabetic",
-                     LBXGH >= 5.7 | LBXGLU >= 100 ~ "prediabetic",
-                      .default = "nondiabetic"),
+
                     
                     age.cat = cut(
-                      age.years,
+                      RIDAGEYR,
                       breaks = c(13, 15, 18),
                       include.lowest = TRUE,
                       labels = c("13-15", "16-18")),
                    
                     plasma.glucose.cat = case_when(
-                     LBXGLU < 100 ~ "<100 mg/dl"
+                     LBXGLU < 100 ~ "<100 mg/dl",
                      LBXGLU < 126 ~ ">=100 mg/dl and <126 mg/dl", 
-                     LBXGLU >= 126 ~ ">=126 mg/dl"
-                     .default ~ NA),
+                     LBXGLU >= 126 ~ ">=126 mg/dl",
+                     .default = NA),
                    
                    hba1c.cat = case_when(
                      LBXGH < 5.7 ~ "<5.7%",
                      LBXGH >= 5.7 ~ ">=5.7% and <6.5%",
-                     LBXGH >= 6.5 ~ ">= 6.5%"
-                     .default ~ NA),
+                     LBXGH >= 6.5 ~ ">= 6.5%",
+                     .default = NA),
                    
                    bmi.cat = case_when( #Technically we should also have an underweight category
                      BMXBMI < 25 ~ "Normal", 
                      BMXBMI < 30 ~ "Overweight",
                      BMXBMI >= 30 ~ "Obese",
-                     .default ~ NA), 
+                     .default = NA), 
                    
                    family.PIR.cat = case_when(
-                     INDFMPIR == "PIR value greater than or equa" ~ ">= 1"
+                     INDFMPIR == "PIR value greater than or equa" ~ ">= 1",
                      INDFMPIR == "Value greater than or equal to" ~ ">= 1",
                      as.numeric(INDFMPIR) >= 1 ~ ">=1",
-                     as.numeric(INDFMPIR) < 1 ~ "<1"
-                     .default ~ NA),
+                     as.numeric(INDFMPIR) < 1 ~ "<1",
+                     .default = NA),
                    family.PIR.car = as.numeric(family.PIR.cat) < 1.0,
                    
                    birthplace = case_when(
                      DMDBORN == "Born in 50 US States or Washi" ~ "Within the US",
                      is.na(DMDBORN) ~ NA,
                      DMDBORN == "Don't Know" ~ NA,
-                     DMDBorn == "Refused" ~ NA,
-                    .default ~ "Outside the US"),
+                     DMDBORN == "Refused" ~ NA,
+                    .default = "Outside the US"),
                    dental.caries = OHXDECAY | OHXREST)
 
 ```
@@ -305,13 +301,12 @@ It is recommended to use `case_when`, but feel free to use any method you want.
 
 ```{r}
 # Add diabetes column
-converted_tib <- converted_tib %>% 
-  mutate(diabetes = case_when(
-    is.na(hba1c) & is.na(plasma.glucose) ~ NA,
-    hba1c >= 6.5 | plasma.glucose >= 126 ~ "diabetic",
-    hba1c >= 5.7 | plasma.glucose >= 100 ~ "prediabetic",
-    .default = "nondiabetic"
-  ))
+cleaned_ado <- cleaned_ado %>% 
+          mutate(diabetes = case_when(
+            is.na(LBXGH) & is.na(LBXGLU) ~ NA,
+           LBXGH >= 6.5 | LBXGLU >= 126 ~ "diabetic",
+           LBXGH >= 5.7 | LBXGLU >= 100 ~ "prediabetic",
+            .default = "nondiabetic"))
 ```
 :::
 

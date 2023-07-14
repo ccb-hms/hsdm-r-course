@@ -95,6 +95,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+<script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.28/datatables.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="../site_libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="../site_libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="../site_libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet">
+<script src="../site_libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="../site_libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet">
+<script src="../site_libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+
 
 </head>
 
@@ -403,262 +417,10 @@ Extended Materials
 </div>
 <p>The first 50 rows of <code>linelist</code>:</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>   case_id generation date_infection date_onset date_hospitalisation
-1   5fe599          4     2014-05-08 2014-05-13           2014-05-15
-2   8689b7          4           &lt;NA&gt; 2014-05-13           2014-05-14
-3   11f8ea          2           &lt;NA&gt; 2014-05-16           2014-05-18
-4   b8812a          3     2014-05-04 2014-05-18           2014-05-20
-5   893f25          3     2014-05-18 2014-05-21           2014-05-22
-6   be99c8          3     2014-05-03 2014-05-22           2014-05-23
-7   07e3e8          4     2014-05-22 2014-05-27           2014-05-29
-8   369449          4     2014-05-28 2014-06-02           2014-06-03
-9   f393b4          4           &lt;NA&gt; 2014-06-05           2014-06-06
-10  1389ca          4           &lt;NA&gt; 2014-06-05           2014-06-07
-11  2978ac          4     2014-05-30 2014-06-06           2014-06-08
-12  57a565          4     2014-05-28 2014-06-13           2014-06-15
-13  fc15ef          6     2014-06-14 2014-06-16           2014-06-17
-14  2eaa9a          5     2014-06-07 2014-06-17           2014-06-17
-15  bbfa93          6     2014-06-09 2014-06-18           2014-06-20
-16  c97dd9          9           &lt;NA&gt; 2014-06-19           2014-06-19
-17  f50e8a         10           &lt;NA&gt; 2014-06-22           2014-06-23
-18  3a7673          8           &lt;NA&gt; 2014-06-23           2014-06-24
-19  7f5a01          7     2014-06-23 2014-06-25           2014-06-27
-20  ddddee          6     2014-06-18 2014-06-26           2014-06-28
-21  99e8fa          7     2014-06-24 2014-06-28           2014-06-29
-22  567136          6           &lt;NA&gt; 2014-07-02           2014-07-03
-23  9371a9          8           &lt;NA&gt; 2014-07-08           2014-07-09
-24  bc2adf          6     2014-07-03 2014-07-09           2014-07-09
-25  403057         10           &lt;NA&gt; 2014-07-09           2014-07-11
-26  8bd1e8          8     2014-07-10 2014-07-10           2014-07-11
-27  f327be          6     2014-06-14 2014-07-12           2014-07-13
-28  42e1a9         12           &lt;NA&gt; 2014-07-12           2014-07-14
-29  90e5fe          5     2014-06-18 2014-07-13           2014-07-14
-30  959170          8     2014-06-29 2014-07-13           2014-07-13
-31  8ebf6e          7     2014-07-02 2014-07-14           2014-07-14
-32  e56412          9     2014-07-12 2014-07-15           2014-07-17
-33  6d788e         11     2014-07-12 2014-07-16           2014-07-17
-34  a47529          5     2014-06-13 2014-07-17           2014-07-18
-35  67be4e          8     2014-07-15 2014-07-17           2014-07-19
-36  da8ecb          5     2014-06-20 2014-07-18           2014-07-20
-37  148f18          6           &lt;NA&gt; 2014-07-19           2014-07-20
-38  2cb9a5         11           &lt;NA&gt; 2014-07-22           2014-07-22
-39  f5c142          7     2014-07-20 2014-07-22           2014-07-24
-40  70a9fe          9           &lt;NA&gt; 2014-07-24           2014-07-26
-41  3ad520          7     2014-07-12 2014-07-24           2014-07-24
-42  062638          8     2014-07-19 2014-07-25           2014-07-27
-43  c76676          9     2014-07-18 2014-07-25           2014-07-25
-44  baacc1         12     2014-07-18 2014-07-27           2014-07-27
-45  497372         13     2014-07-27 2014-07-29           2014-07-31
-46  23e499          9           &lt;NA&gt; 2014-07-30           2014-08-01
-47  38cc4a          8     2014-07-19       &lt;NA&gt;           2014-08-03
-48  3789ee         10     2014-07-26 2014-08-01           2014-08-02
-49  c71dcd          8     2014-07-24 2014-08-02           2014-08-02
-50  6b70f0          7           &lt;NA&gt; 2014-08-03           2014-08-04
-   date_outcome outcome gender age age_unit age_years age_cat age_cat5
-1          &lt;NA&gt;    &lt;NA&gt;      m   2    years         2     0-4      0-4
-2    2014-05-18 Recover      f   3    years         3     0-4      0-4
-3    2014-05-30 Recover      m  56    years        56   50-69    55-59
-4          &lt;NA&gt;    &lt;NA&gt;      f  18    years        18   15-19    15-19
-5    2014-05-29 Recover      m   3    years         3     0-4      0-4
-6    2014-05-24 Recover      f  16    years        16   15-19    15-19
-7    2014-06-01 Recover      f  16    years        16   15-19    15-19
-8    2014-06-07   Death      f   0    years         0     0-4      0-4
-9    2014-06-18 Recover      m  61    years        61   50-69    60-64
-10   2014-06-09   Death      f  27    years        27   20-29    25-29
-11   2014-06-15   Death      m  12    years        12   10-14    10-14
-12         &lt;NA&gt;   Death      m  42    years        42   30-49    40-44
-13   2014-07-09 Recover      m  19    years        19   15-19    15-19
-14         &lt;NA&gt; Recover      f   7    years         7     5-9      5-9
-15   2014-06-30    &lt;NA&gt;      f   7    years         7     5-9      5-9
-16   2014-07-11 Recover      m  13    years        13   10-14    10-14
-17   2014-07-01    &lt;NA&gt;      f  35    years        35   30-49    35-39
-18   2014-06-25    &lt;NA&gt;      f  17    years        17   15-19    15-19
-19   2014-07-06   Death      f  11    years        11   10-14    10-14
-20   2014-07-02   Death      f  11    years        11   10-14    10-14
-21   2014-07-09 Recover      m  19    years        19   15-19    15-19
-22   2014-07-07    &lt;NA&gt;      m  54    years        54   50-69    50-54
-23   2014-07-20    &lt;NA&gt;      f  14    years        14   10-14    10-14
-24         &lt;NA&gt;    &lt;NA&gt;      m  28    years        28   20-29    25-29
-25   2014-07-22   Death      f   6    years         6     5-9      5-9
-26   2014-07-16    &lt;NA&gt;      m   3    years         3     0-4      0-4
-27   2014-07-14   Death      m  31    years        31   30-49    30-34
-28   2014-07-20   Death      f   6    years         6     5-9      5-9
-29   2014-07-16    &lt;NA&gt;      m  67    years        67   50-69    65-69
-30   2014-07-19   Death      f  14    years        14   10-14    10-14
-31   2014-07-27 Recover      f  10    years        10   10-14    10-14
-32   2014-07-19   Death      f  21    years        21   20-29    20-24
-33         &lt;NA&gt; Recover      m  20    years        20   20-29    20-24
-34   2014-07-26   Death      m  45    years        45   30-49    45-49
-35   2014-08-14 Recover      f   1    years         1     0-4      0-4
-36   2014-08-01    &lt;NA&gt;      m  12    years        12   10-14    10-14
-37   2014-07-23   Death      f   3    years         3     0-4      0-4
-38   2014-08-28 Recover      f  15    years        15   15-19    15-19
-39   2014-07-28 Recover      f  20    years        20   20-29    20-24
-40   2014-07-19   Death      m  36    years        36   30-49    35-39
-41         &lt;NA&gt;    &lt;NA&gt;      f   7    years         7     5-9      5-9
-42   2014-08-03    &lt;NA&gt;      m  13    years        13   10-14    10-14
-43         &lt;NA&gt;   Death      f  14    years        14   10-14    10-14
-44         &lt;NA&gt;   Death      m   3    years         3     0-4      0-4
-45         &lt;NA&gt;   Death      m  10    years        10   10-14    10-14
-46   2014-08-06   Death      f   1    years         1     0-4      0-4
-47   2014-08-21 Recover      m   0    years         0     0-4      0-4
-48   2014-09-13    &lt;NA&gt;      f  20    years        20   20-29    20-24
-49   2014-08-04   Death      m  26    years        26   20-29    25-29
-50         &lt;NA&gt;   Death      m  14    years        14   10-14    10-14
-                               hospital       lon      lat infector  source
-1                                 Other -13.21574 8.468973   f547d6   other
-2                               Missing -13.21523 8.451719     &lt;NA&gt;    &lt;NA&gt;
-3  St. Mark's Maternity Hospital (SMMH) -13.21291 8.464817     &lt;NA&gt;    &lt;NA&gt;
-4                         Port Hospital -13.23637 8.475476   f90f5f   other
-5                     Military Hospital -13.22286 8.460824   11f8ea   other
-6                         Port Hospital -13.22263 8.461831   aec8ec   other
-7                               Missing -13.23315 8.462729   893f25   other
-8                               Missing -13.23210 8.461444   133ee7   other
-9                               Missing -13.22255 8.461913     &lt;NA&gt;    &lt;NA&gt;
-10                              Missing -13.25722 8.472923     &lt;NA&gt;    &lt;NA&gt;
-11                        Port Hospital -13.22063 8.484016   996f3a   other
-12                    Military Hospital -13.25399 8.458371   133ee7   other
-13                              Missing -13.23851 8.477617   37a6f6   other
-14                              Missing -13.20939 8.475702   9f6884   other
-15                                Other -13.21573 8.477799   4802b1   other
-16                        Port Hospital -13.22434 8.471451     &lt;NA&gt;    &lt;NA&gt;
-17                        Port Hospital -13.23361 8.478048     &lt;NA&gt;    &lt;NA&gt;
-18                        Port Hospital -13.21422 8.485280     &lt;NA&gt;    &lt;NA&gt;
-19                              Missing -13.23397 8.469575   a75c7f   other
-20                                Other -13.25356 8.459574   8e104d   other
-21                        Port Hospital -13.22501 8.474049   ab634e   other
-22                        Port Hospital -13.21607 8.488029     &lt;NA&gt;    &lt;NA&gt;
-23 St. Mark's Maternity Hospital (SMMH) -13.26807 8.473437     &lt;NA&gt;    &lt;NA&gt;
-24                              Missing -13.22667 8.484083   b799eb   other
-25                                Other -13.21602 8.462422     &lt;NA&gt;    &lt;NA&gt;
-26                              Missing -13.24826 8.470268   5d9e4d   other
-27 St. Mark's Maternity Hospital (SMMH) -13.21563 8.463984   a15e13   other
-28                    Military Hospital -13.21424 8.464135     &lt;NA&gt;    &lt;NA&gt;
-29                        Port Hospital -13.26149 8.456231   ea3740   other
-30                     Central Hospital -13.24530 8.483346   beb26e funeral
-31                    Military Hospital -13.26306 8.474940   567136   other
-32                     Central Hospital -13.23433 8.478321   894024 funeral
-33                              Missing -13.21991 8.469393   36e2e7   other
-34                    Military Hospital -13.22273 8.484806   a2086d   other
-35                                Other -13.23431 8.471212   7baf73   other
-36                              Missing -13.21878 8.484384   eb2277 funeral
-37                              Missing -13.24837 8.484662     &lt;NA&gt;    &lt;NA&gt;
-38                        Port Hospital -13.20975 8.477142     &lt;NA&gt;    &lt;NA&gt;
-39                        Port Hospital -13.26809 8.462381   d6584f   other
-40                        Port Hospital -13.25875 8.455686     &lt;NA&gt;    &lt;NA&gt;
-41                              Missing -13.26264 8.463288   312ecf   other
-42                     Central Hospital -13.26972 8.479407   52ea64   other
-43                    Military Hospital -13.22090 8.463539   cfd79c   other
-44                                Other -13.23307 8.461790   d145b7   other
-45                                Other -13.26809 8.475087   174288   other
-46                                Other -13.25472 8.458258     &lt;NA&gt;    &lt;NA&gt;
-47                              Missing -13.25737 8.453257   53608c funeral
-48 St. Mark's Maternity Hospital (SMMH) -13.21374 8.473257   3b096b   other
-49 St. Mark's Maternity Hospital (SMMH) -13.21760 8.479116   f5c142   other
-50                              Missing -13.24864 8.484803     &lt;NA&gt;    &lt;NA&gt;
-   wt_kg ht_cm ct_blood fever chills cough aches vomit temp time_admission
-1     27    48       22    no     no   yes    no   yes 36.8           &lt;NA&gt;
-2     25    59       22  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.9          09:36
-3     91   238       21  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.9          16:48
-4     41   135       23    no     no    no    no    no 36.8          11:22
-5     36    71       23    no     no   yes    no   yes 36.9          12:60
-6     56   116       21    no     no   yes    no   yes 37.6          14:13
-7     47    87       21  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 37.3          14:33
-8      0    11       22    no     no   yes    no   yes 37.0          09:25
-9     86   226       22    no     no   yes    no   yes 36.4          11:16
-10    69   174       22    no     no   yes    no    no 35.9          10:55
-11    67   112       22    no     no   yes    no   yes 36.5          16:03
-12    84   186       22    no     no   yes    no    no 36.9          11:14
-13    68   174       22    no     no   yes    no    no 36.5          12:42
-14    44    90       21    no     no   yes    no    no 37.1          11:06
-15    34    91       23    no     no   yes    no   yes 36.5          09:10
-16    66   152       22    no     no   yes   yes    no 37.3          08:45
-17    78   214       23    no    yes   yes    no    no 37.0           &lt;NA&gt;
-18    47   137       21    no     no   yes    no    no 38.0          15:41
-19    53   117       22  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 38.0          13:34
-20    47   131       23    no     no   yes    no    no 36.0          18:58
-21    71   150       21    no     no   yes    no   yes 37.0          12:43
-22    86   241       23    no     no   yes    no    no 36.7          16:33
-23    53   131       21    no    yes   yes    no    no 36.9          14:29
-24    69   161       24    no     no   yes    no    no 36.5          07:18
-25    38    80       23  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 37.0          08:11
-26    46    69       22    no     no   yes    no    no 36.5          16:32
-27    68   188       24    no     no   yes    no    no 37.6          16:17
-28    37    66       23    no    yes   yes    no    no 36.6          07:32
-29   100   233       20  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.6          17:45
-30    56   142       24  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.2           &lt;NA&gt;
-31    50   110       24    no     no   yes    no    no 36.4          13:24
-32    57   182       20    no     no   yes    no   yes 37.1          14:43
-33    65   164       24  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 37.5          02:33
-34    72   214       21    no     no   yes    no   yes 37.5          11:36
-35    29    26       22    no     no   yes    no   yes 37.4          17:28
-36    69   157       21  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.9          16:27
-37    37    39       23  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.4           &lt;NA&gt;
-38    48   154       22    no     no   yes   yes   yes 37.3          20:49
-39    54   133       23    no     no   yes   yes   yes 37.0           &lt;NA&gt;
-40    71   168       23  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 37.8          11:38
-41    47   100       23    no     no   yes    no   yes 36.5          14:25
-42    61   125       22    no     no   yes    no   yes 37.5          13:42
-43    47   123       23  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.7          21:22
-44    35    67       22    no     no   yes    no   yes 37.0          13:33
-45    53   134       22    no    yes   yes    no   yes 37.3          19:06
-46    16    31       22    no     no   yes    no    no 36.6          17:14
-47    13    36       23    no     no   yes    no   yes 36.5          20:09
-48    59   125       22    no     no   yes    no   yes 36.6           &lt;NA&gt;
-49    69   183       22    no     no    no    no   yes 37.6          10:23
-50    67   169       22  &lt;NA&gt;   &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 36.8          09:09
-         bmi days_onset_hosp
-1  117.18750               2
-2   71.81844               1
-3   16.06525               2
-4   22.49657               2
-5   71.41440               1
-6   41.61712               1
-7   62.09539               2
-8    0.00000               1
-9   16.83765               1
-10  22.79033               2
-11  53.41199               2
-12  24.28026               2
-13  22.46003               1
-14  54.32099               0
-15  41.05784               2
-16  28.56648               0
-17  17.03206               1
-18  25.04129               1
-19  38.71722               2
-20  27.38768               2
-21  31.55556               1
-22  14.80691               1
-23  30.88398               1
-24  26.61934               0
-25  59.37500               2
-26  96.61836               1
-27  19.23947               1
-28  84.94031               2
-29  18.41994               1
-30  27.77227               0
-31  41.32231               0
-32  17.20807               2
-33  24.16716               1
-34  15.72190               1
-35 428.99408               2
-36  27.99302               2
-37 243.26101               1
-38  20.23950               0
-39  30.52745               2
-40  25.15590               2
-41  47.00000               0
-42  39.04000               2
-43  31.06616               0
-44  77.96837               0
-45  29.51660               2
-46 166.49324               2
-47 100.30864              NA
-48  37.76000               1
-49  20.60378               0
-50  23.45856               1</code></pre>
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a778b6ddc83e8a14f4bd" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-a778b6ddc83e8a14f4bd">{"x":{"filter":"top","vertical":false,"filterHTML":"<tr>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"2\" data-max=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399075200000\" data-max=\"1406419200000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1399939200000\" data-max=\"1.407024e+12\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400025600000\" data-max=\"1407110400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"date\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"1400371200000\" data-max=\"1410566400000\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\" disabled=\"\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"67\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-29&quot;,&quot;30-49&quot;,&quot;50-69&quot;,&quot;70+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"factor\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"width: 100%; display: none;\">\n      <select multiple=\"multiple\" style=\"width: 100%;\" data-options=\"[&quot;0-4&quot;,&quot;5-9&quot;,&quot;10-14&quot;,&quot;15-19&quot;,&quot;20-24&quot;,&quot;25-29&quot;,&quot;30-34&quot;,&quot;35-39&quot;,&quot;40-44&quot;,&quot;45-49&quot;,&quot;50-54&quot;,&quot;55-59&quot;,&quot;60-64&quot;,&quot;65-69&quot;,&quot;70-74&quot;,&quot;75-79&quot;,&quot;80-84&quot;,&quot;85+&quot;]\"><\/select>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"-13.2697246824573\" data-max=\"-13.209391925612\" data-scale=\"13\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"8.45171855856465\" data-max=\"8.48802917129884\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"100\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"11\" data-max=\"241\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"20\" data-max=\"24\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"35.9\" data-max=\"38\" data-scale=\"1\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"character\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"428.994082840237\" data-scale=\"14\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n  <td data-type=\"number\" style=\"vertical-align: top;\">\n    <div class=\"form-group has-feedback\" style=\"margin-bottom: auto;\">\n      <input type=\"search\" placeholder=\"All\" class=\"form-control\" style=\"width: 100%;\"/>\n      <span class=\"glyphicon glyphicon-remove-circle form-control-feedback\"><\/span>\n    <\/div>\n    <div style=\"display: none;position: absolute;width: 200px;opacity: 1\">\n      <div data-min=\"0\" data-max=\"2\"><\/div>\n      <span style=\"float: left;\"><\/span>\n      <span style=\"float: right;\"><\/span>\n    <\/div>\n  <\/td>\n<\/tr>","data":[["5fe599","8689b7","11f8ea","b8812a","893f25","be99c8","07e3e8","369449","f393b4","1389ca","2978ac","57a565","fc15ef","2eaa9a","bbfa93","c97dd9","f50e8a","3a7673","7f5a01","ddddee","99e8fa","567136","9371a9","bc2adf","403057","8bd1e8","f327be","42e1a9","90e5fe","959170","8ebf6e","e56412","6d788e","a47529","67be4e","da8ecb","148f18","2cb9a5","f5c142","70a9fe","3ad520","062638","c76676","baacc1","497372","23e499","38cc4a","3789ee","c71dcd","6b70f0"],[4,4,2,3,3,3,4,4,4,4,4,4,6,5,6,9,10,8,7,6,7,6,8,6,10,8,6,12,5,8,7,9,11,5,8,5,6,11,7,9,7,8,9,12,13,9,8,10,8,7],["2014-05-08",null,null,"2014-05-04","2014-05-18","2014-05-03","2014-05-22","2014-05-28",null,null,"2014-05-30","2014-05-28","2014-06-14","2014-06-07","2014-06-09",null,null,null,"2014-06-23","2014-06-18","2014-06-24",null,null,"2014-07-03",null,"2014-07-10","2014-06-14",null,"2014-06-18","2014-06-29","2014-07-02","2014-07-12","2014-07-12","2014-06-13","2014-07-15","2014-06-20",null,null,"2014-07-20",null,"2014-07-12","2014-07-19","2014-07-18","2014-07-18","2014-07-27",null,"2014-07-19","2014-07-26","2014-07-24",null],["2014-05-13","2014-05-13","2014-05-16","2014-05-18","2014-05-21","2014-05-22","2014-05-27","2014-06-02","2014-06-05","2014-06-05","2014-06-06","2014-06-13","2014-06-16","2014-06-17","2014-06-18","2014-06-19","2014-06-22","2014-06-23","2014-06-25","2014-06-26","2014-06-28","2014-07-02","2014-07-08","2014-07-09","2014-07-09","2014-07-10","2014-07-12","2014-07-12","2014-07-13","2014-07-13","2014-07-14","2014-07-15","2014-07-16","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-22","2014-07-22","2014-07-24","2014-07-24","2014-07-25","2014-07-25","2014-07-27","2014-07-29","2014-07-30",null,"2014-08-01","2014-08-02","2014-08-03"],["2014-05-15","2014-05-14","2014-05-18","2014-05-20","2014-05-22","2014-05-23","2014-05-29","2014-06-03","2014-06-06","2014-06-07","2014-06-08","2014-06-15","2014-06-17","2014-06-17","2014-06-20","2014-06-19","2014-06-23","2014-06-24","2014-06-27","2014-06-28","2014-06-29","2014-07-03","2014-07-09","2014-07-09","2014-07-11","2014-07-11","2014-07-13","2014-07-14","2014-07-14","2014-07-13","2014-07-14","2014-07-17","2014-07-17","2014-07-18","2014-07-19","2014-07-20","2014-07-20","2014-07-22","2014-07-24","2014-07-26","2014-07-24","2014-07-27","2014-07-25","2014-07-27","2014-07-31","2014-08-01","2014-08-03","2014-08-02","2014-08-02","2014-08-04"],[null,"2014-05-18","2014-05-30",null,"2014-05-29","2014-05-24","2014-06-01","2014-06-07","2014-06-18","2014-06-09","2014-06-15",null,"2014-07-09",null,"2014-06-30","2014-07-11","2014-07-01","2014-06-25","2014-07-06","2014-07-02","2014-07-09","2014-07-07","2014-07-20",null,"2014-07-22","2014-07-16","2014-07-14","2014-07-20","2014-07-16","2014-07-19","2014-07-27","2014-07-19",null,"2014-07-26","2014-08-14","2014-08-01","2014-07-23","2014-08-28","2014-07-28","2014-07-19",null,"2014-08-03",null,null,null,"2014-08-06","2014-08-21","2014-09-13","2014-08-04",null],[null,"Recover","Recover",null,"Recover","Recover","Recover","Death","Recover","Death","Death","Death","Recover","Recover",null,"Recover",null,null,"Death","Death","Recover",null,null,null,"Death",null,"Death","Death",null,"Death","Recover","Death","Recover","Death","Recover",null,"Death","Recover","Recover","Death",null,null,"Death","Death","Death","Death","Recover",null,"Death","Death"],["m","f","m","f","m","f","f","f","m","f","m","m","m","f","f","m","f","f","f","f","m","m","f","m","f","m","m","f","m","f","f","f","m","m","f","m","f","f","f","m","f","m","f","m","m","f","m","f","m","m"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years","years"],[2,3,56,18,3,16,16,0,61,27,12,42,19,7,7,13,35,17,11,11,19,54,14,28,6,3,31,6,67,14,10,21,20,45,1,12,3,15,20,36,7,13,14,3,10,1,0,20,26,14],["0-4","0-4","50-69","15-19","0-4","15-19","15-19","0-4","50-69","20-29","10-14","30-49","15-19","5-9","5-9","10-14","30-49","15-19","10-14","10-14","15-19","50-69","10-14","20-29","5-9","0-4","30-49","5-9","50-69","10-14","10-14","20-29","20-29","30-49","0-4","10-14","0-4","15-19","20-29","30-49","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-29","20-29","10-14"],["0-4","0-4","55-59","15-19","0-4","15-19","15-19","0-4","60-64","25-29","10-14","40-44","15-19","5-9","5-9","10-14","35-39","15-19","10-14","10-14","15-19","50-54","10-14","25-29","5-9","0-4","30-34","5-9","65-69","10-14","10-14","20-24","20-24","45-49","0-4","10-14","0-4","15-19","20-24","35-39","5-9","10-14","10-14","0-4","10-14","0-4","0-4","20-24","25-29","10-14"],["Other","Missing","St. Mark's Maternity Hospital (SMMH)","Port Hospital","Military Hospital","Port Hospital","Missing","Missing","Missing","Missing","Port Hospital","Military Hospital","Missing","Missing","Other","Port Hospital","Port Hospital","Port Hospital","Missing","Other","Port Hospital","Port Hospital","St. Mark's Maternity Hospital (SMMH)","Missing","Other","Missing","St. Mark's Maternity Hospital (SMMH)","Military Hospital","Port Hospital","Central Hospital","Military Hospital","Central Hospital","Missing","Military Hospital","Other","Missing","Missing","Port Hospital","Port Hospital","Port Hospital","Missing","Central Hospital","Military Hospital","Other","Other","Other","Missing","St. Mark's Maternity Hospital (SMMH)","St. Mark's Maternity Hospital (SMMH)","Missing"],[-13.2157351064963,-13.2152339775486,-13.212910703914,-13.2363711169728,-13.2228638912441,-13.222625321098,-13.2331547837254,-13.2320975453153,-13.2225511595637,-13.2572163655863,-13.2206286746001,-13.253989309478,-13.2385127873491,-13.209391925612,-13.2157278814899,-13.2243437095992,-13.2336087079551,-13.21422143145,-13.2339681355349,-13.2535640411465,-13.2250089377786,-13.2160657166043,-13.2680671272333,-13.2266742923612,-13.2160179088168,-13.2482584611565,-13.2156319199566,-13.2142410663192,-13.2614879104088,-13.2452992638476,-13.2630592726116,-13.2343341712241,-13.2199077448676,-13.2227293309912,-13.2343062806506,-13.218781651651,-13.2483677722899,-13.2097478342339,-13.2680867723786,-13.2587535457526,-13.262635786914,-13.2697246824573,-13.2209026809759,-13.2330734719715,-13.2680923666905,-13.2547212675054,-13.2573683214693,-13.2137356012883,-13.2175973322257,-13.2486407324245],[8.46897295100924,8.45171855856465,8.46481700596819,8.4754761613651,8.46082377490923,8.461830626007281,8.462729314626459,8.461443675342711,8.46191259217774,8.472923276435059,8.48401630165138,8.458371253408441,8.477617055125091,8.47570184950483,8.477799468789719,8.47145134147474,8.478048406853629,8.48528034195779,8.469575303958671,8.45957352078114,8.474048895115439,8.488029171298839,8.473437335922,8.484082637344621,8.46242233645879,8.470268221265719,8.463984474805329,8.464134789434199,8.456230946296071,8.48334624336805,8.47493999153642,8.47832062438022,8.469393389176499,8.48480589906514,8.47121232619015,8.48438437371817,8.484661585743391,8.477141599844281,8.462381270106089,8.455685978131131,8.4632880274758,8.47940722413856,8.46353857052336,8.461789681588639,8.47508713872833,8.458258081280711,8.4532568143863,8.4732571907655,8.479115866419329,8.48480340615605],["f547d6",null,null,"f90f5f","11f8ea","aec8ec","893f25","133ee7",null,null,"996f3a","133ee7","37a6f6","9f6884","4802b1",null,null,null,"a75c7f","8e104d","ab634e",null,null,"b799eb",null,"5d9e4d","a15e13",null,"ea3740","beb26e","567136","894024","36e2e7","a2086d","7baf73","eb2277",null,null,"d6584f",null,"312ecf","52ea64","cfd79c","d145b7","174288",null,"53608c","3b096b","f5c142",null],["other",null,null,"other","other","other","other","other",null,null,"other","other","other","other","other",null,null,null,"other","other","other",null,null,"other",null,"other","other",null,"other","funeral","other","funeral","other","other","other","funeral",null,null,"other",null,"other","other","other","other","other",null,"funeral","other","other",null],[27,25,91,41,36,56,47,0,86,69,67,84,68,44,34,66,78,47,53,47,71,86,53,69,38,46,68,37,100,56,50,57,65,72,29,69,37,48,54,71,47,61,47,35,53,16,13,59,69,67],[48,59,238,135,71,116,87,11,226,174,112,186,174,90,91,152,214,137,117,131,150,241,131,161,80,69,188,66,233,142,110,182,164,214,26,157,39,154,133,168,100,125,123,67,134,31,36,125,183,169],[22,22,21,23,23,21,21,22,22,22,22,22,22,21,23,22,23,21,22,23,21,23,21,24,23,22,24,23,20,24,24,20,24,21,22,21,23,22,23,23,23,22,23,22,22,22,23,22,22,22],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","no","no","no","no","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","no","yes","no",null,"no","no","no","yes","no",null,"no","no","yes",null,null,"no","no",null,"no","no",null,null,"no","no",null,"no","no",null,"no","yes","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","yes","yes","yes","yes","yes","yes","yes","yes","yes",null,"yes","yes","yes","yes","yes",null,"yes","yes","yes",null,null,"yes","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","yes","yes","yes","no",null],["no",null,null,"no","no","no",null,"no","no","no","no","no","no","no","no","yes","no","no",null,"no","no","no","no","no",null,"no","no","no",null,null,"no","no",null,"no","no",null,null,"yes","yes",null,"no","no",null,"no","no","no","no","no","no",null],["yes",null,null,"no","yes","yes",null,"yes","yes","no","yes","no","no","no","yes","no","no","no",null,"no","yes","no","no","no",null,"no","no","no",null,null,"no","yes",null,"yes","yes",null,null,"yes","yes",null,"yes","yes",null,"yes","yes","no","yes","yes","yes",null],[36.8,36.9,36.9,36.8,36.9,37.6,37.3,37,36.4,35.9,36.5,36.9,36.5,37.1,36.5,37.3,37,38,38,36,37,36.7,36.9,36.5,37,36.5,37.6,36.6,36.6,36.2,36.4,37.1,37.5,37.5,37.4,36.9,36.4,37.3,37,37.8,36.5,37.5,36.7,37,37.3,36.6,36.5,36.6,37.6,36.8],[null,"09:36","16:48","11:22","12:60","14:13","14:33","09:25","11:16","10:55","16:03","11:14","12:42","11:06","09:10","08:45",null,"15:41","13:34","18:58","12:43","16:33","14:29","07:18","08:11","16:32","16:17","07:32","17:45",null,"13:24","14:43","02:33","11:36","17:28","16:27",null,"20:49",null,"11:38","14:25","13:42","21:22","13:33","19:06","17:14","20:09",null,"10:23","09:09"],[117.1875,71.81844297615629,16.06524962926347,22.49657064471879,71.41440190438405,41.61712247324614,62.09538908706566,0,16.83765369253662,22.79032897344431,53.41198979591836,24.28026361429067,22.46003435064077,54.32098765432099,41.05784325564545,28.56648199445983,17.03205520132763,25.04129149128882,38.7172182043977,27.3876813705495,31.55555555555556,14.80690759456621,30.88398111998135,26.61934338952972,59.37499999999999,96.61835748792272,19.23947487550928,84.94031221303948,18.41993774061044,27.77226740726046,41.32231404958677,17.20806665861611,24.16716240333135,15.72189710891781,428.9940828402366,27.99302202929125,243.2610124917817,20.23950075898128,30.52744643563797,25.15589569160998,47,39.04,31.06616432017979,77.96836711962574,29.51659612385831,166.4932362122789,100.3086419753086,37.76,20.60378034578518,23.45856237526698],[2,1,2,2,1,1,2,1,1,2,2,2,1,0,2,0,1,1,2,2,1,1,1,0,2,1,1,2,1,0,0,2,1,1,2,2,1,0,2,2,0,2,0,0,2,2,null,1,0,1]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>case_id<\/th>\n      <th>generation<\/th>\n      <th>date_infection<\/th>\n      <th>date_onset<\/th>\n      <th>date_hospitalisation<\/th>\n      <th>date_outcome<\/th>\n      <th>outcome<\/th>\n      <th>gender<\/th>\n      <th>age<\/th>\n      <th>age_unit<\/th>\n      <th>age_years<\/th>\n      <th>age_cat<\/th>\n      <th>age_cat5<\/th>\n      <th>hospital<\/th>\n      <th>lon<\/th>\n      <th>lat<\/th>\n      <th>infector<\/th>\n      <th>source<\/th>\n      <th>wt_kg<\/th>\n      <th>ht_cm<\/th>\n      <th>ct_blood<\/th>\n      <th>fever<\/th>\n      <th>chills<\/th>\n      <th>cough<\/th>\n      <th>aches<\/th>\n      <th>vomit<\/th>\n      <th>temp<\/th>\n      <th>time_admission<\/th>\n      <th>bmi<\/th>\n      <th>days_onset_hosp<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,8,10,14,15,18,19,20,26,28,29]}],"order":[],"autoWidth":false,"orderClasses":false,"orderCellsTop":true,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -667,7 +429,7 @@ Extended Materials
 <p>Use <code>select()</code> from <strong>dplyr</strong> to select the columns you want to retain, and to specify their order in the data frame.</p>
 <p><strong>Here are ALL the column names in the linelist at this point in the cleaning pipe chain:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(linelist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(linelist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "case_id"              "generation"           "date_infection"      
  [4] "date_onset"           "date_hospitalisation" "date_outcome"        
@@ -686,10 +448,10 @@ Extended Materials
 <p><strong>Select only the columns you want to remain</strong></p>
 <p>Put their names in the <code>select()</code> command, with no quotation marks. They will appear in the data frame in the order you provide. Note that if you include a column that does not exist, R will return an error (see use of <code>any_of()</code> below if you want no error in this situation).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># linelist dataset is piped through select() command, and names() prints just the column names</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case_id, date_onset, date_hospitalisation, fever) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()  <span class="co"># display the column names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># linelist dataset is piped through select() command, and names() prints just the column names</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case_id, date_onset, date_hospitalisation, fever) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()  <span class="co"># display the column names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "case_id"              "date_onset"           "date_hospitalisation"
 [4] "fever"               </code></pre>
@@ -700,9 +462,9 @@ Extended Materials
 <h3 class="unnumbered" data-anchor-id="remove-columns">Remove columns</h3>
 <p><strong>Indicate which columns to remove</strong> by placing a minus symbol “-” in front of the column name (e.g.&nbsp;<code>select(-outcome)</code>), or a vector of column names (as below). All other columns will be retained.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(date_onset, fever<span class="sc">:</span>vomit)) <span class="sc">%&gt;%</span> <span class="co"># remove date_onset and all columns from fever to vomit</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(date_onset, fever<span class="sc">:</span>vomit)) <span class="sc">%&gt;%</span> <span class="co"># remove date_onset and all columns from fever to vomit</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "case_id"              "generation"           "date_infection"      
  [4] "date_hospitalisation" "date_outcome"         "outcome"             
@@ -716,18 +478,18 @@ Extended Materials
 </div>
 <p>You can also remove a column using <strong>base</strong> R syntax, by defining it as <code>NULL</code>. For example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>linelist<span class="sc">$</span>date_onset <span class="ot">&lt;-</span> <span class="cn">NULL</span>   <span class="co"># deletes column with base R syntax </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>linelist<span class="sc">$</span>date_onset <span class="ot">&lt;-</span> <span class="cn">NULL</span>   <span class="co"># deletes column with base R syntax </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="standalone" class="level3 unnumbered">
 <h3 class="unnumbered" data-anchor-id="standalone">Standalone</h3>
 <p><code>select()</code> can also be used as an independent command (not in a pipe chain). In this case, the first argument is the original dataframe to be operated upon.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new linelist with id and age-related columns</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>linelist_age <span class="ot">&lt;-</span> <span class="fu">select</span>(linelist, case_id, <span class="fu">contains</span>(<span class="st">"age"</span>))</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># display the column names</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(linelist_age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new linelist with id and age-related columns</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>linelist_age <span class="ot">&lt;-</span> <span class="fu">select</span>(linelist, case_id, <span class="fu">contains</span>(<span class="st">"age"</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># display the column names</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(linelist_age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "case_id"   "age"       "age_unit"  "age_years" "age_cat"   "age_cat5" </code></pre>
 </div>
@@ -741,24 +503,24 @@ Extended Materials
 <h3 class="unnumbered" data-anchor-id="new-columns">New columns</h3>
 <p>The most basic <code>mutate()</code> command to create a new column might look like this. It creates a new column <code>new_col</code> where the value in every row is 10.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_col =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">new_col =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can also reference values in other columns, to perform calculations. Below, a new column <code>bmi</code> is created to hold the Body Mass Index (BMI) for each case - as calculated using the formula BMI = kg/m^2, using column <code>ht_cm</code> and column <code>wt_kg</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bmi =</span> wt_kg <span class="sc">/</span> (ht_cm<span class="sc">/</span><span class="dv">100</span>)<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bmi =</span> wt_kg <span class="sc">/</span> (ht_cm<span class="sc">/</span><span class="dv">100</span>)<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If creating multiple new columns, separate each with a comma and new line. Below are examples of new columns, including ones that consist of values from other columns combined using <code>str_glue()</code> from the <strong>stringr</strong> package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>new_col_demo <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span>                       </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_var_dup    =</span> case_id,             <span class="co"># new column = duplicate/copy another existing column</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_var_static =</span> <span class="dv">7</span>,                   <span class="co"># new column = all values the same</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_var_static =</span> new_var_static <span class="sc">+</span> <span class="dv">5</span>,  <span class="co"># you can overwrite a column, and it can be a calculation using other variables</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_var_paste  =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"{hospital} on ({date_hospitalisation})"</span>) <span class="co"># new column = pasting together values from other columns</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case_id, hospital, date_hospitalisation, <span class="fu">contains</span>(<span class="st">"new"</span>))        <span class="co"># show only new columns, for demonstration purposes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>new_col_demo <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span>                       </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_var_dup    =</span> case_id,             <span class="co"># new column = duplicate/copy another existing column</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_var_static =</span> <span class="dv">7</span>,                   <span class="co"># new column = all values the same</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_var_static =</span> new_var_static <span class="sc">+</span> <span class="dv">5</span>,  <span class="co"># you can overwrite a column, and it can be a calculation using other variables</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_var_paste  =</span> stringr<span class="sc">::</span><span class="fu">str_glue</span>(<span class="st">"{hospital} on ({date_hospitalisation})"</span>) <span class="co"># new column = pasting together values from other columns</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(case_id, hospital, date_hospitalisation, <span class="fu">contains</span>(<span class="st">"new"</span>))        <span class="co"># show only new columns, for demonstration purposes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Review the new columns. For demonstration purposes, only the new columns and the columns used to create them are shown:</p>
 <div class="cell">
@@ -937,15 +699,15 @@ Transmute
 <p>Columns containing values that are dates, numbers, or logical values (TRUE/FALSE) will only behave as expected if they are correctly classified. There is a difference between “2” of class character and 2 of class numeric! There are ways to set column class during the import commands, but this is often cumbersome.</p>
 <p>First, let’s run some checks on important columns to see if they are the correct class. Currently, the class of the <code>age</code> column is character. To perform quantitative analyses, we need these numbers to be recognized as numeric!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(linelist<span class="sc">$</span>age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(linelist<span class="sc">$</span>age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
 </div>
 <p>To resolve this, use the ability of <code>mutate()</code> to re-define a column with a transformation. We define the column as itself, but converted to a different class. Here is a basic example, converting or ensuring that the column <code>age</code> is class Numeric:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">as.numeric</span>(age))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age =</span> <span class="fu">as.numeric</span>(age))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In a similar way, you can use <code>as.character()</code> and <code>as.logical()</code>. To convert to class Factor, you can use <code>factor()</code>.</p>
 </section>
@@ -961,8 +723,8 @@ Transmute
 <p>In this example, the logical statement is <code>gender == "f"</code>, which is asking whether the value in the column <code>gender</code> is equal to “f” (case sensitive).</p>
 <p>Before the filter is applied, the number of rows in <code>linelist</code> is <code>nrow(linelist)</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">"f"</span>)   <span class="co"># keep only rows where gender is equal to "f"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">"f"</span>)   <span class="co"># keep only rows where gender is equal to "f"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After the filter is applied, the number of rows in <code>linelist</code> is <code>linelist %&gt;% filter(gender == "f") %&gt;% nrow()</code>.</p>
 </section>
@@ -974,7 +736,7 @@ Transmute
 <h4 class="unnumbered" data-anchor-id="examine-the-data">Examine the data</h4>
 <p>Below is a simple one-line command to create a histogram of onset dates. See that a second smaller outbreak from 2012-2013 is also included in this raw dataset. <strong>For our analyses, we want to remove entries from this earlier outbreak.</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(linelist<span class="sc">$</span>date_onset, <span class="at">breaks =</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(linelist<span class="sc">$</span>date_onset, <span class="at">breaks =</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="using-tables_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" style="width:50.0%"></p>
 </div>
@@ -1002,15 +764,15 @@ Conditions with NA
 <h3 class="unnumbered" data-anchor-id="standalone-1">Standalone</h3>
 <p>Filtering can also be done as a stand-alone command (not part of a pipe chain). Like other <strong>dplyr</strong> verbs, in this case the first argument must be the dataset itself.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe &lt;- filter(dataframe, condition(s) for rows to keep)</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">filter</span>(linelist, <span class="sc">!</span><span class="fu">is.na</span>(case_id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe &lt;- filter(dataframe, condition(s) for rows to keep)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">filter</span>(linelist, <span class="sc">!</span><span class="fu">is.na</span>(case_id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can also use <strong>base</strong> R to subset using square brackets which reflect the [rows, columns] that you want to retain.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe &lt;- dataframe[row conditions, column conditions] (blank means keep all)</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist[<span class="sc">!</span><span class="fu">is.na</span>(case_id), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe &lt;- dataframe[row conditions, column conditions] (blank means keep all)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> linelist[<span class="sc">!</span><span class="fu">is.na</span>(case_id), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- ======================================================= -->
 </section>
@@ -1023,8 +785,8 @@ Conditions with NA
 <p>Sorting data with <code>arrange()</code> is particularly useful when making tables for publication, using <code>slice()</code> to take the “top” rows per group, or setting factor level order by order of appearance.</p>
 <p>For example, to sort the our linelist rows by <code>hospital</code>, then by <code>date_onset</code> in descending order, we would use:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">arrange</span>(hospital, <span class="fu">desc</span>(date_onset))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">arrange</span>(hospital, <span class="fu">desc</span>(date_onset))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

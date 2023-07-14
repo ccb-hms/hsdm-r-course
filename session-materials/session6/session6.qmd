@@ -6,40 +6,143 @@ format:
 code-annotations: select
 ---
 
-Let's take a look at an example analysis comparing the prevelance of depression among men and women in different age groups. This is taken from a CDC replicating [this debrief](https://www.cdc.gov/nchs/products/databriefs/db303.htm).
+```{r}
+library(tidyverse)
+library(survey)
+library(DT)
+library(nhanesA)
+```
+
+# Data
+
+We can load our processed NHANES data and recreate the survey objects from last week. 
 
 ```{r}
-# Load survey and dplyr packages
-#+ message = FALSE, warning=FALSE
-library(dplyr)
-library(survey)
-#'
-options(survey.lonely.psu='adjust')
+load("processed_beheshti.RData")
 
-# Display Version Information
-cat("R package versions:\n")
-for (p in c("base", "survey","dplyr")) { 
-  cat(p, ": ", as.character(packageVersion(p)), "\n")
-}
+wt_nhanes <- all_nhanes %>%
+  drop_na(WTMEC2YR, SDMVPSU, SDMVSTRA) %>%
+  mutate(WTMEC6YR = WTMEC2YR * 1/3)
 
-#' # Data preparation
-# Download & Read SAS Transport Files
-# Demographic (DEMO)
-download.file("https://wwwn.cdc.gov/nchs/nhanes/2013-2014/DEMO_H.XPT", tf <- tempfile(), mode="wb")
-DEMO_H <- foreign::read.xport(tf)[,c("SEQN","RIAGENDR","RIDAGEYR","SDMVSTRA","SDMVPSU","WTMEC2YR")]
-download.file("https://wwwn.cdc.gov/nchs/nhanes/2015-2016/DEMO_I.XPT", tf <- tempfile(), mode="wb")
-DEMO_I <- foreign::read.xport(tf)[,c("SEQN","RIAGENDR","RIDAGEYR","SDMVSTRA","SDMVPSU","WTMEC2YR")]
+# Create survey design object
+nhanes_design <- svydesign(id     = ~SDMVPSU,
+                          strata  = ~SDMVSTRA,
+                          weights = ~WTMEC6YR,
+                          nest    = TRUE,
+                          data    = wt_nhanes)
 
-# Mental Health - Depression Screener (DPQ) 
-download.file("http://wwwn.cdc.gov/nchs/nhanes/2013-2014/DPQ_H.XPT", tf <- tempfile(), mode="wb")
-DPQ_H <- foreign::read.xport(tf)
-download.file("http://wwwn.cdc.gov/nchs/nhanes/2015-2016/DPQ_I.XPT", tf <- tempfile(), mode="wb")
-DPQ_I <- foreign::read.xport(tf)
+#Subset the study population
+ado_design <- subset(nhanes_design, RIDAGEYR >= 13 & RIDAGEYR <= 18 & !is.na(OHXDECAY))
+
+#Also make a tibble of this data to analyze
+ado_data <- wt_nhanes %>%
+  filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% 
+  filter(!is.na(OHXDECAY)) %>% 
+  filter(!is.na(diabetes)) 
+```
+
+# Performing simple tests
+
+Let's start by looking at the relationship between ethnicity and dental caries using the `table` command. 
+
+```{r}
+table(ado_data$RIDRETH1, ado_data$dental.caries)
+```
+We can group and summarize the data to take a look at percents by group instead:
+```{r}
+eth_ado <- ado_data %>%
+  group_by(RIDRETH1, dental.caries) %>%
+  summarise(count = n()) %>%
+  mutate(perc = count/sum(count))
+eth_ado
+```
+
+We could also visualize the different distributions:
+```{r}
+ggplot(filter(eth_ado, dental.caries == TRUE), aes(x = RIDRETH1, y = perc*100)) + 
+    geom_bar(stat = "identity") + 
+    theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+    labs(x = "Ethnicity", y = "Percent Dental Caries")
+```
+We can also perform a Chi-squared test to examine the relationship between the variables. 
+We either print the result directly or store it in a variable and examine it's different components. 
+
+```{r}
+res <- chisq.test(table(ado_data$RIDRETH1, ado_data$dental.caries))
+
+res$method
+res$p.value
+res$statistic
+```
+
+However, as opposed to directly examining the survey data we may instead want to use the survey weights to infer statistics about the total population. 
+
+```{r}
+svychisq(~RIDRETH1 + dental.caries, ado_design)
+```
+
+# Adding Chi-square tests to the table
+
+::: {.callout-tip appearance="minimal"}
+## Exercise
+
+Take a look at the p-values in tables 1a and 1b in the Beheshti paper. 
+Choose at least one test from 1a and one test from 1b, and reproduce them. 
+Compare them to their counterparts using the data without incorporating survey weights. 
+
+```{r}
+#Your code here
+```
+
+What is the purpose of these tests in the paper?
+How useful do you find these results? 
+Do you think there would be a better analysis to perform instead?
+
+:::
+
+
+# Depression, gender, and age in NHANES
+
+Let's take a look at an example analysis comparing the prevalence of depression among men and women in different age groups. This is taken from a CDC [sample analysis](https://wwwn.cdc.gov/nchs/nhanes/tutorials/samplecode.aspx) replicating [this debrief](https://www.cdc.gov/nchs/products/databriefs/db303.htm).
+
+## Downloading NHANES data
+
+So far, we've been using data from the dockerized database. 
+Today, let's take a look at an alternate way to access NHANES data in R using the `nhanesA` package.
+
+With `nhanesA`, we can easily download entire tables from NHANES. 
+However, there are some extra processing steps we'll have to perform compared to using the dockerized database. 
+You can learn more about using `nhanesA` [here](https://cran.r-project.org/web/packages/nhanesA/vignettes/Introducing_nhanesA.html).
+
+```{r}
+# Get data with nahnesA
+DEMO_H = nhanes('DEMO_H')
+DEMO_I = nhanes('DEMO_I')
+DPQ_H = nhanes('DPQ_H')
+DPQ_I = nhanes('DPQ_I')
 
 # Append Files
 DEMO <- bind_rows(DEMO_H, DEMO_I)
 DPQ <- bind_rows(DPQ_H, DPQ_I)
 
+datatable(head(DEMO))
+datatable(head(DPQ))
+```
+
+There are a few differences between this data and the processed data we've been using. 
+First, we have to `join` the DEMO and DPQ tables. 
+We'll learn more about joining or merging data in the last week of class. 
+
+Second, the values in the raw NHANES tables are numeric encodings for each variable. 
+With nhanesA we can lookup the code using `nhanesCodebook` and convert numeric codes using `nhanesTranslate`.
+
+
+```{r}
+nhanesCodebook('DEMO_H', 'RIAGENDR')
+```
+However, in this example analysis the authors chose to instead directly convert values.
+
+```{r}
 # Merge DEMO and DPQ files and create derived variables
 
 One <- left_join(DEMO, DPQ, by="SEQN") %>%
@@ -55,17 +158,23 @@ One <- left_join(DEMO, DPQ, by="SEQN") %>%
          # Create factor variables
          Gender = factor(RIAGENDR, labels=c("Men", "Women")),
          Age.Group = cut(RIDAGEYR, breaks=c(-Inf,19,39,59,Inf),labels=c("Under 20", "20-39","40-59","60 and over")),
-         # Generate 4-year MEC weight (Divide weight by 2 because we are appending 2 survey cycles)                                                             
-         # Note: using the MEC Exam Weights (WTMEC2YR), per the analytic notes on the               
-         #       Mental Health - Depression Screener (DPQ_H) documentation                          
+         # Generate 4-year MEC weight (Divide weight by 2 because we are appending 2 survey cycles)
          WTMEC4YR = WTMEC2YR/2 ,
          # Define indicator for analysis population of interest: adults aged 20 and over with a valid depression score
          inAnalysis= (RIDAGEYR >= 20 & !is.na(Depression.Score))
          ) %>% 
   # drop DPQ variables
   select(., -starts_with("DPQ"))
+```
 
-#' ## Define survey design 
+## Survey design
+
+With our data processed, we can make the survey design object. 
+
+```{r}
+# To keep things the same as in the report
+options(survey.lonely.psu='adjust')
+
 # Define survey design for overall dataset
 NHANES_all <- svydesign(data=One, id=~SDMVPSU, strata=~SDMVSTRA, weights=~WTMEC4YR, nest=TRUE)
                     
@@ -73,7 +182,11 @@ NHANES_all <- svydesign(data=One, id=~SDMVPSU, strata=~SDMVSTRA, weights=~WTMEC4
 # Subsetting the original survey design object ensures we keep the design information about the number of clusters and strata
 NHANES <- subset(NHANES_all, inAnalysis)
 
-#' ## Analysis
+```
+## Analysis
+
+Let's start by taking a look at how depression varies for our other variables of interest. 
+```{r}
 # Define a function to call svymean and unweighted count
 getSummary <- function(varformula, byformula, design){
   # Get mean, stderr, and unweighted sample size
@@ -92,22 +205,31 @@ getSummary(~Depression, ~Gender, NHANES)
 getSummary(~Depression, ~Age.Group, NHANES)
 #' By sex and age
 getSummary(~Depression, ~Gender + Age.Group, NHANES)
+```
 
+Much like running the Chi-squared test, we need to use `svyttest` as opposed to `t.test` so we can incorporate the survey weights. 
+
+```{r}
 #' ### Compare Prevalence Between Men And Women
 svyttest(Depression~Gender, NHANES)$p.value %>% as.numeric 
 svyttest(Depression~Gender, subset(NHANES, Age.Group=="20-39"))$p.value %>% as.numeric
 svyttest(Depression~Gender, subset(NHANES, Age.Group=="40-59"))$p.value %>% as.numeric
 svyttest(Depression~Gender, subset(NHANES, Age.Group=="60 and over"))$p.value %>% as.numeric
+```
 
+We can also examine the prevalence of depression by age.
+We can perform t-tests on all pairs of age groups as done in the initial analysis.
 
+```{r}
 #' ### Pairwise t-testing by age groups for total, men, and women
 #' Differences by age group, among all adults
-# Full output from svyttest command
-svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="20-39" | Age.Group=="40-59"))
-# Displaying p-values only
 svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="20-39" | Age.Group=="40-59"))$p.value %>% as.numeric
 svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="20-39" | Age.Group=="60 and over"))$p.value %>% as.numeric
 svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="40-59" | Age.Group=="60 and over"))$p.value %>% as.numeric
+```
+
+And then further break things down by gender.
+```{r}
 #' Differences by age group, among men
 svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="20-39" | Age.Group=="40-59")))$p.value %>% as.numeric
 svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="20-39" | Age.Group=="60 and over")))$p.value %>% as.numeric
@@ -117,28 +239,47 @@ svyttest(Depression~Age.Group, subset(NHANES, Gender=="Women" & (Age.Group=="20-
 svyttest(Depression~Age.Group, subset(NHANES, Gender=="Women" & (Age.Group=="20-39" | Age.Group=="60 and over")))$p.value %>% as.numeric
 svyttest(Depression~Age.Group, subset(NHANES, Gender=="Women" & (Age.Group=="40-59" | Age.Group=="60 and over")))$p.value %>% as.numeric
 ```
+::: callout-important
+## Exercise: The dangers of multiple testing
 
-# Data
+Let's say we're running this analysis with the traditional $\alpha$-level (p-value cut-off) of $p < 0.05$. What does our $alpha$-level mean?
 
-# Performing simple tests
+How many t-tests have we performed in this depression analysis?
+How does that relate to the $alpha$-level?
 
-# Correlation analysis
-
-
-
-# Adding Chi-square tests to the table
+To help understand this relationship, consider a binomial test to determine if the result of 100 coin flips is fair:
 
 ```{r}
-#svyby(formula = ~dental.restoration.present, by = ~age.cat, design = ado_design, FUN = svyciprop)
-svychisq(~RIDRETH1 + dental.caries, ado_design)
-
-#svytable(~ethnicity + dental.caries, ado_design)
-
-#svytable(~birthplace, ado_design)
-
-#chisq.test(table(ado_data$ethnicity, ado_data$dental.caries))
-
-#chisq.test(svytable(~ethnicity + dental.caries, ado_design))
-
-#svytable(~birthplace, ado_design)
+numFlips = 100
+probHead = 0.5
+coinFlips = sample(c("H", "T"), size = numFlips,
+  replace = TRUE, prob = c(probHead, 1 - probHead))
+numHeads <- sum(coinFlips == "H")
+pval <- binom.test(x = numHeads, n = numFlips, p = 0.5)$p.value
+pval
 ```
+
+Now let's look at the range of p-values we get if we run the test 10000 times. 
+
+
+```{r}
+#Let's make a function for performing our experiment
+flip_coin <- function(numFlips, probHead){
+  numFlips = 100
+  probHead = 0.50
+  coinFlips = sample(c("H", "T"), size = numFlips,
+    replace = TRUE, prob = c(probHead, 1 - probHead))
+  numHeads <- sum(coinFlips == "H")
+  pval <- binom.test(x = numHeads, n = numFlips, p = 0.5)$p.value
+  return(pval)
+}
+
+#And then run it 10000 times
+parray <- replicate(10000, flip_coin(1000, 0.5), simplify=TRUE)
+hist(-log(parray), breaks=100)
+min(parray)
+```
+
+:::
+
+

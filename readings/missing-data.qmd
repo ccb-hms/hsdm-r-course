@@ -13,8 +13,6 @@ This chapter will cover how to assess missingness, filter out rows by missingnes
 
 ### Load packages {.unnumbered}  
 
-This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load installed packages with  `library()` from **base** R. See the page on [R basics] for more information on R packages.  
-
 ```{r}
 pacman::p_load(
   rio,           # import/export
@@ -27,7 +25,7 @@ pacman::p_load(
 
 ### Import data {.unnumbered}
 
-We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file). Import your data with the `import()` function from the **rio** package (it accepts many file types like .xlsx, .rds, .csv - see the [Import and export] page for details).  
+We import the dataset of cases from a simulated Ebola epidemic. If you want to follow along, <a href='https://github.com/appliedepi/epirhandbook_eng/raw/master/data/case_linelists/linelist_cleaned.rds' class='download-button'>click to download the "clean" linelist</a> (as .rds file).  
 
 ```{r, echo=F}
 # import the linelist into R
@@ -50,7 +48,6 @@ DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list
 ### Convert missing on import {.unnumbered}  
 
 When importing your data, be aware of values that should be classified as missing. For example, 99, 999, "Missing", blank cells (""), or cells with an empty space (" "). You can convert these to `NA` (R's version of missing data) during the data import command.  
-See the page on importing page section on [Missing data](#import_missing) for details, as the exact syntax varies by file type.  
 
 
 <!-- ======================================================= -->
@@ -72,7 +69,7 @@ In your data cleaning, you may also want to convert the other way - changing all
 ### Versions of `NA` {.unnumbered}  
 
 Most of the time, `NA` represents a missing value and everything works fine. However, in some circumstances you may encounter the need for *variations* of `NA` specific to an object class (character, numeric, etc). This will be rare, but you should be aware.    
-The typical scenario for this is when creating a new column with the **dplyr** function `case_when()`. As described in the [Cleaning data and core functions](#clean_case_when) page, this function evaluates every row in the data frame, assess whether the rows meets specified logical criteria (right side of the code), and assigns the correct new value (left side of the code). *Importantly: all values on the right side must be the same class*.  
+The typical scenario for this is when creating a new column with the **dplyr** function `case_when()`. This function evaluates every row in the data frame, assess whether the rows meets specified logical criteria (right side of the code), and assigns the correct new value (left side of the code). *Importantly: all values on the right side must be the same class*.  
 
 ```{r, eval=F}
 linelist <- linelist %>% 

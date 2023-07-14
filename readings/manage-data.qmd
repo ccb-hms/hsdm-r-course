@@ -9,7 +9,7 @@ You can find the original, extended version of these materials from chapters [8]
 This week we will be diving deeper into operations needed for data analysis. 
 We will look at how to manipulate column names, group data by its variables, and append datasets together. 
 
-We will be continueing with the same simulated Ebola outbreak dataset. 
+We will be continuing with the same simulated Ebola outbreak dataset. 
 
 ```{r}
 #| echo: false
@@ -322,8 +322,6 @@ The verb `count()` automatically ungroups the data after counting.
 
 ## Summarise {#group_summarise} 
 
-See the **dplyr** section of the [Descriptive tables] page for a detailed description of how to produce summary tables with `summarise()`. Here we briefly address how its behavior changes when applied to grouped data.  
-
 The **dplyr** function `summarise()` (or `summarize()`) takes a data frame and converts it into a *new* summary data frame, with columns containing summary statistics that you define. On an ungrouped data frame, the summary statistics will be calculated from all rows. Applying `summarise()` to grouped data produces those summary statistics *for each group*.  
 
 The syntax of `summarise()` is such that you provide the name(s) of the **new** summary column(s), an equals sign, and then a statistical function to apply to the data, as shown below. For example, `min()`, `max()`, `median()`, or `sd()`. Within the statistical function, list the column to be operated on and any relevant argument (e.g. `na.rm = TRUE`). You can use `sum()` to count the number of rows that meet a logical criteria (with double equals `==`).   
@@ -442,11 +440,6 @@ linelist %>%                                  # case linelist
 ```
 
 
-To add more complex totals rows that involve summary statistics other than *sums*, see [this section of the Descriptive Tables page](#tbl_dplyr_totals).  
-
-
-
-
 ### Arranging grouped data
 
 Using the **dplyr** verb `arrange()` to order the rows in a data frame behaves the same when the data are grouped, *unless* you set the argument `.by_group =TRUE`. In this case the rows are ordered first by the grouping columns and then by any other columns you specify to `arrange()`.   
@@ -486,11 +479,6 @@ linelist %>%
 `slice_sample()` - randomly selects n rows  
 `slice_min()` - selects n rows with highest values in `order_by = ` column, use `with_ties = TRUE` to keep ties  
 `slice_max()` - selects n rows with lowest values in `order_by = ` column, use `with_ties = TRUE` to keep ties  
-
-See the [De-duplication] page for more examples and detail on `slice()`.  
-
-
-
 
 #### Filter on group size {#group_filter_grp_size .unnumbered} 
 
@@ -579,8 +567,7 @@ hosp_summary <- linelist %>%
 Here is the `hosp_summary` data frame:
 
 ```{r message=FALSE, echo=F}
-#DT::datatable(hosp_summary, rownames = FALSE, options = list(pageLength = nrow(10)))
-hosp_summary
+DT::datatable(hosp_summary, rownames = FALSE, options = list(pageLength = nrow(10)))
 ```
 
 Create a data frame with the "total" statistics (*not grouped by hospital*). This will return just one row.
@@ -597,7 +584,7 @@ totals <- linelist %>%
 And below is that `totals` data frame. Note how there are only two columns. These columns are also in `hosp_summary`, but there is one column in `hosp_summary` that is not in `totals` (`hospital`).
 
 ```{r message=FALSE, echo=F}
-#DT::datatable(totals, rownames = FALSE, options = list(pageLength = nrow(10)))
+DT::datatable(totals, rownames = FALSE, options = list(pageLength = nrow(10)))
 totals
 ```
 
@@ -611,7 +598,7 @@ combined <- bind_rows(hosp_summary, totals)
 Now we can view the result. See how in the final row, an empty `NA` value fills in for the column `hospital` that was not in `hosp_summary`.
 
 ```{r message=FALSE, echo=F}
-#DT::datatable(combined, rownames = FALSE, options = list(pageLength = nrow(10)))
+DT::datatable(combined, rownames = FALSE, options = list(pageLength = nrow(10)))
 combined
 ```
 

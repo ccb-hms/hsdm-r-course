@@ -189,13 +189,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session6/session6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 6: Statistical tests and basic regression</span></a>
+ <span class="menu-text">Week 6: Statistical tests</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session7/session7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 7: Advanced regression</span></a>
+ <span class="menu-text">Week 7: Regression Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -274,7 +274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="1" data-code-annotation="1" data-code-cell="annotated-cell-3"><code>data</code> and <code>mapping</code> are positional arguments in the <code>ggplot</code> function, so we don’t have to name them. However, it can be good practice to include the argument names so that it’s immediately obvious what each argument is.</span>
+<span data-code-annotation="1" data-code-lines="1" data-code-cell="annotated-cell-3"><code>data</code> and <code>mapping</code> are positional arguments in the <code>ggplot</code> function, so we don’t have to name them. However, it can be good practice to include the argument names so that it’s immediately obvious what each argument is.</span>
 </dd>
 </dl>
 </div>
@@ -458,21 +458,19 @@ Exercise
 <p>Here’s an example of some of what you can do. Note that changing the <code>fig.width</code> setting for the code block will not effect how the image looks when exported.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Maybe we want a color scheme from a Wes Anderson movie:</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wesanderson)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'wesanderson' was built under R version 4.3.1</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Note that this font import can take multiple minutes to run</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">wes_palette</span>(<span class="st">"Zissou1"</span>, <span class="dv">5</span>, <span class="at">type =</span> <span class="st">"continuous"</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed, <span class="fu">aes</span>(<span class="at">x =</span> hba1c, <span class="at">fill =</span> ethnicity)) <span class="sc">+</span> </span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"HbA1C stratified by ethnicity"</span>) <span class="sc">+</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">xlab</span>(<span class="st">"HbA1C (%)"</span>) <span class="sc">+</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">ylab</span>(<span class="st">"Count"</span>) <span class="sc">+</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal, <span class="at">name =</span> <span class="st">"Ethnicity"</span>) <span class="sc">+</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">18</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wesanderson)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Note that this font import can take multiple minutes to run</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">wes_palette</span>(<span class="st">"Zissou1"</span>, <span class="dv">5</span>, <span class="at">type =</span> <span class="st">"continuous"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nhanes_processed, <span class="fu">aes</span>(<span class="at">x =</span> hba1c, <span class="at">fill =</span> ethnicity)) <span class="sc">+</span> </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a> <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggtitle</span>(<span class="st">"HbA1C stratified by ethnicity"</span>) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a> <span class="fu">xlab</span>(<span class="st">"HbA1C (%)"</span>) <span class="sc">+</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a> <span class="fu">ylab</span>(<span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a> <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> pal, <span class="at">name =</span> <span class="st">"Ethnicity"</span>) <span class="sc">+</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">18</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
@@ -496,7 +494,7 @@ Exercise
 <p>Use a figure you’ve already created, or choose a new plot to create. Try to get that figure to as close to publication-ready as possible. The <a href="https://r-graph-gallery.com/">R Graph Gallery</a> is a great place to look for inspiration on what you can do to improve your plots.</p>
 <p>If there’s something you want to change but don’t know how, try checking the <a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html">ggplot2 cheatsheet</a>, the <a href="https://epirhandbook.com/en/ggplot-basics.html">extended ggplot chapter</a>, and the <a href="https://ggplot2.tidyverse.org/">official documentation</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> your plotting code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> your plotting code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>

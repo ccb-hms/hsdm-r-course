@@ -33,8 +33,7 @@ linelist <- import("linelist_cleaned.rds")
 The first 50 rows of `linelist`:  
 
 ```{r message=FALSE, echo=F}
-#DT::datatable(head(linelist,50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
-head(linelist,50)
+DT::datatable(head(linelist,50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
 ## Select or re-order columns

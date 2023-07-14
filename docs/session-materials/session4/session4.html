@@ -189,13 +189,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session6/session6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 6: Statistical tests and basic regression</span></a>
+ <span class="menu-text">Week 6: Statistical tests</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session7/session7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 7: Advanced regression</span></a>
+ <span class="menu-text">Week 7: Regression Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -219,9 +219,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#see-more-about-how-we-downloaded-the-data" id="toc-see-more-about-how-we-downloaded-the-data" class="nav-link" data-scroll-target="#see-more-about-how-we-downloaded-the-data">See more about how we downloaded the data</a></li>
   <li><a href="#preparing-the-data" id="toc-preparing-the-data" class="nav-link" data-scroll-target="#preparing-the-data">Preparing the data</a></li>
   <li><a href="#combining-the-data" id="toc-combining-the-data" class="nav-link" data-scroll-target="#combining-the-data">Combining the data</a></li>
-  <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics">Summary Statistics</a></li>
   <li><a href="#filter-relevant-population" id="toc-filter-relevant-population" class="nav-link" data-scroll-target="#filter-relevant-population">Filter relevant population</a></li>
-  <li><a href="#final-data-cleanup" id="toc-final-data-cleanup" class="nav-link" data-scroll-target="#final-data-cleanup">Final data cleanup</a></li>
+  <li><a href="#data-cleaning-pipeline" id="toc-data-cleaning-pipeline" class="nav-link" data-scroll-target="#data-cleaning-pipeline">Data cleaning pipeline</a>
+  <ul class="collapse">
+  <li><a href="#numeric-variables" id="toc-numeric-variables" class="nav-link" data-scroll-target="#numeric-variables">Numeric variables</a></li>
+  <li><a href="#categorical-variables" id="toc-categorical-variables" class="nav-link" data-scroll-target="#categorical-variables">Categorical variables</a></li>
+  <li><a href="#new-variables" id="toc-new-variables" class="nav-link" data-scroll-target="#new-variables">New variables</a></li>
+  </ul></li>
+  <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics">Summary Statistics</a>
+  <ul class="collapse">
+  <li><a href="#counts-of-categorical-data" id="toc-counts-of-categorical-data" class="nav-link" data-scroll-target="#counts-of-categorical-data">Counts of categorical data</a></li>
+  <li><a href="#summarize-groups" id="toc-summarize-groups" class="nav-link" data-scroll-target="#summarize-groups">Summarize groups</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -255,36 +264,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'tidyverse' was built under R version 4.3.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.3.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'tibble' was built under R version 4.3.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'tidyr' was built under R version 4.3.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'readr' was built under R version 4.3.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'purrr' was built under R version 4.3.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'dplyr' was built under R version 4.3.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'stringr' was built under R version 4.3.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'forcats' was built under R version 4.3.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'lubridate' was built under R version 4.3.1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.2     ✔ readr     2.1.4
 ✔ forcats   1.0.0     ✔ stringr   1.5.0
@@ -299,15 +278,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="data" class="level1">
 <h1>Data</h1>
-<p>This week we are going to start learning how to get to the cleaned data we have been using for the past two weeks. You can download the week 3 data <a href="">here</a>.</p>
+<p>This week we are going to start learning how to get to the cleaned data we have been using for the past two weeks.</p>
 <p>Note that this week the data is in the <code>.RData</code> format. The <code>.RData</code> format is specific to R and allows us to easily dump multiple objects to a file exactly as the are inside of our R session. This format is not recommended for research as it limits analyses to only using R and could potentially not be compatible with a future R version. However, for today it will allow us to jump right into the data cleaning process.</p>
-<p>The <code>session3Data.RData</code> file contains 3 separate dataframes, <code>base_df_d</code>, <code>base_df_e</code>, and <code>base_df_f</code>. They each contain the equivalent set of columns from the <code>D</code>, <code>E</code>, and <code>F</code> NHANES data files for 2005-2006, 2007-2008, and 2009-2010, respectively.</p>
+<p>The <code>nhanes_beheshti_data.RData</code> file contains 3 separate dataframes, <code>base_df_d</code>, <code>base_df_e</code>, and <code>base_df_f</code>. They each contain the equivalent set of columns from the <code>D</code>, <code>E</code>, and <code>F</code> NHANES data files for 2005-2006, 2007-2008, and 2009-2010, respectively.</p>
 <p>Let’s load and take a look at the data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">file.choose</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"nhanes_beheshti_data.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_df_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_df_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      SEQN         RIDAGEYR           RIAGENDR           RIDRETH1        
  Min.   :31127   Length:10348       Length:10348       Length:10348      
@@ -340,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_df_e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_df_e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      SEQN         RIDAGEYR           RIAGENDR           RIDRETH1        
  Min.   :41475   Length:10149       Length:10149       Length:10149      
@@ -373,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_df_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(base_df_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      SEQN         RIDAGEYR           RIAGENDR           RIDRETH1        
  Min.   :51624   Length:10537       Length:10537       Length:10537      
@@ -409,52 +388,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-anchor-id="see-more-about-how-we-downloaded-the-data">See more about how we downloaded the data</h2>
 <p>The NHANES data was downloaded using a packaged called <code>phonto</code>. <code>phonto</code> connects to a database of the NHANES data developed by the Center for Computational Biomedicine (CCB). The database is a relational database running on a virtual machine using the containerization software <a href="https://www.docker.com/">Docker</a>.</p>
 <p>We will be learning a bit more about this in the last week of class. The code used to download the data is shown here:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phonto)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>cols_d <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_D=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"DMDBORN"</span>, <span class="st">"INDFMPIR"</span>, <span class="st">"SDMVPSU"</span>, <span class="st">"SDMVSTRA"</span>), </span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">OHX_D =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">GLU_D =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>, <span class="st">"WTSAF2YR"</span>), <span class="at">GHB_D =</span> <span class="st">"LBXGH"</span>,</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">BMX_D=</span><span class="st">"BMXBMI"</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>base_df_d <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_d)</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>cols_e <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_E=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, </span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"DMDBORN2"</span>, <span class="st">"INDFMPIR"</span>, <span class="st">"SDMVPSU"</span>, <span class="st">"SDMVSTRA"</span>), </span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">OHX_E =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">GLU_E =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>, <span class="st">"WTSAF2YR"</span>), <span class="at">GHB_E =</span> <span class="st">"LBXGH"</span>,</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">BMX_E =</span><span class="st">"BMXBMI"</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>base_df_e <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_e)</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>cols_f <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_F=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, </span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"DMDBORN2"</span>, <span class="st">"INDFMPIR"</span>, <span class="st">"SDMVPSU"</span>, <span class="st">"SDMVSTRA"</span>), </span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">OHXDEN_F =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>              <span class="at">GLU_F =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>, <span class="st">"WTSAF2YR"</span>), <span class="at">GHB_F =</span> <span class="st">"LBXGH"</span>,</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">BMX_F =</span><span class="st">"BMXBMI"</span></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>base_df_f <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_f)</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(base_df_d, base_df_e, base_df_f, <span class="at">file =</span> <span class="st">"jul7_hsdm_data.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phonto)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>cols_d <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_D=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"DMDBORN"</span>, <span class="st">"INDFMPIR"</span>, <span class="st">"SDMVPSU"</span>, <span class="st">"SDMVSTRA"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"WTINT2YR"</span>, <span class="st">"WTMEC2YR"</span>), </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">OHX_D =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">GLU_D =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>, <span class="st">"WTSAF2YR"</span>), <span class="at">GHB_D =</span> <span class="st">"LBXGH"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">BMX_D=</span><span class="st">"BMXBMI"</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>base_df_d <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_d)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>cols_e <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_E=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"DMDBORN2"</span>, <span class="st">"INDFMPIR"</span>, <span class="st">"SDMVPSU"</span>, <span class="st">"SDMVSTRA"</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"WTINT2YR"</span>, <span class="st">"WTMEC2YR"</span>), </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">OHX_E =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">GLU_E =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>, <span class="st">"WTSAF2YR"</span>), <span class="at">GHB_E =</span> <span class="st">"LBXGH"</span>,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>              <span class="at">BMX_E =</span><span class="st">"BMXBMI"</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>base_df_e <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_e)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>cols_f <span class="ot">=</span> <span class="fu">list</span>(<span class="at">DEMO_F=</span><span class="fu">c</span>(<span class="st">"RIDAGEYR"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDRETH1"</span>,<span class="st">"DMDEDUC2"</span>, </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"DMDBORN2"</span>, <span class="st">"INDFMPIR"</span>, <span class="st">"SDMVPSU"</span>, <span class="st">"SDMVSTRA"</span>,</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"WTINT2YR"</span>, <span class="st">"WTMEC2YR"</span>), </span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">OHXDEN_F =</span><span class="fu">c</span>(<span class="st">"OHXDECAY"</span>, <span class="st">"OHXREST"</span>),</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>              <span class="at">GLU_F =</span><span class="fu">c</span>(<span class="st">"LBXGLU"</span>, <span class="st">"WTSAF2YR"</span>), <span class="at">GHB_F =</span> <span class="st">"LBXGH"</span>,</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>              <span class="at">BMX_F =</span><span class="st">"BMXBMI"</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>base_df_f <span class="ot">&lt;-</span> <span class="fu">jointQuery</span>(cols_f)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(base_df_d, base_df_e, base_df_f, <span class="at">file =</span> <span class="st">"nhanes_beheshti_data.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="preparing-the-data" class="level2">
 <h2 data-anchor-id="preparing-the-data">Preparing the data</h2>
 <p>In the reading, we saw how to combine multiple sets of observations by appending datasets. However, before we need to make sure corresponding columns between years can be combined.</p>
 <p>NHANES will often change how it encodes or records different variables from year to year. Our first red flag are any columns whose name has changed. Let’s take a look at the column names.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_d)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "SEQN"       "RIDAGEYR"   "RIAGENDR"   "RIDRETH1"   "DMDEDUC2"  
  [6] "DMDBORN"    "INDFMPIR"   "OHXDECAY"   "OHXREST"    "LBXGLU"    
 [11] "LBXGH"      "BMXBMI"     "Begin.Year" "EndYear"   </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "SEQN"       "RIDAGEYR"   "RIAGENDR"   "RIDRETH1"   "DMDEDUC2"  
  [6] "DMDBORN2"   "INDFMPIR"   "OHXDECAY"   "OHXREST"    "LBXGLU"    
 [11] "LBXGH"      "BMXBMI"     "Begin.Year" "EndYear"   </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "SEQN"       "RIDAGEYR"   "RIAGENDR"   "RIDRETH1"   "DMDEDUC2"  
  [6] "DMDBORN2"   "INDFMPIR"   "OHXDECAY"   "OHXREST"    "LBXGLU"    
@@ -463,15 +445,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We can also check for equality directly:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_d)[<span class="fu">colnames</span>(base_df_d) <span class="sc">!=</span> <span class="fu">colnames</span>(base_df_e)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_d)[<span class="fu">colnames</span>(base_df_d) <span class="sc">!=</span> <span class="fu">colnames</span>(base_df_e)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "DMDBORN"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_e)[<span class="fu">colnames</span>(base_df_e) <span class="sc">!=</span> <span class="fu">colnames</span>(base_df_f)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_e)[<span class="fu">colnames</span>(base_df_e) <span class="sc">!=</span> <span class="fu">colnames</span>(base_df_f)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>character(0)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_f)[<span class="fu">colnames</span>(base_df_f) <span class="sc">!=</span> <span class="fu">colnames</span>(base_df_d)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(base_df_f)[<span class="fu">colnames</span>(base_df_f) <span class="sc">!=</span> <span class="fu">colnames</span>(base_df_d)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "DMDBORN2"</code></pre>
 </div>
@@ -479,9 +461,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>It looks like <code>DMDBORN</code> changed after 2006 to <code>DMDBORN2</code>. If we check the demographic variable definitions for the three collection cycles <a href="https://wwwn.cdc.gov/nchs/nhanes/2005-2006/DEMO_D.htm#DMDBORN">DEMO_D</a>, <a href="https://wwwn.cdc.gov/Nchs/Nhanes/2007-2008/DEMO_E.htm#DMDBORN2">DEMO_E</a>, and <a href="https://wwwn.cdc.gov/Nchs/Nhanes/2009-2010/DEMO_F.htm#DMDBORN2">DEMO_F</a> we can see that the encoding has changed over time.</p>
 <p>To continue the analysis, let’s also convert these dataframes into tibbles so we can take advantage of Tidyverse functionality.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>tib_d <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(base_df_d)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>tib_e <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(base_df_e)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>tib_f <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(base_df_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>tib_d <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(base_df_d)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>tib_e <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(base_df_e)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>tib_f <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(base_df_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -497,12 +479,12 @@ Exercise
 <li>Resolve the change the variable coding between the datasets. Use your own judgement on the best way to resolve this issue.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Change things to have the same sets of values</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> your code here</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Rename the columns to fit between the datasets</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>tib_e <span class="ot">&lt;-</span> <span class="fu">rename</span>(tib_e, <span class="at">DMDBORN =</span> DMDBORN2)</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>tib_f <span class="ot">&lt;-</span> <span class="fu">rename</span>(tib_f, <span class="at">DMDBORN =</span> DMDBORN2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Change things to have the same sets of values</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co"> your code here</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Rename the columns to fit between the datasets</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>tib_e <span class="ot">&lt;-</span> <span class="fu">rename</span>(tib_e, <span class="at">DMDBORN =</span> DMDBORN2)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>tib_f <span class="ot">&lt;-</span> <span class="fu">rename</span>(tib_f, <span class="at">DMDBORN =</span> DMDBORN2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="2" type="a">
 <li>Check table 1b to see how the authors chose to handle this in <a href="https://pubmed.ncbi.nlm.nih.gov/33892837/">Beheshti et. al.&nbsp;2021</a>. Do you think there were any other factors which went into their decision?</li>
@@ -514,28 +496,39 @@ Exercise
 <h2 data-anchor-id="combining-the-data">Combining the data</h2>
 <p>Now we can combine the data together.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine all years together</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>tib_all <span class="ot">&lt;-</span> tib_d <span class="sc">%&gt;%</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(tib_e) <span class="sc">%&gt;%</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(tib_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine all years together</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>tib_all <span class="ot">&lt;-</span> tib_d <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(tib_e) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(tib_f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="summary-statistics" class="level2">
-<h2 data-anchor-id="summary-statistics">Summary Statistics</h2>
-<!-- ::: {.callout-tip appearance="minimal"} -->
-<!-- ## Exercise -->
-<!-- ::: -->
 </section>
 <section id="filter-relevant-population" class="level2">
 <h2 data-anchor-id="filter-relevant-population">Filter relevant population</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Which order should I process my data in?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Choosing the order to perform data cleaning steps depends on a competing factors.</p>
+<ol type="1">
+<li><strong>Where information is needed</strong>: Even if an analysis is being performed on only a subset of dataset, the full dataset can help inform data processing decisions such as how to handle missing data. Next week, we’ll see that when using survey sample weights we need to use the full dataset to infer population statistics, and thus will need to clean and transform variables before getting the adolecent population.</li>
+<li><strong>Processing speed</strong>: Smaller datasets are both faster to process and take up less memory than larger datasets. Thus, performing steps which eliminate data first can result in a faster-running computational pipeline. Modern computers can handle most basic data-cleaning operations on hundreds of thousands of observations in seconds, so most of the time we don’t need to worry about speed. However, for large datasets or complex algorithms it may become necessary to first reduce the size of your data before performing further cleaning steps.</li>
+</ol>
+</div>
+</div>
 <p>Next we need to filter the summary population. Luckily, the paper provides total numbers of participants for most of the filtering steps performed. This makes it much easier for us to check our work.</p>
 <blockquote class="blockquote">
 <p>The total number of individuals who participated in the NHANES from 2005 to 2010 were 31,034 study-participants. Among them, 3,660 were nonedentulous adolescents (aged 13 to 18 years old at the time of screening) who had exam survey weights assigned. From those 3,660 adolescents, data to measure the main outcome variable (dental caries experience) were available for a final sample of 3,346 adolescents, representing the population of 24,386,135 U.S. adolescents after applying the NHANES sample weights, which was described and analyzed in this study.</p>
 </blockquote>
 <p>We can start by filtering on age. However, <code>RIDAGEYR</code> is currently not a numeric column. If we try converting <code>RIDAGEYR</code> to be numeric using <code>as.numeric</code>, we get a warning:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>all_ado <span class="ot">&lt;-</span> tib_all <span class="sc">%&gt;%</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">RIDAGEYR =</span> <span class="fu">as.numeric</span>(RIDAGEYR)) <span class="co"># Convert age to be numeric</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>all_ado <span class="ot">&lt;-</span> tib_all <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">RIDAGEYR =</span> <span class="fu">as.numeric</span>(RIDAGEYR)) <span class="co"># Convert age to be numeric</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There was 1 warning in `mutate()`.
 ℹ In argument: `RIDAGEYR = as.numeric(RIDAGEYR)`.
@@ -558,31 +551,94 @@ Exercise
 <li><p>Once you’ve decided how to deal with the warning, filter <code>tib_all</code> to only include the desired population as described in the paper. Check how many rows you have at each step to double-check your work.</p></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>all_ado <span class="ot">&lt;-</span> tib_all <span class="sc">%&gt;%</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(RIDAGEYR <span class="sc">&gt;=</span> <span class="dv">13</span> <span class="sc">&amp;</span> RIDAGEYR <span class="sc">&lt;=</span> <span class="dv">18</span>) <span class="sc">%&gt;%</span> <span class="co"># Gets the 3660 nonedentulous adolescents</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(OHXDECAY)) <span class="co"># Gets the 3346 with non-NA dental carie variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>all_ado <span class="ot">&lt;-</span> all_ado <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(RIDAGEYR <span class="sc">&gt;=</span> <span class="dv">13</span> <span class="sc">&amp;</span> RIDAGEYR <span class="sc">&lt;=</span> <span class="dv">18</span>) <span class="sc">%&gt;%</span> <span class="co"># Gets the 3660 nonedentulous adolescents</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(OHXDECAY)) <span class="co"># Gets the 3346 with non-NA dental carie variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="final-data-cleanup" class="level2">
-<h2 data-anchor-id="final-data-cleanup">Final data cleanup</h2>
-<p>We can choose to leave the variables with their NHANES column names or change them to be a bit more human-readable. Either way, we also want to convert each variable to it’s appropriate type.</p>
+<section id="data-cleaning-pipeline" class="level2">
+<h2 data-anchor-id="data-cleaning-pipeline">Data cleaning pipeline</h2>
+<p>We can choose to leave the variables with their NHANES column names or change them to be a bit more human-readable. Either way, we also want to convert each variable to it’s appropriate type or category.</p>
+<section id="numeric-variables" class="level3">
+<h3 data-anchor-id="numeric-variables">Numeric variables</h3>
+<p>Let’s start by converting numeric columns:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set columns to have appropriate types</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>converted_tib <span class="ot">&lt;-</span> <span class="fu">mutate</span>(all_ado,</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sequence.id =</span> SEQN,</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">age.years =</span> RIDAGEYR,</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">gender =</span> <span class="fu">as.factor</span>(RIAGENDR),</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ethnicity =</span> <span class="fu">as.factor</span>(RIDRETH1),</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">birthplace =</span> <span class="fu">as.factor</span>(DMDBORN),</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">family.PIR =</span> INDFMPIR,</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dental.decay.present =</span> (OHXDECAY <span class="sc">==</span> <span class="st">"Yes"</span>),</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dental.restoration.present =</span> (OHXREST <span class="sc">==</span> <span class="st">"Yes"</span>),</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">plasma.glucose =</span> <span class="fu">as.numeric</span>(LBXGLU),</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hba1c =</span> <span class="fu">as.numeric</span>(LBXGH),</span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bmi =</span> <span class="fu">as.numeric</span>(BMXBMI), </span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.keep =</span> <span class="st">"unused"</span>) <span class="co">#keep none of the old columns we converted</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set numeric columns to be numeric</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>cleaned_ado <span class="ot">&lt;-</span> <span class="fu">mutate</span>(all_ado,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">LBXGLU =</span> <span class="fu">as.numeric</span>(LBXGLU),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">LBXGH =</span> <span class="fu">as.numeric</span>(LBXGH),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">BMXBMI =</span> <span class="fu">as.numeric</span>(BMXBMI))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="categorical-variables" class="level3">
+<h3 data-anchor-id="categorical-variables">Categorical variables</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>cleaned_ado <span class="ot">&lt;-</span> <span class="fu">mutate</span>(cleaned_ado,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">RIAGENDR =</span> <span class="fu">as.factor</span>(RIAGENDR),</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">RIDRETH1 =</span> <span class="fu">as.factor</span>(RIDRETH1),</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">DMDBORN =</span> <span class="fu">noquote</span>(DMDBORN), <span class="co"># Remove quotes</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">DMDBORN =</span> <span class="fu">as.factor</span>(DMDBORN),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">OHXDECAY =</span> (OHXDECAY <span class="sc">==</span> <span class="st">"Yes"</span>),</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">OHXREST =</span> (OHXREST <span class="sc">==</span> <span class="st">"Yes"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="new-variables" class="level3">
+<h3 data-anchor-id="new-variables">New variables</h3>
+<p>We need to create the variables mentioned in the paper are not directly present in NHANES. For some variables such as country of birth, we could store the categories in <code>DMDBorn</code> but this way we can also keep the original distribution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set columns to categories as in the paper</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>cleaned_ado <span class="ot">&lt;-</span> <span class="fu">mutate</span>(cleaned_ado,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>                    </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">age.cat =</span> <span class="fu">cut</span>(</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                      RIDAGEYR,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">18</span>),</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">include.lowest =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"13-15"</span>, <span class="st">"16-18"</span>)),</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>                   </span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>                    <span class="at">plasma.glucose.cat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>                     LBXGLU <span class="sc">&lt;</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"&lt;100 mg/dl"</span>,</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>                     LBXGLU <span class="sc">&lt;</span> <span class="dv">126</span> <span class="sc">~</span> <span class="st">"&gt;=100 mg/dl and &lt;126 mg/dl"</span>, </span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>                     LBXGLU <span class="sc">&gt;=</span> <span class="dv">126</span> <span class="sc">~</span> <span class="st">"&gt;=126 mg/dl"</span>,</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">.default =</span> <span class="cn">NA</span>),</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>                   </span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hba1c.cat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>                     LBXGH <span class="sc">&lt;</span> <span class="fl">5.7</span> <span class="sc">~</span> <span class="st">"&lt;5.7%"</span>,</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>                     LBXGH <span class="sc">&gt;=</span> <span class="fl">5.7</span> <span class="sc">~</span> <span class="st">"&gt;=5.7% and &lt;6.5%"</span>,</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>                     LBXGH <span class="sc">&gt;=</span> <span class="fl">6.5</span> <span class="sc">~</span> <span class="st">"&gt;= 6.5%"</span>,</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>                     <span class="at">.default =</span> <span class="cn">NA</span>),</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>                   </span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bmi.cat =</span> <span class="fu">case_when</span>( <span class="co">#Technically we should also have an underweight category</span></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>                     BMXBMI <span class="sc">&lt;</span> <span class="dv">25</span> <span class="sc">~</span> <span class="st">"Normal"</span>, </span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>                     BMXBMI <span class="sc">&lt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">"Overweight"</span>,</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>                     BMXBMI <span class="sc">&gt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">"Obese"</span>,</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>                     <span class="at">.default =</span> <span class="cn">NA</span>), </span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>                   </span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>                   <span class="at">family.PIR.cat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>                     INDFMPIR <span class="sc">==</span> <span class="st">"PIR value greater than or equa"</span> <span class="sc">~</span> <span class="st">"&gt;= 1"</span>,</span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>                     INDFMPIR <span class="sc">==</span> <span class="st">"Value greater than or equal to"</span> <span class="sc">~</span> <span class="st">"&gt;= 1"</span>,</span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">as.numeric</span>(INDFMPIR) <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"&gt;=1"</span>,</span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">as.numeric</span>(INDFMPIR) <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"&lt;1"</span>,</span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>                     <span class="at">.default =</span> <span class="cn">NA</span>),</span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>                   <span class="at">family.PIR.car =</span> <span class="fu">as.numeric</span>(family.PIR.cat) <span class="sc">&lt;</span> <span class="fl">1.0</span>,</span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>                   </span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>                   <span class="at">birthplace =</span> <span class="fu">case_when</span>(</span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>                     DMDBORN <span class="sc">==</span> <span class="st">"Born in 50 US States or Washi"</span> <span class="sc">~</span> <span class="st">"Within the US"</span>,</span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">is.na</span>(DMDBORN) <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>                     DMDBORN <span class="sc">==</span> <span class="st">"Don't Know"</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>                     DMDBORN <span class="sc">==</span> <span class="st">"Refused"</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>                    <span class="at">.default =</span> <span class="st">"Outside the US"</span>),</span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dental.caries =</span> OHXDECAY <span class="sc">|</span> OHXREST)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There were 3 warnings in `mutate()`.
+The first warning was:
+ℹ In argument: `family.PIR.cat = case_when(...)`.
+Caused by warning:
+! NAs introduced by coercion
+ℹ Run `dplyr::last_dplyr_warnings()` to see the 2 remaining warnings.</code></pre>
+</div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -598,20 +654,87 @@ Exercise
 <blockquote class="blockquote">
 <p>Individuals with an HbA1C of at least 6.5 percent or a plasma-fasting glucose value of at least 126 mg/dl were considered diabetics; prediabetics were those whose HbA1C ranged from 5.7 percent to 6.4 percent and whose fasting plasma glucose remained within 100 to 125 mg/dl; the remaining study participants, who had less than 5.7 percent HbA1C and less than 100 mg/dl fasting plasma glucose, were classified as nondiabetics.</p>
 </blockquote>
-<p>It is reccomended to use <code>case_when</code>, but feel free to use any method you want.</p>
+<p>It is recommended to use <code>case_when</code>, but feel free to use any method you want.</p>
+<p>*Hint: remember to account for missing data! When should <code>diabetes</code> be <code>NA</code>?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add diabetes column</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>converted_tib <span class="ot">&lt;-</span> converted_tib <span class="sc">%&gt;%</span> </span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diabetes =</span> <span class="fu">case_when</span>(</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    hba1c <span class="sc">&gt;=</span> <span class="fl">6.5</span> <span class="sc">|</span> plasma.glucose <span class="sc">&gt;=</span> <span class="dv">126</span> <span class="sc">~</span> <span class="st">"diabetic"</span>,</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    hba1c <span class="sc">&gt;=</span> <span class="fl">5.7</span> <span class="sc">|</span> plasma.glucose <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"prediabetic"</span>,</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.default =</span> <span class="st">"nondiabetic"</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add diabetes column</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>cleaned_ado <span class="ot">&lt;-</span> cleaned_ado <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">diabetes =</span> <span class="fu">case_when</span>(</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">is.na</span>(LBXGH) <span class="sc">&amp;</span> <span class="fu">is.na</span>(LBXGLU) <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>           LBXGH <span class="sc">&gt;=</span> <span class="fl">6.5</span> <span class="sc">|</span> LBXGLU <span class="sc">&gt;=</span> <span class="dv">126</span> <span class="sc">~</span> <span class="st">"diabetic"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>           LBXGH <span class="sc">&gt;=</span> <span class="fl">5.7</span> <span class="sc">|</span> LBXGLU <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"prediabetic"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">.default =</span> <span class="st">"nondiabetic"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+</section>
+</section>
+<section id="summary-statistics" class="level2">
+<h2 data-anchor-id="summary-statistics">Summary Statistics</h2>
+<section id="counts-of-categorical-data" class="level3">
+<h3 data-anchor-id="counts-of-categorical-data">Counts of categorical data</h3>
+<p>Many of the NHANES values are are categorical data, bur right now are stored as text. We can look at what values exist by converting them to factors:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>tib_all <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(RIAGENDR, RIDRETH1, DMDEDUC2, DMDBORN), as.factor), <span class="at">.keep =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   RIAGENDR                               RIDRETH1    
+ Female:15633   Mexican American              : 7388  
+ Male  :15401   Non-Hispanic Black            : 6878  
+                Non-Hispanic White            :12463  
+                Other Hispanic                : 2683  
+                Other Race - Including Multi-R: 1622  
+                                                      
+                                                      
+                           DMDEDUC2                               DMDBORN     
+ Some College or AA degree     : 4664   "Born in 50 US States or Washi:25732  
+ High School Grad/GED or Equiva: 4069   Born Elsewhere                :  588  
+ College Graduate or above     : 3337   Born in Mexico                : 2511  
+ 9-11th Grade (Includes 12th gr: 2821   Born in Other Non-Spanish Spea: 1065  
+ Less Than 9th Grade           : 2210   Born in Other Spanish Speaking: 1120  
+ (Other)                       :   31   Don't Know                    :    2  
+ NA's                          :13902   Refused                       :   16  </code></pre>
+</div>
+</div>
+</section>
+<section id="summarize-groups" class="level3">
+<h3 data-anchor-id="summarize-groups">Summarize groups</h3>
+<p>We can use <code>group_by</code> and <code>summarize</code> to see summary statistics by various subgroups. For instance, let’s take a look at education and gender.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>tib_all <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(RIAGENDR, DMDEDUC2) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'RIAGENDR'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 3
+# Groups:   RIAGENDR [2]
+   RIAGENDR DMDEDUC2                           n
+   &lt;chr&gt;    &lt;chr&gt;                          &lt;int&gt;
+ 1 Female   9-11th Grade (Includes 12th gr  1459
+ 2 Female   College Graduate or above       1672
+ 3 Female   Don't Know                        14
+ 4 Female   High School Grad/GED or Equiva  2047
+ 5 Female   Less Than 9th Grade             1055
+ 6 Female   Refused                            6
+ 7 Female   Some College or AA degree       2576
+ 8 Female   &lt;NA&gt;                            6804
+ 9 Male     9-11th Grade (Includes 12th gr  1362
+10 Male     College Graduate or above       1665
+11 Male     Don't Know                         4
+12 Male     High School Grad/GED or Equiva  2022
+13 Male     Less Than 9th Grade             1155
+14 Male     Refused                            7
+15 Male     Some College or AA degree       2088
+16 Male     &lt;NA&gt;                            7098</code></pre>
 </div>
 </div>
 
 
+</section>
 </section>
 </section>
 

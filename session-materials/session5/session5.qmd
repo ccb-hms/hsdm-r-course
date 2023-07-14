@@ -8,6 +8,7 @@ code-annotations: select
 
 ```{r}
 #| output: false
+#| warning: false
 library(tidyverse)
 library(survey)
 library(DT)
@@ -109,6 +110,9 @@ all_nhanes <- mutate(all_nhanes,
                    DMDBORN == "Refused" ~ NA,
                    .default = "Outside the US"),
                   dental.caries = OHXDECAY | OHXREST)
+
+# Let's save this data for future analysis
+save(all_nhanes, file = "processed_beheshti.RData")
 ```
 
 # Preparing Survey Analysis
@@ -183,16 +187,51 @@ svytable(~RIDRETH1, ado_design)
 
 # Creating a summary table
 
+
+
+::: {.callout-tip appearance="minimal"}
+# Exercise 
+
 Let's recreate Table 1a. from the Beheshti paper.
 
+:::
+
 # Are summary statistics enough?
-
-
 
 ```{r}
 library(datasets)
 datasets::anscombe
 ```
 
+First, we need to restructure this data so we can easily group it by each of the different 4 datasets included. 
+We'll learn more about what the `pivot_longer` command does in the last week of class.
+```{r}
+# Let's restructure this data to have 3 variables, x, y, and the dataset number it belongs to
+long_ans <- anscombe %>%
+  pivot_longer(
+    everything(),
+    cols_vary = "slowest",
+    names_to = c(".value", "set"),
+    names_pattern = "(.)(.)"
+  )
+
+```
+
+Now we can visualize the 4 datasets easily using a `facet_wrap` in ggplot:
+
+```{r}
+ggplot(long_ans,aes(x=x,y=y,group=set))+geom_point()+facet_wrap(~set)
+```
 ::: {.callout-tip appearance="minimal"}
+# Exercise 
+
+Calculate the mean and variance for x and y, and the correlation between x and y of each of the 4 sets of data. 
+
+```{r}
+long_ans %>%
+  group_by(set) %>%
+  summarise(mean_x = mean(x), mean_y = mean(y), variance_x = var(x), variance_y = var(y), correlation = cor(x, y))
+```
+
 :::
+

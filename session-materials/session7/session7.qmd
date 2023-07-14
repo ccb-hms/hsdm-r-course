@@ -1,25 +1,33 @@
 ---
-title: "Week 7: Advanced regression"
+title: "Week 7: Regression Models"
 author: "Center for Computational Biomedicine"
 format: 
   html: default
 code-annotations: select
 ---
 
-# Data
-
-# Formula notation
+```{r}
+#| output: false
+#| warning: false
+library(tidyverse)
+library(survey)
+library(DT)
+library(flextable)
+library(officer)
+```
 
 # Another NHANES example
 
-There are 6063 observations, some are incomplete and have missing values for some covariates. There are 22 covariates, which have cryptic names and you need to use the meta-data to resolve them.  The survey is very complex and typically any analysis requires a substantial amount of reading of the documentation.  Here we will guide you past some of the hurdles.
+Let's take a look at a different NHANES dataset and explore the relationship between cholesterol and age. 
+
+There are 6063 observations, some are incomplete and have missing values for some covariates. There are 22 covariates, which as we've seen have cryptic names and you need to use the meta-data to resolve them.  
 
 We load up the data and the metadata. In the metadata we have a textual description of the phenotype, the short name, and the target.  The target tells us which of the sampled individuals was eligible to answer the question. 
 
 ```{r loadData}
 nhanesDataPath = ""
-load(paste0(nhanesDataPath, "d4.rda"))
-load(paste0(nhanesDataPath, "metaD.rda")) 
+load("d4.rda")
+load("metaD.rda")
 DT::datatable(metaD)
 ```
 
@@ -131,28 +139,72 @@ summary(lm3)
 
 # Recreating the analysis from Behesht et al
 
-We can recreate the 
+## Data
+
+```{r}
+load("processed_beheshti.RData")
+
+wt_nhanes <- all_nhanes %>%
+  drop_na(WTMEC2YR, SDMVPSU, SDMVSTRA) %>%
+  mutate(WTMEC6YR = WTMEC2YR * 1/3)
+
+# Create survey design object
+nhanes_design <- svydesign(id     = ~SDMVPSU,
+                          strata  = ~SDMVSTRA,
+                          weights = ~WTMEC6YR,
+                          nest    = TRUE,
+                          data    = wt_nhanes)
+
+#Subset the study population
+ado_design <- subset(nhanes_design, RIDAGEYR >= 13 & RIDAGEYR <= 18 & !is.na(OHXDECAY))
+
+#Also make a tibble of this data to analyze
+ado_data <- wt_nhanes %>%
+  filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% 
+  filter(!is.na(OHXDECAY)) %>% 
+  filter(!is.na(diabetes))
+```
+
+## Models
+
+Let's recreate the analysis shown in table 2 of the Beheshti analysis. 
+The table's caption explains the 5 different models:
+
+> Model 1=crude (unadjusted); model 2=controlled for age, race/ethnicity, gender; model 3=controlled for age, race/ethnicity, gender, BMI; model 4=controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio; model 5=controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth.
+
+::: {.callout-tip appearance="minimal"}
+## Discussion
+
+Does the paper give enough detail to reproduce its logistic regression analysis? 
+
+Why or why not?
+:::
+
+
+::: {.callout-tip appearance="minimal"}
+## Exercise
+
+Below model 1 has been reproduced.
+See if you can recreate models 2-5.
 
 ```{r}
 
-# Model 1
+# Model 1: Unadjusted
 dia_logit1 <- (svyglm(dental.caries~I(diabetes == "diabetic"), family=quasibinomial, design=ado_design, na.action = na.omit))
 exp(coef(dia_logit1))
 
 pre_logit1 <- (svyglm(dental.caries~I(diabetes == "prediabetic"), family=quasibinomial, design=ado_design, na.action = na.omit))
 exp(coef(pre_logit1))
 
-# model <- glm(dental.caries~I(diabetes == "diabetic"), family = "binomial", data = ado_data)
-# exp(coef(model))
-
-# Model 2
+# Model 2: Controlled for age, race/ethnicity, gender
 logit2 <- (svyglm(dental.caries~I(diabetes == "diabetic") + RIDRETH1 + RIAGENDR + as.factor(RIDAGEYR), family=quasibinomial, design=ado_design, na.action = na.omit))
 exp(coef(logit2))
 
-# Model 3
+# Model 3: Controlled for age, race/ethnicity, gender, BMI
 
-# Model 4
+# Model 4: Controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio
 
-# Model 5
+# Model 5: Controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth
 
 ```
+:::

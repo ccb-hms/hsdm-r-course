@@ -95,6 +95,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+<script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.28/datatables.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="../site_libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="../site_libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+
 
 </head>
 
@@ -412,7 +422,7 @@ Extended Materials
 </div>
 </div>
 <p>This week we will be diving deeper into operations needed for data analysis. We will look at how to manipulate column names, group data by its variables, and append datasets together.</p>
-<p>We will be continueing with the same simulated Ebola outbreak dataset.</p>
+<p>We will be continuing with the same simulated Ebola outbreak dataset.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>linelist <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"linelist_cleaned.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -779,7 +789,6 @@ Tip
 </section>
 <section id="group_summarise" class="level2">
 <h2 data-anchor-id="group_summarise">Summarise</h2>
-<p>See the <strong>dplyr</strong> section of the [Descriptive tables] page for a detailed description of how to produce summary tables with <code>summarise()</code>. Here we briefly address how its behavior changes when applied to grouped data.</p>
 <p>The <strong>dplyr</strong> function <code>summarise()</code> (or <code>summarize()</code>) takes a data frame and converts it into a <em>new</em> summary data frame, with columns containing summary statistics that you define. On an ungrouped data frame, the summary statistics will be calculated from all rows. Applying <code>summarise()</code> to grouped data produces those summary statistics <em>for each group</em>.</p>
 <p>The syntax of <code>summarise()</code> is such that you provide the name(s) of the <strong>new</strong> summary column(s), an equals sign, and then a statistical function to apply to the data, as shown below. For example, <code>min()</code>, <code>max()</code>, <code>median()</code>, or <code>sd()</code>. Within the statistical function, list the column to be operated on and any relevant argument (e.g.&nbsp;<code>na.rm = TRUE</code>). You can use <code>sum()</code> to count the number of rows that meet a logical criteria (with double equals <code>==</code>).</p>
 <p>Below is an example of <code>summarise()</code> applied <em>without grouped data</em>. The statistics returned are produced from the entire dataset.</p>
@@ -953,7 +962,6 @@ Tip
         Total 2,807 (100.0%) 2,803 (100.0%) 278 (100.0%)</code></pre>
 </div>
 </div>
-<p>To add more complex totals rows that involve summary statistics other than <em>sums</em>, see <a href="#tbl_dplyr_totals">this section of the Descriptive Tables page</a>.</p>
 </section>
 <section id="arranging-grouped-data" class="level3">
 <h3 data-anchor-id="arranging-grouped-data">Arranging grouped data</h3>
@@ -1006,7 +1014,6 @@ Tip
 <code>slice_sample()</code> - randomly selects n rows<br>
 <code>slice_min()</code> - selects n rows with highest values in <code>order_by =</code> column, use <code>with_ties = TRUE</code> to keep ties<br>
 <code>slice_max()</code> - selects n rows with lowest values in <code>order_by =</code> column, use <code>with_ties = TRUE</code> to keep ties</p>
-<p>See the [De-duplication] page for more examples and detail on <code>slice()</code>.</p>
 </section>
 <section id="group_filter_grp_size" class="level4 unnumbered">
 <h4 class="unnumbered" data-anchor-id="group_filter_grp_size">Filter on group size</h4>
@@ -1126,29 +1133,28 @@ Tip
 </div>
 <p>Here is the <code>hosp_summary</code> data frame:</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
-  hospital                             cases ct_value_med
-  &lt;chr&gt;                                &lt;int&gt;        &lt;dbl&gt;
-1 Central Hospital                       454           22
-2 Military Hospital                      896           21
-3 Missing                               1469           21
-4 Other                                  885           22
-5 Port Hospital                         1762           22
-6 St. Mark's Maternity Hospital (SMMH)   422           22</code></pre>
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d2c24e8fa3beff617a88" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d2c24e8fa3beff617a88">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],[454,896,1469,885,1762,422],[22,21,21,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Create a data frame with the “total” statistics (<em>not grouped by hospital</em>). This will return just one row.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create totals</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="do">###############</span></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>totals <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> <span class="fu">n</span>(),                               <span class="co"># Number of rows for whole dataset     </span></span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ct_value_med =</span> <span class="fu">median</span>(ct_blood, <span class="at">na.rm=</span>T))  <span class="co"># Median CT for whole dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create totals</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="do">###############</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>totals <span class="ot">&lt;-</span> linelist <span class="sc">%&gt;%</span> </span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases =</span> <span class="fu">n</span>(),                               <span class="co"># Number of rows for whole dataset     </span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ct_value_med =</span> <span class="fu">median</span>(ct_blood, <span class="at">na.rm=</span>T))  <span class="co"># Median CT for whole dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And below is that <code>totals</code> data frame. Note how there are only two columns. These columns are also in <code>hosp_summary</code>, but there is one column in <code>hosp_summary</code> that is not in <code>totals</code> (<code>hospital</code>).</p>
 <div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-610f71e25c97af83178a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-610f71e25c97af83178a">{"x":{"filter":"none","vertical":false,"data":[[5888],[22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[0,1]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cases ct_value_med
 1  5888           22</code></pre>
@@ -1156,11 +1162,16 @@ Tip
 </div>
 <p>Now we can bind the rows together with <code>bind_rows()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind data frames together</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(hosp_summary, totals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bind data frames together</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(hosp_summary, totals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can view the result. See how in the final row, an empty <code>NA</code> value fills in for the column <code>hospital</code> that was not in <code>hosp_summary</code>.</p>
 <div class="cell">
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-53c2b12ca0a7e12c485b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-53c2b12ca0a7e12c485b">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)",null],[454,896,1469,885,1762,422,5888],[22,21,21,22,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 3
   hospital                             cases ct_value_med

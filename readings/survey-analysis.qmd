@@ -18,9 +18,6 @@ for doing weighted analysis.
 
 ### Packages {.unnumbered}
 
-This code chunk shows the loading of packages required for the analyses. In this handbook we emphasize `p_load()` from **pacman**, which installs the package if necessary *and* loads it for use. You can also load packages with `library()` from **base** R. See the page on [R basics] for more information on R packages.  
-Here we also demonstrate using the `p_load_gh()` function from **pacman** to install a load a package from github which has not yet been published on CRAN. 
-
 ```{r}
 
 ## load packages from CRAN
@@ -32,14 +29,9 @@ pacman::p_load(rio,          # File import
                gtsummary,    # wrapper for survey package to produce tables
                apyramid,     # a package dedicated to creating age pyramids
                patchwork,    # for combining ggplots
-               ggforce       # for alluvial/sankey plots
+               ggforce,      # for alluvial/sankey plots
+               epikit        # for age_categories 
                ) 
-
-## load packages from github
-pacman::p_load_gh(
-     "R4EPI/sitrep"          # for observation time / weighting functions
-)
-
 ``` 
 
 ### Load data {.unnumbered}
@@ -55,11 +47,10 @@ fictional dataset was produced as part of the ["R4Epis" project](https://r4epis.
 This is all based off data collected using [KoboToolbox](https://www.kobotoolbox.org/), 
 which is a data collection software based off [Open Data Kit](https://opendatakit.org/).
 
-Kobo allows you to export both the collected data, as well as the data dictionary 
-for that dataset. We strongly recommend doing this as it simplifies data cleaning 
+Kobo allows you to export both the collected data, as well as the data dictionary
+for that dataset. We strongly recommend doing this as it simplifies data cleaning
 and is useful for looking up variables/questions. 
 
-The dataset is imported using the `import()` function from the **rio** package. See the page on [Import and export](https://epirhandbook.com/import-and-export.html) for various ways to import data.
 
 ```{r echo = FALSE}
 # import the survey into R

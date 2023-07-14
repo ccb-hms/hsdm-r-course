@@ -39,6 +39,10 @@ This is an online R resource specifically for [Excel users](https://jules32.gith
 
 ### Topic-Specific Resources
 
+#### RMarkdown and Quarto
+
+- [The definitive R Markdown guide](https://bookdown.org/yihui/rmarkdown/notebook.html)
+
 #### Plotting
 
 -   [another plotting cheat sheet](https://biostats.w.uib.no/the-ggplot2-cheat-sheet-by-rstudio/)
