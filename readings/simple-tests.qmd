@@ -1,6 +1,5 @@
 # Simple statistical tests { }
 
-
 This page demonstrates how to conduct simple statistical tests using **base** R, **rstatix**, and **gtsummary**.  
 
 * T-test  
@@ -18,12 +17,6 @@ Each of the above packages bring certain advantages and disadvantages:
 * Use **rstatix** functions to return results in a data frame, or if you want tests to run by group  
 * Use **gtsummary** if you want to quickly print publication-ready tables  
 
-
-
-<!-- ======================================================= -->
-## Preparation {  }
-
-
 ### Load packages {.unnumbered}
 
 ```{r}
@@ -39,6 +32,139 @@ pacman::p_load(
   flextable     # converting tables to HTML
   )
 ```
+
+## An example statistical test
+
+Let's look a classic example in statistics: flipping a coin to see if it is fair. We flip the coin 100 times and each time record whether it came up heads or tails. So, we have a record that could look something like `HHTTHTHTT...`
+
+Let's simulate the experiment in R, using a biased coin:
+
+```{r}
+set.seed(0xdada)
+numFlips = 100
+probHead = 0.6
+# Sample is a function in base R which let's us take a random sample from a vector, with or without replacement. 
+# This line is sampling numFlips times from the vector ['H','T'] with replacement, with the probabilities for 
+# each item in the vector being defined in the prob argument as [probHead, 1-probHead]
+coinFlips = sample(c("H", "T"), size = numFlips,
+  replace = TRUE, prob = c(probHead, 1 - probHead))
+# Thus, coinFlips is a character vector of a random sequence of 'T' and 'H'. 
+head(coinFlips)
+```
+
+Now, if the coin were fair, we would expect half of the time to get heads. Let's see.
+
+```{r}
+table(coinFlips)
+```
+
+That is different from 50/50. However, does the data deviates strong enough to conclude that this coin isn't fair? We know that the total number of heads seen in 100 coin tosses for a fair coin follows $B(100, 0.5)$, making it a suitable test statistic.
+
+To decide, let's look at the sampling distribution of our test statistic -- the total number of heads seen in 100 coin tosses -- for a fair coin. As we learned, we can do this with the binomial distribution. Let's plot a fair coin and mark our observation with a blue line:
+
+```{r}
+# This line sets k as the vector [0, 1, 2,...,numFlips]
+k <- 0:numFlips
+# Recall that binary variables (TRUE and FALSE) are interpreted as 1 and 0, so we can use this operation
+# to count the number of heads in coinFlips. We practice these kinds of operations in session 3. 
+numHeads <- sum(coinFlips == "H")
+# We use dbinom here to get the probability mass at every integer from 1-numFlips so that we can plot the distribution. 
+p <- dbinom(k, size = numFlips, prob = 0.5)
+# We then convert it into a dataframe for easier plotting. 
+binomDensity <- data.frame(k = k, p = p)
+head(binomDensity)
+
+# Here, we are plotting the binomial distribution, with a vertical line representing
+# the number of heads we actually observed. We will learn how to create plots in session 4. 
+# Thus, to complete our test we simply need to identify whether or not the blue line
+# is in our rejection region. 
+ggplot(binomDensity) +
+  geom_bar(aes(x = k, y = p), stat = "identity") +
+  geom_vline(xintercept = numHeads, col = "blue")
+```
+
+How do we quantify whether the observed value is among those values that we are likely to see from a fair coin, or whether its deviation from the expected value is already large enough for us to conclude with enough confidence that the coin is biased?
+
+We divide the set of all possible $k(0-100)$ in two complementary subsets, the **rejection region** and the region of no rejection. We want to make the rejection region as large as possible while keeping their total probability, assuming the null hypothesis, below some threshold $\alpha$(say, 0.05).
+
+```{r}
+alpha <- 0.05
+# We get the density of our plot in sorted order, meaning that we'll see binomDensity
+# jump back and forth between the distribution's tails as p increases. 
+binomDensity <- binomDensity[order(p),]
+# We then manually calculate our rejection region by finding where the cumulative sum in the distribution
+# is less than or equal to our chosen alpha level. 
+binomDensity$reject <- cumsum(binomDensity$p) <= alpha
+head(binomDensity)
+
+# Now we recreate the same plot as before, but adding red borders around the parts of our distribution
+# in the rejection region. 
+ggplot(binomDensity) +
+  geom_bar(aes(x = k, y = p, col = reject), stat = "identity") +
+  scale_colour_manual(
+    values = c(`TRUE` = "red", `FALSE` = "darkgrey")) +
+  geom_vline(xintercept = numHeads, col = "blue") +
+  theme(legend.position = "none")
+```
+
+We sorted the $p$-values from lowest to highest (`order`), and added a column `reject` by computing the cumulative sum (`cumsum`) of the $p$-values and thresholding it against `alpha`.
+
+The logical column `reject` therefore marks with `TRUE` a set of $k$s whose total probability is less than $\alpha$.
+
+The rejection region is marked in red, containing both very large and very small values of $k$, which can be considered unlikely under the null hypothesis.
+
+`R` provides not only functions for the densities (e.g., `dbinom`) but also for the cumulative distribution functions (`pbinom`). Those are more precise and faster than `cumsum` over the probabilities.
+
+The (cumulative) *distribution function* is defined as the probability that a random variable $X$ will take a value less than or equal to $x$.
+
+$$F(x) = P(X \le x)$$
+
+We have just gone through the steps of a **binomial test**. This is a frequently used test and therefore available in `R` as a single function.
+
+We have just gone through the steps of a binomial test. In fact, this is such a frequent activity in R that it has been wrapped into a single function, and we can compare its output to our results.
+
+```{r}
+binom.test(x = numHeads, n = numFlips, p = 0.5)
+```
+
+## Hypothesis Tests
+
+We can summarize what we just did with a series of steps:
+
+1.  Decide on the effect that you are interested in, design a suitable experiment or study, pick a data summary function and test statistic.
+2.  Set up a null hypothesis, which is a simple, computationally tractable model of reality that lets you compute the null distribution, i.e., the possible outcomes of the test statistic and their probabilities under the assumption that the null hypothesis is true.
+3.  Decide on the rejection region, i.e., a subset of possible outcomes whose total probability is small.
+4.  Do the experiment and collect the data; compute the test statistic.
+5.  Make a decision: reject the null hypothesis if the test statistic is in the rejection region.
+
+## Types of Error
+
+```{r out.width = "100%", fig.align = "center", echo=F}
+knitr::include_graphics(here::here("img", "error_vis.png"))
+```
+
+Having set out the mechanics of testing, we can assess how well we are doing. The following table, called a **confusion matrix**, compares reality (whether or not the null hypothesis is in fact true) with our decision whether or not to reject the null hypothesis after we have seen the data.
+
+| Test vs reality        | Null is true                  | Null is false                  |
+|------------------------|-------------------------------|--------------------------------|
+| **Reject null**        | Type I error (false positive) | True postitive                 |
+| **Do not reject null** | True negative                 | Type II error (false negative) |
+
+It is always possible to reduce one of the two error types at the cost of increasing the other one. The real challenge is to find an acceptable trade-off between both of them. We can always decrease the **false positive rate** (FPR) by shifting the threshold to the right. We can become more "conservative". But this happens at the price of higher **false negative rate** (FNR). Analogously, we can decrease the FNR by shifting the threshold to the left. But then again, this happens at the price of higher FPR. T he FPR is the same as the probability $\alpha$ that we mentioned above. $1-\alpha$ is also called the **specificity** of a test. The FNR is sometimes also called $\beta$, and $1-\beta$ the **power**, **sensitivity** or **true positive rate** of a test. The power of a test can be understood as the likelihood of it "catching" a true positive, or correctly rejecting the null hypothesis.
+
+Generally, there are three factors that can affect statistical power:
+
+-   Sample size: Larger samples provide greater statistical power
+-   Effect size: A given design will always have greater power to find a large effect than a small effect (because finding large effects is easier)
+-   Type I error rate: There is a relationship between Type I error and power such that (all else being equal) decreasing Type I error will also decrease power.
+
+
+
+<!-- ======================================================= -->
+## Preparation {  }
+
+
+
 
 ### Import data {.unnumbered}
 
@@ -159,7 +285,9 @@ rplot(correlation_tab)
 
 Much of the information in this page is adapted from these resources and vignettes online:  
 
-[gtsummary](http://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html)
-[dplyr](https://dplyr.tidyverse.org/articles/grouping.html)
-[corrr](https://corrr.tidymodels.org/articles/using-corrr.html)
-[sthda correlation](http://www.sthda.com/english/wiki/correlation-test-between-two-variables-in-r)
+- [gtsummary](http://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html)
+- [dplyr](https://dplyr.tidyverse.org/articles/grouping.html)
+- [corrr](https://corrr.tidymodels.org/articles/using-corrr.html)
+- [sthda correlation](http://www.sthda.com/english/wiki/correlation-test-between-two-variables-in-r)
+-[*Statistical Thinking for the 21st Century*](https://statsthinking21.github.io/statsthinking21-core-site/index.html) *by Russell A. Poldrack. This work is distributed under the terms of the [Attribution-NonCommercial 4.0 International](https://creativecommons.org/licenses/by-nc/4.0/) (CC BY-NC 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited and the material is used for noncommercial purposes.* 
+- [*Modern Statistics for Modern Biology*](https://www.huber.embl.de/msmb/) *by Susan Holmes and Wolfgang Huber. This work is distributed under the terms of the [Attribution-NonCommercial-ShareAlike 2.0 Generic](https://creativecommons.org/licenses/by-nc-sa/2.0/) (CC BY-NC-SA 2.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited, the material is used for noncommercial purposes, and the same license is used for any derivative material.*

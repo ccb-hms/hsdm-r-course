@@ -43,13 +43,6 @@ linelist <- rio::import("data/case_linelists/linelist_cleaned.rds")
 linelist <- import("linelist_cleaned.rds")
 ```
 
-The first 50 rows of the linelist are displayed below.
-
-```{r, message=FALSE, echo=F}
-# display the linelist data as a table
-DT::datatable(head(linelist, 50), rownames = FALSE, options = list(pageLength = 5, scrollX=T) )
-```
-
 ### Clean data {.unnumbered}
 
 #### Store explanatory variables {.unnumbered}  
