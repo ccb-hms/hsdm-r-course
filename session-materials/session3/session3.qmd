@@ -17,8 +17,9 @@ You should check that the categorical variables you added last week are correctl
 #| output: false
 library(tidyverse) 
 
-nhanes_processed <- read_csv(file.choose()) 
-
+nhanes_processed <- read_csv("week3Data.csv") 
+```
+```{r}
 #| label: preview-data
 #| echo: false
 #| message: false

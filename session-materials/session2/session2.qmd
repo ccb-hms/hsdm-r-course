@@ -87,11 +87,11 @@ We will use the `read_csv` function for reading in this `.csv` file. In a later 
 #| output: false
 library(tidyverse) # <1>
 
-nhanes_ado <- read_csv(file.choose()) # <2> 
+nhanes_ado <- read_csv("week2Data.csv") # <2> 
 ```
 
 1.  This line is loading the `tidyverse` library, which is actually a [family of different packages](https://www.tidyverse.org/packages/). Note that this code will fail if you do not have `tidyverse` installed, which you can do with `install.packages("tidyverse")`
-2.  It would be good to change `file.choose` to relative location of the data in your project folder.
+2.  You could change the filename to `file.choose()` to manually select a file location.
 
 Let's take a look at the first 200 rows of the dataframe.
 
@@ -138,7 +138,7 @@ mean_bmi <- 0 #TODO
 
 ```
 
-This is a basic markdown table. We will see more advanced ways to make tables later. Here we are using *inline* code to fill put variables into the markdown text.
+This is a basic markdown table. We will see more advanced ways to make tables later (and we already saw one above using the `DT` package). Here we are using *inline* code to fill put variables into the markdown text.
 
 | Variable | Minimum     | Maximum     | Mean         |
 |----------|-------------|-------------|--------------|
