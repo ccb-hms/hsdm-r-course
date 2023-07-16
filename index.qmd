@@ -4,6 +4,7 @@ sidebar: false
 format-links: false
 page-layout: full
 toc: false
+footnotes-hover: true
 ---
 
 Instructor learning materials for data analysis module of Research Design and Analysis, 2023. 
@@ -14,7 +15,9 @@ Instructor learning materials for data analysis module of Research Design and An
 
 {{< fa map-marker >}} &nbsp; Room 106, Research and Education Building (190 Longwood Ave, Boston, MA)
 
-{{< fa video >}} &nbsp; Same Zoom room for all sessions and office hours on calendar invite
+{{< fa video >}} &nbsp; Same Zoom room for all sessions and office hours on calendar invite[^1]
+
+[^1]: The zoom link will not be presented on this website since it is public. You should have the Zoom link for sessions and office hours in the calendar invites. Please email Chris if you can't find the Zoom information. 
 
 ### Instructors {.unnumbered}
 
@@ -51,3 +54,17 @@ Instructor learning materials for data analysis module of Research Design and An
 :::
 
 :::
+
+## Schedule
+
+```{r}
+#| echo: false
+#| message: false
+library(tidyverse)
+library(reactable)
+library(reactablefmtr)
+# Load schedule 
+sched <- read_csv("schedule.csv")
+
+reactable(select(sched, `Module Week`, `Instructor Training July Session Date`, `Class Session Date`), theme = flatly(), sortable = FALSE)
+```
