@@ -6,8 +6,11 @@
 You can find the original, extended version of this chapter [here](https://epirhandbook.com/en/r-basics.html).
 :::
 
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Data Preparation
+
 ```{r}
-#| echo: False
 #| output: False
 
 library(rio)
@@ -16,6 +19,7 @@ library(apyramid)
 library(dplyr)
 linelist <- rio::import("data/case_linelists/linelist_cleaned.rds")
 ```
+:::
 
 ## Functions {#functions}
 

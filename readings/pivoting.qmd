@@ -1,8 +1,11 @@
-
-<!-- ======================================================= -->
-<!-- ======================================================= -->
-<!-- ======================================================= -->
 # Pivoting data {}
+
+::: callout-tip
+## Extended Materials
+
+You can find the original, extended version of this chapter [here](https://epirhandbook.com/en/pivoting-data.html).
+::
+
 
 ```{r, warning=F, message=F, out.height = c('50%'), fig.align="center", fig.show='hold', echo=F}
 knitr::include_graphics(here::here("img", "Pivoting_500x500.png"))
@@ -17,10 +20,8 @@ When managing data, *pivoting* can be understood to refer to one of two processe
 This page discusses the formats of data. It is useful to be aware of the idea of "tidy data", in which each variable has it's own column, each observation has it's own row, and each value has it's own cell. More about this topic can be found [at this online chapter in R for Data Science](https://r4ds.had.co.nz/tidy-data.html). 
 
 
-
-
-
-## Preparation  
+::: {.callout-note appearance="minimal" collapse="true"}
+## Data Preparation
 
 ### Load packages {.unnumbered}  
 
@@ -73,7 +74,7 @@ linelist <- rio::import("data/case_linelists/linelist_cleaned.rds")
 linelist <- import("linelist_cleaned.xlsx")
 ```
 
-
+:::
 
 
 

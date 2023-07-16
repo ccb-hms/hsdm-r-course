@@ -231,6 +231,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Data visualization</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/ggplot-customize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Themes and Specialized Plots</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -354,7 +360,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#simple-statistical-tests" id="toc-simple-statistical-tests" class="nav-link active" data-scroll-target="#simple-statistical-tests">Simple statistical tests</a>
   <ul class="collapse">
-  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">Load packages</a></li>
   <li><a href="#an-example-statistical-test" id="toc-an-example-statistical-test" class="nav-link" data-scroll-target="#an-example-statistical-test">An example statistical test</a></li>
   <li><a href="#hypothesis-tests" id="toc-hypothesis-tests" class="nav-link" data-scroll-target="#hypothesis-tests">Hypothesis Tests</a></li>
   <li><a href="#types-of-error" id="toc-types-of-error" class="nav-link" data-scroll-target="#types-of-error">Types of Error</a></li>
@@ -383,6 +388,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="simple-statistical-tests" class="level1">
 <h1>Simple statistical tests</h1>
+<p>::: callout-tip ## Extended Materials</p>
+<p>You can find the original, extended version of this chapter <a href="https://epirhandbook.com/en/simple-statistical-tests.html">here</a>. ::</p>
 <p>This page demonstrates how to conduct simple statistical tests using <strong>base</strong> R, <strong>rstatix</strong>, and <strong>gtsummary</strong>.</p>
 <ul>
 <li>T-test<br>
@@ -406,8 +413,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 <li>Use <strong>gtsummary</strong> if you want to quickly print publication-ready tables</li>
 </ul>
-<section id="load-packages" class="level3 unnumbered">
-<h3 class="unnumbered" data-anchor-id="load-packages">Load packages</h3>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Load packages
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  rio,          <span class="co"># File import</span></span>
@@ -421,7 +438,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  flextable     <span class="co"># converting tables to HTML</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
+</div>
+</div>
+</div>
 <section id="an-example-statistical-test" class="level2">
 <h2 data-anchor-id="an-example-statistical-test">An example statistical test</h2>
 <p>Let’s look a classic example in statistics: flipping a coin to see if it is fair. We flip the coin 100 times and each time record whether it came up heads or tails. So, we have a record that could look something like <code>HHTTHTHTT...</code></p>

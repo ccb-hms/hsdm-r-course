@@ -10,8 +10,10 @@ You can find the original, extended version of this chapter [here](https://epirh
 knitr::include_graphics(here::here("img", "data_cleaning.png"))
 ```
 
+::: {.callout-note appearance="minimal" collapse="true"}
+## Data Preparation
+
 ```{r}
-#| echo: false
 #| output: false  
 pacman::p_load(
   rio,        # importing data  
@@ -24,6 +26,8 @@ pacman::p_load(
 )
 linelist <- rio::import("data/case_linelists/linelist_cleaned.rds")
 ```
+
+:::
 
 This week we are going to learn how to use R to manipulate data.
 This will include learning about core functions for manipulating and summarizing data, as well as using conditional statements to create subsets.  

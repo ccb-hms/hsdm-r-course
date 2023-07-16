@@ -1,5 +1,12 @@
 # Univariate and multivariable regression { }
 
+
+::: callout-tip
+## Extended Materials
+
+You can find the original, extended version of this chapter [here](https://epirhandbook.com/en/univariate-and-multivariable-regression.html).
+::
+
 <!-- ======================================================= -->
 
 This page demonstrates the use of **base** R regression functions such as `glm()` and the **gtsummary** package to 
@@ -8,8 +15,8 @@ ratios). It also uses functions like `tidy()` from the **broom** package to clea
 
 <!-- ======================================================= -->
 
-## Preparation {  }
-
+::: {.callout-note appearance="minimal" collapse="true"}
+## Data Preparation
 
 ### Load packages {.unnumbered}
 
@@ -96,7 +103,7 @@ linelist <- linelist %>%
 ```
 
 The number of rows remaining in `linelist` is ` nrow(linelist)`.  
-
+:::
 
 <!-- ======================================================= -->
 

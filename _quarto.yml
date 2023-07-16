@@ -35,6 +35,7 @@ website:
         - section: "Week 3"
           contents:
             - readings/ggplot-basics.qmd
+            - readings/ggplot-customize.qmd
         - section: "Week 4"
           contents:
             - readings/manage-data.qmd

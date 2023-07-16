@@ -1,6 +1,12 @@
 
 # Joining data { }  
 
+::: callout-tip
+## Extended Materials
+
+You can find the original, extended version of this chapter [here](https://epirhandbook.com/en/joining-data.html).
+:::
+
 ::: {.content-visible when-format="html"}
 
 ```{r out.width = c('50%'), fig.show='hold', echo=F}
@@ -21,9 +27,8 @@ In this page we demonstrate code to:
 * Join two data frames based on *probabilistic* (likely) matches between values  
 * Expand a data frame by directly *binding* or ("appending") rows or columns from another data frame  
 
-
-<!-- ======================================================= -->
-## Preparation { }
+::: {.callout-note appearance="minimal" collapse="true"}
+## Data Preparation
 
 ### Load packages {.unnumbered}
 
@@ -60,7 +65,7 @@ The first 50 rows of the linelist are displayed below.
 DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
 
-
+:::
 
 
 <!-- ======================================================= -->

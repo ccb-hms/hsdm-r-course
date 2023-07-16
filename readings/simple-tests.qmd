@@ -1,5 +1,11 @@
 # Simple statistical tests { }
 
+::: callout-tip
+## Extended Materials
+
+You can find the original, extended version of this chapter [here](https://epirhandbook.com/en/simple-statistical-tests.html).
+::
+
 This page demonstrates how to conduct simple statistical tests using **base** R, **rstatix**, and **gtsummary**.  
 
 * T-test  
@@ -17,9 +23,12 @@ Each of the above packages bring certain advantages and disadvantages:
 * Use **rstatix** functions to return results in a data frame, or if you want tests to run by group  
 * Use **gtsummary** if you want to quickly print publication-ready tables  
 
-### Load packages {.unnumbered}
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Load packages 
 
 ```{r}
+#| output: false
 pacman::p_load(
   rio,          # File import
   here,         # File locator
@@ -32,6 +41,8 @@ pacman::p_load(
   flextable     # converting tables to HTML
   )
 ```
+
+:::
 
 ## An example statistical test
 

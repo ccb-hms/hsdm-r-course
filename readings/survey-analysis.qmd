@@ -1,6 +1,12 @@
 
 # Survey analysis { }  
 
+::: callout-tip
+## Extended Materials
+
+You can find the original, extended version of this chapter [here](https://epirhandbook.com/en/survey-analysis.html).
+:::
+
 <!-- ======================================================= -->
 ## Overview {  }
 
@@ -14,11 +20,13 @@ Most survey R packages rely on the [**survey** package](https://cran.r-project.o
 for doing weighted analysis. 
 
 <!-- ======================================================= -->
-## Preparation {  }
+::: {.callout-note appearance="minimal" collapse="true"}
+## Data Preparation
 
 ### Packages {.unnumbered}
 
 ```{r}
+#| output: false
 
 ## load packages from CRAN
 pacman::p_load(rio,          # File import
@@ -176,7 +184,7 @@ survey_data <- survey_data %>%
 
 ```
 
-
+:::
 
 <!-- ======================================================= -->
 ## Survey data {  }

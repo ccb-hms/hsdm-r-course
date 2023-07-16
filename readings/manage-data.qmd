@@ -9,10 +9,12 @@ You can find the original, extended version of these materials from chapters [8]
 This week we will be diving deeper into operations needed for data analysis. 
 We will look at how to manipulate column names, group data by its variables, and append datasets together. 
 
+::: {.callout-note appearance="minimal" collapse="true"}
+## Data Preparation
+
 We will be continuing with the same simulated Ebola outbreak dataset. 
 
 ```{r}
-#| echo: false
 #| output: false  
 pacman::p_load(
   rio,        # importing data  
@@ -29,6 +31,7 @@ linelist <- rio::import("data/case_linelists/linelist_cleaned.rds")
 ```{r, eval=F}
 linelist <- import("linelist_cleaned.rds")
 ```
+:::
 
 ## Column names
 

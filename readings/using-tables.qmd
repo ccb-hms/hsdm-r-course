@@ -6,6 +6,11 @@
 You can find the original, extended version of this chapter [here](https://epirhandbook.com/en/cleaning-data-and-core-functions.html).
 :::
 
+::: {.callout-note appearance="minimal" collapse="true"}
+## Data Preparation
+
+### Loading Packages
+
 ```{r}
 #| echo: false
 #| output: false  
@@ -21,7 +26,7 @@ pacman::p_load(
 linelist <- rio::import("data/case_linelists/linelist_cleaned.rds")
 ```
 
-## Data
+### Data
 
 We will continue to use the same `linelist` data we saw during Session 0.
 This is a fictional Ebola outbreak, expanded from the ebola_sim practice dataset in the `outbreaks` package.
@@ -35,6 +40,8 @@ The first 50 rows of `linelist`:
 ```{r message=FALSE, echo=F}
 DT::datatable(head(linelist,50), rownames = FALSE, filter="top", options = list(pageLength = 5, scrollX=T), class = 'white-space: nowrap' )
 ```
+
+:::
 
 ## Select or re-order columns
 

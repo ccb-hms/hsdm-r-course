@@ -6,6 +6,16 @@
 You can find the original, extended version of this chapter [here](https://epirhandbook.com/en/cleaning-data-and-core-functions.html).
 :::
 
+Here are a few scenarios where you need to re-code (change) values:
+
+-   to edit one specific value (e.g. one date with an incorrect year or format)\
+-   to reconcile values not spelled the same
+-   to create a new column of categorical values\
+-   to create a new column of numeric categories (e.g. age categories)
+
+::: {.callout-note appearance="minimal" collapse="true"}
+## Data Preparation
+
 ```{r}
 #| echo: false
 #| output: false  
@@ -21,12 +31,8 @@ pacman::p_load(
 linelist <- rio::import("data/case_linelists/linelist_cleaned.rds")
 ```
 
-Here are a few scenarios where you need to re-code (change) values:
+:::
 
--   to edit one specific value (e.g. one date with an incorrect year or format)\
--   to reconcile values not spelled the same
--   to create a new column of categorical values\
--   to create a new column of numeric categories (e.g. age categories)
 
 ## Manually changing specific values
 

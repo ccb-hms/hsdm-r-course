@@ -8,8 +8,8 @@ This page demonstrates the use of **janitor**, **dplyr**, and **base** R to summ
 
 Here we'll learn how to *create* the underlying tables, whereas in the next chapter we'll see how to nicely format and print them.
 
-<!-- ======================================================= -->
-## Preparation {  }
+::: {.callout-note appearance="minimal" collapse="true"}
+## Data Preparation
 
 
 ### Load packages {.unnumbered}
@@ -40,7 +40,7 @@ linelist <- rio::import("data/case_linelists/linelist_cleaned.rds")
 # import the linelist
 linelist <- import("linelist_cleaned.rds")
 ```
-
+:::
 <!-- ======================================================= -->
 ## Browse data {  }
 

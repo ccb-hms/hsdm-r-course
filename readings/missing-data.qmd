@@ -1,6 +1,12 @@
 
 # Missing data { }
 
+::: callout-tip
+## Extended Materials
+
+You can find the original, extended version of this chapter [here](https://epirhandbook.com/en/missing-data.html).
+::
+
 ```{r, out.width=c("50%"), echo=F}
 knitr::include_graphics(here::here("img", "missingness.png"))
 knitr::include_graphics(here::here("img", "missingness_overview.png"))
@@ -8,8 +14,8 @@ knitr::include_graphics(here::here("img", "missingness_overview.png"))
 
 This chapter will cover how to assess missingness, filter out rows by missingness, and handle how `NA` is displayed in plots. 
 
-<!-- ======================================================= -->
-## Preparation { }
+::: {.callout-note appearance="minimal" collapse="true"}
+## Data Preparation
 
 ### Load packages {.unnumbered}  
 
@@ -48,7 +54,7 @@ DT::datatable(head(linelist, 50), rownames = FALSE, filter="top", options = list
 ### Convert missing on import {.unnumbered}  
 
 When importing your data, be aware of values that should be classified as missing. For example, 99, 999, "Missing", blank cells (""), or cells with an empty space (" "). You can convert these to `NA` (R's version of missing data) during the data import command.  
-
+:::
 
 <!-- ======================================================= -->
 ## Missing values in R { }
