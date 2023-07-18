@@ -58,10 +58,21 @@ Open a terminal (if in Mac or Linux) or the command prompt (in Windows).
 Type the command
 
 ```
-docker pull hmsccb/nhanes-workbench:latest
+docker pull hmsccb/nhanes-workbench:0.0.4
 ```
 
 into the terminal. 
+
+You may need to specify a platform, you can try 
+
+`docker pull --platform linux/arm64 hmsccb/nhanes-workbench:0.0.4`
+
+or
+
+`docker pull --platform linux/x86_64/v8 hmsccb/nhanes-workbench:0.0.4`
+
+if pulling without a platform is returning an error. 
+
 
 After you've downloaded the container, you should see it when you look at the `Images` tab in Docker Desktop. 
 
@@ -88,8 +99,11 @@ docker \
         -e 'CONTAINER_USER_PASSWORD=PASSWORD' \
         -e 'ACCEPT_EULA=Y' \
         -e 'SA_PASSWORD=yourStrong(!)Password' \
-        hmsccb/nhanes-workbench:hmsccb/nhanes-workbench:latest
+        hmsccb/nhanes-workbench:hmsccb/nhanes-workbench:0.0.4
 ```
+
+Similar to pulling the container, if you get an error you may need to specify a platform by adding `--platform linux/arm64` or `--platform linux/x86_64/v8` to the run command. 
+
 If you're using the WSL backend on Windows (recommended), you can open a linux terminal by hitting the windows key and typing in `WSL`:
 
 ![Running WSL](../img/run-wsl.png)
@@ -99,7 +113,7 @@ Paste the run command above into your terminal to run the container.
 If you're using the Hyper-V backend on Windows, copy and paste this command into the command prompt (this is the same as the Mac/Linux command but doesn't use the `\` character to make it multiline):
 
 ```
-docker run  --rm --name nhanes-workbench -d  -v LOCAL_DIRECTORY:/HostData -p 8787:8787 -p 2200:22 -p 1433:1433  -e 'CONTAINER_USER_USERNAME=USER'  -e 'CONTAINER_USER_PASSWORD=PASSWORD' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong(!)Password' hmsccb/nhanes-workbench:latest
+docker run  --rm --name nhanes-workbench -d  -v LOCAL_DIRECTORY:/HostData -p 8787:8787 -p 2200:22 -p 1433:1433  -e 'CONTAINER_USER_USERNAME=USER'  -e 'CONTAINER_USER_PASSWORD=PASSWORD' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong(!)Password' hmsccb/nhanes-workbench:0.0.4
 ```
 
 You can learn more about what each part of this command does below. 

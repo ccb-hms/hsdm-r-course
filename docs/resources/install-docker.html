@@ -241,8 +241,13 @@ ul.task-list li input[type="checkbox"] {
 <section id="option-2-using-the-command-line" class="level3">
 <h3 data-anchor-id="option-2-using-the-command-line">Option 2: Using the command line</h3>
 <p>Open a terminal (if in Mac or Linux) or the command prompt (in Windows). Type the command</p>
-<pre><code>docker pull hmsccb/nhanes-workbench:latest</code></pre>
+<pre><code>docker pull hmsccb/nhanes-workbench:0.0.4</code></pre>
 <p>into the terminal.</p>
+<p>You may need to specify a platform, you can try</p>
+<p><code>docker pull --platform linux/arm64 hmsccb/nhanes-workbench:0.0.4</code></p>
+<p>or</p>
+<p><code>docker pull --platform linux/x86_64/v8 hmsccb/nhanes-workbench:0.0.4</code></p>
+<p>if pulling without a platform is returning an error.</p>
 <p>After you’ve downloaded the container, you should see it when you look at the <code>Images</code> tab in Docker Desktop.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -269,7 +274,8 @@ ul.task-list li input[type="checkbox"] {
         -e 'CONTAINER_USER_PASSWORD=PASSWORD' \
         -e 'ACCEPT_EULA=Y' \
         -e 'SA_PASSWORD=yourStrong(!)Password' \
-        hmsccb/nhanes-workbench:hmsccb/nhanes-workbench:latest</code></pre>
+        hmsccb/nhanes-workbench:hmsccb/nhanes-workbench:0.0.4</code></pre>
+<p>Similar to pulling the container, if you get an error you may need to specify a platform by adding <code>--platform linux/arm64</code> or <code>--platform linux/x86_64/v8</code> to the run command.</p>
 <p>If you’re using the WSL backend on Windows (recommended), you can open a linux terminal by hitting the windows key and typing in <code>WSL</code>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -279,7 +285,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>Paste the run command above into your terminal to run the container.</p>
 <p>If you’re using the Hyper-V backend on Windows, copy and paste this command into the command prompt (this is the same as the Mac/Linux command but doesn’t use the <code>\</code> character to make it multiline):</p>
-<pre><code>docker run  --rm --name nhanes-workbench -d  -v LOCAL_DIRECTORY:/HostData -p 8787:8787 -p 2200:22 -p 1433:1433  -e 'CONTAINER_USER_USERNAME=USER'  -e 'CONTAINER_USER_PASSWORD=PASSWORD' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong(!)Password' hmsccb/nhanes-workbench:latest</code></pre>
+<pre><code>docker run  --rm --name nhanes-workbench -d  -v LOCAL_DIRECTORY:/HostData -p 8787:8787 -p 2200:22 -p 1433:1433  -e 'CONTAINER_USER_USERNAME=USER'  -e 'CONTAINER_USER_PASSWORD=PASSWORD' -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong(!)Password' hmsccb/nhanes-workbench:0.0.4</code></pre>
 <p>You can learn more about what each part of this command does below.</p>
 <section id="details" class="level3">
 <h3 data-anchor-id="details">Details</h3>

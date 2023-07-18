@@ -194,3 +194,46 @@ Recreate as much of Table 1a. from the Beheshti paper as you can. For now, this 
 
 :::
 
+## Logistic Regression
+
+Let's recreate the analysis shown in table 2 of the Beheshti analysis. 
+The table's caption explains the 5 different models:
+
+> Model 1=crude (unadjusted); model 2=controlled for age, race/ethnicity, gender; model 3=controlled for age, race/ethnicity, gender, BMI; model 4=controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio; model 5=controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth.
+
+::: {.callout-tip appearance="minimal"}
+## Discussion
+
+Does the paper give enough detail to reproduce its logistic regression analysis? 
+
+Why or why not?
+:::
+
+
+::: {.callout-tip appearance="minimal"}
+## Exercise
+
+Below model 1 has been reproduced.
+See if you can recreate models 2-5.
+
+```{r}
+
+# Model 1: Unadjusted
+dia_logit1 <- (svyglm(dental.caries~I(diabetes == "diabetic"), family=quasibinomial, design=ado_design, na.action = na.omit))
+exp(coef(dia_logit1))
+
+pre_logit1 <- (svyglm(dental.caries~I(diabetes == "prediabetic"), family=quasibinomial, design=ado_design, na.action = na.omit))
+exp(coef(pre_logit1))
+
+# Model 2: Controlled for age, race/ethnicity, gender
+logit2 <- (svyglm(dental.caries~I(diabetes == "diabetic") + RIDRETH1 + RIAGENDR + as.factor(RIDAGEYR), family=quasibinomial, design=ado_design, na.action = na.omit))
+exp(coef(logit2))
+
+# Model 3: Controlled for age, race/ethnicity, gender, BMI
+
+# Model 4: Controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio
+
+# Model 5: Controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth
+
+```
+:::

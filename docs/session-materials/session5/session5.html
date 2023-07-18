@@ -195,7 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session7/session7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 7: Regression Models</span></a>
+ <span class="menu-text">NHANES</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -223,7 +223,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#creating-the-survey-design-object" id="toc-creating-the-survey-design-object" class="nav-link" data-scroll-target="#creating-the-survey-design-object">Creating the survey design object</a></li>
   </ul></li>
   <li><a href="#survey-analysis" id="toc-survey-analysis" class="nav-link" data-scroll-target="#survey-analysis">Survey Analysis</a></li>
-  <li><a href="#creating-a-summary-table" id="toc-creating-a-summary-table" class="nav-link" data-scroll-target="#creating-a-summary-table">Creating a summary table</a></li>
+  <li><a href="#creating-a-summary-table" id="toc-creating-a-summary-table" class="nav-link" data-scroll-target="#creating-a-summary-table">Creating a summary table</a>
+  <ul class="collapse">
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression">Logistic Regression</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -482,8 +485,79 @@ Exercise
 <p>Recreate as much of Table 1a. from the Beheshti paper as you can. For now, this will mean excluding Chi-squared test results.</p>
 </div>
 </div>
+<section id="logistic-regression" class="level2">
+<h2 data-anchor-id="logistic-regression">Logistic Regression</h2>
+<p>Let’s recreate the analysis shown in table 2 of the Beheshti analysis. The table’s caption explains the 5 different models:</p>
+<blockquote class="blockquote">
+<p>Model 1=crude (unadjusted); model 2=controlled for age, race/ethnicity, gender; model 3=controlled for age, race/ethnicity, gender, BMI; model 4=controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio; model 5=controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth.</p>
+</blockquote>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Discussion
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Does the paper give enough detail to reproduce its logistic regression analysis?</p>
+<p>Why or why not?</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Below model 1 has been reproduced. See if you can recreate models 2-5.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1: Unadjusted</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>dia_logit1 <span class="ot">&lt;-</span> (<span class="fu">svyglm</span>(dental.caries<span class="sc">~</span><span class="fu">I</span>(diabetes <span class="sc">==</span> <span class="st">"diabetic"</span>), <span class="at">family=</span>quasibinomial, <span class="at">design=</span>ado_design, <span class="at">na.action =</span> na.omit))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(dia_logit1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  (Intercept) I(diabetes == "diabetic")TRUE 
+                     1.287895                      2.906902 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pre_logit1 <span class="ot">&lt;-</span> (<span class="fu">svyglm</span>(dental.caries<span class="sc">~</span><span class="fu">I</span>(diabetes <span class="sc">==</span> <span class="st">"prediabetic"</span>), <span class="at">family=</span>quasibinomial, <span class="at">design=</span>ado_design, <span class="at">na.action =</span> na.omit))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(pre_logit1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     (Intercept) I(diabetes == "prediabetic")TRUE 
+                        1.294750                         0.983911 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2: Controlled for age, race/ethnicity, gender</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>logit2 <span class="ot">&lt;-</span> (<span class="fu">svyglm</span>(dental.caries<span class="sc">~</span><span class="fu">I</span>(diabetes <span class="sc">==</span> <span class="st">"diabetic"</span>) <span class="sc">+</span> RIDRETH1 <span class="sc">+</span> RIAGENDR <span class="sc">+</span> <span class="fu">as.factor</span>(RIDAGEYR), <span class="at">family=</span>quasibinomial, <span class="at">design=</span>ado_design, <span class="at">na.action =</span> na.omit))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(logit2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                           (Intercept)          I(diabetes == "diabetic")TRUE 
+                             1.7505063                              2.4045668 
+            RIDRETH1Non-Hispanic Black             RIDRETH1Non-Hispanic White 
+                             0.7599633                              0.5950892 
+                RIDRETH1Other Hispanic RIDRETH1Other Race - Including Multi-R 
+                             0.8247868                              0.8500890 
+                          RIAGENDRMale                  as.factor(RIDAGEYR)14 
+                             0.8138086                              0.9083337 
+                 as.factor(RIDAGEYR)15                  as.factor(RIDAGEYR)16 
+                             1.2446610                              1.1863763 
+                 as.factor(RIDAGEYR)17                  as.factor(RIDAGEYR)18 
+                             1.3941078                              1.6976249 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 3: Controlled for age, race/ethnicity, gender, BMI</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 4: Controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 5: Controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
