@@ -59,7 +59,7 @@ all_nhanes <- mutate(all_nhanes,
                    # Basic Categories
                    RIAGENDR = as.factor(RIAGENDR),
                    RIDRETH1 = as.factor(RIDRETH1),
-                   DMDBORN = noquote(DMDBORN), # Remove quotes
+                   DMDBORN = gsub("\"", "", DMDBORN),
                    DMDBORN = as.factor(DMDBORN),
                    OHXDECAY = (OHXDECAY == "Yes"),
                    OHXREST = (OHXREST == "Yes"),

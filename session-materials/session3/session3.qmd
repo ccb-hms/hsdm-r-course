@@ -9,8 +9,6 @@ code-annotations: select
 # Data
 
 We will be picking up where we left off with the data last week. 
-If you have the data at hand you're all set, or you can download the week 2 data [here]().
-You should check that the categorical variables you added last week are correctly encoded before continuing. 
 
 ```{r}
 #| label: load-data
@@ -59,37 +57,64 @@ Let's make a scatterplot, created with `geom_point()` in ggplot.
 ggplot(nhanes_processed, aes(x = hba1c, y = plasma.glucose)) +
   geom_point()
 ```
-::: {.callout-tip appearance="minimal"}
-## Exercise
-
-a. Try making a histogram displaying age in years with `geom_histogram`.
-Do you agree with the authors' decision in [Beheshti et. al.](https://pubmed.ncbi.nlm.nih.gov/33892837/) to create two age categories to study this population?
+For some data, we might want to visualize things with a table instead of a plot. 
+We can use the `table` builtin function to easily tabulate age by dental caries. 
 
 ```{r}
-# TODO make your histogram here
-ggplot(nhanes_processed,
-       aes(x = age.years)
-       ) + geom_histogram()
+table(nhanes_processed[,c("age.years","dental.caries")])
 ```
-b. Typically, the bars in a histogram touch each other. Why is that not the case here? Is there a parameter you could change or different `geom()` you could use which might work better in this situation? 
-
-Try your solution out.
+However, we can also take advantage of packages written for this purpose. 
+For instance, we can quickly make a frequency table using the `proc_freq` function in `flextable`. 
 
 ```{r}
-# TODO your improved age distribution code here
+# install.packages("flextable")
+library(flextable)
+proc_freq(nhanes_processed,"age.years","dental.caries")
 ```
-:::
 
-::: {.callout-tip appearance="minimal"}
-## Exercise
-Choose a numeric variable in the data and make a boxplot showing how it varies by subject ethnicity. 
+Or we can use the `gtsummary` package to summarize everything.
 
 ```{r}
-#TODO your plot here
+library(gtsummary)
+
+select(nhanes_processed,-family.PIR) %>%
+  tbl_summary(by = dental.caries)
+```
+
+Now, let's make a boxplot showing how BMI varies by subject ethnicity. 
+Inside of the `geom_boxplot` function, we'll also set the `varwidth` parameter to true so that the box sizes vary with how many samples are in each category.
+
+```{r}
 ggplot(nhanes_processed, aes(x = ethnicity, y = bmi)) + 
-  geom_boxplot()
+  geom_boxplot(varwidth = TRUE)
+```
+
+::: {.callout-tip appearance="minimal"}
+## Exercise
+Instead of a boxplot, try making a bee swarm plot or a violin plot. 
+Note that the beeswarm plot is in a separate package, `ggbeeswarm`.
+You might need to vary the `cex` argument in the beeswarm plot to increase the spacing between the strips. 
+
+```{r}
+# install.packages("ggbeeswarm")
+library(ggbeeswarm)
+#TODO your plot here
+
+# Beeswarm plot
+ggplot(nhanes_processed, aes(x = ethnicity, y = bmi)) + 
+  geom_beeswarm(cex = 0.5)
+
+# Violin plot
+ggplot(nhanes_processed, aes(x = ethnicity, y = bmi)) + 
+  geom_violin()
 ```
 :::
+
+Note that we can also easily make boxplots using R's builtin plotting `boxplot` function. 
+
+```{r}
+boxplot(bmi ~ ethnicity, data = nhanes_processed)
+```
 
 # Mapping Variables
 
@@ -101,18 +126,19 @@ For instance, let's take our scatterplot from before and color the points by dia
 ggplot(nhanes_processed, aes(x = hba1c, y = plasma.glucose, color = diabetes)) +
   geom_point() 
 ```
-
+It is difficult to tell how many diabetic participants are in this plot, as it's possible that the red diabetic points have been covered by the blue and green points. 
+We can alter the transparency of the points by changing `alpha`. 
 Remember we can also change parts of the plot outside of `aes()` to have them not depend on any variable. 
 
 ```{r}
 ggplot(nhanes_processed, aes(x = hba1c, y = plasma.glucose, color = diabetes)) +
-  geom_point(size = 2.5) 
+  geom_point(alpha = 0.6) 
 ```
 We can also have a single variable encoded into multiple parts of the plot.
 
 ```{r}
 ggplot(nhanes_processed, aes(x = hba1c, y = plasma.glucose, color = diabetes, shape = diabetes)) +
-  geom_point(size = 2.5) 
+  geom_point(alpha = 0.6) 
 ```
 ::: {.callout-tip appearance="minimal"}
 ## Exercise
@@ -135,6 +161,8 @@ ggplot(nhanes_processed, aes(x = age.cat, y = bmi, fill = ethnicity)) +
 ```
 :::
 
+
+
 # Customizing Plots
 
 Taking a figure all the way to publication-quality can require careful fine tuning. 
@@ -149,16 +177,16 @@ Note that changing the `fig.width` setting for the code block will not effect ho
 library(wesanderson)
 
 #Note that this font import can take multiple minutes to run
-pal <- wes_palette("Zissou1", 5, type = "continuous")
+pal <- wes_palette("Zissou1", 2, type = "continuous")
 
-ggplot(nhanes_processed, aes(x = hba1c, fill = ethnicity)) + 
- geom_histogram() +
+ggplot(nhanes_processed, aes(x = ethnicity, y = bmi, fill = dental.caries)) + 
+ geom_boxplot() +
  theme_minimal() +
- ggtitle("HbA1C stratified by ethnicity") +
- xlab("HbA1C (%)") +
- ylab("Count") +
- scale_fill_manual(values = pal, name = "Ethnicity") +
- theme(text = element_text(size=18))
+ ggtitle("BMI by ethicity and dental caries") +
+ xlab("Ethnicity") +
+ ylab("BMI") +
+ scale_fill_manual(values = pal, name = "Dental Caries") +
+ theme(text = element_text(size=14), axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
 ```
 ::: {.callout-tip appearance="minimal"}
 ## Exercise

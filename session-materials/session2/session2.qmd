@@ -188,8 +188,6 @@ If we take a look at Table 1a in [Beheshti et. al.](https://pubmed.ncbi.nlm.nih.
 
 Recall that `mutate` can be used to create new columns out of old columns. We can combine this with `cut` to create new categories.
 
-CHRISTODO: Change this to first use basic conditionals, then show how to use cut
-
 ```{r}
 nhanes_ado <- nhanes_ado %>%
   mutate(
