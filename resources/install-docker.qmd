@@ -32,6 +32,15 @@ Feel free to choose any of the possible distributions (we like Ubuntu).
 You will need to know whether your Mac computer is using an Intel or Apple silicon processor.
 You can follow the instructions [here](https://support.apple.com/en-us/HT211814) to find this information. 
 
+If you are on a newer Mac with an Apple silicon processor, you will most likely also need to change a setting in Docker Desktop:
+
+![Setting for Apple Silicon](../img/docker-silicon-rosetta.png)
+
+1. Click the settings button in the right side of the top bar.
+2. Click on Features in development in the left sidebar.
+3. Check the box for `Use Rosetta for x86/amd64 emulation on Apple Silicon`.
+
+
 #### Notes for Linux Users
 
 While Docker Desktop can be run on [Linux](https://docs.docker.com/desktop/install/linux-install/), support is limited.
@@ -103,7 +112,7 @@ docker \
         -e 'CONTAINER_USER_PASSWORD=PASSWORD' \
         -e 'ACCEPT_EULA=Y' \
         -e 'SA_PASSWORD=yourStrong(!)Password' \
-        hmsccb/nhanes-workbench:hmsccb/nhanes-workbench:version-0.0.4
+        hmsccb/nhanes-workbench:version-0.0.4
 ```
 
 Similar to pulling the container, if you get an error you may need to specify a platform by adding `--platform linux/arm64` or `--platform linux/x86_64/v8` to the run command. 
