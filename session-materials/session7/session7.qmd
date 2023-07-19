@@ -1,5 +1,5 @@
 ---
-title: "NHANES"
+title: "Week 7: Regression"
 author: "RG"
 date: "2023-06-26"
 output: html_document
@@ -10,6 +10,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library("splines")
 library("DT")
 ```
+
+*Note that this is a copy of NhanesAnalysis.Rmd*
 
 ## Load the data
 
