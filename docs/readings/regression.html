@@ -719,8 +719,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6f5388639ae71ed4fe47" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-6f5388639ae71ed4fe47">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.26,0.9399999999999999,1.15,0.99,1.03,1.07,0.68,0.53],[0.07000000000000001,0.1,0.11,0.11,0.1,0.11,0.26,0.92],[3.21,-0.62,1.29,-0.05,0.27,0.5600000000000001,-1.5,-0.7],[0,0.54,0.2,0.96,0.79,0.58,0.13,0.49],[1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07000000000000001],[1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b3968286d6eb245eb5da" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b3968286d6eb245eb5da">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.26,0.9399999999999999,1.15,0.99,1.03,1.07,0.68,0.53],[0.07000000000000001,0.1,0.11,0.11,0.1,0.11,0.26,0.92],[3.21,-0.62,1.29,-0.05,0.27,0.5600000000000001,-1.5,-0.7],[0,0.54,0.2,0.96,0.79,0.58,0.13,0.49],[1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07000000000000001],[1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <ol start="2" type="1">
@@ -734,8 +734,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-67891f6387a2318f92c3" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-67891f6387a2318f92c3">{"x":{"filter":"none","vertical":false,"data":[["0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+"],[338,365,273,238,345,228,35,3],[427,433,396,299,448,307,30,2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_cat<\/th>\n      <th>0<\/th>\n      <th>1<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f4273c9e1f14a7e00763" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f4273c9e1f14a7e00763">{"x":{"filter":"none","vertical":false,"data":[["0-4","5-9","10-14","15-19","20-29","30-49","50-69","70+"],[338,365,273,238,345,228,35,3],[427,433,396,299,448,307,30,2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>age_cat<\/th>\n      <th>0<\/th>\n      <th>1<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Now we can bind the <code>counts_table</code> and the <code>model</code> results together horizontally with <code>bind_cols()</code> (<strong>dplyr</strong>). Remember that with <code>bind_cols()</code> the rows in the two data frames must be aligned perfectly. In this code, because we are binding within a pipe chain, we use <code>.</code> to represent the piped object <code>counts_table</code> as we bind it to <code>model</code>. To finish the process, we use <code>select()</code> to pick the desired columns and their order, and finally apply the <strong>base</strong> R <code>round()</code> function across all numeric columns to specify 2 decimal places.</p>
@@ -801,8 +801,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d9128e508700189552c3" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d9128e508700189552c3">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","(Intercept)","fever","(Intercept)","chills","(Intercept)","cough","(Intercept)","aches","(Intercept)","vomit","(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.28,1,1.28,1,1.28,1.03,1.14,1.15,1.29,0.93,1.23,1.09,1.26,0.9399999999999999,1.15,0.99,1.03,1.07,0.68,0.53],[0.04,0.06,0.07000000000000001,0.08,0.03,0.08,0.08,0.09,0.03,0.1,0.04,0.06,0.07000000000000001,0.1,0.11,0.11,0.1,0.11,0.26,0.92],[5.67,-0.04,3.44,0.01,6.98,0.41,1.53,1.58,7.78,-0.66,4.67,1.39,3.21,-0.62,1.29,-0.05,0.27,0.5600000000000001,-1.5,-0.7],[0,0.97,0,0.99,0,0.68,0.13,0.11,0,0.51,0,0.17,0,0.54,0.2,0.96,0.79,0.58,0.13,0.49],[1.18,0.88,1.11,0.85,1.19,0.89,0.97,0.97,1.21,0.76,1.13,0.96,1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07000000000000001],[1.4,1.13,1.48,1.17,1.37,1.21,1.34,1.37,1.38,1.14,1.34,1.23,1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6c0ad6f502c5190a6119" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6c0ad6f502c5190a6119">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","(Intercept)","fever","(Intercept)","chills","(Intercept)","cough","(Intercept)","aches","(Intercept)","vomit","(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.28,1,1.28,1,1.28,1.03,1.14,1.15,1.29,0.93,1.23,1.09,1.26,0.9399999999999999,1.15,0.99,1.03,1.07,0.68,0.53],[0.04,0.06,0.07000000000000001,0.08,0.03,0.08,0.08,0.09,0.03,0.1,0.04,0.06,0.07000000000000001,0.1,0.11,0.11,0.1,0.11,0.26,0.92],[5.67,-0.04,3.44,0.01,6.98,0.41,1.53,1.58,7.78,-0.66,4.67,1.39,3.21,-0.62,1.29,-0.05,0.27,0.5600000000000001,-1.5,-0.7],[0,0.97,0,0.99,0,0.68,0.13,0.11,0,0.51,0,0.17,0,0.54,0.2,0.96,0.79,0.58,0.13,0.49],[1.18,0.88,1.11,0.85,1.19,0.89,0.97,0.97,1.21,0.76,1.13,0.96,1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07000000000000001],[1.4,1.13,1.48,1.17,1.37,1.21,1.34,1.37,1.38,1.14,1.34,1.23,1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>As before, we can create a counts table from the <code>linelist</code> for each explanatory variable, bind it to <code>models</code>, and make a nice table. We begin with the variables, and iterate through them with <code>map()</code>. We iterate through a user-defined function which involves creating a counts table with <strong>dplyr</strong> functions. Then the results are combined and bound with the <code>models</code> model results.</p>
@@ -837,8 +837,8 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7828929c8765eb60b645" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7828929c8765eb60b645">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","(Intercept)","fever","(Intercept)","chills","(Intercept)","cough","(Intercept)","aches","(Intercept)","vomit","(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[909,916,340,1485,1472,353,272,1553,1636,189,931,894,338,365,273,238,345,228,35,3],[1168,1174,436,1906,1877,465,309,2033,2114,228,1144,1198,427,433,396,299,448,307,30,2],[1.28,1,1.28,1,1.28,1.03,1.14,1.15,1.29,0.93,1.23,1.09,1.26,0.9399999999999999,1.15,0.99,1.03,1.07,0.68,0.53],[1.18,0.88,1.11,0.85,1.19,0.89,0.97,0.97,1.21,0.76,1.13,0.96,1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07000000000000001],[1.4,1.13,1.48,1.17,1.37,1.21,1.34,1.37,1.38,1.14,1.34,1.23,1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2],[0,0.97,0,0.99,0,0.68,0.13,0.11,0,0.51,0,0.17,0,0.54,0.2,0.96,0.79,0.58,0.13,0.49]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>0<\/th>\n      <th>1<\/th>\n      <th>estimate<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n      <th>p.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-cbb31fac30ef46b10ec8" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-cbb31fac30ef46b10ec8">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","(Intercept)","fever","(Intercept)","chills","(Intercept)","cough","(Intercept)","aches","(Intercept)","vomit","(Intercept)","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[909,916,340,1485,1472,353,272,1553,1636,189,931,894,338,365,273,238,345,228,35,3],[1168,1174,436,1906,1877,465,309,2033,2114,228,1144,1198,427,433,396,299,448,307,30,2],[1.28,1,1.28,1,1.28,1.03,1.14,1.15,1.29,0.93,1.23,1.09,1.26,0.9399999999999999,1.15,0.99,1.03,1.07,0.68,0.53],[1.18,0.88,1.11,0.85,1.19,0.89,0.97,0.97,1.21,0.76,1.13,0.96,1.1,0.77,0.93,0.8,0.84,0.85,0.41,0.07000000000000001],[1.4,1.13,1.48,1.17,1.37,1.21,1.34,1.37,1.38,1.14,1.34,1.23,1.46,1.15,1.42,1.24,1.26,1.33,1.13,3.2],[0,0.97,0,0.99,0,0.68,0.13,0.11,0,0.51,0,0.17,0,0.54,0.2,0.96,0.79,0.58,0.13,0.49]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>0<\/th>\n      <th>1<\/th>\n      <th>estimate<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n      <th>p.value<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <!-- ======================================================= -->
@@ -865,23 +865,23 @@ Supply arguments directly to `.fns` through an anonymous function instead.
 <span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>univ_tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="ptidhuhhjd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ptidhuhhjd table {
+<div id="twcgwlevuh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#twcgwlevuh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ptidhuhhjd thead, #ptidhuhhjd tbody, #ptidhuhhjd tfoot, #ptidhuhhjd tr, #ptidhuhhjd td, #ptidhuhhjd th {
+#twcgwlevuh thead, #twcgwlevuh tbody, #twcgwlevuh tfoot, #twcgwlevuh tr, #twcgwlevuh td, #twcgwlevuh th {
   border-style: none;
 }
 
-#ptidhuhhjd p {
+#twcgwlevuh p {
   margin: 0;
   padding: 0;
 }
 
-#ptidhuhhjd .gt_table {
+#twcgwlevuh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -907,12 +907,12 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-left-color: #D3D3D3;
 }
 
-#ptidhuhhjd .gt_caption {
+#twcgwlevuh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ptidhuhhjd .gt_title {
+#twcgwlevuh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -924,7 +924,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-bottom-width: 0;
 }
 
-#ptidhuhhjd .gt_subtitle {
+#twcgwlevuh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -936,7 +936,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-top-width: 0;
 }
 
-#ptidhuhhjd .gt_heading {
+#twcgwlevuh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -948,13 +948,13 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-right-color: #D3D3D3;
 }
 
-#ptidhuhhjd .gt_bottom_border {
+#twcgwlevuh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ptidhuhhjd .gt_col_headings {
+#twcgwlevuh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -969,7 +969,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-right-color: #D3D3D3;
 }
 
-#ptidhuhhjd .gt_col_heading {
+#twcgwlevuh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -989,7 +989,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   overflow-x: hidden;
 }
 
-#ptidhuhhjd .gt_column_spanner_outer {
+#twcgwlevuh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1001,15 +1001,15 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   padding-right: 4px;
 }
 
-#ptidhuhhjd .gt_column_spanner_outer:first-child {
+#twcgwlevuh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ptidhuhhjd .gt_column_spanner_outer:last-child {
+#twcgwlevuh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ptidhuhhjd .gt_column_spanner {
+#twcgwlevuh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1021,11 +1021,11 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   width: 100%;
 }
 
-#ptidhuhhjd .gt_spanner_row {
+#twcgwlevuh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ptidhuhhjd .gt_group_heading {
+#twcgwlevuh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1051,7 +1051,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   text-align: left;
 }
 
-#ptidhuhhjd .gt_empty_group_heading {
+#twcgwlevuh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1066,15 +1066,15 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   vertical-align: middle;
 }
 
-#ptidhuhhjd .gt_from_md > :first-child {
+#twcgwlevuh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ptidhuhhjd .gt_from_md > :last-child {
+#twcgwlevuh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ptidhuhhjd .gt_row {
+#twcgwlevuh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1093,7 +1093,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   overflow-x: hidden;
 }
 
-#ptidhuhhjd .gt_stub {
+#twcgwlevuh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1106,7 +1106,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   padding-right: 5px;
 }
 
-#ptidhuhhjd .gt_stub_row_group {
+#twcgwlevuh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1120,15 +1120,15 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   vertical-align: top;
 }
 
-#ptidhuhhjd .gt_row_group_first td {
+#twcgwlevuh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ptidhuhhjd .gt_row_group_first th {
+#twcgwlevuh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ptidhuhhjd .gt_summary_row {
+#twcgwlevuh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1138,16 +1138,16 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   padding-right: 5px;
 }
 
-#ptidhuhhjd .gt_first_summary_row {
+#twcgwlevuh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ptidhuhhjd .gt_first_summary_row.thick {
+#twcgwlevuh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ptidhuhhjd .gt_last_summary_row {
+#twcgwlevuh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1157,7 +1157,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-bottom-color: #D3D3D3;
 }
 
-#ptidhuhhjd .gt_grand_summary_row {
+#twcgwlevuh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1167,7 +1167,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   padding-right: 5px;
 }
 
-#ptidhuhhjd .gt_first_grand_summary_row {
+#twcgwlevuh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1177,7 +1177,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-top-color: #D3D3D3;
 }
 
-#ptidhuhhjd .gt_last_grand_summary_row_top {
+#twcgwlevuh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1187,11 +1187,11 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-bottom-color: #D3D3D3;
 }
 
-#ptidhuhhjd .gt_striped {
+#twcgwlevuh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ptidhuhhjd .gt_table_body {
+#twcgwlevuh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1200,7 +1200,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-bottom-color: #D3D3D3;
 }
 
-#ptidhuhhjd .gt_footnotes {
+#twcgwlevuh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1214,7 +1214,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-right-color: #D3D3D3;
 }
 
-#ptidhuhhjd .gt_footnote {
+#twcgwlevuh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1223,7 +1223,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   padding-right: 5px;
 }
 
-#ptidhuhhjd .gt_sourcenotes {
+#twcgwlevuh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1237,7 +1237,7 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   border-right-color: #D3D3D3;
 }
 
-#ptidhuhhjd .gt_sourcenote {
+#twcgwlevuh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1245,63 +1245,63 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   padding-right: 5px;
 }
 
-#ptidhuhhjd .gt_left {
+#twcgwlevuh .gt_left {
   text-align: left;
 }
 
-#ptidhuhhjd .gt_center {
+#twcgwlevuh .gt_center {
   text-align: center;
 }
 
-#ptidhuhhjd .gt_right {
+#twcgwlevuh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ptidhuhhjd .gt_font_normal {
+#twcgwlevuh .gt_font_normal {
   font-weight: normal;
 }
 
-#ptidhuhhjd .gt_font_bold {
+#twcgwlevuh .gt_font_bold {
   font-weight: bold;
 }
 
-#ptidhuhhjd .gt_font_italic {
+#twcgwlevuh .gt_font_italic {
   font-style: italic;
 }
 
-#ptidhuhhjd .gt_super {
+#twcgwlevuh .gt_super {
   font-size: 65%;
 }
 
-#ptidhuhhjd .gt_footnote_marks {
+#twcgwlevuh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ptidhuhhjd .gt_asterisk {
+#twcgwlevuh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ptidhuhhjd .gt_indent_1 {
+#twcgwlevuh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ptidhuhhjd .gt_indent_2 {
+#twcgwlevuh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ptidhuhhjd .gt_indent_3 {
+#twcgwlevuh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ptidhuhhjd .gt_indent_4 {
+#twcgwlevuh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ptidhuhhjd .gt_indent_5 {
+#twcgwlevuh .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1509,8 +1509,8 @@ Model 2: outcome ~ age_cat + gender
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1a7f71ac623ca937da85" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-1a7f71ac623ca937da85">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","fever","chills","cough","aches","vomit","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.07,1,1,1.03,1.15,0.93,1.09,0.9399999999999999,1.15,0.99,1.03,1.06,0.68,0.52],[0.13,0.07000000000000001,0.08,0.08,0.09,0.1,0.06,0.1,0.11,0.11,0.1,0.12,0.26,0.92],[0.52,0.04,0.05,0.43,1.54,-0.68,1.37,-0.62,1.27,-0.1,0.26,0.51,-1.48,-0.71],[0.6,0.97,0.96,0.67,0.12,0.5,0.17,0.53,0.2,0.92,0.8,0.61,0.14,0.48],[0.83,0.88,0.86,0.89,0.96,0.76,0.96,0.77,0.93,0.79,0.84,0.85,0.4,0.07000000000000001],[1.39,1.14,1.18,1.21,1.37,1.14,1.23,1.15,1.41,1.24,1.26,1.33,1.13,3.19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-93e4456b9212de177c8d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-93e4456b9212de177c8d">{"x":{"filter":"none","vertical":false,"data":[["(Intercept)","gender","fever","chills","cough","aches","vomit","age_cat5-9","age_cat10-14","age_cat15-19","age_cat20-29","age_cat30-49","age_cat50-69","age_cat70+"],[1.07,1,1,1.03,1.15,0.93,1.09,0.9399999999999999,1.15,0.99,1.03,1.06,0.68,0.52],[0.13,0.07000000000000001,0.08,0.08,0.09,0.1,0.06,0.1,0.11,0.11,0.1,0.12,0.26,0.92],[0.52,0.04,0.05,0.43,1.54,-0.68,1.37,-0.62,1.27,-0.1,0.26,0.51,-1.48,-0.71],[0.6,0.97,0.96,0.67,0.12,0.5,0.17,0.53,0.2,0.92,0.8,0.61,0.14,0.48],[0.83,0.88,0.86,0.89,0.96,0.76,0.96,0.77,0.93,0.79,0.84,0.85,0.4,0.07000000000000001],[1.39,1.14,1.18,1.21,1.37,1.14,1.23,1.15,1.41,1.24,1.26,1.33,1.13,3.19]],"container":"<table class=\"white-space: nowrap\">\n  <thead>\n    <tr>\n      <th>term<\/th>\n      <th>estimate<\/th>\n      <th>std.error<\/th>\n      <th>statistic<\/th>\n      <th>p.value<\/th>\n      <th>conf.low<\/th>\n      <th>conf.high<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"scrollX":true,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6]}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <!-- ======================================================= -->
@@ -1530,23 +1530,23 @@ Model 2: outcome ~ age_cat + gender
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>mv_tab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="hcrpsdzsoq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hcrpsdzsoq table {
+<div id="uhahdmkwvc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#uhahdmkwvc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hcrpsdzsoq thead, #hcrpsdzsoq tbody, #hcrpsdzsoq tfoot, #hcrpsdzsoq tr, #hcrpsdzsoq td, #hcrpsdzsoq th {
+#uhahdmkwvc thead, #uhahdmkwvc tbody, #uhahdmkwvc tfoot, #uhahdmkwvc tr, #uhahdmkwvc td, #uhahdmkwvc th {
   border-style: none;
 }
 
-#hcrpsdzsoq p {
+#uhahdmkwvc p {
   margin: 0;
   padding: 0;
 }
 
-#hcrpsdzsoq .gt_table {
+#uhahdmkwvc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1572,12 +1572,12 @@ Model 2: outcome ~ age_cat + gender
   border-left-color: #D3D3D3;
 }
 
-#hcrpsdzsoq .gt_caption {
+#uhahdmkwvc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hcrpsdzsoq .gt_title {
+#uhahdmkwvc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1589,7 +1589,7 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-width: 0;
 }
 
-#hcrpsdzsoq .gt_subtitle {
+#uhahdmkwvc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1601,7 +1601,7 @@ Model 2: outcome ~ age_cat + gender
   border-top-width: 0;
 }
 
-#hcrpsdzsoq .gt_heading {
+#uhahdmkwvc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1613,13 +1613,13 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#hcrpsdzsoq .gt_bottom_border {
+#uhahdmkwvc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hcrpsdzsoq .gt_col_headings {
+#uhahdmkwvc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1634,7 +1634,7 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#hcrpsdzsoq .gt_col_heading {
+#uhahdmkwvc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1654,7 +1654,7 @@ Model 2: outcome ~ age_cat + gender
   overflow-x: hidden;
 }
 
-#hcrpsdzsoq .gt_column_spanner_outer {
+#uhahdmkwvc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1666,15 +1666,15 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 4px;
 }
 
-#hcrpsdzsoq .gt_column_spanner_outer:first-child {
+#uhahdmkwvc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hcrpsdzsoq .gt_column_spanner_outer:last-child {
+#uhahdmkwvc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hcrpsdzsoq .gt_column_spanner {
+#uhahdmkwvc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1686,11 +1686,11 @@ Model 2: outcome ~ age_cat + gender
   width: 100%;
 }
 
-#hcrpsdzsoq .gt_spanner_row {
+#uhahdmkwvc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hcrpsdzsoq .gt_group_heading {
+#uhahdmkwvc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1716,7 +1716,7 @@ Model 2: outcome ~ age_cat + gender
   text-align: left;
 }
 
-#hcrpsdzsoq .gt_empty_group_heading {
+#uhahdmkwvc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1731,15 +1731,15 @@ Model 2: outcome ~ age_cat + gender
   vertical-align: middle;
 }
 
-#hcrpsdzsoq .gt_from_md > :first-child {
+#uhahdmkwvc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hcrpsdzsoq .gt_from_md > :last-child {
+#uhahdmkwvc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hcrpsdzsoq .gt_row {
+#uhahdmkwvc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1758,7 +1758,7 @@ Model 2: outcome ~ age_cat + gender
   overflow-x: hidden;
 }
 
-#hcrpsdzsoq .gt_stub {
+#uhahdmkwvc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1771,7 +1771,7 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#hcrpsdzsoq .gt_stub_row_group {
+#uhahdmkwvc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1785,15 +1785,15 @@ Model 2: outcome ~ age_cat + gender
   vertical-align: top;
 }
 
-#hcrpsdzsoq .gt_row_group_first td {
+#uhahdmkwvc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hcrpsdzsoq .gt_row_group_first th {
+#uhahdmkwvc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hcrpsdzsoq .gt_summary_row {
+#uhahdmkwvc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1803,16 +1803,16 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#hcrpsdzsoq .gt_first_summary_row {
+#uhahdmkwvc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hcrpsdzsoq .gt_first_summary_row.thick {
+#uhahdmkwvc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hcrpsdzsoq .gt_last_summary_row {
+#uhahdmkwvc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1822,7 +1822,7 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-color: #D3D3D3;
 }
 
-#hcrpsdzsoq .gt_grand_summary_row {
+#uhahdmkwvc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1832,7 +1832,7 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#hcrpsdzsoq .gt_first_grand_summary_row {
+#uhahdmkwvc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1842,7 +1842,7 @@ Model 2: outcome ~ age_cat + gender
   border-top-color: #D3D3D3;
 }
 
-#hcrpsdzsoq .gt_last_grand_summary_row_top {
+#uhahdmkwvc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1852,11 +1852,11 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-color: #D3D3D3;
 }
 
-#hcrpsdzsoq .gt_striped {
+#uhahdmkwvc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hcrpsdzsoq .gt_table_body {
+#uhahdmkwvc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1865,7 +1865,7 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-color: #D3D3D3;
 }
 
-#hcrpsdzsoq .gt_footnotes {
+#uhahdmkwvc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1879,7 +1879,7 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#hcrpsdzsoq .gt_footnote {
+#uhahdmkwvc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1888,7 +1888,7 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#hcrpsdzsoq .gt_sourcenotes {
+#uhahdmkwvc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1902,7 +1902,7 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#hcrpsdzsoq .gt_sourcenote {
+#uhahdmkwvc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1910,63 +1910,63 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#hcrpsdzsoq .gt_left {
+#uhahdmkwvc .gt_left {
   text-align: left;
 }
 
-#hcrpsdzsoq .gt_center {
+#uhahdmkwvc .gt_center {
   text-align: center;
 }
 
-#hcrpsdzsoq .gt_right {
+#uhahdmkwvc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hcrpsdzsoq .gt_font_normal {
+#uhahdmkwvc .gt_font_normal {
   font-weight: normal;
 }
 
-#hcrpsdzsoq .gt_font_bold {
+#uhahdmkwvc .gt_font_bold {
   font-weight: bold;
 }
 
-#hcrpsdzsoq .gt_font_italic {
+#uhahdmkwvc .gt_font_italic {
   font-style: italic;
 }
 
-#hcrpsdzsoq .gt_super {
+#uhahdmkwvc .gt_super {
   font-size: 65%;
 }
 
-#hcrpsdzsoq .gt_footnote_marks {
+#uhahdmkwvc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hcrpsdzsoq .gt_asterisk {
+#uhahdmkwvc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hcrpsdzsoq .gt_indent_1 {
+#uhahdmkwvc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hcrpsdzsoq .gt_indent_2 {
+#uhahdmkwvc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hcrpsdzsoq .gt_indent_3 {
+#uhahdmkwvc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hcrpsdzsoq .gt_indent_4 {
+#uhahdmkwvc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hcrpsdzsoq .gt_indent_5 {
+#uhahdmkwvc .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2060,23 +2060,23 @@ Model 2: outcome ~ age_cat + gender
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">tab_spanner =</span> <span class="fu">c</span>(<span class="st">"**Univariate**"</span>, <span class="st">"**Multivariable**"</span>)) <span class="co"># set header names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="hayvsdyish" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hayvsdyish table {
+<div id="fzkbzltmqp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fzkbzltmqp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hayvsdyish thead, #hayvsdyish tbody, #hayvsdyish tfoot, #hayvsdyish tr, #hayvsdyish td, #hayvsdyish th {
+#fzkbzltmqp thead, #fzkbzltmqp tbody, #fzkbzltmqp tfoot, #fzkbzltmqp tr, #fzkbzltmqp td, #fzkbzltmqp th {
   border-style: none;
 }
 
-#hayvsdyish p {
+#fzkbzltmqp p {
   margin: 0;
   padding: 0;
 }
 
-#hayvsdyish .gt_table {
+#fzkbzltmqp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2102,12 +2102,12 @@ Model 2: outcome ~ age_cat + gender
   border-left-color: #D3D3D3;
 }
 
-#hayvsdyish .gt_caption {
+#fzkbzltmqp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hayvsdyish .gt_title {
+#fzkbzltmqp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2119,7 +2119,7 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-width: 0;
 }
 
-#hayvsdyish .gt_subtitle {
+#fzkbzltmqp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2131,7 +2131,7 @@ Model 2: outcome ~ age_cat + gender
   border-top-width: 0;
 }
 
-#hayvsdyish .gt_heading {
+#fzkbzltmqp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2143,13 +2143,13 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#hayvsdyish .gt_bottom_border {
+#fzkbzltmqp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hayvsdyish .gt_col_headings {
+#fzkbzltmqp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2164,7 +2164,7 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#hayvsdyish .gt_col_heading {
+#fzkbzltmqp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2184,7 +2184,7 @@ Model 2: outcome ~ age_cat + gender
   overflow-x: hidden;
 }
 
-#hayvsdyish .gt_column_spanner_outer {
+#fzkbzltmqp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2196,15 +2196,15 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 4px;
 }
 
-#hayvsdyish .gt_column_spanner_outer:first-child {
+#fzkbzltmqp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hayvsdyish .gt_column_spanner_outer:last-child {
+#fzkbzltmqp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hayvsdyish .gt_column_spanner {
+#fzkbzltmqp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2216,11 +2216,11 @@ Model 2: outcome ~ age_cat + gender
   width: 100%;
 }
 
-#hayvsdyish .gt_spanner_row {
+#fzkbzltmqp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hayvsdyish .gt_group_heading {
+#fzkbzltmqp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2246,7 +2246,7 @@ Model 2: outcome ~ age_cat + gender
   text-align: left;
 }
 
-#hayvsdyish .gt_empty_group_heading {
+#fzkbzltmqp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2261,15 +2261,15 @@ Model 2: outcome ~ age_cat + gender
   vertical-align: middle;
 }
 
-#hayvsdyish .gt_from_md > :first-child {
+#fzkbzltmqp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hayvsdyish .gt_from_md > :last-child {
+#fzkbzltmqp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hayvsdyish .gt_row {
+#fzkbzltmqp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2288,7 +2288,7 @@ Model 2: outcome ~ age_cat + gender
   overflow-x: hidden;
 }
 
-#hayvsdyish .gt_stub {
+#fzkbzltmqp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2301,7 +2301,7 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#hayvsdyish .gt_stub_row_group {
+#fzkbzltmqp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2315,15 +2315,15 @@ Model 2: outcome ~ age_cat + gender
   vertical-align: top;
 }
 
-#hayvsdyish .gt_row_group_first td {
+#fzkbzltmqp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hayvsdyish .gt_row_group_first th {
+#fzkbzltmqp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hayvsdyish .gt_summary_row {
+#fzkbzltmqp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2333,16 +2333,16 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#hayvsdyish .gt_first_summary_row {
+#fzkbzltmqp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hayvsdyish .gt_first_summary_row.thick {
+#fzkbzltmqp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hayvsdyish .gt_last_summary_row {
+#fzkbzltmqp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2352,7 +2352,7 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-color: #D3D3D3;
 }
 
-#hayvsdyish .gt_grand_summary_row {
+#fzkbzltmqp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2362,7 +2362,7 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#hayvsdyish .gt_first_grand_summary_row {
+#fzkbzltmqp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2372,7 +2372,7 @@ Model 2: outcome ~ age_cat + gender
   border-top-color: #D3D3D3;
 }
 
-#hayvsdyish .gt_last_grand_summary_row_top {
+#fzkbzltmqp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2382,11 +2382,11 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-color: #D3D3D3;
 }
 
-#hayvsdyish .gt_striped {
+#fzkbzltmqp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hayvsdyish .gt_table_body {
+#fzkbzltmqp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2395,7 +2395,7 @@ Model 2: outcome ~ age_cat + gender
   border-bottom-color: #D3D3D3;
 }
 
-#hayvsdyish .gt_footnotes {
+#fzkbzltmqp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2409,7 +2409,7 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#hayvsdyish .gt_footnote {
+#fzkbzltmqp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2418,7 +2418,7 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#hayvsdyish .gt_sourcenotes {
+#fzkbzltmqp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2432,7 +2432,7 @@ Model 2: outcome ~ age_cat + gender
   border-right-color: #D3D3D3;
 }
 
-#hayvsdyish .gt_sourcenote {
+#fzkbzltmqp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2440,63 +2440,63 @@ Model 2: outcome ~ age_cat + gender
   padding-right: 5px;
 }
 
-#hayvsdyish .gt_left {
+#fzkbzltmqp .gt_left {
   text-align: left;
 }
 
-#hayvsdyish .gt_center {
+#fzkbzltmqp .gt_center {
   text-align: center;
 }
 
-#hayvsdyish .gt_right {
+#fzkbzltmqp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hayvsdyish .gt_font_normal {
+#fzkbzltmqp .gt_font_normal {
   font-weight: normal;
 }
 
-#hayvsdyish .gt_font_bold {
+#fzkbzltmqp .gt_font_bold {
   font-weight: bold;
 }
 
-#hayvsdyish .gt_font_italic {
+#fzkbzltmqp .gt_font_italic {
   font-style: italic;
 }
 
-#hayvsdyish .gt_super {
+#fzkbzltmqp .gt_super {
   font-size: 65%;
 }
 
-#hayvsdyish .gt_footnote_marks {
+#fzkbzltmqp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hayvsdyish .gt_asterisk {
+#fzkbzltmqp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hayvsdyish .gt_indent_1 {
+#fzkbzltmqp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hayvsdyish .gt_indent_2 {
+#fzkbzltmqp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hayvsdyish .gt_indent_3 {
+#fzkbzltmqp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hayvsdyish .gt_indent_4 {
+#fzkbzltmqp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hayvsdyish .gt_indent_5 {
+#fzkbzltmqp .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
