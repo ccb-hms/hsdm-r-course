@@ -71,6 +71,7 @@ website:
       contents:
         - resources/install.qmd
         - resources/install-docker.qmd
+        - resources/accessing-nhanes.qmd
         - resources/resources.qmd
         - resources/quarto-reports.qmd
         - resources/getting-help.qmd

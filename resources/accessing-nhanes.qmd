@@ -1,22 +1,10 @@
----
-editor: 
-  markdown: 
-    wrap: sentence
----
-
 # Accessing NHANES Data {#sec-nhanes}
 
-Below you can find instructions for installing and running the Docker container for NHANES data, created by the CCB.
+This page contains 3 ways of accessing NHANES data inside R. 
 
-Note that these instructions go into how to:
-
-1.  Install Docker/Docker Desktop.
-2.  Download the docker image.
-3.  Create and run the docker container.
-4.  Connect to the running docker container.
-
-However, they do not go into how to actually access the NHANES data once connected to the container.
-We will be learning how to do this in class.
+1. Through the dockerized container created by the CCB. 
+2. Through the `nhanesA` package. 
+3. Through downloading individual files from the CDC website. 
 
 ## Through the Docker container (reccomended)
 
@@ -26,7 +14,7 @@ Connect to RStudio in your browser as shown in the [Accessing NHANES with Docker
 
 ### Installing Phonto
 
- 
+First we need to install the Phonto package, which is the software used to access the NHANES database inside the container. 
 
 In the R console, run the command:
 
@@ -111,6 +99,158 @@ It may take 2-3 tries for the docker container to establish a connection with Gi
 
 :::
 
+### Accessing the Phonto vignettes
+
+Like many R packges, the best way to learn how to use Phonto is to go through the included vignettes. 
+
+You can access the vignettes inside the Docker container by pulling them from Github.
+
+RStudio has an integrated Git user interface that makes it very easy to use both Git and GitHub.
+RStudio has integrated Git support which helps to streamline this process. 
+To get a copy of phonto in RStudio do the following:
+
+1. Click `File` → `New Project`
+2. Select `Version Control` → `Git`
+3. For the URL choose: <https://github.com/ccb-hms/phonto.git>
+4. You can choose the name of the project directory.
+5. Choose the folder in which you want to store the R project and Git (you can put this either inside your home directory or navigate to an attached volume).
+6. Click `Create Project`
+7. Check the `Files` tab to see if you have successfully created the project.
+8. Navigate to `phonto/vignettes` or directly open `phonto/vignettes/quick_start.Rmd` or `phonto/vignettes/VariableClassification.Rmd`. 
+
+*Whenever you are working in an RStudio project that has a dedicated Git repository, you can interact with Git through the Git tab (same pane as Environment tab)*
+
+### Using Phonto
+
+While the above vignettes include a variety of examples in how to use phonto to access the NHANES data, let's take a look at how we accessed the data used in the Beheshti paper.
+
+#### Searching NHANES
+
+To start, if we don't know the variable we're interested in, we can search for keywords using ``nhanesSearch`. 
+
+```r
+hba1c = nhanesSearch("glycohemoglobin", ignore.case=TRUE, ystart = 2005, ystop=2010, namesonly = FALSE)
+```
+
+```
+ Variable.Name Variable.Description Data.File.Name Data.File.Description Begin.Year EndYear  Component
+1         LBXGH  Glycohemoglobin (%)          GHB_D       Glycohemoglobin       2005    2006 Laboratory
+2         LBXGH  Glycohemoglobin (%)          GHB_E       Glycohemoglobin       2007    2008 Laboratory
+3         LBXGH  Glycohemoglobin (%)          GHB_F       Glycohemoglobin       2009    2010 Laboratory
+```
+
+Alternatively, we can look up table definitions. 
+
+```r
+res = nhanesSearchTableNames("DEM", details=TRUE)
+```
+
+```
+   TableName     Years
+1       DEMO 1999-2000
+2     DEMO_B 2001-2002
+3     DEMO_C 2003-2004
+4     DEMO_D 2005-2006
+5     DEMO_E 2007-2008
+6     DEMO_F 2009-2010
+7     DEMO_G 2011-2012
+8     DEMO_H 2013-2014
+9     DEMO_I 2015-2016
+10    DEMO_J 2017-2018
+```
+
+And then check column names.
+
+```r
+nhanesColnames("DEMO_D")
+```
+
+```
+ [1] "SEQN"     "SDDSRVYR" "RIDSTATR" "RIDEXMON" "RIAGENDR" "RIDAGEYR" "RIDAGEMN" "RIDAGEEX" "RIDRETH1" "DMQMILIT" "DMDBORN"  "DMDCITZN"
+[13] "DMDYRSUS" "DMDEDUC3" "DMDEDUC2" "DMDSCHOL" "DMDMARTL" "DMDHHSIZ" "DMDFMSIZ" "INDHHINC" "INDFMINC" "INDFMPIR" "RIDEXPRG" "DMDHRGND"
+[25] "DMDHRAGE" "DMDHRBRN" "DMDHREDU" "DMDHRMAR" "DMDHSEDU" "SIALANG"  "SIAPROXY" "SIAINTRP" "FIALANG"  "FIAPROXY" "FIAINTRP" "MIALANG" 
+[37] "MIAPROXY" "MIAINTRP" "AIALANG"  "WTINT2YR" "WTMEC2YR" "SDMVPSU"  "SDMVSTRA" "SEQN"     "SDDSRVYR" "RIDSTATR" "RIDEXMON" "RIAGENDR"
+[49] "RIDRETH1" "DMQMILIT" "DMDBORN"  "DMDCITZN" "DMDYRSUS" "DMDEDUC3" "DMDEDUC2" "DMDSCHOL" "DMDMARTL" "INDHHINC" "INDFMINC" "RIDEXPRG"
+[61] "DMDHRGND" "DMDHRBRN" "DMDHREDU" "DMDHRMAR" "DMDHSEDU" "SIALANG"  "SIAPROXY" "SIAINTRP" "FIALANG"  "FIAPROXY" "FIAINTRP" "MIALANG" 
+[73] "MIAPROXY" "MIAINTRP" "AIALANG"  "RIDAGEYR" "RIDAGEMN" "RIDAGEEX" "DMDHHSIZ" "DMDFMSIZ" "INDFMPIR" "DMDHRAGE" "WTINT2YR" "WTMEC2YR"
+[85] "SDMVPSU"  "SDMVSTRA"
+```
+
+#### Defining a query
+
+We can define a quary to NHANES by creating a list of column names for each table we're interested in. 
+It is reccomended to only get a single servey cycle with a single query. 
+
+```r
+cols_d = list(DEMO_D= c("RIDAGEYR","RIAGENDR","RIDRETH1", 
+                       "DMDBORN", "INDFMPIR", "SDMVPSU", 
+                       "SDMVSTRA", "WTINT2YR", "WTMEC2YR"), 
+              OHX_D = c("OHXDECAY", "OHXREST"),
+              GLU_D = c("LBXGLU", "WTSAF2YR"), GHB_D = "LBXGH",
+              BMX_D= "BMXBMI"
+)
+cols_e = list(DEMO_E= c("RIDAGEYR","RIAGENDR","RIDRETH1",
+                       "DMDBORN2", "INDFMPIR", "SDMVPSU", 
+                       "SDMVSTRA", "WTINT2YR", "WTMEC2YR"), 
+              OHX_E = c("OHXDECAY", "OHXREST"),
+              GLU_E = c("LBXGLU", "WTSAF2YR"), 
+              GHB_E = "LBXGH",
+              BMX_E = "BMXBMI"
+)
+
+cols_f = list(DEMO_F= c("RIDAGEYR","RIAGENDR","RIDRETH1",
+                       "DMDBORN2", "INDFMPIR", "SDMVPSU", 
+                       "SDMVSTRA", "WTINT2YR", "WTMEC2YR"), 
+              OHXDEN_F = c("OHXDECAY", "OHXREST"),
+              GLU_F = c("LBXGLU", "WTSAF2YR"), 
+              GHB_F = "LBXGH",
+              BMX_F = "BMXBMI"
+)
+```
+
+#### Getting Metadata
+
+We can get metadata on each column by calling `dataDescription`. 
+Here we combine years, but note that only unique variable names and variable descriptions are returned, i.e., if the list contains the same questionnaire/variables across different survey years, and if all metadata is consistent, then only one row for this variable will be return.
+
+```r
+all_cols <- c(cols_d, cols_e, cols_f)
+metadata <- dataDescription(all_cols)
+tail(metadata)
+```
+
+```
+   VariableName                            SASLabel                                                          EnglishText                                     Target
+19     DMDBORN2           Country of Birth - Recode                              In what country {were you/was SP} born? Both males and females 0 YEARS - 150 YEARS
+20     INDFMPIR   Ratio of family income to poverty                        A ratio of family income to poverty threshold Both males and females 0 YEARS - 150 YEARS
+21      SDMVPSU          Masked Variance Pseudo-PSU     Masked Variance Unit Pseudo-PSU variable for variance estimation Both males and females 0 YEARS - 150 YEARS
+22     SDMVSTRA      Masked Variance Pseudo-Stratum Masked Variance Unit Pseudo-Stratum variable for variance estimation Both males and females 0 YEARS - 150 YEARS
+23     WTINT2YR Full Sample 2 Year Interview Weight                                          Interviewed Sample Persons. Both males and females 0 YEARS - 150 YEARS
+24     WTMEC2YR  Full Sample 2 Year MEC Exam Weight                    Both Interviewed and MEC Examined Sample Persons. Both males and females 0 YEARS - 150 YEARS
+```
+
+#### Getting Data
+
+We can use `jointQuery` to get data from NHANES. 
+This will return all columns in the query already translated and combined into a single dataframe for us. 
+
+```r
+base_df_d <- jointQuery(cols_d)
+base_df_e <- jointQuery(cols_e)
+base_df_f <- jointQuery(cols_f)
+
+head(base_df_d)
+```
+
+```
+   SEQN RIDAGEYR RIAGENDR           RIDRETH1                        DMDBORN INDFMPIR SDMVPSU SDMVSTRA  WTINT2YR  WTMEC2YR OHXDECAY OHXREST LBXGLU WTSAF2YR LBXGH BMXBMI Begin.Year EndYear
+1 31127        0     Male Non-Hispanic White "Born in 50 US States or Washi     0.75       2       44  6434.950  6571.396     <NA>    <NA>     NA       NA    NA     NA       2005    2006
+2 31128       11   Female Non-Hispanic Black "Born in 50 US States or Washi     0.77       1       52  9081.701  8987.042      Yes      No     NA       NA    NA  17.45       2005    2006
+3 31129       15     Male Non-Hispanic Black "Born in 50 US States or Washi     2.71       1       51  5316.895  5586.719       No      No     NA       NA   5.2  26.53       2005    2006
+4 31130       85   Female Non-Hispanic White "Born in 50 US States or Washi     1.99       2       46 29960.840 34030.995      Yes     Yes     NA     0.00    NA     NA       2005    2006
+5 31131       44   Female Non-Hispanic Black "Born in 50 US States or Washi     4.65       1       48 26457.708 26770.585       No     Yes     90 67556.81   6.0  30.90       2005    2006
+6 31132       70     Male Non-Hispanic White "Born in 50 US States or Washi     5.00       2       52 32961.510 35315.539       No     Yes    157 80193.96   7.1  24.74       2005    2006
+```
 ## Through nhanesA
 
 With `nhanesA`, we can easily download entire tables from NHANES.

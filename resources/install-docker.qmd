@@ -1,4 +1,4 @@
-# Accessing NHANES with Docker {#sec-install-docker}
+# Installing and Running NHANES Docker Container {#sec-install-docker}
 
 Below you can find instructions for installing and running the Docker container for NHANES data, created by the CCB. 
 
