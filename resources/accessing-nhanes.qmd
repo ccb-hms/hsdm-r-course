@@ -1,0 +1,176 @@
+---
+editor: 
+  markdown: 
+    wrap: sentence
+---
+
+# Accessing NHANES Data {#sec-nhanes}
+
+Below you can find instructions for installing and running the Docker container for NHANES data, created by the CCB.
+
+Note that these instructions go into how to:
+
+1.  Install Docker/Docker Desktop.
+2.  Download the docker image.
+3.  Create and run the docker container.
+4.  Connect to the running docker container.
+
+However, they do not go into how to actually access the NHANES data once connected to the container.
+We will be learning how to do this in class.
+
+## Through the Docker container (reccomended)
+
+These steps will allow you to access the NHANES data via a builtin
+
+Connect to RStudio in your browser as shown in the [Accessing NHANES with Docker](https://ccb-hms.github.io/hsdm-r-course/resources/install-docker.html#running-rstudio) page.
+
+### Installing Phonto
+
+ 
+
+In the R console, run the command:
+
+```r
+devtools::install_github("ccb-hms/phonto")
+```
+
+If successful you should see output similar to:
+
+```
+Downloading GitHub repo ccb-hms/phonto@HEAD
+✔  checking for file ‘/tmp/RtmpjKcsPx/remotes8977d6e909/ccb-hms-phonto-121d255/DESCRIPTION’ ...
+─  preparing ‘phonto’:
+✔  checking DESCRIPTION meta-information
+─  checking for LF line-endings in source and make files and shell scripts
+─  checking for empty or unneeded directories
+─  building ‘phonto_0.0.0.0069.tar.gz’
+   
+* installing *source* package ‘phonto’ ...
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+EpiConductor Container Version: v0.0.4
+Data Collection Date: 2023-06-28
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (phonto)
+```
+
+
+::: {.callout-warning collapse="true"}
+## Timeout Errors
+
+You may get a timeout error such as this:
+
+```r
+> devtools::install_github("ccb-hms/phonto")
+Error: Failed to install 'phonto' from GitHub:
+  Timeout was reached: [api.github.com] Resolving timed out after 10000 milliseconds
+```
+
+Or a longer error related to login timing out like this:
+
+```r
+> devtools::install_github("ccb-hms/phonto")
+Downloading GitHub repo ccb-hms/phonto@HEAD
+✔  checking for file ‘/tmp/RtmpjKcsPx/remotes895e1b4f91/ccb-hms-phonto-121d255/DESCRIPTION’ (554ms)
+─  preparing ‘phonto’:
+✔  checking DESCRIPTION meta-information ...
+─  checking for LF line-endings in source and make files and shell scripts
+─  checking for empty or unneeded directories
+─  building ‘phonto_0.0.0.0069.tar.gz’
+   
+* installing *source* package ‘phonto’ ...
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error : nanodbc/nanodbc.cpp:1021: 00000: [Microsoft][ODBC Driver 17 for SQL Server]Login timeout expired  [Microsoft][ODBC Driver 17 for SQL Server]TCP Provider: Timeout error [258].   [Microsoft][ODBC Driver 17 for SQL Server]Unable to complete login process due to delay in login response  [Microsoft][ODBC Driver 17 for SQL Server]Invalid connection string attribute 
+Error: unable to load R code in package ‘phonto’
+Execution halted
+ERROR: lazy loading failed for package ‘phonto’
+* removing ‘/usr/local/lib/R/library/phonto’
+Warning message:
+In i.p(...) :
+  installation of package ‘/tmp/RtmpjKcsPx/file8930842adb/phonto_0.0.0.0069.tar.gz’ had non-zero exit status
+  
+```
+
+If you get one of these errors, please retry the installation command. 
+It may take 2-3 tries for the docker container to establish a connection with Github. 
+
+:::
+
+## Through nhanesA
+
+With `nhanesA`, we can easily download entire tables from NHANES.
+However, there are some extra processing steps we'll have to perform compared to using the dockerized database.
+You can learn more about using `nhanesA` [here](https://cran.r-project.org/web/packages/nhanesA/vignettes/Introducing_nhanesA.html).
+
+```{r}
+library(nhanesA)
+library(tidyverse)
+library(DT)
+# Get data with nahnesA
+DEMO_H = nhanes('DEMO_H')
+DEMO_I = nhanes('DEMO_I')
+DPQ_H = nhanes('DPQ_H')
+DPQ_I = nhanes('DPQ_I')
+
+# Append Files
+DEMO <- bind_rows(DEMO_H, DEMO_I)
+DPQ <- bind_rows(DPQ_H, DPQ_I)
+
+datatable(head(DEMO))
+datatable(head(DPQ))
+```
+
+There are a few differences between this data and the processed data we've been using.
+First, we have to `join` the DEMO and DPQ tables.
+We'll learn more about joining or merging data in the last week of class.
+
+Second, the values in the raw NHANES tables are numeric encodings for each variable.
+With nhanesA we can lookup the code using `nhanesCodebook` and convert numeric codes using `nhanesTranslate`.
+
+```{r}
+nhanesCodebook('DEMO_H', 'RIAGENDR')
+```
+
+```{r}
+nhanesTranslate(DEMO_H)
+```
+
+## Downloading individual files
+
+If all else fails, individual files can be downloaded from the CDC website and read into R using the [foreign](https://cran.r-project.org/web/packages/foreign/index.html) package.
+This example is taken from an example analysis put out by the CDC [here](https://wwwn.cdc.gov/nchs/data/Tutorials/Code/DB303_R.r).
+
+```{r}
+#' Prevalence of Depression Among Adults Aged 20 and Over: United States, 2013-2016 
+#' Brody DJ, Pratt LA, Hughes JP. Prevalence of Depression Among Adults Aged 20 and Over: United          
+#' States, 2013-2016. NCHS Data Brief. No 303. Hyattsville, MD: National Center for Health Statistics. 2018.                     
+
+#' # Data preparation
+# Download & Read SAS Transport Files
+# Demographic (DEMO)
+download.file("https://wwwn.cdc.gov/nchs/nhanes/2013-2014/DEMO_H.XPT", tf <- tempfile(), mode="wb")
+DEMO_H <- foreign::read.xport(tf)[,c("SEQN","RIAGENDR","RIDAGEYR","SDMVSTRA","SDMVPSU","WTMEC2YR")]
+download.file("https://wwwn.cdc.gov/nchs/nhanes/2015-2016/DEMO_I.XPT", tf <- tempfile(), mode="wb")
+DEMO_I <- foreign::read.xport(tf)[,c("SEQN","RIAGENDR","RIDAGEYR","SDMVSTRA","SDMVPSU","WTMEC2YR")]
+
+# Mental Health - Depression Screener (DPQ) 
+download.file("http://wwwn.cdc.gov/nchs/nhanes/2013-2014/DPQ_H.XPT", tf <- tempfile(), mode="wb")
+DPQ_H <- foreign::read.xport(tf)
+download.file("http://wwwn.cdc.gov/nchs/nhanes/2015-2016/DPQ_I.XPT", tf <- tempfile(), mode="wb")
+DPQ_I <- foreign::read.xport(tf)
+```

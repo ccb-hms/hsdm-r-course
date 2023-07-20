@@ -65,51 +65,63 @@ all_nhanes <- mutate(all_nhanes,
                    OHXREST = (OHXREST == "Yes"),
                    
                    #Complex Categories
-                   diabetes = case_when(
+                   age.cat = cut(
+                      RIDAGEYR,
+                      breaks = c(13, 15, 18, 100),
+                      include.lowest = TRUE,
+                      labels = c("13-15", "16-18", "19+")),
+                   
+                   LBXGH.cat = case_when(
                     is.na(LBXGH) & is.na(LBXGLU) ~ NA,
                     LBXGH >= 6.5 | LBXGLU >= 126 ~ "diabetic",
                     LBXGH >= 5.7 | LBXGLU >= 100 ~ "prediabetic",
                     .default = "nondiabetic"),
                   
-                   age.cat = cut(
+                   RIDAGEYR.cat = cut(
                     RIDAGEYR,
                     breaks = c(13, 15, 18),
                     include.lowest = TRUE,
                     labels = c("13-15", "16-18")),
                  
-                   plasma.glucose.cat = case_when(
+                   LBXGLU.cat = case_when(
                    LBXGLU < 100 ~ "<100 mg/dl",
                    LBXGLU < 126 ~ ">=100 mg/dl and <126 mg/dl", 
                    LBXGLU >= 126 ~ ">=126 mg/dl",
                    .default = NA),
                  
-                  hba1c.cat = case_when(
+                  LBXGH.cat = case_when(
                    LBXGH < 5.7 ~ "<5.7%",
                    LBXGH >= 5.7 ~ ">=5.7% and <6.5%",
                    LBXGH >= 6.5 ~ ">= 6.5%",
                    .default = NA),
                  
-                  bmi.cat = case_when( #Technically we should also have an underweight category
+                  BMXBMI.cat = case_when( 
                    BMXBMI < 25 ~ "Normal", 
                    BMXBMI < 30 ~ "Overweight",
                    BMXBMI >= 30 ~ "Obese",
                    .default = NA), 
                  
-                  family.PIR.cat = case_when(
+                  INDFMPIR.cat = case_when(
                    INDFMPIR == "PIR value greater than or equa" ~ ">= 1",
                    INDFMPIR == "Value greater than or equal to" ~ ">= 1",
                    as.numeric(INDFMPIR) >= 1 ~ ">=1",
                    as.numeric(INDFMPIR) < 1 ~ "<1",
                    .default = NA),
-                  family.PIR.car = as.numeric(family.PIR.cat) < 1.0,
                  
-                  birthplace = case_when(
+                  DMDBORN.cat = case_when(
                    DMDBORN == "Born in 50 US States or Washi" ~ "Within the US",
                    is.na(DMDBORN) ~ NA,
                    DMDBORN == "Don't Know" ~ NA,
                    DMDBORN == "Refused" ~ NA,
                    .default = "Outside the US"),
-                  dental.caries = OHXDECAY | OHXREST)
+                  
+                  dental.caries = OHXDECAY | OHXREST,
+
+                diabetes = case_when(
+                  is.na(LBXGH) & is.na(LBXGLU) ~ NA,
+                 LBXGH >= 6.5 | LBXGLU >= 126 ~ "diabetic",
+                 LBXGH >= 5.7 | LBXGLU >= 100 ~ "prediabetic",
+                  .default = "nondiabetic"))
 
 # Let's save this data for future analysis
 save(all_nhanes, file = "processed_beheshti.RData")
@@ -169,30 +181,15 @@ ado_design <- subset(nhanes_design, RIDAGEYR >= 13 & RIDAGEYR <= 18 & !is.na(OHX
 ado_data <- wt_nhanes %>%
   filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% # Gets the 3660 nonedentulous adolescents
   filter(!is.na(OHXDECAY)) %>% # Gets the 3346 with non-NA dental carie variable
-  filter(!is.na(diabetes))
+  filter(!is.na(diabetes)) # Gets the 3046 with a diabetic status
 ```
 
-# Survey Analysis
 
-```{r}
-svymean(~RIDAGEYR, ado_design, na.rm = TRUE)
-svymean(~RIAGENDR, ado_design, na.rm = TRUE)
-```
-
+These correctly replicate the counts in table 1a
 ```{r}
 svytable(~age.cat + dental.caries, ado_design)
-svymean(~age.cat, ado_design, na.rm = TRUE)
 svytable(~RIDRETH1, ado_design)
 ```
-
-# Creating a summary table
-
-::: {.callout-tip appearance="minimal"}
-# Exercise 
-
-Recreate as much of Table 1a. from the Beheshti paper as you can. For now, this will mean excluding Chi-squared test results.
-
-:::
 
 ## Logistic Regression
 
@@ -215,6 +212,8 @@ Why or why not?
 
 Below model 1 has been reproduced.
 See if you can recreate models 2-5.
+
+Currently model gets the same odds ratio as the paper, but model 2 doesn't. 
 
 ```{r}
 

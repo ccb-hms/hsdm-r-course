@@ -51,9 +51,8 @@ The code used to download the data is shown here:
 
 ```r
 library(phonto)
-library(DBI)
 
-cols_d = list(DEMO_D=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", 
+cols_d = list(DEMO_D=c("RIDAGEYR","RIAGENDR","RIDRETH1", 
                        "DMDBORN", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
                        "WTINT2YR", "WTMEC2YR"), 
               OHX_D =c("OHXDECAY", "OHXREST"),
@@ -62,7 +61,7 @@ cols_d = list(DEMO_D=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2",
 )
 base_df_d <- jointQuery(cols_d)
 
-cols_e = list(DEMO_E=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", 
+cols_e = list(DEMO_E=c("RIDAGEYR","RIAGENDR","RIDRETH1",
                        "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
                        "WTINT2YR", "WTMEC2YR"), 
               OHX_E =c("OHXDECAY", "OHXREST"),
@@ -71,7 +70,7 @@ cols_e = list(DEMO_E=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2",
 )
 base_df_e <- jointQuery(cols_e)
 
-cols_f = list(DEMO_F=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2", 
+cols_f = list(DEMO_F=c("RIDAGEYR","RIAGENDR","RIDRETH1",
                        "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
                        "WTINT2YR", "WTMEC2YR"), 
               OHXDEN_F =c("OHXDECAY", "OHXREST"),
@@ -79,7 +78,10 @@ cols_f = list(DEMO_F=c("RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2",
               BMX_F ="BMXBMI"
 )
 base_df_f <- jointQuery(cols_f)
-save(base_df_d, base_df_e, base_df_f, file = "nhanes_beheshti_data.RData")
+
+all_cols <- c(cols_d, cols_e, cols_f)
+metadata <- dataDescription(all_cols)
+save(base_df_d, base_df_e, base_df_f, metadata, file = "nhanes_beheshti_data.RData")
 ```
 :::
 
@@ -117,6 +119,13 @@ tib_e <- as_tibble(base_df_e)
 tib_f <- as_tibble(base_df_f)
 ```
 
+Let's also view the metadata of the columns.
+
+```{r}
+DT::datatable(metadata)
+```
+
+
 ::: {.callout-tip appearance="minimal"}
 ## Exercise
 a. Resolve the change the variable coding between the datasets.
@@ -142,63 +151,9 @@ Now we can combine the data together.
 
 ```{r}
 # Combine all years together
-tib_all <- tib_d %>%
-  bind_rows(tib_e) %>%
-  bind_rows(tib_f)
+tib_all <- bind_rows(tib_d, tib_e, tib_f)
 ```
 
-
-## Filter relevant population
-
-::: callout-tip
-## Which order should I process my data in?
-
-Choosing the order to perform data cleaning steps depends on a competing factors.
-
-1. **Where information is needed**: Even if an analysis is being performed on only a subset of dataset, the full dataset can help inform data processing decisions such as how to handle missing data. Next week, we'll see that when using survey sample weights we need to use the full dataset to infer population statistics, and thus will need to clean and transform variables before getting the adolecent population. 
-2. **Processing speed**: Smaller datasets are both faster to process and take up less memory than larger datasets. Thus, performing steps which eliminate data first can result in a faster-running computational pipeline. Modern computers can handle most basic data-cleaning operations on hundreds of thousands of observations in seconds, so most of the time we don't need to worry about speed. However, for large datasets or complex algorithms it may become necessary to first reduce the size of your data before performing further cleaning steps. 
-
-:::
-
-Next we need to filter the summary population. 
-Luckily, the paper provides total numbers of participants for most of the filtering steps performed. 
-This makes it much easier for us to check our work. 
-
->The total number of individuals who participated in the
-NHANES from 2005 to 2010 were 31,034 study-participants.
-Among them, 3,660 were nonedentulous adolescents (aged 13
-to 18 years old at the time of screening) who had exam survey
-weights assigned. From those 3,660 adolescents, data to measure
-the main outcome variable (dental caries experience) were
-available for a final sample of 3,346 adolescents, representing
-the population of 24,386,135 U.S. adolescents after applying
-the NHANES sample weights, which was described and analyzed
-in this study.
-
-We can start by filtering on age. 
-However, `RIDAGEYR` is currently not a numeric column. 
-If we try converting `RIDAGEYR` to be numeric using `as.numeric`, we get a warning:
-
-```{r}
-all_ado <- tib_all %>%
-  mutate(RIDAGEYR = as.numeric(RIDAGEYR)) # Convert age to be numeric
-```
-
-::: {.callout-tip appearance="minimal"}
-## Exercise
-
-a. What is causing this warning? Do we need to resolve it?
-**Hint** If we are getting `NA` when converting to numeric, then there must be some column entries which R cannot convert to be numbers.
-
-b. Once you've decided how to deal with the warning, filter `tib_all` to only include the desired population as described in the paper. Check how many rows you have at each step to double-check your work. 
-
-```{r}
-all_ado <- all_ado %>%
-  filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% # Gets the 3660 nonedentulous adolescents
-  filter(!is.na(OHXDECAY)) # Gets the 3346 with non-NA dental carie variable
-```
-
-:::
 
 # Data cleaning pipeline
 
@@ -210,7 +165,8 @@ Let's start by converting numeric columns:
 
 ```{r}
 # Set numeric columns to be numeric
-cleaned_ado <- mutate(all_ado,
+tib_all <- mutate(tib_all,
+                   RIDAGEYR = as.numeric(RIDAGEYR),
                    LBXGLU = as.numeric(LBXGLU),
                    LBXGH = as.numeric(LBXGH),
                    BMXBMI = as.numeric(BMXBMI))
@@ -222,8 +178,8 @@ Many of the NHANES values are are categorical data, bur right now are stored as 
 We can check what values exist by converting them to factors before making the decision of how to handle them in the analysis: 
 
 ```{r}
-tib_all %>%
-  mutate(across(c(RIAGENDR, RIDRETH1, DMDEDUC2, DMDBORN), as.factor), .keep = "none") %>%
+tib_all |>
+  mutate(across(c(RIAGENDR, RIDRETH1, DMDBORN), as.factor), .keep = "none") |>
   summary()
 ```
 
@@ -232,7 +188,7 @@ This can happen due to irregularities in how NHANES data is presented or small m
 We use the `gsub` function to replace all instances of double quotes with the empty string in the column.
 
 ```{r}
-cleaned_ado <- mutate(cleaned_ado,
+tib_all <- mutate(tib_all,
                    RIAGENDR = as.factor(RIAGENDR),
                    RIDRETH1 = as.factor(RIDRETH1),
                    DMDBORN = gsub("\"", "", DMDBORN), # Remove quotes
@@ -249,14 +205,13 @@ For some variables such as country of birth, we could store the categories in `D
 
 ```{r}
 # Set columns to categories as in the paper
-cleaned_ado <- mutate(cleaned_ado,
+tib_all <- mutate(tib_all,
 
-                    
                     age.cat = cut(
                       RIDAGEYR,
-                      breaks = c(13, 15, 18),
+                      breaks = c(13, 15, 18, 100),
                       include.lowest = TRUE,
-                      labels = c("13-15", "16-18")),
+                      labels = c("13-15", "16-18", "19+")),
                    
                     plasma.glucose.cat = case_when(
                      LBXGLU < 100 ~ "<100 mg/dl",
@@ -270,7 +225,7 @@ cleaned_ado <- mutate(cleaned_ado,
                      LBXGH >= 6.5 ~ ">= 6.5%",
                      .default = NA),
                    
-                   bmi.cat = case_when( #Technically we should also have an underweight category
+                   bmi.cat = case_when( # If we were doing this from scratch we might also want an underweight category
                      BMXBMI < 25 ~ "Normal", 
                      BMXBMI < 30 ~ "Overweight",
                      BMXBMI >= 30 ~ "Obese",
@@ -282,7 +237,6 @@ cleaned_ado <- mutate(cleaned_ado,
                      as.numeric(INDFMPIR) >= 1 ~ ">=1",
                      as.numeric(INDFMPIR) < 1 ~ "<1",
                      .default = NA),
-                   family.PIR.car = as.numeric(family.PIR.cat) < 1.0,
                    
                    birthplace = case_when(
                      DMDBORN == "Born in 50 US States or Washi" ~ "Within the US",
@@ -314,7 +268,7 @@ It is recommended to use `case_when`, but feel free to use any method you want.
 
 ```{r}
 # Add diabetes column
-cleaned_ado <- cleaned_ado %>% 
+tib_all <- tib_all |> 
           mutate(diabetes = case_when(
             is.na(LBXGH) & is.na(LBXGLU) ~ NA,
            LBXGH >= 6.5 | LBXGLU >= 126 ~ "diabetic",
@@ -323,9 +277,127 @@ cleaned_ado <- cleaned_ado %>%
 ```
 :::
 
-# Summary Statistics
 
-We can easily use R functions so see the summary statistics of our data. 
+
+# Adding other diabetes data
+
+While this is the data looked at in the paper, let's take a look at some other diabetes data from the same NHANES cycles. 
+
+```{r}
+load("nhanes_diabetes.RData")
+```
+
+This contains 4 variables from the DIQ table:
+
+```{r}
+DT::datatable(metadata_diabetes)
+```
+
+As before, we need to combine the three data cycles together.
+
+```{r}
+# This time let's combine the dataframes first
+diabetes_all <- rbind(diabetes_d, diabetes_e, diabetes_f)
+
+# And then convert to a tibble
+diabetes_all <- as_tibble(diabetes_all) |>
+  mutate(DIQ010 = as.factor(DIQ010),
+         DIQ160 = as.factor(DIQ160),
+         DIQ050 = as.factor(DIQ050)) |>
+  select(-c(Begin.Year, EndYear))
+```
+
+We now need to combine the diabetes data with the rest of the nhanes data, adding in the new columns. 
+This is a more complicated process than simply adding new rows to a dataset, as we need to determine which rows in the diabetes data are referencing the same participant as rows in the main data. 
+This process is called joining or merging. 
+To merge two datasets, we need to decide what to do with columns which appear in one dataset but not the other. 
+
+We also need to determine which variable in the dataset we want to use as the **key** when joining, the column(s) that identifies which rows in the each dataset we want to match. 
+In the `dplyr` join functions this is referred to as the `by` argument. 
+
+In NHANES, we have the `SEQN` variable which uniquely identifies each participant in each survey cycle. 
+We can use this as the key. 
+In this case we want to perform join where we maintain all rows from the main dataset, but drop any rows which only exist in the diabetes dataset. 
+Therefore, let's do a left join (with the main dataset on the left).
+
+```{r}
+tib_all <- left_join(tib_all, diabetes_all, by = "SEQN")
+summary(tib_all)
+```
+
+Let's also check the number of `NA`'s in the new columns to make sure the data has matched up. 
+
+```{r}
+#Base R way
+na_counts <- colSums(is.na(tib_all))
+na_counts <- data.frame(na_counts[order(na_counts, decreasing = TRUE)])
+colnames(na_counts) <- c("NA Count")
+DT::datatable(na_counts)
+
+# Tidyverse way
+#tib_all |>
+#  summarise_all(~sum(is.na(.)))
+```
+
+Unfortunately, it looks `DID040` won't be very useful. 
+
+## Exploring Other Diabetes Variables
+
+We'll start by checking the consistency of the DIQ variables. 
+Was there anyone who said they were both diabetic and prediabetic?
+
+```{r}
+table(tib_all[,c("DIQ010", "DIQ160")], exclude = NULL)
+```
+
+Now let's see how much the diabetes definition by Beheshti agrees with the `DIQ` variables.
+
+We'll make a variable with the same categories from the `DIQ` data. 
+We'll leave out the borderline, don't know, and refused responses. 
+
+```{r}
+tib_all <- tib_all |> 
+  mutate(diabetes.DIQ = case_when(
+    DIQ010 == "Yes" ~ "diabetic",
+    DIQ160 == "Yes" ~ "prediabetic",
+    DIQ160 == "No" | DIQ010 == "No" ~ "nondiabetic"
+  ))
+
+table(tib_all[,c("diabetes.DIQ", "diabetes")])
+```
+
+
+
+# Replicating Beheshti Analysis
+
+## Filter relevant population
+
+We need to filter the summary population. 
+Luckily, the paper provides total numbers of participants for most of the filtering steps performed. 
+This makes it much easier for us to check our work. 
+
+>The total number of individuals who participated in the
+NHANES from 2005 to 2010 were 31,034 study-participants.
+Among them, 3,660 were nonedentulous adolescents (aged 13
+to 18 years old at the time of screening) who had exam survey
+weights assigned. From those 3,660 adolescents, data to measure
+the main outcome variable (dental caries experience) were
+available for a final sample of 3,346 adolescents, representing
+the population of 24,386,135 U.S. adolescents after applying
+the NHANES sample weights, which was described and analyzed
+in this study.
+
+```{r}
+tib_all <- tib_all |>
+  mutate(in.study = (RIDAGEYR >= 13) & (RIDAGEYR <= 18) & !is.na(dental.caries)) # Gets the 3346 with non-NA dental carie variable
+
+all_ado <- tib_all |>
+  filter(in.study)
+```
+
+# Exploring the adolescent population
+
+Let's see some statistics of our data. 
 
 ::: {.callout-tip appearance="minimal"}
 ## Exercise
@@ -334,18 +406,18 @@ Calculate the percent of adolescents with dental caries experience.
 
 ```{r}
 # Recall that you can sum boolean variables to get a count
-sum(cleaned_ado$dental.caries)/nrow(cleaned_ado)
+sum(all_ado$dental.caries)/nrow(all_ado)
 ```
 :::
 
 ### Summarize groups
 
 We can use `group_by` and `summarize` to see summary statistics by various subgroups. 
-For instance, let's take a look at gender and birthplace. 
+For instance, let's take a look at dental caries and birthplace. 
 
 ```{r}
-cleaned_ado %>%
-  group_by(RIAGENDR, birthplace) %>%
+all_ado |>
+  group_by(dental.caries, birthplace) |>
   summarize(n = n())
 ```
 ::: {.callout-tip appearance="minimal"}
@@ -354,15 +426,39 @@ cleaned_ado %>%
 Calculate the percent of adolescents with dental caries for each birthplace category. 
 
 ```{r}
-cleaned_ado %>%
-  group_by(birthplace) %>% # Group by education level
-  summarize(n = n(), caries = sum(dental.caries)) %>%
+all_ado |>
+  group_by(birthplace) |> # Group by birthplace
+  summarize(n = n(), caries = sum(dental.caries)) |>
   mutate(perc_caries = caries/n)
-
 ```
 :::
 
+# Insulin
 
+Let's look at the demographics of who's taking insulin by birthplace and family income. 
+
+```{r}
+tib_all |>
+  filter(diabetes == "diabetic") |>
+  group_by(birthplace, family.PIR.cat) |> 
+  summarize(n = n(), insulin = sum((DIQ050) == "Yes")) |>
+  mutate(perc_insulin = insulin/n)
+```
+
+We can also take a look at ethnicity.
+
+```{r}
+insulin_tbl <- tib_all |>
+  filter(diabetes == "diabetic") |>
+  group_by(RIDRETH1, birthplace) |> 
+  summarize(n = n(), insulin = sum((DIQ050) == "Yes")) |>
+  mutate(perc_insulin = insulin/n)
+```
+```{r}
+ggplot(insulin_tbl, aes(x = birthplace, y = perc_insulin)) + 
+  geom_bar(stat = "identity") + 
+  facet_grid(~RIDRETH1)
+```
 # Summary statistics or visualization?
 
 Summary statistics can compress datasets of any size into just a few numbers. 
@@ -378,7 +474,7 @@ First, we need to restructure this data so we can easily group it by each of the
 We'll learn more about what the `pivot_longer` command does in the last week of class.
 ```{r}
 # Let's restructure this data to have 3 variables, x, y, and the dataset number it belongs to
-long_ans <- anscombe %>%
+long_ans <- anscombe |>
   pivot_longer(
     everything(),
     cols_vary = "slowest",
@@ -399,8 +495,8 @@ ggplot(long_ans,aes(x=x,y=y,group=set))+geom_point()+facet_wrap(~set)
 Calculate the mean and variance for x and y, and the correlation between x and y of each of the 4 sets of data. 
 
 ```{r}
-long_ans %>%
-  group_by(set) %>%
+long_ans |>
+  group_by(set) |>
   summarise(mean_x = mean(x), mean_y = mean(y), variance_x = var(x), variance_y = var(y), correlation = cor(x, y))
 ```
 
@@ -413,8 +509,8 @@ A similar example is in the `datasauRus` package in R.
 ```{r}
 library(datasauRus)
 
-datasaurus_dozen %>% 
-  group_by(dataset) %>% 
+datasaurus_dozen |> 
+  group_by(dataset) |> 
   summarize(
     mean_x    = mean(x),
     mean_y    = mean(y),
