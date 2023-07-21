@@ -16,8 +16,51 @@ library(flextable)
 library(officer)
 ```
 
+# Phonto Script
+
+Here's what I ran on docker to get the data.
+
+```{r}
+#| eval: false
+library(phonto)
+
+cols_d = list(DEMO_D=c("RIDAGEYR","RIAGENDR","RIDRETH1", 
+                       "DMDBORN", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
+                       "WTINT2YR", "WTMEC2YR"), 
+              OHX_D =c("OHXDECAY", "OHXREST"),
+              GLU_D =c("LBXGLU", "WTSAF2YR"), GHB_D = "LBXGH",
+              BMX_D="BMXBMI"
+)
+base_df_d <- jointQuery(cols_d)
+
+cols_e = list(DEMO_E=c("RIDAGEYR","RIAGENDR","RIDRETH1",
+                       "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
+                       "WTINT2YR", "WTMEC2YR"), 
+              OHX_E =c("OHXDECAY", "OHXREST"),
+              GLU_E =c("LBXGLU", "WTSAF2YR"), GHB_E = "LBXGH",
+              BMX_E ="BMXBMI"
+)
+base_df_e <- jointQuery(cols_e)
+
+cols_f = list(DEMO_F=c("RIDAGEYR","RIAGENDR","RIDRETH1",
+                       "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
+                       "WTINT2YR", "WTMEC2YR"), 
+              OHXDEN_F =c("OHXDECAY", "OHXREST"),
+              GLU_F =c("LBXGLU", "WTSAF2YR"), GHB_F = "LBXGH",
+              BMX_F ="BMXBMI"
+)
+base_df_f <- jointQuery(cols_f)
+
+all_cols <- c(cols_d, cols_e, cols_f)
+metadata <- dataDescription(all_cols)
+save(base_df_d, base_df_e, base_df_f, metadata, file = "nhanes_beheshti_data.RData")
+```
+
+And here's the chunks of code from here and there which replicate the analysis. 
+Sorry a lot of it is using tidyverse. 
+
 # Data
-Let's go back to the raw nhanes data, just after we combined the three years. 
+Let's go back to the raw NHANES data, just after we combined the three years. 
 
 ```{r}
 load("nhanes_beheshti_data.RData")
@@ -118,13 +161,11 @@ all_nhanes <- mutate(all_nhanes,
                   dental.caries = OHXDECAY | OHXREST,
 
                 diabetes = case_when(
-                  is.na(LBXGH) & is.na(LBXGLU) ~ NA,
-                 LBXGH >= 6.5 | LBXGLU >= 126 ~ "diabetic",
-                 LBXGH >= 5.7 | LBXGLU >= 100 ~ "prediabetic",
-                  .default = "nondiabetic"))
-
-# Let's save this data for future analysis
-save(all_nhanes, file = "processed_beheshti.RData")
+                    is.na(LBXGH) & is.na(LBXGLU) ~ NA,
+                   LBXGH >= 6.5 | LBXGLU >= 126 ~ "diabetic",
+                   LBXGH >= 5.7 | LBXGLU >= 100 ~ "prediabetic",
+                    .default = "nondiabetic"))
+  
 ```
 
 # Preparing Survey Analysis
@@ -132,8 +173,7 @@ save(all_nhanes, file = "processed_beheshti.RData")
 ## Removing NA weights
 
 Recall from the reading that we can't have any missing values in the survey design variables. 
-Note that since we are using the fasting weights in this analysis, which only include participants
-who had fasting glucose measurements taken, a significant proportion of rows will be removed. 
+Note that the analysis uses the TMEC weights as opposed to the fasting weights, I'm not sure if that's technically the correct call since we're looking at fasting glucose levels to define diabetic status. 
 
 ::: callout-warning
 Despite the paper saying that they removed those without enough data to determine diabetic status, they did not remove those samples from their weighting calculations here. 
@@ -158,18 +198,29 @@ Luckily NHANES has an [official guide](https://wwwn.cdc.gov/nchs/nhanes/tutorial
 It turns out, all we need to do is divide all weights by 3. 
 
 ```{r}
+##try de-tidying it to see if we can get the models to behave
 wt_nhanes <- wt_nhanes %>%
   mutate(WTMEC6YR = WTMEC2YR * 1/3)
+wt_nhanes=data.frame(wt_nhanes)
+ wt_nhanes$diabetes = factor(wt_nhanes$diabetes, levels=c("nondiabetic","prediabetic","diabetic"))
 ```
 
 ## Creating the survey design object
+The CDC describes the survey as follows:
+*The sample design is a complex, multistage, clustered design using unequal probabilities of selection. Different groups (e.g., low-income persons, teens, older persons, and selected racial/ethnic populations) have been oversampled during specific survey cycles. Since 2011, the following groups have been oversampled: Hispanic persons; non-Hispanic black persons; non-Hispanic Asian persons; non-Hispanic white and other persons at or below 130 percent of poverty; and non-Hispanic white and other persons ages 80 and older. In 2015-16, the sampling design was revised, changing the cut-point for low-income oversampling from to at or below 185 percent of poverty. The estimation procedure used to produce national statistics for all NHANES involved inflation by the reciprocal of the probability of selection, adjustment for nonresponse, and post stratified ratio adjustment to population totals.*
+
+So to analyse this design we need to use some specialized survey analysis methods which are contained in the `survey` package written by Thomas Lumley.
+
 
 ```{r}
 nhanes_design <- svydesign(id     = ~SDMVPSU,
                           strata  = ~SDMVSTRA,
                           weights = ~WTMEC6YR,
                           nest    = TRUE,
+                          survey.lonely.psu = "adjust",
                           data    = wt_nhanes)
+
+summary(nhanes_design)
 ```
 
 Now we can take our data subset from the survey design object. 
@@ -187,7 +238,14 @@ ado_data <- wt_nhanes %>%
 
 These correctly replicate the counts in table 1a
 ```{r}
-svytable(~age.cat + dental.caries, ado_design)
+tab1 = svytable(~age.cat + dental.caries, ado_design)
+round(tab1[1,]/sum(tab1[1,]), digits=3)
+round(tab1[2,]/sum(tab1[2,]), digits=3)
+```
+
+And then we can also replicate the ethnicity distributions
+
+```{r svyEthn}
 svytable(~RIDRETH1, ado_design)
 ```
 
@@ -198,18 +256,6 @@ The table's caption explains the 5 different models:
 
 > Model 1=crude (unadjusted); model 2=controlled for age, race/ethnicity, gender; model 3=controlled for age, race/ethnicity, gender, BMI; model 4=controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio; model 5=controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth.
 
-::: {.callout-tip appearance="minimal"}
-## Discussion
-
-Does the paper give enough detail to reproduce its logistic regression analysis? 
-
-Why or why not?
-:::
-
-
-::: {.callout-tip appearance="minimal"}
-## Exercise
-
 Below model 1 has been reproduced.
 See if you can recreate models 2-5.
 
@@ -218,21 +264,44 @@ Currently model gets the same odds ratio as the paper, but model 2 doesn't.
 ```{r}
 
 # Model 1: Unadjusted
-dia_logit1 <- (svyglm(dental.caries~I(diabetes == "diabetic"), family=quasibinomial, design=ado_design, na.action = na.omit))
-exp(coef(dia_logit1))
+logit1 <- svyglm(dental.caries~ diabetes, family=quasibinomial, design=ado_design, na.action = na.omit)
+exp(coef(logit1))
+summary(logit1)
+```
 
-pre_logit1 <- (svyglm(dental.caries~I(diabetes == "prediabetic"), family=quasibinomial, design=ado_design, na.action = na.omit))
-exp(coef(pre_logit1))
+A Wald test for `diabetes`:
+```{r}
+regTermTest(logit1, ~diabetes)
 
+```
+
+Next adjust form ethnicity, age and sex.
+
+```{r}
 # Model 2: Controlled for age, race/ethnicity, gender
-logit2 <- (svyglm(dental.caries~I(diabetes == "diabetic") + RIDRETH1 + RIAGENDR + as.factor(RIDAGEYR), family=quasibinomial, design=ado_design, na.action = na.omit))
+logit2 <- svyglm(dental.caries~ diabetes + RIDRETH1 + RIAGENDR + RIDAGEYR, family=quasibinomial, design=ado_design, na.action = na.omit)
 exp(coef(logit2))
+summary(logit2)
+```
 
+We could perform some Wald tests,
+```{r}
+regTermTest(logit2, ~RIDRETH1)
+regTermTest(logit2, ~RIAGENDR)
+regTermTest(logit2, ~RIDAGEYR)
+
+regTermTest(logit2, ~diabetes)
+
+```
+```{r}
 # Model 3: Controlled for age, race/ethnicity, gender, BMI
+logit3 <- svyglm(dental.caries~ diabetes + RIDRETH1 + RIAGENDR + RIDAGEYR + BMXBMI, family=quasibinomial, design=ado_design, na.action = na.omit)
+summary(logit3)
 
 # Model 4: Controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio
 
 # Model 5: Controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth
 
 ```
+
 :::

@@ -45,6 +45,7 @@ This is an online R resource specifically for [Excel users](https://jules32.gith
 
 #### Plotting
 
+-   [Some great lecture slides on data visualization](https://github.com/ccb-hms/hsdm-r-course/blob/main/other_files/230712-visualization.pdf) 
 -   [another plotting cheat sheet](https://biostats.w.uib.no/the-ggplot2-cheat-sheet-by-rstudio/)
 -   [tidyverse ggplot basics page](https://ggplot2.tidyverse.org/reference/)\
 -   [plotting continuous variables](http://www.sthda.com/english/articles/32-r-graphics-essentials/131-plot-two-continuous-variables-scatter-graph-and-alternatives/)\
@@ -73,15 +74,9 @@ This is an online R resource specifically for [Excel users](https://jules32.gith
 
 #### Surveys
 
-[UCLA stats page](https://stats.idre.ucla.edu/r/seminars/survey-data-analysis-with-r/)  
-
-[Analyze survey data free](http://asdfree.com/)  
-
-[srvyr packge](http://gdfe.co/srvyr/)  
-
-[gtsummary package](http://www.danieldsjoberg.com/gtsummary/reference/index.html) 
-
-[EPIET survey case studies](https://github.com/EPIET/RapidAssessmentSurveys)
+- [Lecture slides on surveys](https://github.com/ccb-hms/hsdm-r-course/blob/main/other_files/Lumleysurvey-user.pdf)
+- [UCLA stats page](https://stats.idre.ucla.edu/r/seminars/survey-data-analysis-with-r/)  
+- [Article by Pew research for a general audeince on why we use survey weights](https://www.pewresearch.org/short-reads/2016/10/25/oversampling-is-used-to-study-small-groups-not-bias-poll-results/)
 
 ### Communities
 

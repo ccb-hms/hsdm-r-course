@@ -178,8 +178,8 @@ nhanesColnames("DEMO_D")
 
 #### Defining a query
 
-We can define a quary to NHANES by creating a list of column names for each table we're interested in. 
-It is reccomended to only get a single servey cycle with a single query. 
+We can define a query to NHANES by creating a list of column names for each table we're interested in. 
+
 
 ```r
 cols_d = list(DEMO_D= c("RIDAGEYR","RIAGENDR","RIDRETH1", 
