@@ -1,51 +1,4 @@
-# Installing and Running NHANES Docker Container {#sec-install-docker}
-
-Below you can find instructions for installing and running the Docker container for NHANES data, created by the CCB. 
-
-Note that these instructions go into how to:
-
-1. Install Docker/Docker Desktop.
-2. Download the docker image.
-3. Create and run the docker container.
-4. Connect to the running docker container.
-
-However, they do not go into how to actually access the NHANES data once connected to the container. 
-We will be learning how to do this in class. 
-
-## Installing Docker
-
-We will be installing Docker Desktop, a graphical application which provides useful additional functionality and ease of access for using Docker containers. 
-You can go to the documentation for [Docker Desktop](https://docs.docker.com/desktop/), or go straight to the installation instructions for  [Mac](https://docs.docker.com/desktop/install/mac-install/) or [Windows](https://docs.docker.com/desktop/install/windows-install/).
-It is recommended for Linux users to instead install [Docker Engine](https://docs.docker.com/engine/install/) (see below).
-
-#### Notes for Windows Users
-
-It is recommended to use the Windows Subsystem for Linux (WSL) backend as opposed to the Hyper-V backend. 
-WSL is official Microsoft software which lets you install a Linux distribution on your Windows machine. 
-Installing WSL will also allow you to easily run other software designed for Linux systems and directly use Bash command-line tools. 
-
-You can /install WSL by following [the instructions here](https://learn.microsoft.com/en-us/windows/wsl/install).
-Feel free to choose any of the possible distributions (we like Ubuntu).
-
-#### Notes for Mac Users
-
-You will need to know whether your Mac computer is using an Intel or Apple silicon processor.
-You can follow the instructions [here](https://support.apple.com/en-us/HT211814) to find this information. 
-
-If you are on a newer Mac with an Apple silicon processor, you will most likely also need to change a setting in Docker Desktop:
-
-![Setting for Apple Silicon](../img/docker-silicon-rosetta.png)
-
-1. Click the settings button in the right side of the top bar.
-2. Click on Features in development in the left sidebar.
-3. Check the box for `Use Rosetta for x86/amd64 emulation on Apple Silicon`.
-
-
-#### Notes for Linux Users
-
-While Docker Desktop can be run on [Linux](https://docs.docker.com/desktop/install/linux-install/), support is limited.
-This is because the core Docker containerization software (now called Docker Engine) is originally designed for Linux systems, and Docker Desktop enables Windows and Mac users to easily interact with containers as Linux users are already able to with the original software. 
-You can install Docker Engine by following the instructions [here](https://docs.docker.com/engine/).
+# Downloading and Running NHANES Docker Container {#sec-get-container}
 
 ## Downloading the container
 
@@ -59,7 +12,7 @@ You can install Docker Engine by following the instructions [here](https://docs.
 
 ![Search result](../img/docker-searchresult.png)
 
-4. Make sure the `Tag` dropdown is set to latest and click `Pull`. 
+4. Make sure the `Tag` dropdown is set to `version-0.0.4` and click `Pull`. 
 
 ### Option 2: Using the command line
 
@@ -90,6 +43,9 @@ if pulling without a platform is returning an error.
 After you've downloaded the container, you should see it when you look at the `Images` tab in Docker Desktop. 
 
 ![Downloaded NHANES Image](../img/docker-got-image.png)
+## Setting up a volume
+
+
 
 ## Running the container
 

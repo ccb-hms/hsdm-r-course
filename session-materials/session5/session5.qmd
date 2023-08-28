@@ -60,7 +60,7 @@ And here's the chunks of code from here and there which replicate the analysis.
 Sorry a lot of it is using tidyverse. 
 
 # Data
-Let's go back to the raw NHANES data, just after we combined the three years. 
+Let's go back to the raw NHANES data, just after we combined the three cycles. 
 
 ```{r}
 load("nhanes_beheshti_data.RData")
@@ -114,12 +114,6 @@ all_nhanes <- mutate(all_nhanes,
                       include.lowest = TRUE,
                       labels = c("13-15", "16-18", "19+")),
                    
-                   LBXGH.cat = case_when(
-                    is.na(LBXGH) & is.na(LBXGLU) ~ NA,
-                    LBXGH >= 6.5 | LBXGLU >= 126 ~ "diabetic",
-                    LBXGH >= 5.7 | LBXGLU >= 100 ~ "prediabetic",
-                    .default = "nondiabetic"),
-                  
                    RIDAGEYR.cat = cut(
                     RIDAGEYR,
                     breaks = c(13, 15, 18),
@@ -198,7 +192,7 @@ Luckily NHANES has an [official guide](https://wwwn.cdc.gov/nchs/nhanes/tutorial
 It turns out, all we need to do is divide all weights by 3. 
 
 ```{r}
-##try de-tidying it to see if we can get the models to behave
+## Re-leveling the diabetes variable to be in a better order for plotting any analysis
 wt_nhanes <- wt_nhanes %>%
   mutate(WTMEC6YR = WTMEC2YR * 1/3)
 wt_nhanes=data.frame(wt_nhanes)

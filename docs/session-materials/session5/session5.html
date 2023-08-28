@@ -129,6 +129,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">In-Class Materials</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../../session-materials/sessions.html" rel="" target="">
+ <span class="menu-text">Exercises</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../resources/resources.html" rel="" target="">
+ <span class="menu-text">NHANES Docker Container</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../../resources/resources.html" rel="" target="">
  <span class="menu-text">Resources</span></a>
   </li>  
@@ -160,6 +168,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/sessions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sessions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../session-materials/session0/bootcamp-1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bootcamp Part 1: R Basics</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -301,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
-<p>Let’s go back to the raw NHANES data, just after we combined the three years.</p>
+<p>Let’s go back to the raw NHANES data, just after we combined the three cycles.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"nhanes_beheshti_data.RData"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tib_d <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(base_df_d)</span>
@@ -349,57 +363,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                      <span class="at">include.lowest =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"13-15"</span>, <span class="st">"16-18"</span>, <span class="st">"19+"</span>)),</span>
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>                   </span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>                   <span class="at">LBXGH.cat =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">is.na</span>(LBXGH) <span class="sc">&amp;</span> <span class="fu">is.na</span>(LBXGLU) <span class="sc">~</span> <span class="cn">NA</span>,</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                    LBXGH <span class="sc">&gt;=</span> <span class="fl">6.5</span> <span class="sc">|</span> LBXGLU <span class="sc">&gt;=</span> <span class="dv">126</span> <span class="sc">~</span> <span class="st">"diabetic"</span>,</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                    LBXGH <span class="sc">&gt;=</span> <span class="fl">5.7</span> <span class="sc">|</span> LBXGLU <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"prediabetic"</span>,</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>                    <span class="at">.default =</span> <span class="st">"nondiabetic"</span>),</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>                  </span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>                   <span class="at">RIDAGEYR.cat =</span> <span class="fu">cut</span>(</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>                    RIDAGEYR,</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>                    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">18</span>),</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>                    <span class="at">include.lowest =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"13-15"</span>, <span class="st">"16-18"</span>)),</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>                   <span class="at">RIDAGEYR.cat =</span> <span class="fu">cut</span>(</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>                    RIDAGEYR,</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">13</span>, <span class="dv">15</span>, <span class="dv">18</span>),</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                    <span class="at">include.lowest =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"13-15"</span>, <span class="st">"16-18"</span>)),</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>                 </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>                   <span class="at">LBXGLU.cat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>                   LBXGLU <span class="sc">&lt;</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"&lt;100 mg/dl"</span>,</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>                   LBXGLU <span class="sc">&lt;</span> <span class="dv">126</span> <span class="sc">~</span> <span class="st">"&gt;=100 mg/dl and &lt;126 mg/dl"</span>, </span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>                   LBXGLU <span class="sc">&gt;=</span> <span class="dv">126</span> <span class="sc">~</span> <span class="st">"&gt;=126 mg/dl"</span>,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.default =</span> <span class="cn">NA</span>),</span>
 <span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>                 </span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>                   <span class="at">LBXGLU.cat =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>                   LBXGLU <span class="sc">&lt;</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"&lt;100 mg/dl"</span>,</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>                   LBXGLU <span class="sc">&lt;</span> <span class="dv">126</span> <span class="sc">~</span> <span class="st">"&gt;=100 mg/dl and &lt;126 mg/dl"</span>, </span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>                   LBXGLU <span class="sc">&gt;=</span> <span class="dv">126</span> <span class="sc">~</span> <span class="st">"&gt;=126 mg/dl"</span>,</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>                  <span class="at">LBXGH.cat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>                   LBXGH <span class="sc">&lt;</span> <span class="fl">5.7</span> <span class="sc">~</span> <span class="st">"&lt;5.7%"</span>,</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>                   LBXGH <span class="sc">&gt;=</span> <span class="fl">5.7</span> <span class="sc">~</span> <span class="st">"&gt;=5.7% and &lt;6.5%"</span>,</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>                   LBXGH <span class="sc">&gt;=</span> <span class="fl">6.5</span> <span class="sc">~</span> <span class="st">"&gt;= 6.5%"</span>,</span>
 <span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.default =</span> <span class="cn">NA</span>),</span>
 <span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>                 </span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>                  <span class="at">LBXGH.cat =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>                   LBXGH <span class="sc">&lt;</span> <span class="fl">5.7</span> <span class="sc">~</span> <span class="st">"&lt;5.7%"</span>,</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>                   LBXGH <span class="sc">&gt;=</span> <span class="fl">5.7</span> <span class="sc">~</span> <span class="st">"&gt;=5.7% and &lt;6.5%"</span>,</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>                   LBXGH <span class="sc">&gt;=</span> <span class="fl">6.5</span> <span class="sc">~</span> <span class="st">"&gt;= 6.5%"</span>,</span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.default =</span> <span class="cn">NA</span>),</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>                  <span class="at">BMXBMI.cat =</span> <span class="fu">case_when</span>( </span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>                   BMXBMI <span class="sc">&lt;</span> <span class="dv">25</span> <span class="sc">~</span> <span class="st">"Normal"</span>, </span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>                   BMXBMI <span class="sc">&lt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">"Overweight"</span>,</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>                   BMXBMI <span class="sc">&gt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">"Obese"</span>,</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.default =</span> <span class="cn">NA</span>), </span>
 <span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>                 </span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>                  <span class="at">BMXBMI.cat =</span> <span class="fu">case_when</span>( </span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>                   BMXBMI <span class="sc">&lt;</span> <span class="dv">25</span> <span class="sc">~</span> <span class="st">"Normal"</span>, </span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>                   BMXBMI <span class="sc">&lt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">"Overweight"</span>,</span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>                   BMXBMI <span class="sc">&gt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">"Obese"</span>,</span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.default =</span> <span class="cn">NA</span>), </span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>                 </span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>                  <span class="at">INDFMPIR.cat =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>                   INDFMPIR <span class="sc">==</span> <span class="st">"PIR value greater than or equa"</span> <span class="sc">~</span> <span class="st">"&gt;= 1"</span>,</span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>                   INDFMPIR <span class="sc">==</span> <span class="st">"Value greater than or equal to"</span> <span class="sc">~</span> <span class="st">"&gt;= 1"</span>,</span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.numeric</span>(INDFMPIR) <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"&gt;=1"</span>,</span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.numeric</span>(INDFMPIR) <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"&lt;1"</span>,</span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.default =</span> <span class="cn">NA</span>),</span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>                 </span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>                  <span class="at">DMDBORN.cat =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>                   DMDBORN <span class="sc">==</span> <span class="st">"Born in 50 US States or Washi"</span> <span class="sc">~</span> <span class="st">"Within the US"</span>,</span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">is.na</span>(DMDBORN) <span class="sc">~</span> <span class="cn">NA</span>,</span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>                   DMDBORN <span class="sc">==</span> <span class="st">"Don't Know"</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>                   DMDBORN <span class="sc">==</span> <span class="st">"Refused"</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.default =</span> <span class="st">"Outside the US"</span>),</span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>                  </span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>                  <span class="at">dental.caries =</span> OHXDECAY <span class="sc">|</span> OHXREST,</span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>                <span class="at">diabetes =</span> <span class="fu">case_when</span>(</span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">is.na</span>(LBXGH) <span class="sc">&amp;</span> <span class="fu">is.na</span>(LBXGLU) <span class="sc">~</span> <span class="cn">NA</span>,</span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>                   LBXGH <span class="sc">&gt;=</span> <span class="fl">6.5</span> <span class="sc">|</span> LBXGLU <span class="sc">&gt;=</span> <span class="dv">126</span> <span class="sc">~</span> <span class="st">"diabetic"</span>,</span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>                   LBXGH <span class="sc">&gt;=</span> <span class="fl">5.7</span> <span class="sc">|</span> LBXGLU <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"prediabetic"</span>,</span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>                    <span class="at">.default =</span> <span class="st">"nondiabetic"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>                  <span class="at">INDFMPIR.cat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>                   INDFMPIR <span class="sc">==</span> <span class="st">"PIR value greater than or equa"</span> <span class="sc">~</span> <span class="st">"&gt;= 1"</span>,</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>                   INDFMPIR <span class="sc">==</span> <span class="st">"Value greater than or equal to"</span> <span class="sc">~</span> <span class="st">"&gt;= 1"</span>,</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.numeric</span>(INDFMPIR) <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"&gt;=1"</span>,</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">as.numeric</span>(INDFMPIR) <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"&lt;1"</span>,</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.default =</span> <span class="cn">NA</span>),</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>                 </span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>                  <span class="at">DMDBORN.cat =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>                   DMDBORN <span class="sc">==</span> <span class="st">"Born in 50 US States or Washi"</span> <span class="sc">~</span> <span class="st">"Within the US"</span>,</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">is.na</span>(DMDBORN) <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>                   DMDBORN <span class="sc">==</span> <span class="st">"Don't Know"</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>                   DMDBORN <span class="sc">==</span> <span class="st">"Refused"</span> <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>                   <span class="at">.default =</span> <span class="st">"Outside the US"</span>),</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>                  </span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>                  <span class="at">dental.caries =</span> OHXDECAY <span class="sc">|</span> OHXREST,</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>                <span class="at">diabetes =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">is.na</span>(LBXGH) <span class="sc">&amp;</span> <span class="fu">is.na</span>(LBXGLU) <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>                   LBXGH <span class="sc">&gt;=</span> <span class="fl">6.5</span> <span class="sc">|</span> LBXGLU <span class="sc">&gt;=</span> <span class="dv">126</span> <span class="sc">~</span> <span class="st">"diabetic"</span>,</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>                   LBXGH <span class="sc">&gt;=</span> <span class="fl">5.7</span> <span class="sc">|</span> LBXGLU <span class="sc">&gt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"prediabetic"</span>,</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>                    <span class="at">.default =</span> <span class="st">"nondiabetic"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="preparing-survey-analysis" class="level1">
@@ -442,7 +450,7 @@ Exercise
 <h2 data-anchor-id="creating-combined-survey-weights">Creating combined survey weights</h2>
 <p>Currently, our survey weights <code>WTSAF2YR</code> are for each 2 year cycle. We need to combine them to represent the full 6-year period we are investigating. Luckily NHANES has an <a href="https://wwwn.cdc.gov/nchs/nhanes/tutorials/weighting.aspx">official guide</a> for combining these weights. It turns out, all we need to do is divide all weights by 3.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">##try de-tidying it to see if we can get the models to behave</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Re-leveling the diabetes variable to be in a better order for plotting any analysis</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>wt_nhanes <span class="ot">&lt;-</span> wt_nhanes <span class="sc">%&gt;%</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">WTMEC6YR =</span> WTMEC2YR <span class="sc">*</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>wt_nhanes<span class="ot">=</span><span class="fu">data.frame</span>(wt_nhanes)</span>
@@ -488,8 +496,8 @@ Data variables:
  [5] "DMDBORN"       "INDFMPIR"      "SDMVPSU"       "SDMVSTRA"     
  [9] "WTINT2YR"      "WTMEC2YR"      "OHXDECAY"      "OHXREST"      
 [13] "LBXGLU"        "WTSAF2YR"      "LBXGH"         "BMXBMI"       
-[17] "Begin.Year"    "EndYear"       "age.cat"       "LBXGH.cat"    
-[21] "RIDAGEYR.cat"  "LBXGLU.cat"    "BMXBMI.cat"    "INDFMPIR.cat" 
+[17] "Begin.Year"    "EndYear"       "age.cat"       "RIDAGEYR.cat" 
+[21] "LBXGLU.cat"    "LBXGH.cat"     "BMXBMI.cat"    "INDFMPIR.cat" 
 [25] "DMDBORN.cat"   "dental.caries" "diabetes"      "WTMEC6YR"     </code></pre>
 </div>
 </div>

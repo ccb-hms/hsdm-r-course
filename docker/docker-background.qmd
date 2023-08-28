@@ -1,0 +1,27 @@
+# Docker Background {#sec-intro-docker}
+
+## What is a container?
+
+## How is a container different than a virtual machine (VM)?
+
+## Container lifecycle
+
+## Using docker commands
+
+
+
+## Where do a container's files exist?
+
+## How can I access files in a container or add files to a container?
+
+### Volumes
+
+```
+docker inspect volume_testing
+```
+
+### Bind mounts
+
+### Docker desktop
+
+### The `docker cp` command

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Research Design and Analysis – install-docker</title>
+<title>Research Design and Analysis – getting-container</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -94,7 +94,15 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">In-Class Materials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../resources/resources.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="../session-materials/sessions.html" rel="" target="">
+ <span class="menu-text">Exercises</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resources/resources.html" rel="" target="">
+ <span class="menu-text">NHANES Docker Container</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resources/resources.html" rel="" target="">
  <span class="menu-text">Resources</span></a>
   </li>  
 </ul>
@@ -104,72 +112,18 @@ ul.task-list li input[type="checkbox"] {
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../resources/install-docker.html">Installing and Running NHANES Docker Container</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../resources/install.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Installing R and RStudio</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../resources/install-docker.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Installing and Running NHANES Docker Container</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../resources/accessing-nhanes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Accessing NHANES Data</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../resources/resources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Additional Resources</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../resources/quarto-reports.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quarto and RMarkdown</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../resources/getting-help.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Where to get help</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sec-install-docker" id="toc-sec-install-docker" class="nav-link active" data-scroll-target="#sec-install-docker">Installing and Running NHANES Docker Container</a>
+  <li><a href="#sec-get-container" id="toc-sec-get-container" class="nav-link active" data-scroll-target="#sec-get-container">Downloading and Running NHANES Docker Container</a>
   <ul class="collapse">
-  <li><a href="#installing-docker" id="toc-installing-docker" class="nav-link" data-scroll-target="#installing-docker">Installing Docker</a></li>
   <li><a href="#downloading-the-container" id="toc-downloading-the-container" class="nav-link" data-scroll-target="#downloading-the-container">Downloading the container</a>
   <ul class="collapse">
   <li><a href="#option-1-using-docker-desktop" id="toc-option-1-using-docker-desktop" class="nav-link" data-scroll-target="#option-1-using-docker-desktop">Option 1: Using Docker Desktop</a></li>
@@ -190,53 +144,15 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="install-docker.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
 
-<section id="sec-install-docker" class="level1">
-<h1>Installing and Running NHANES Docker Container</h1>
-<p>Below you can find instructions for installing and running the Docker container for NHANES data, created by the CCB.</p>
-<p>Note that these instructions go into how to:</p>
-<ol type="1">
-<li>Install Docker/Docker Desktop.</li>
-<li>Download the docker image.</li>
-<li>Create and run the docker container.</li>
-<li>Connect to the running docker container.</li>
-</ol>
-<p>However, they do not go into how to actually access the NHANES data once connected to the container. We will be learning how to do this in class.</p>
-<section id="installing-docker" class="level2">
-<h2 data-anchor-id="installing-docker">Installing Docker</h2>
-<p>We will be installing Docker Desktop, a graphical application which provides useful additional functionality and ease of access for using Docker containers. You can go to the documentation for <a href="https://docs.docker.com/desktop/">Docker Desktop</a>, or go straight to the installation instructions for <a href="https://docs.docker.com/desktop/install/mac-install/">Mac</a> or <a href="https://docs.docker.com/desktop/install/windows-install/">Windows</a>. It is recommended for Linux users to instead install <a href="https://docs.docker.com/engine/install/">Docker Engine</a> (see below).</p>
-<section id="notes-for-windows-users" class="level4">
-<h4 data-anchor-id="notes-for-windows-users">Notes for Windows Users</h4>
-<p>It is recommended to use the Windows Subsystem for Linux (WSL) backend as opposed to the Hyper-V backend. WSL is official Microsoft software which lets you install a Linux distribution on your Windows machine. Installing WSL will also allow you to easily run other software designed for Linux systems and directly use Bash command-line tools.</p>
-<p>You can /install WSL by following <a href="https://learn.microsoft.com/en-us/windows/wsl/install">the instructions here</a>. Feel free to choose any of the possible distributions (we like Ubuntu).</p>
-</section>
-<section id="notes-for-mac-users" class="level4">
-<h4 data-anchor-id="notes-for-mac-users">Notes for Mac Users</h4>
-<p>You will need to know whether your Mac computer is using an Intel or Apple silicon processor. You can follow the instructions <a href="https://support.apple.com/en-us/HT211814">here</a> to find this information.</p>
-<p>If you are on a newer Mac with an Apple silicon processor, you will most likely also need to change a setting in Docker Desktop:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../img/docker-silicon-rosetta.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Setting for Apple Silicon</figcaption>
-</figure>
-</div>
-<ol type="1">
-<li>Click the settings button in the right side of the top bar.</li>
-<li>Click on Features in development in the left sidebar.</li>
-<li>Check the box for <code>Use Rosetta for x86/amd64 emulation on Apple Silicon</code>.</li>
-</ol>
-</section>
-<section id="notes-for-linux-users" class="level4">
-<h4 data-anchor-id="notes-for-linux-users">Notes for Linux Users</h4>
-<p>While Docker Desktop can be run on <a href="https://docs.docker.com/desktop/install/linux-install/">Linux</a>, support is limited. This is because the core Docker containerization software (now called Docker Engine) is originally designed for Linux systems, and Docker Desktop enables Windows and Mac users to easily interact with containers as Linux users are already able to with the original software. You can install Docker Engine by following the instructions <a href="https://docs.docker.com/engine/">here</a>.</p>
-</section>
-</section>
+<section id="sec-get-container" class="level1">
+<h1>Downloading and Running NHANES Docker Container</h1>
 <section id="downloading-the-container" class="level2">
 <h2 data-anchor-id="downloading-the-container">Downloading the container</h2>
 <section id="option-1-using-docker-desktop" class="level3">
@@ -253,7 +169,7 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 <ol start="4" type="1">
-<li>Make sure the <code>Tag</code> dropdown is set to latest and click <code>Pull</code>.</li>
+<li>Make sure the <code>Tag</code> dropdown is set to <code>version-0.0.4</code> and click <code>Pull</code>.</li>
 </ol>
 </section>
 <section id="option-2-using-the-command-line" class="level3">
@@ -267,12 +183,7 @@ ul.task-list li input[type="checkbox"] {
 <pre><code>docker pull --platform linux/x86_64/v8 hmsccb/nhanes-workbench:version-0.0.4</code></pre>
 <p>if pulling without a platform is returning an error.</p>
 <p>After you’ve downloaded the container, you should see it when you look at the <code>Images</code> tab in Docker Desktop.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../img/docker-got-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Downloaded NHANES Image</figcaption>
-</figure>
-</div>
+<p><img src="../img/docker-got-image.png" class="img-fluid" alt="Downloaded NHANES Image"> ## Setting up a volume</p>
 </section>
 </section>
 <section id="running-the-container" class="level2">

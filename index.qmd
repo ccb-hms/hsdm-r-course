@@ -7,38 +7,20 @@ toc: false
 footnotes-hover: true
 ---
 
-Instructor learning materials for data analysis module of Research Design and Analysis, 2023. 
+Materials for data analysis module of Research Design and Analysis, 2023. 
 
-### Details {.unnumbered}
+### Bootcamp Details {.unnumbered}
 
-{{< fa calendar >}} &nbsp; July 17 - July 21
+{{< fa calendar >}} &nbsp; 10am - 12:00pm, August 28 and August 30
 
-{{< fa map-marker >}} &nbsp; Room 106, Research and Education Building (190 Longwood Ave, Boston, MA)
+{{< fa map-marker >}} &nbsp; Remote
 
-{{< fa video >}} &nbsp; Same Zoom room for all sessions and office hours on calendar invite[^1]
+{{< fa video >}} &nbsp; Zoom room for all provided over email[^1]
 
 [^1]: The zoom link will not be presented on this website since it is public. You should have the Zoom link for sessions and office hours in the calendar invites. Please email Chris if you can't find the Zoom information. 
 
 ### Instructors {.unnumbered}
 
-:::: {.columns}
-
-::: {.column width="50%"}
-##### {{< fa user >}} &nbsp; Robert Gentleman, PhD
->
->{{< fa university >}} &nbsp; Executive Director, [Center for Computational Biomedicine](https://computationalbiomed.hms.harvard.edu/)
->
-> {{< fa envelope >}} &nbsp; <a href="mailto:Robert_Gentleman@hms.harvard.edu">robert_gentleman@hms.harvard.edu</a>
->
-> **Office Hours**
-> 
-> {{< fa calendar >}} &nbsp; July 19, 9am - 10am and July 21, 8:30am - 9:30am
->
-> {{< fa map-marker >}} &nbsp; Zoom only
-
-:::
-
-::: {.column width="50%"}
 ##### {{< fa user >}} &nbsp; Chris Magnano, PhD
 >
 > {{< fa university >}} &nbsp; Curriculum Fellow, [Center for Computational Biomedicine](https://computationalbiomed.hms.harvard.edu/)
@@ -51,10 +33,6 @@ Instructor learning materials for data analysis module of Research Design and An
 >
 > {{< fa map-marker >}} &nbsp; Zoom only
 
-:::
-
-:::
-
 ## Schedule
 
 ```{r}
@@ -66,5 +44,5 @@ library(reactablefmtr)
 # Load schedule 
 sched <- read_csv("schedule.csv")
 
-reactable(select(sched, `Module Week`, `Instructor Training July Session Date`, `Class Session Date`), theme = flatly(), sortable = FALSE)
+reactable(select(sched, `Module`,  `Class Session Date`), theme = flatly(), sortable = FALSE)
 ```

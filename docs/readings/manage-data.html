@@ -139,6 +139,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">In-Class Materials</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../session-materials/sessions.html" rel="" target="">
+ <span class="menu-text">Exercises</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resources/resources.html" rel="" target="">
+ <span class="menu-text">NHANES Docker Container</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../resources/resources.html" rel="" target="">
  <span class="menu-text">Resources</span></a>
   </li>  
@@ -405,7 +413,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="manage-data.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -1168,8 +1176,8 @@ Tip
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-74e7acdd0a3d74ff09c3" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-74e7acdd0a3d74ff09c3">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],[454,896,1469,885,1762,422],[22,21,21,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-593777601c8a29aa11f5" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-593777601c8a29aa11f5">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],[454,896,1469,885,1762,422],[22,21,21,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Create a data frame with the “total” statistics (<em>not grouped by hospital</em>). This will return just one row.</p>
@@ -1185,8 +1193,8 @@ Tip
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3966a481d902a53eb67c" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-3966a481d902a53eb67c">{"x":{"filter":"none","vertical":false,"data":[[5888],[22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[0,1]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a89db0424e8905798cc4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-a89db0424e8905798cc4">{"x":{"filter":"none","vertical":false,"data":[[5888],[22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[0,1]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cases ct_value_med
@@ -1202,8 +1210,8 @@ Tip
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-925cc8c668ac1b9e738f" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-925cc8c668ac1b9e738f">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)",null],[454,896,1469,885,1762,422,5888],[22,21,21,22,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f307be6b0295fda0cf0e" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f307be6b0295fda0cf0e">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)",null],[454,896,1469,885,1762,422,5888],[22,21,21,22,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 3

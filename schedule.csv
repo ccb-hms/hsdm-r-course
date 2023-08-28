@@ -1,10 +1,11 @@
-Module Week,Class Session Date,Instructor Training July Session Date
-R Basics,August TBD,7/17
-Introduction and writing your data analysis plan,10/11,-
-Getting started with data,10/18,7/18
-Data visualization,10/25,7/18
-Managing Data,11/1,7/19
-Descriptive statistics and exploratory data analysis,11/8,7/19
-Statistical tests,11/15,7/20
-Regression analysis,11/29,7/20
-Advanced data wrangling and NHANES,12/6,7/21
+Module,Class Session Date,Instructor Training July Session Date
+R Basics I,"Monday, August 28, 2023","Monday, July 17, 2023"
+R Basics II,"Wednesday, August 30, 2023","Monday, July 17, 2023"
+Introduction and writing your data analysis plan,"Wednesday, October 11, 2023",-
+Getting started with data,"Wednesday, October 18, 2023","Tuesday, July 18, 2023"
+Data visualization,"Wednesday, October 25, 2023","Tuesday, July 18, 2023"
+Managing Data,"Wednesday, November 1, 2023","Wednesday, July 19, 2023"
+Descriptive statistics and exploratory data analysis,"Wednesday, November 8, 2023","Wednesday, July 19, 2023"
+Statistical tests,"Wednesday, November 15, 2023","Thursday, July 20, 2023"
+Regression analysis,"Wednesday, November 29, 2023","Thursday, July 20, 2023"
+Advanced data wrangling and NHANES,"Wednesday, December 6, 2023","Friday, July 21, 2023"

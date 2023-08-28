@@ -14,6 +14,10 @@ website:
         file: readings/readings.qmd
       - text: "In-Class Materials"
         file: session-materials/sessions.qmd
+      - text: "Exercises"
+        file: session-materials/sessions.qmd
+      - text: "NHANES Docker Container"
+        file: resources/resources.qmd
       - text: "Resources"
         file: resources/resources.qmd
 
@@ -59,6 +63,7 @@ website:
     - title: "In-Class Materials"
       contents:
         - session-materials/sessions.qmd
+        - session-materials/session0/bootcamp-1.qmd
         - session-materials/session2/session2.qmd
         - session-materials/session3/session3.qmd
         - session-materials/session4/session4.qmd
@@ -84,5 +89,5 @@ format:
       dark: darkly
     toc: true
     anchor-sections: false
-  pdf: 
-    prefer-html: false
+#  pdf: 
+#    prefer-html: false
