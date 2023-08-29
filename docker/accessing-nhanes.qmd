@@ -295,7 +295,7 @@ nhanesTranslate(DEMO_H)
 If all else fails, individual files can be downloaded from the CDC website and read into R using the [foreign](https://cran.r-project.org/web/packages/foreign/index.html) package.
 This example is taken from an example analysis put out by the CDC [here](https://wwwn.cdc.gov/nchs/data/Tutorials/Code/DB303_R.r).
 
-```{r}
+```{r, eval=FALSE}
 #' Prevalence of Depression Among Adults Aged 20 and Over: United States, 2013-2016 
 #' Brody DJ, Pratt LA, Hughes JP. Prevalence of Depression Among Adults Aged 20 and Over: United          
 #' States, 2013-2016. NCHS Data Brief. No 303. Hyattsville, MD: National Center for Health Statistics. 2018.                     

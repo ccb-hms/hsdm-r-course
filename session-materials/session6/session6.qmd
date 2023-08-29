@@ -142,7 +142,7 @@ nhanesCodebook('DEMO_H', 'RIAGENDR')
 ```
 However, in this example analysis the authors chose to instead directly convert values.
 
-```{r}
+```{r, eval=FALSE}
 # Merge DEMO and DPQ files and create derived variables
 
 One <- left_join(DEMO, DPQ, by="SEQN") %>%
@@ -171,7 +171,7 @@ One <- left_join(DEMO, DPQ, by="SEQN") %>%
 
 With our data processed, we can make the survey design object. 
 
-```{r}
+```{r, eval=FALSE}
 # To keep things the same as in the report
 options(survey.lonely.psu='adjust')
 
@@ -186,7 +186,7 @@ NHANES <- subset(NHANES_all, inAnalysis)
 ## Analysis
 
 Let's start by taking a look at how depression varies for our other variables of interest. 
-```{r}
+```{r, eval=FALSE}
 # Define a function to call svymean and unweighted count
 getSummary <- function(varformula, byformula, design){
   # Get mean, stderr, and unweighted sample size
@@ -209,7 +209,7 @@ getSummary(~Depression, ~Gender + Age.Group, NHANES)
 
 Much like running the Chi-squared test, we need to use `svyttest` as opposed to `t.test` so we can incorporate the survey weights. 
 
-```{r}
+```{r, eval=FALSE}
 #' ### Compare Prevalence Between Men And Women
 svyttest(Depression~Gender, NHANES)$p.value %>% as.numeric 
 svyttest(Depression~Gender, subset(NHANES, Age.Group=="20-39"))$p.value %>% as.numeric
@@ -220,7 +220,7 @@ svyttest(Depression~Gender, subset(NHANES, Age.Group=="60 and over"))$p.value %>
 We can also examine the prevalence of depression by age.
 We can perform t-tests on all pairs of age groups as done in the initial analysis.
 
-```{r}
+```{r, eval=FALSE}
 #' ### Pairwise t-testing by age groups for total, men, and women
 #' Differences by age group, among all adults
 svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="20-39" | Age.Group=="40-59"))$p.value %>% as.numeric
@@ -229,7 +229,7 @@ svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="40-59" | Age.Group=="6
 ```
 
 And then further break things down by gender.
-```{r}
+```{r, eval=FALSE}
 #' Differences by age group, among men
 svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="20-39" | Age.Group=="40-59")))$p.value %>% as.numeric
 svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="20-39" | Age.Group=="60 and over")))$p.value %>% as.numeric
@@ -249,7 +249,7 @@ How does that relate to the $alpha$-level?
 
 To help understand this relationship, consider a binomial test to determine if the result of 100 coin flips is fair:
 
-```{r}
+```{r, eval=FALSE}
 numFlips = 100
 probHead = 0.5
 coinFlips = sample(c("H", "T"), size = numFlips,
@@ -262,7 +262,7 @@ pval
 Now let's look at the range of p-values we get if we run the test 10000 times. 
 
 
-```{r}
+```{r, eval=FALSE}
 #Let's make a function for performing our experiment
 flip_coin <- function(numFlips, probHead){
   numFlips = 100

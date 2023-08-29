@@ -6,3 +6,30 @@ format:
 code-annotations: select
 ---
 
+## Week 1: Complete by September 8
+
+1. What will the `class` and values in `vec1` to `vec4` be after the following lines of code? Try to figure it out without running the code, then check your work:
+
+```{r, eval=FALSE}
+vec1 <- c("4", T, F, F)
+vec2 <- c(9, "banana", 16, "apple")
+vec3 <- c(TRUE + TRUE, TRUE, FALSE, TRUE)
+vec4 <- c(3**2, 19%%2)
+```
+
+2. Write an R command or set of commands to make the `vec1` vector twice as large and contain all of the values of the original vector twice. 
+
+For example, using this command `[1,2,3]` should become `[1,2,3,1,2,3]`, `["a"]` should become `["a", "a"]`, and `[2,3,1,2,1]` should become `[2,3,1,2,1,2,3,1,2,1]`.
+
+3. For this problem you will need to load in the `nhanes` example data and, if desired, load the `tidyverse` package. 
+
+```{r}
+library(tidyverse)
+
+nhanes <- read.csv("https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session0/session0Data.csv")
+``` 
+
+a. Calculate the mean plasma glucose in the `nhanes` dataset, ignoring missing values. 
+
+b. Create a `dataframe` or `tibble`, `nhanes_mean_filled`, where all missing plasma glucose values in `nhanes` have been replaced by the mean value calculated in part a. 
+

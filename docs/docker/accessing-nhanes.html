@@ -407,56 +407,61 @@ Timeout Errors
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Get data with nahnesA</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>DEMO_H <span class="ot">=</span> <span class="fu">nhanes</span>(<span class="st">'DEMO_H'</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>DEMO_I <span class="ot">=</span> <span class="fu">nhanes</span>(<span class="st">'DEMO_I'</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>DPQ_H <span class="ot">=</span> <span class="fu">nhanes</span>(<span class="st">'DPQ_H'</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>DPQ_I <span class="ot">=</span> <span class="fu">nhanes</span>(<span class="st">'DPQ_I'</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Append Files</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>DEMO <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(DEMO_H, DEMO_I)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>DPQ <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(DPQ_H, DPQ_I)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(<span class="fu">head</span>(DEMO))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d3c1beed3c31c031d09d" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d3c1beed3c31c031d09d">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[73557,73558,73559,73560,73561,73562],[8,8,8,8,8,8],[2,2,2,2,2,2],[1,1,1,1,2,1],[69,54,72,9,73,56],[null,null,null,null,null,null],[4,3,3,3,3,1],[4,3,3,3,3,1],[1,1,2,1,1,1],[null,null,null,119,null,null],[1,2,1,null,2,1],[1,null,1,null,null,2],[1,1,1,1,1,1],[1,1,1,1,1,1],[null,null,null,null,null,null],[null,null,null,3,null,null],[3,3,4,null,5,4],[4,1,1,null,1,3],[null,null,null,null,null,null],[1,1,1,1,1,1],[2,2,2,1,2,2],[2,2,2,2,2,2],[1,1,1,1,1,1],[2,2,2,2,2,2],[2,2,2,2,2,2],[1,1,1,1,1,1],[2,2,2,2,2,2],[2,2,2,2,2,2],[1,1,null,1,null,1],[3,4,2,4,2,1],[3,4,2,4,2,1],[0,0,0,0,0,0],[0,2,0,2,0,0],[2,0,2,0,2,0],[1,1,1,1,1,1],[69,54,72,33,78,56],[1,1,1,1,1,1],[3,3,4,3,5,4],[4,1,1,1,1,3],[null,1,3,4,5,null],[13281.237386,23682.057386,57214.803319,55201.178592,63709.667069,24978.144602],[13481.042095,24471.769625,57193.285376,55766.512438,65541.871229,25344.992359],[1,1,1,2,2,1],[112,108,109,109,116,111],[4,7,10,9,15,9],[4,7,10,9,15,9],[0.84,1.78,4.51,2.52,5,4.79]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>SEQN<\/th>\n      <th>SDDSRVYR<\/th>\n      <th>RIDSTATR<\/th>\n      <th>RIAGENDR<\/th>\n      <th>RIDAGEYR<\/th>\n      <th>RIDAGEMN<\/th>\n      <th>RIDRETH1<\/th>\n      <th>RIDRETH3<\/th>\n      <th>RIDEXMON<\/th>\n      <th>RIDEXAGM<\/th>\n      <th>DMQMILIZ<\/th>\n      <th>DMQADFC<\/th>\n      <th>DMDBORN4<\/th>\n      <th>DMDCITZN<\/th>\n      <th>DMDYRSUS<\/th>\n      <th>DMDEDUC3<\/th>\n      <th>DMDEDUC2<\/th>\n      <th>DMDMARTL<\/th>\n      <th>RIDEXPRG<\/th>\n      <th>SIALANG<\/th>\n      <th>SIAPROXY<\/th>\n      <th>SIAINTRP<\/th>\n      <th>FIALANG<\/th>\n      <th>FIAPROXY<\/th>\n      <th>FIAINTRP<\/th>\n      <th>MIALANG<\/th>\n      <th>MIAPROXY<\/th>\n      <th>MIAINTRP<\/th>\n      <th>AIALANGA<\/th>\n      <th>DMDHHSIZ<\/th>\n      <th>DMDFMSIZ<\/th>\n      <th>DMDHHSZA<\/th>\n      <th>DMDHHSZB<\/th>\n      <th>DMDHHSZE<\/th>\n      <th>DMDHRGND<\/th>\n      <th>DMDHRAGE<\/th>\n      <th>DMDHRBR4<\/th>\n      <th>DMDHREDU<\/th>\n      <th>DMDHRMAR<\/th>\n      <th>DMDHSEDU<\/th>\n      <th>WTINT2YR<\/th>\n      <th>WTMEC2YR<\/th>\n      <th>SDMVPSU<\/th>\n      <th>SDMVSTRA<\/th>\n      <th>INDHHIN2<\/th>\n      <th>INDFMIN2<\/th>\n      <th>INDFMPIR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>DEMO_H <span class="ot">=</span> <span class="fu">nhanes</span>(<span class="st">'DEMO_H'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>simpleWarning in download.file(url, tf, mode = "wb", quiet = TRUE): URL 'https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DEMO_H.XPT': Timeout of 60 seconds was reached</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(<span class="fu">head</span>(DPQ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>DEMO_I <span class="ot">=</span> <span class="fu">nhanes</span>(<span class="st">'DEMO_I'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>simpleWarning in download.file(url, tf, mode = "wb", quiet = TRUE): URL 'https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DEMO_I.XPT': Timeout of 60 seconds was reached</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>DPQ_H <span class="ot">=</span> <span class="fu">nhanes</span>(<span class="st">'DPQ_H'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>simpleWarning in download.file(url, tf, mode = "wb", quiet = TRUE): URL 'https://wwwn.cdc.gov/Nchs/Nhanes/2013-2014/DPQ_H.XPT': Timeout of 60 seconds was reached</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>DPQ_I <span class="ot">=</span> <span class="fu">nhanes</span>(<span class="st">'DPQ_I'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>simpleWarning in download.file(url, tf, mode = "wb", quiet = TRUE): URL 'https://wwwn.cdc.gov/Nchs/Nhanes/2015-2016/DPQ_I.XPT': Timeout of 60 seconds was reached</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Append Files</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>DEMO <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(DEMO_H, DEMO_I)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>DPQ <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(DPQ_H, DPQ_I)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(<span class="fu">head</span>(DEMO))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-98472f31f0c20fb38677" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-98472f31f0c20fb38677">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[73557,73558,73559,73561,73562,73564],[1,2,0,2,3,0],[0,0,0,1,3,1],[0,0,0,0,3,0],[0,0,0,3,3,1],[0,0,0,3,3,0],[0,0,0,0,1,0],[0,0,0,0,2,0],[0,0,0,0,1,0],[0,0,0,0,0,0],[1,0,null,1,3,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>SEQN<\/th>\n      <th>DPQ010<\/th>\n      <th>DPQ020<\/th>\n      <th>DPQ030<\/th>\n      <th>DPQ040<\/th>\n      <th>DPQ050<\/th>\n      <th>DPQ060<\/th>\n      <th>DPQ070<\/th>\n      <th>DPQ080<\/th>\n      <th>DPQ090<\/th>\n      <th>DPQ100<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-faeeaa5063f632060f66" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-faeeaa5063f632060f66">{"x":null,"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(<span class="fu">head</span>(DPQ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-ca73fa16c94e9f68ab0c" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ca73fa16c94e9f68ab0c">{"x":null,"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>There are a few differences between this data and the processed data we’ve been using. First, we have to <code>join</code> the DEMO and DPQ tables. We’ll learn more about joining or merging data in the last week of class.</p>
 <p>Second, the values in the raw NHANES tables are numeric encodings for each variable. With nhanesA we can lookup the code using <code>nhanesCodebook</code> and convert numeric codes using <code>nhanesTranslate</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nhanesCodebook</span>(<span class="st">'DEMO_H'</span>, <span class="st">'RIAGENDR'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nhanesCodebook</span>(<span class="st">'DEMO_H'</span>, <span class="st">'RIAGENDR'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Timeout was reached: No data pulled
+
+Timeout was reached: No data pulled
+
+Timeout was reached: No data pulled
+
+Timeout was reached: No data pulled</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in nhanesCodebook("DEMO_H", "RIAGENDR"): Column "RIAGENDR" not found</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>$`Variable Name:`
-[1] "RIAGENDR"
-
-$`SAS Label:`
-[1] "Gender"
-
-$`English Text:`
-[1] "Gender of the participant."
-
-$`Target:`
-[1] "Both males and females 0 YEARS -\r 150 YEARS"
-
-$RIAGENDR
-# A tibble: 3 × 5
-  `Code or Value` `Value Description` Count Cumulative `Skip to Item`
-  &lt;chr&gt;           &lt;chr&gt;               &lt;int&gt;      &lt;int&gt; &lt;lgl&gt;         
-1 1               Male                 5003       5003 NA            
-2 2               Female               5172      10175 NA            
-3 .               Missing                 0      10175 NA            </code></pre>
+<pre><code>NULL</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nhanesTranslate</span>(DEMO_H)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nhanesTranslate</span>(DEMO_H)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Column name is required</code></pre>
 </div>
@@ -469,23 +474,23 @@ $RIAGENDR
 <h2 data-anchor-id="downloading-individual-files">Downloading individual files</h2>
 <p>If all else fails, individual files can be downloaded from the CDC website and read into R using the <a href="https://cran.r-project.org/web/packages/foreign/index.html">foreign</a> package. This example is taken from an example analysis put out by the CDC <a href="https://wwwn.cdc.gov/nchs/data/Tutorials/Code/DB303_R.r">here</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Prevalence of Depression Among Adults Aged 20 and Over: United States, 2013-2016 </span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' Brody DJ, Pratt LA, Hughes JP. Prevalence of Depression Among Adults Aged 20 and Over: United          </span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' States, 2013-2016. NCHS Data Brief. No 303. Hyattsville, MD: National Center for Health Statistics. 2018.                     </span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' # Data preparation</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Download &amp; Read SAS Transport Files</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Demographic (DEMO)</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://wwwn.cdc.gov/nchs/nhanes/2013-2014/DEMO_H.XPT"</span>, tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(), <span class="at">mode=</span><span class="st">"wb"</span>)</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>DEMO_H <span class="ot">&lt;-</span> foreign<span class="sc">::</span><span class="fu">read.xport</span>(tf)[,<span class="fu">c</span>(<span class="st">"SEQN"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDAGEYR"</span>,<span class="st">"SDMVSTRA"</span>,<span class="st">"SDMVPSU"</span>,<span class="st">"WTMEC2YR"</span>)]</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://wwwn.cdc.gov/nchs/nhanes/2015-2016/DEMO_I.XPT"</span>, tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(), <span class="at">mode=</span><span class="st">"wb"</span>)</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>DEMO_I <span class="ot">&lt;-</span> foreign<span class="sc">::</span><span class="fu">read.xport</span>(tf)[,<span class="fu">c</span>(<span class="st">"SEQN"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDAGEYR"</span>,<span class="st">"SDMVSTRA"</span>,<span class="st">"SDMVPSU"</span>,<span class="st">"WTMEC2YR"</span>)]</span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Mental Health - Depression Screener (DPQ) </span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://wwwn.cdc.gov/nchs/nhanes/2013-2014/DPQ_H.XPT"</span>, tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(), <span class="at">mode=</span><span class="st">"wb"</span>)</span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>DPQ_H <span class="ot">&lt;-</span> foreign<span class="sc">::</span><span class="fu">read.xport</span>(tf)</span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://wwwn.cdc.gov/nchs/nhanes/2015-2016/DPQ_I.XPT"</span>, tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(), <span class="at">mode=</span><span class="st">"wb"</span>)</span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>DPQ_I <span class="ot">&lt;-</span> foreign<span class="sc">::</span><span class="fu">read.xport</span>(tf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Prevalence of Depression Among Adults Aged 20 and Over: United States, 2013-2016 </span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' Brody DJ, Pratt LA, Hughes JP. Prevalence of Depression Among Adults Aged 20 and Over: United          </span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' States, 2013-2016. NCHS Data Brief. No 303. Hyattsville, MD: National Center for Health Statistics. 2018.                     </span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' # Data preparation</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Download &amp; Read SAS Transport Files</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Demographic (DEMO)</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://wwwn.cdc.gov/nchs/nhanes/2013-2014/DEMO_H.XPT"</span>, tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(), <span class="at">mode=</span><span class="st">"wb"</span>)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>DEMO_H <span class="ot">&lt;-</span> foreign<span class="sc">::</span><span class="fu">read.xport</span>(tf)[,<span class="fu">c</span>(<span class="st">"SEQN"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDAGEYR"</span>,<span class="st">"SDMVSTRA"</span>,<span class="st">"SDMVPSU"</span>,<span class="st">"WTMEC2YR"</span>)]</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"https://wwwn.cdc.gov/nchs/nhanes/2015-2016/DEMO_I.XPT"</span>, tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(), <span class="at">mode=</span><span class="st">"wb"</span>)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>DEMO_I <span class="ot">&lt;-</span> foreign<span class="sc">::</span><span class="fu">read.xport</span>(tf)[,<span class="fu">c</span>(<span class="st">"SEQN"</span>,<span class="st">"RIAGENDR"</span>,<span class="st">"RIDAGEYR"</span>,<span class="st">"SDMVSTRA"</span>,<span class="st">"SDMVPSU"</span>,<span class="st">"WTMEC2YR"</span>)]</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Mental Health - Depression Screener (DPQ) </span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://wwwn.cdc.gov/nchs/nhanes/2013-2014/DPQ_H.XPT"</span>, tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(), <span class="at">mode=</span><span class="st">"wb"</span>)</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>DPQ_H <span class="ot">&lt;-</span> foreign<span class="sc">::</span><span class="fu">read.xport</span>(tf)</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">"http://wwwn.cdc.gov/nchs/nhanes/2015-2016/DPQ_I.XPT"</span>, tf <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(), <span class="at">mode=</span><span class="st">"wb"</span>)</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>DPQ_I <span class="ot">&lt;-</span> foreign<span class="sc">::</span><span class="fu">read.xport</span>(tf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
