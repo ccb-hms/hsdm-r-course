@@ -15,7 +15,7 @@ website:
       - text: "In-Class Materials"
         file: session-materials/sessions.qmd
       - text: "Exercises"
-        file: session-materials/exercises.qmd
+        file: exercises/exercises.qmd
       - text: "NHANES Docker Container"
         file: resources/resources.qmd
       - text: "Resources"
