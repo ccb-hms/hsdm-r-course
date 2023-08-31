@@ -25,7 +25,7 @@ For example, using this command `[1,2,3]` should become `[1,2,3,1,2,3]`, `["a"]`
 
 3. For this problem you will need to load in the `nhanes` example data and, if desired, load the `tidyverse` package. 
 
-```{r}
+```{r, eval=FALSE}
 library(tidyverse)
 
 nhanes <- read.csv("https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session0/session0Data.csv")
