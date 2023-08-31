@@ -8,6 +8,8 @@ code-annotations: select
 
 ## Week 1: Complete by September 8
 
+Please try to complete the following problems and email your solutions to Chris at [christopher_magnano@hms.harvard.edu](christopher_magnano@hms.harvard.edu). It is okay if you are not able to complete the exercises, you may also email Chris whatever you are able to complete within an hour. 
+
 1. What will the `class` and values in `vec1` to `vec4` be after the following lines of code? Try to figure it out without running the code, then check your work:
 
 ```{r, eval=FALSE}
@@ -32,4 +34,5 @@ nhanes <- read.csv("https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main
 a. Calculate the mean plasma glucose in the `nhanes` dataset, ignoring missing values. 
 
 b. Create a `dataframe` or `tibble`, `nhanes_mean_filled`, where all missing plasma glucose values in `nhanes` have been replaced by the mean value calculated in part a. 
+*Hint: Check out the `replace_na` function, you can find [its documentation here](https://tidyr.tidyverse.org/reference/replace_na.html).*
 
