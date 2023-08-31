@@ -86,7 +86,7 @@ website:
     - title: "Exercises"
       contents:
         - exercises/exercises.qmd
-        - exercises/basic-exercises.qmd
+        - exercises/basic-practice.qmd
         # navigation items
 
 format:
