@@ -1,5 +1,5 @@
 ---
-title: "Week 5: Exploring survey data"
+title: "Week 5: Statistical tests and missing data"
 author: "Center for Computational Biomedicine"
 format: 
   html: default
@@ -7,295 +7,279 @@ code-annotations: select
 ---
 
 ```{r}
-#| output: false
-#| warning: false
 library(tidyverse)
 library(survey)
 library(DT)
-library(flextable)
-library(officer)
+library(nhanesA)
 ```
-
-# Phonto Script
-
-Here's what I ran on docker to get the data.
-
-```{r}
-#| eval: false
-library(phonto)
-
-cols_d = list(DEMO_D=c("RIDAGEYR","RIAGENDR","RIDRETH1", 
-                       "DMDBORN", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
-                       "WTINT2YR", "WTMEC2YR"), 
-              OHX_D =c("OHXDECAY", "OHXREST"),
-              GLU_D =c("LBXGLU", "WTSAF2YR"), GHB_D = "LBXGH",
-              BMX_D="BMXBMI"
-)
-base_df_d <- jointQuery(cols_d)
-
-cols_e = list(DEMO_E=c("RIDAGEYR","RIAGENDR","RIDRETH1",
-                       "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
-                       "WTINT2YR", "WTMEC2YR"), 
-              OHX_E =c("OHXDECAY", "OHXREST"),
-              GLU_E =c("LBXGLU", "WTSAF2YR"), GHB_E = "LBXGH",
-              BMX_E ="BMXBMI"
-)
-base_df_e <- jointQuery(cols_e)
-
-cols_f = list(DEMO_F=c("RIDAGEYR","RIAGENDR","RIDRETH1",
-                       "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
-                       "WTINT2YR", "WTMEC2YR"), 
-              OHXDEN_F =c("OHXDECAY", "OHXREST"),
-              GLU_F =c("LBXGLU", "WTSAF2YR"), GHB_F = "LBXGH",
-              BMX_F ="BMXBMI"
-)
-base_df_f <- jointQuery(cols_f)
-
-all_cols <- c(cols_d, cols_e, cols_f)
-metadata <- dataDescription(all_cols)
-save(base_df_d, base_df_e, base_df_f, metadata, file = "nhanes_beheshti_data.RData")
-```
-
-And here's the chunks of code from here and there which replicate the analysis. 
-Sorry a lot of it is using tidyverse. 
 
 # Data
-Let's go back to the raw NHANES data, just after we combined the three cycles. 
+
+We can load our processed NHANES data and recreate the survey objects from last week. 
 
 ```{r}
-load("nhanes_beheshti_data.RData")
-tib_d <- as_tibble(base_df_d)
-tib_e <- as_tibble(base_df_e)
-tib_f <- as_tibble(base_df_f)
+load("processed_beheshti.RData")
 
-tib_e <- rename(tib_e, DMDBORN = DMDBORN2)
-tib_f <- rename(tib_f, DMDBORN = DMDBORN2)
-
-# Combine all years together
-tib_all <- tib_d %>%
-  bind_rows(tib_e) %>%
-  bind_rows(tib_f)
-all_nhanes <- tib_all
-```
-
-
-# Re-doing a analysis
-
-We need to keep the entire dataset in order to properly employ survey weights.
-Thus, we'll have to redo most of the processing we've done in previous weeks. 
-Since we already have the code, we can repeat it here in a single chain of piped
-statements. 
-
-```{r}
-all_nhanes <- mutate(all_nhanes,
-                   # Numeric Variables
-                   LBXGLU = as.numeric(LBXGLU),
-                   LBXGH = as.numeric(LBXGH),
-                   BMXBMI = as.numeric(BMXBMI),
-                   WTSAF2YR = as.numeric(WTSAF2YR),
-                   WTINT2YR = as.numeric(WTINT2YR),
-                   WTMEC2YR = as.numeric(WTMEC2YR),
-                   SDMVPSU = as.numeric(SDMVPSU), 
-                   SDMVSTRA = as.numeric(SDMVSTRA),
-                   RIDAGEYR = as.numeric(RIDAGEYR),
-                   
-                   # Basic Categories
-                   RIAGENDR = as.factor(RIAGENDR),
-                   RIDRETH1 = as.factor(RIDRETH1),
-                   DMDBORN = gsub("\"", "", DMDBORN),
-                   DMDBORN = as.factor(DMDBORN),
-                   OHXDECAY = (OHXDECAY == "Yes"),
-                   OHXREST = (OHXREST == "Yes"),
-                   
-                   #Complex Categories
-                   age.cat = cut(
-                      RIDAGEYR,
-                      breaks = c(13, 15, 18, 100),
-                      include.lowest = TRUE,
-                      labels = c("13-15", "16-18", "19+")),
-                   
-                   RIDAGEYR.cat = cut(
-                    RIDAGEYR,
-                    breaks = c(13, 15, 18),
-                    include.lowest = TRUE,
-                    labels = c("13-15", "16-18")),
-                 
-                   LBXGLU.cat = case_when(
-                   LBXGLU < 100 ~ "<100 mg/dl",
-                   LBXGLU < 126 ~ ">=100 mg/dl and <126 mg/dl", 
-                   LBXGLU >= 126 ~ ">=126 mg/dl",
-                   .default = NA),
-                 
-                  LBXGH.cat = case_when(
-                   LBXGH < 5.7 ~ "<5.7%",
-                   LBXGH >= 5.7 ~ ">=5.7% and <6.5%",
-                   LBXGH >= 6.5 ~ ">= 6.5%",
-                   .default = NA),
-                 
-                  BMXBMI.cat = case_when( 
-                   BMXBMI < 25 ~ "Normal", 
-                   BMXBMI < 30 ~ "Overweight",
-                   BMXBMI >= 30 ~ "Obese",
-                   .default = NA), 
-                 
-                  INDFMPIR.cat = case_when(
-                   INDFMPIR == "PIR value greater than or equa" ~ ">= 1",
-                   INDFMPIR == "Value greater than or equal to" ~ ">= 1",
-                   as.numeric(INDFMPIR) >= 1 ~ ">=1",
-                   as.numeric(INDFMPIR) < 1 ~ "<1",
-                   .default = NA),
-                 
-                  DMDBORN.cat = case_when(
-                   DMDBORN == "Born in 50 US States or Washi" ~ "Within the US",
-                   is.na(DMDBORN) ~ NA,
-                   DMDBORN == "Don't Know" ~ NA,
-                   DMDBORN == "Refused" ~ NA,
-                   .default = "Outside the US"),
-                  
-                  dental.caries = OHXDECAY | OHXREST,
-
-                diabetes = case_when(
-                    is.na(LBXGH) & is.na(LBXGLU) ~ NA,
-                   LBXGH >= 6.5 | LBXGLU >= 126 ~ "diabetic",
-                   LBXGH >= 5.7 | LBXGLU >= 100 ~ "prediabetic",
-                    .default = "nondiabetic"))
-  
-```
-
-# Preparing Survey Analysis
-
-## Removing NA weights
-
-Recall from the reading that we can't have any missing values in the survey design variables. 
-Note that the analysis uses the TMEC weights as opposed to the fasting weights, I'm not sure if that's technically the correct call since we're looking at fasting glucose levels to define diabetic status. 
-
-::: callout-warning
-Despite the paper saying that they removed those without enough data to determine diabetic status, they did not remove those samples from their weighting calculations here. 
-:::
-
-::: {.callout-tip appearance="minimal"}
-## Exercise
-Remove all rows with `NA` for the main survey design variables; 
-`WTMEC2YR`, `SDMVPSU`, and `SDMVSTRA`.
-
-```{r}
 wt_nhanes <- all_nhanes %>%
-  drop_na(WTMEC2YR, SDMVPSU, SDMVSTRA)
-```
-:::
-
-## Creating combined survey weights
-
-Currently, our survey weights `WTSAF2YR` are for each 2 year cycle. 
-We need to combine them to represent the full 6-year period we are investigating. 
-Luckily NHANES has an [official guide](https://wwwn.cdc.gov/nchs/nhanes/tutorials/weighting.aspx) for combining these weights.
-It turns out, all we need to do is divide all weights by 3. 
-
-```{r}
-## Re-leveling the diabetes variable to be in a better order for plotting any analysis
-wt_nhanes <- wt_nhanes %>%
+  drop_na(WTMEC2YR, SDMVPSU, SDMVSTRA) %>%
   mutate(WTMEC6YR = WTMEC2YR * 1/3)
-wt_nhanes=data.frame(wt_nhanes)
- wt_nhanes$diabetes = factor(wt_nhanes$diabetes, levels=c("nondiabetic","prediabetic","diabetic"))
-```
 
-## Creating the survey design object
-The CDC describes the survey as follows:
-*The sample design is a complex, multistage, clustered design using unequal probabilities of selection. Different groups (e.g., low-income persons, teens, older persons, and selected racial/ethnic populations) have been oversampled during specific survey cycles. Since 2011, the following groups have been oversampled: Hispanic persons; non-Hispanic black persons; non-Hispanic Asian persons; non-Hispanic white and other persons at or below 130 percent of poverty; and non-Hispanic white and other persons ages 80 and older. In 2015-16, the sampling design was revised, changing the cut-point for low-income oversampling from to at or below 185 percent of poverty. The estimation procedure used to produce national statistics for all NHANES involved inflation by the reciprocal of the probability of selection, adjustment for nonresponse, and post stratified ratio adjustment to population totals.*
-
-So to analyse this design we need to use some specialized survey analysis methods which are contained in the `survey` package written by Thomas Lumley.
-
-
-```{r}
+# Create survey design object
 nhanes_design <- svydesign(id     = ~SDMVPSU,
                           strata  = ~SDMVSTRA,
                           weights = ~WTMEC6YR,
                           nest    = TRUE,
-                          survey.lonely.psu = "adjust",
                           data    = wt_nhanes)
 
-summary(nhanes_design)
-```
-
-Now we can take our data subset from the survey design object. 
-
-```{r}
+#Subset the study population
 ado_design <- subset(nhanes_design, RIDAGEYR >= 13 & RIDAGEYR <= 18 & !is.na(OHXDECAY))
 
 #Also make a tibble of this data to analyze
 ado_data <- wt_nhanes %>%
-  filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% # Gets the 3660 nonedentulous adolescents
-  filter(!is.na(OHXDECAY)) %>% # Gets the 3346 with non-NA dental carie variable
-  filter(!is.na(diabetes)) # Gets the 3046 with a diabetic status
+  filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% 
+  filter(!is.na(OHXDECAY)) %>% 
+  filter(!is.na(diabetes)) 
 ```
 
+# Performing simple tests
 
-These correctly replicate the counts in table 1a
-```{r}
-tab1 = svytable(~age.cat + dental.caries, ado_design)
-round(tab1[1,]/sum(tab1[1,]), digits=3)
-round(tab1[2,]/sum(tab1[2,]), digits=3)
-```
-
-And then we can also replicate the ethnicity distributions
-
-```{r svyEthn}
-svytable(~RIDRETH1, ado_design)
-```
-
-## Logistic Regression
-
-Let's recreate the analysis shown in table 2 of the Beheshti analysis. 
-The table's caption explains the 5 different models:
-
-> Model 1=crude (unadjusted); model 2=controlled for age, race/ethnicity, gender; model 3=controlled for age, race/ethnicity, gender, BMI; model 4=controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio; model 5=controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth.
-
-Below model 1 has been reproduced.
-See if you can recreate models 2-5.
-
-Currently model gets the same odds ratio as the paper, but model 2 doesn't. 
+Let's start by looking at the relationship between ethnicity and dental caries using the `table` command. 
 
 ```{r}
-
-# Model 1: Unadjusted
-logit1 <- svyglm(dental.caries~ diabetes, family=quasibinomial, design=ado_design, na.action = na.omit)
-exp(coef(logit1))
-summary(logit1)
+table(ado_data$RIDRETH1, ado_data$dental.caries)
+```
+We can group and summarize the data to take a look at percents by group instead:
+```{r}
+eth_ado <- ado_data %>%
+  group_by(RIDRETH1, dental.caries) %>%
+  summarise(count = n()) %>%
+  mutate(perc = count/sum(count))
+eth_ado
 ```
 
-A Wald test for `diabetes`:
+We could also visualize the different distributions:
 ```{r}
-regTermTest(logit1, ~diabetes)
+ggplot(filter(eth_ado, dental.caries == TRUE), aes(x = RIDRETH1, y = perc*100)) + 
+    geom_bar(stat = "identity") + 
+    theme(axis.text.x = element_text(angle = 45, hjust=1)) +
+    labs(x = "Ethnicity", y = "Percent Dental Caries")
+```
+We can also perform a Chi-squared test to examine the relationship between the variables. 
+We either print the result directly or store it in a variable and examine it's different components. 
 
+```{r}
+res <- chisq.test(table(ado_data$RIDRETH1, ado_data$dental.caries))
+
+res$method
+res$p.value
+res$statistic
 ```
 
-Next adjust form ethnicity, age and sex.
+However, as opposed to directly examining the survey data we may instead want to use the survey weights to infer statistics about the total population. 
 
 ```{r}
-# Model 2: Controlled for age, race/ethnicity, gender
-logit2 <- svyglm(dental.caries~ diabetes + RIDRETH1 + RIAGENDR + RIDAGEYR, family=quasibinomial, design=ado_design, na.action = na.omit)
-exp(coef(logit2))
-summary(logit2)
+svychisq(~RIDRETH1 + dental.caries, ado_design)
 ```
 
-We could perform some Wald tests,
-```{r}
-regTermTest(logit2, ~RIDRETH1)
-regTermTest(logit2, ~RIAGENDR)
-regTermTest(logit2, ~RIDAGEYR)
+# Adding Chi-square tests to the table
 
-regTermTest(logit2, ~diabetes)
+::: {.callout-tip appearance="minimal"}
+## Exercise
+
+Take a look at the p-values in tables 1a and 1b in the Beheshti paper. 
+Choose at least one test from 1a and one test from 1b, and reproduce them. 
+Compare them to their counterparts using the data without incorporating survey weights. 
+
+```{r}
+#Your code here
+```
+
+What is the purpose of these tests in the paper?
+How useful do you find these results? 
+Do you think there would be a better analysis to perform instead?
+
+:::
+
+
+# Depression, gender, and age in NHANES
+
+Let's take a look at an example analysis comparing the prevalence of depression among men and women in different age groups. This is taken from a CDC [sample analysis](https://wwwn.cdc.gov/nchs/nhanes/tutorials/samplecode.aspx) replicating [this debrief](https://www.cdc.gov/nchs/products/databriefs/db303.htm).
+
+## Downloading NHANES data
+
+So far, we've been using data from the dockerized database. 
+Today, let's take a look at an alternate way to access NHANES data in R using the `nhanesA` package.
+
+With `nhanesA`, we can easily download entire tables from NHANES. 
+However, there are some extra processing steps we'll have to perform compared to using the dockerized database. 
+You can learn more about using `nhanesA` [here](https://cran.r-project.org/web/packages/nhanesA/vignettes/Introducing_nhanesA.html).
+
+```{r}
+# Get data with nahnesA
+DEMO_H = nhanes('DEMO_H')
+DEMO_I = nhanes('DEMO_I')
+DPQ_H = nhanes('DPQ_H')
+DPQ_I = nhanes('DPQ_I')
+
+# Append Files
+DEMO <- bind_rows(DEMO_H, DEMO_I)
+DPQ <- bind_rows(DPQ_H, DPQ_I)
+
+datatable(head(DEMO))
+datatable(head(DPQ))
+```
+
+There are a few differences between this data and the processed data we've been using. 
+First, we have to `join` the DEMO and DPQ tables. 
+We'll learn more about joining or merging data in the last week of class. 
+
+Second, the values in the raw NHANES tables are numeric encodings for each variable. 
+With nhanesA we can lookup the code using `nhanesCodebook` and convert numeric codes using `nhanesTranslate`.
+
+
+```{r}
+nhanesCodebook('DEMO_H', 'RIAGENDR')
+```
+However, in this example analysis the authors chose to instead directly convert values.
+
+```{r, eval=FALSE}
+# Merge DEMO and DPQ files and create derived variables
+
+One <- left_join(DEMO, DPQ, by="SEQN") %>%
+  # Set 7=Refused and 9=Don't Know To Missing for variables DPQ010 thru DPQ090 ##
+  mutate_at(vars(DPQ010:DPQ090), ~ifelse(. >=7, NA, .)) %>%
+  mutate(. , 
+         # create indicator for overall summary
+         one = 1,
+         # Create depression score as sum of variables DPQ010 -- DPQ090
+         Depression.Score = rowSums(select(. , DPQ010:DPQ090)),
+         # Create depression indicator as binary 0/100 variable. (is missing if Depression.Score is missing)
+         Depression= ifelse(Depression.Score >=10, 100, 0), 
+         # Create factor variables
+         Gender = factor(RIAGENDR, labels=c("Men", "Women")),
+         Age.Group = cut(RIDAGEYR, breaks=c(-Inf,19,39,59,Inf),labels=c("Under 20", "20-39","40-59","60 and over")),
+         # Generate 4-year MEC weight (Divide weight by 2 because we are appending 2 survey cycles)
+         WTMEC4YR = WTMEC2YR/2 ,
+         # Define indicator for analysis population of interest: adults aged 20 and over with a valid depression score
+         inAnalysis= (RIDAGEYR >= 20 & !is.na(Depression.Score))
+         ) %>% 
+  # drop DPQ variables
+  select(., -starts_with("DPQ"))
+```
+
+## Survey design
+
+With our data processed, we can make the survey design object. 
+
+```{r, eval=FALSE}
+# To keep things the same as in the report
+options(survey.lonely.psu='adjust')
+
+# Define survey design for overall dataset
+NHANES_all <- svydesign(data=One, id=~SDMVPSU, strata=~SDMVSTRA, weights=~WTMEC4YR, nest=TRUE)
+                    
+# Create a survey design object for the subset of interest: adults aged 20 and over with a valid depression score 
+# Subsetting the original survey design object ensures we keep the design information about the number of clusters and strata
+NHANES <- subset(NHANES_all, inAnalysis)
 
 ```
-```{r}
-# Model 3: Controlled for age, race/ethnicity, gender, BMI
-logit3 <- svyglm(dental.caries~ diabetes + RIDRETH1 + RIAGENDR + RIDAGEYR + BMXBMI, family=quasibinomial, design=ado_design, na.action = na.omit)
-summary(logit3)
+## Analysis
 
-# Model 4: Controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio
+Let's start by taking a look at how depression varies for our other variables of interest. 
+```{r, eval=FALSE}
+# Define a function to call svymean and unweighted count
+getSummary <- function(varformula, byformula, design){
+  # Get mean, stderr, and unweighted sample size
+  c <- svyby(varformula, byformula, design, unwtd.count ) 
+  p <- svyby(varformula, byformula, design, svymean ) 
+  outSum <- left_join(select(c,-se), p) 
+  outSum
+}
 
-# Model 5: Controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth
+#' ### Calculate prevalence of depression overall, by gender, by age group, and by age and gender
+#' Adults
+getSummary(~Depression, ~one, NHANES)
+#' By sex
+getSummary(~Depression, ~Gender, NHANES)
+#' By age
+getSummary(~Depression, ~Age.Group, NHANES)
+#' By sex and age
+getSummary(~Depression, ~Gender + Age.Group, NHANES)
+```
 
+Much like running the Chi-squared test, we need to use `svyttest` as opposed to `t.test` so we can incorporate the survey weights. 
+
+```{r, eval=FALSE}
+#' ### Compare Prevalence Between Men And Women
+svyttest(Depression~Gender, NHANES)$p.value %>% as.numeric 
+svyttest(Depression~Gender, subset(NHANES, Age.Group=="20-39"))$p.value %>% as.numeric
+svyttest(Depression~Gender, subset(NHANES, Age.Group=="40-59"))$p.value %>% as.numeric
+svyttest(Depression~Gender, subset(NHANES, Age.Group=="60 and over"))$p.value %>% as.numeric
+```
+
+We can also examine the prevalence of depression by age.
+We can perform t-tests on all pairs of age groups as done in the initial analysis.
+
+```{r, eval=FALSE}
+#' ### Pairwise t-testing by age groups for total, men, and women
+#' Differences by age group, among all adults
+svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="20-39" | Age.Group=="40-59"))$p.value %>% as.numeric
+svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="20-39" | Age.Group=="60 and over"))$p.value %>% as.numeric
+svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="40-59" | Age.Group=="60 and over"))$p.value %>% as.numeric
+```
+
+And then further break things down by gender.
+```{r, eval=FALSE}
+#' Differences by age group, among men
+svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="20-39" | Age.Group=="40-59")))$p.value %>% as.numeric
+svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="20-39" | Age.Group=="60 and over")))$p.value %>% as.numeric
+svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="40-59" | Age.Group=="60 and over")))$p.value %>% as.numeric
+#' Differences by age group, among women
+svyttest(Depression~Age.Group, subset(NHANES, Gender=="Women" & (Age.Group=="20-39" | Age.Group=="40-59")))$p.value %>% as.numeric
+svyttest(Depression~Age.Group, subset(NHANES, Gender=="Women" & (Age.Group=="20-39" | Age.Group=="60 and over")))$p.value %>% as.numeric
+svyttest(Depression~Age.Group, subset(NHANES, Gender=="Women" & (Age.Group=="40-59" | Age.Group=="60 and over")))$p.value %>% as.numeric
+```
+::: callout-important
+## Exercise: The dangers of multiple testing
+
+Let's say we're running this analysis with the traditional $\alpha$-level (p-value cut-off) of $p < 0.05$. What does our $alpha$-level mean?
+
+How many t-tests have we performed in this depression analysis?
+How does that relate to the $alpha$-level?
+
+To help understand this relationship, consider a binomial test to determine if the result of 100 coin flips is fair:
+
+```{r, eval=FALSE}
+numFlips = 100
+probHead = 0.5
+coinFlips = sample(c("H", "T"), size = numFlips,
+  replace = TRUE, prob = c(probHead, 1 - probHead))
+numHeads <- sum(coinFlips == "H")
+pval <- binom.test(x = numHeads, n = numFlips, p = 0.5)$p.value
+pval
+```
+
+Now let's look at the range of p-values we get if we run the test 10000 times. 
+
+
+```{r, eval=FALSE}
+#Let's make a function for performing our experiment
+flip_coin <- function(numFlips, probHead){
+  numFlips = 100
+  probHead = 0.50
+  coinFlips = sample(c("H", "T"), size = numFlips,
+    replace = TRUE, prob = c(probHead, 1 - probHead))
+  numHeads <- sum(coinFlips == "H")
+  pval <- binom.test(x = numHeads, n = numFlips, p = 0.5)$p.value
+  return(pval)
+}
+
+#And then run it 10000 times
+parray <- replicate(10000, flip_coin(1000, 0.5), simplify=TRUE)
+hist(-log(parray), breaks=100)
+min(parray)
 ```
 
 :::
+
+

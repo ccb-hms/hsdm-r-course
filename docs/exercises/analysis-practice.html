@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Center for Computational Biomedicine">
 
 <title>Research Design and Analysis - Analysis Practice</title>
 <style>
@@ -20,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -65,7 +98,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -95,11 +128,11 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">In-Class Materials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../exercises/exercises.html" rel="" target="">
+    <a class="nav-link active" href="../exercises/exercises.html" rel="" target="" aria-current="page">
  <span class="menu-text">Exercises</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../resources/resources.html" rel="" target="">
+    <a class="nav-link" href="../docker/install-docker.html" rel="" target="">
  <span class="menu-text">NHANES Docker Container</span></a>
   </li>  
   <li class="nav-item">
@@ -113,13 +146,57 @@ ul.task-list li input[type="checkbox"] {
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/analysis-practice.html">Analysis Practice</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercises</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/basic-practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basic Practice</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/analysis-practice.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Analysis Practice</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-analysis-exercise-1-due-october-25" id="toc-data-analysis-exercise-1-due-october-25" class="nav-link active" data-scroll-target="#data-analysis-exercise-1-due-october-25">Data analysis exercise 1: Due October 25</a></li>
+  <li><a href="#data-analysis-exercise-2-due-november-8" id="toc-data-analysis-exercise-2-due-november-8" class="nav-link" data-scroll-target="#data-analysis-exercise-2-due-november-8">Data analysis exercise 2: Due November 8</a></li>
+  <li><a href="#data-analysis-exercise-3-due-november-15" id="toc-data-analysis-exercise-3-due-november-15" class="nav-link" data-scroll-target="#data-analysis-exercise-3-due-november-15">Data analysis exercise 3: Due November 15</a></li>
+  <li><a href="#data-analysis-exercise-4-due-november-29" id="toc-data-analysis-exercise-4-due-november-29" class="nav-link" data-scroll-target="#data-analysis-exercise-4-due-november-29">Data analysis exercise 4: Due November 29</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -133,12 +210,6 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Center for Computational Biomedicine </p>
-          </div>
-  </div>
     
   
     
@@ -147,8 +218,131 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<section id="data-analysis-exercise-1-due-october-25" class="level2">
+<h2 data-anchor-id="data-analysis-exercise-1-due-october-25">Data analysis exercise 1: Due October 25</h2>
+<ol type="1">
+<li>What is at least one challenge you expect to encounter when analyzing your project’s data? Examples of challenges include:</li>
+</ol>
+<ul>
+<li>A high percent of missing data.</li>
+<li>Groups of interest are of uneven size.</li>
+<li>A specialized type of data which is difficult to deal with (such as geographic or time-series data).</li>
+<li>Unreliable data (values may be incorrect).</li>
+<li>Data has to be combined from many different sources.</li>
+<li>How the data was collected or recorded changed over time.</li>
+</ul>
+<p><em>Tip: If you are unsure what challenges your project’s data might face, take a look at other papers which use the same or similar data. Do the authors mention any special data cleaning or analysis steps?</em></p>
+<ol start="2" type="1">
+<li><p>How do you plan to deal with this challenge? Are there specialized R packages which can help with this challenge? If you are unsure, how do you plan to learn how to deal with this challenge?</p></li>
+<li><p>A small, simulated dataset is useful when creating an analysis. Since we know the exact properties of the simulated dataset, we can make sure any calculations or corrections we perform in our analysis are correct by first trying them on the simulated dataset.</p></li>
+</ol>
+<p>Create a small dataset (50 or fewer rows) which is similar to your project’s data and if possible contains the challenge you talk about above. You can create the dataset by hand, as a subset of real data, or by random generation.</p>
+<p>Attach your dataset and any code you used to generate your dataset to your solution.</p>
+<p>You can create vectors of different types in R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a vector of 10 0's and 0 empty strings ""</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>num_vec <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">10</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>char_vec <span class="ot">&lt;-</span> <span class="fu">character</span>(<span class="dv">10</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>num_vec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0 0 0 0 0 0 0 0 0 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>char_vec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "" "" "" "" "" "" "" "" "" ""</code></pre>
+</div>
+</div>
+<p>And then assign values and create a dataframe:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>num_vec[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>num_vec[<span class="dv">4</span><span class="sc">:</span><span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="fl">8.5</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>num_vec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 6.0 6.0 6.0 8.5 8.5 8.5 8.5 8.5 8.5 8.5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>char_vec[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="st">"Male"</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>char_vec[<span class="dv">5</span><span class="sc">:</span><span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="st">"Female"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>char_vec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Male"   "Male"   "Male"   "Male"   "Female" "Female" "Female" "Female"
+ [9] "Female" "Female"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(char_vec, num_vec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can generate random numbers using functions like <code>rnorm</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate 50 random numbers centered around 1000 with a standard deviation of 300</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>norm_nums <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">1000</span>, <span class="dv">300</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>norm_nums</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  671.8353  551.0766 1173.4532 1108.1992  776.5190 1415.0239  966.2869
+ [8]  980.1435  677.1748  838.0657 1172.3523 1434.9341  724.6760  885.6557
+[15]  700.6313  762.7536  425.4257  390.5041 1005.0038  931.0715  691.2735
+[22] 1307.6132 1049.3367  593.8500 1364.2790  516.1272 1206.4124  989.3623
+[29]  993.8052  835.3986  966.0360  957.1244 1428.2786  798.5219  952.9330
+[36] 1541.3199 1036.3621 1161.4178 1244.1381  632.5616  638.4219 1564.0008
+[43]  852.2371  780.7270 1011.4660 1076.1275  793.6747  757.2591 1468.0551
+[50] 1023.0438</code></pre>
+</div>
+</div>
+<p>Another useful function for generating example data is <code>sample</code>. It selects random items from a vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select a random item 8 times from norm_nums</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(norm_nums, <span class="dv">8</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1415.0239  931.0715 1206.4124  551.0766 1541.3199 1364.2790 1076.1275
+[8]  700.6313</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select 6 different random whole numbers between 1 and 100</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">6</span>, <span class="at">replace=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25  4 41 77 17 51</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomly replace 25% of norm_nums with NA to simulate missing data</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(norm_nums)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="fu">round</span>(n <span class="sc">*</span> .<span class="dv">25</span>), <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>norm_nums[idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>norm_nums</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  671.8353  551.0766 1173.4532 1108.1992        NA 1415.0239        NA
+ [8]  980.1435  677.1748  838.0657 1172.3523 1434.9341  724.6760  885.6557
+[15]        NA  762.7536        NA  390.5041        NA  931.0715  691.2735
+[22] 1307.6132 1049.3367        NA        NA  516.1272 1206.4124  989.3623
+[29]  993.8052  835.3986  966.0360  957.1244        NA        NA        NA
+[36] 1541.3199 1036.3621        NA 1244.1381  632.5616  638.4219 1564.0008
+[43]  852.2371        NA 1011.4660 1076.1275  793.6747  757.2591 1468.0551
+[50] 1023.0438</code></pre>
+</div>
+</div>
+</section>
+<section id="data-analysis-exercise-2-due-november-8" class="level2">
+<h2 data-anchor-id="data-analysis-exercise-2-due-november-8">Data analysis exercise 2: Due November 8</h2>
+<ol type="1">
+<li>What is a data visualization or table you plan to create as a part of your analysis?</li>
+<li>Using your simulated dataset dataset, create an example of the visualization. Try to get it as close to ‘publication ready’ as possible in terms of legends, axis labels, colors, text size, etc.</li>
+<li>Export your figure and attach it to your solution.</li>
+</ol>
+</section>
+<section id="data-analysis-exercise-3-due-november-15" class="level2">
+<h2 data-anchor-id="data-analysis-exercise-3-due-november-15">Data analysis exercise 3: Due November 15</h2>
+<ol type="1">
+<li>Name 2 ways you could deal with either missing or duplicate data.</li>
+<li>Will the data you’re using for your project contain duplicate and/or missing data?</li>
+<li>Write R code on your sample data to demonstrate one of the solutions you mentioned. If the data for your project will contain neither, use the NHANES adolescent diabetes dataset from in-class.</li>
+</ol>
+</section>
+<section id="data-analysis-exercise-4-due-november-29" class="level2">
+<h2 data-anchor-id="data-analysis-exercise-4-due-november-29">Data analysis exercise 4: Due November 29</h2>
+<ol type="1">
+<li>Choose a relationship between 2 or more variables in your project’s data you wish to explore the relationship between.</li>
+<li>What test or model would you use to explore that relationship?</li>
+<li>Write R code using to run your chosen model or test on your simulated dataset.</li>
+<li>Create the results figure, statement, or table you plan to use in your final report around this result, but using the result from your simulated dataset.</li>
+</ol>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

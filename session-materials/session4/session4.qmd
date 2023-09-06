@@ -39,14 +39,12 @@ summary(base_df_f)
 
 
 
-::: {.callout-info collapse="true"}
+::: {.callout-note collapse="true"}
 ## See more about how we downloaded the data
 
 The NHANES data was downloaded using a packaged called `phonto`.
 `phonto` connects to a database of the NHANES data developed by the Center for Computational Biomedicine (CCB).
 The database is a relational database running on a virtual machine using the containerization software [Docker](https://www.docker.com/). 
-
-We will be learning a bit more about this in the last week of class.
 The code used to download the data is shown here:
 
 ```r
@@ -88,7 +86,7 @@ save(base_df_d, base_df_e, base_df_f, metadata, file = "nhanes_beheshti_data.RDa
 
 # Preparing the data
 
-In the reading, we saw how to combine multiple sets of observations by appending datasets. However, before we need to make sure corresponding columns between years can be combined. 
+In the reading, we saw how to combine multiple sets of observations by appending datasets. However, before combining multiple datasets we need to make sure corresponding columns between years can be combined. 
 
 NHANES will often change how it encodes or records different variables from year to year.
 Our first red flag are any columns whose name has changed.
@@ -119,7 +117,7 @@ tib_e <- as_tibble(base_df_e)
 tib_f <- as_tibble(base_df_f)
 ```
 
-Let's also view the metadata of the columns.
+Finally, let's also view the metadata of the columns.
 
 ```{r}
 DT::datatable(metadata)
@@ -128,15 +126,15 @@ DT::datatable(metadata)
 
 ::: {.callout-tip appearance="minimal"}
 ## Exercise
-a. Resolve the change the variable coding between the datasets.
-Use your own judgement on the best way to resolve this issue. 
+a. Resolve any changes in variable coding between the datasets.
+Use your own judgement on the best way to resolve any issues (doing nothing might also be a solution). 
 
 ```{r}
 
-# Step 1: Change things to have the same sets of values
+# Step 1: If needed, change things to have the same sets of values
 # TODO your code here
 
-# Step 2: Rename the columns to fit between the datasets
+# Step 2: Rename the DMDBORN2 columns to match between the datasets
 tib_e <- rename(tib_e, DMDBORN = DMDBORN2)
 tib_f <- rename(tib_f, DMDBORN = DMDBORN2)
 ```
@@ -174,7 +172,7 @@ tib_all <- mutate(tib_all,
 
 ## Categorical variables
 
-Many of the NHANES values are are categorical data, bur right now are stored as text. 
+Many of the NHANES values are categorical data, but right now are stored as text. 
 We can check what values exist by converting them to factors before making the decision of how to handle them in the analysis: 
 
 ```{r}
@@ -333,10 +331,6 @@ na_counts <- colSums(is.na(tib_all))
 na_counts <- data.frame(na_counts[order(na_counts, decreasing = TRUE)])
 colnames(na_counts) <- c("NA Count")
 DT::datatable(na_counts)
-
-# Tidyverse way
-#tib_all |>
-#  summarise_all(~sum(is.na(.)))
 ```
 
 Unfortunately, it looks `DID040` won't be very useful. 

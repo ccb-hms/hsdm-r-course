@@ -5,7 +5,7 @@
 ## Extended Materials
 
 You can find the original, extended version of this chapter [here](https://epirhandbook.com/en/missing-data.html).
-::
+:::
 
 ```{r, out.width=c("50%"), echo=F}
 knitr::include_graphics(here::here("img", "missingness.png"))

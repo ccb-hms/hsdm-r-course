@@ -17,7 +17,7 @@ website:
       - text: "Exercises"
         file: exercises/exercises.qmd
       - text: "NHANES Docker Container"
-        file: resources/resources.qmd
+        file: docker/install-docker.qmd
       - text: "Resources"
         file: resources/resources.qmd
 
@@ -83,10 +83,17 @@ website:
         - resources/getting-help.qmd
         # navigation items
         
+    - title: "NHANES Docker Container"
+      contents:
+        - docker/install.docker.qmd
+        - docker/getting-container.qmd
+        - docker/accessing-nhanes.qmd
+        
     - title: "Exercises"
       contents:
         - exercises/exercises.qmd
         - exercises/basic-practice.qmd
+        - exercises/analysis-practice.qmd
         # navigation items
 
 format:

@@ -1,5 +1,5 @@
 ---
-title: "Week 7: Regression"
+title: "Week 7: Advanced Regression"
 author: "RG"
 date: "2023-06-26"
 output: html_document
@@ -292,10 +292,10 @@ It seems that some of the apparent effect of INDFMPIR seems to be related to the
  summary(lmFx3)
 ```
 
-*Exercise::*
+*Exercise*
 
 In the code below, we drop the terms that were not statistically significant in the model and then compare this smaller model to the larger one, above.
-Interpret the results.
+Try interpreting the results.
 ```{r}
 lmFx4 = lm(LBXTC ~ ns(RIDAGEYR, df=7) + LBDHDD+LBXGH+Black, data=d7sub)
 summary(lmFx4)

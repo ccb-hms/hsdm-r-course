@@ -1,37 +1,258 @@
 ---
-title: "Week 8: Putting it all together"
+title: "Week 8: Exploring survey data"
 author: "Center for Computational Biomedicine"
 format: 
   html: default
 code-annotations: select
 ---
 
-# Overview
+```{r}
+#| output: false
+#| warning: false
+library(tidyverse)
+library(survey)
+library(DT)
+library(flextable)
+library(officer)
+```
 
-This week there will be minimal initial code. 
-Instead, you will be putting into practice everything you've learned over the past 8 weeks by extending the analysis in [Beheshti et. al. 2021](https://pubmed.ncbi.nlm.nih.gov/33892837/). 
-You can choose between the following extensions, or extend the analysis in some other way. 
+# Data
+Let's go back to the raw NHANES data, just after we combined the three cycles. 
 
-## Option 1: Incorporate additional variables
+```{r}
+load("nhanes_beheshti_data.RData")
+tib_d <- as_tibble(base_df_d)
+tib_e <- as_tibble(base_df_e)
+tib_f <- as_tibble(base_df_f)
 
-## Option 2: Explore a different subpopulation
+tib_e <- rename(tib_e, DMDBORN = DMDBORN2)
+tib_f <- rename(tib_f, DMDBORN = DMDBORN2)
 
-## Option 3: Try additional models
-
-# Analysis
-
-## Data aquisition
-
-## Data cleaning
-
-## Transform variables
-
-## Create survey design object and subset
-
-## Summarize population
-
-## Model Relationship
-
-## Conclusion
+# Combine all years together
+tib_all <- tib_d %>%
+  bind_rows(tib_e) %>%
+  bind_rows(tib_f)
+all_nhanes <- tib_all
+```
 
 
+# Re-doing a analysis
+
+We need to keep the entire dataset in order to properly employ survey weights.
+Thus, we'll have to redo most of the processing we've done in previous weeks. 
+Since we already have the code, we can repeat it here in a single chain of piped
+statements. 
+
+```{r}
+all_nhanes <- mutate(all_nhanes,
+                   # Numeric Variables
+                   LBXGLU = as.numeric(LBXGLU),
+                   LBXGH = as.numeric(LBXGH),
+                   BMXBMI = as.numeric(BMXBMI),
+                   WTSAF2YR = as.numeric(WTSAF2YR),
+                   WTINT2YR = as.numeric(WTINT2YR),
+                   WTMEC2YR = as.numeric(WTMEC2YR),
+                   SDMVPSU = as.numeric(SDMVPSU), 
+                   SDMVSTRA = as.numeric(SDMVSTRA),
+                   RIDAGEYR = as.numeric(RIDAGEYR),
+                   
+                   # Basic Categories
+                   RIAGENDR = as.factor(RIAGENDR),
+                   RIDRETH1 = as.factor(RIDRETH1),
+                   DMDBORN = gsub("\"", "", DMDBORN),
+                   DMDBORN = as.factor(DMDBORN),
+                   OHXDECAY = (OHXDECAY == "Yes"),
+                   OHXREST = (OHXREST == "Yes"),
+                   
+                   #Complex Categories
+                   age.cat = cut(
+                      RIDAGEYR,
+                      breaks = c(13, 15, 18, 100),
+                      include.lowest = TRUE,
+                      labels = c("13-15", "16-18", "19+")),
+                   
+                   RIDAGEYR.cat = cut(
+                    RIDAGEYR,
+                    breaks = c(13, 15, 18),
+                    include.lowest = TRUE,
+                    labels = c("13-15", "16-18")),
+                 
+                   LBXGLU.cat = case_when(
+                   LBXGLU < 100 ~ "<100 mg/dl",
+                   LBXGLU < 126 ~ ">=100 mg/dl and <126 mg/dl", 
+                   LBXGLU >= 126 ~ ">=126 mg/dl",
+                   .default = NA),
+                 
+                  LBXGH.cat = case_when(
+                   LBXGH < 5.7 ~ "<5.7%",
+                   LBXGH >= 5.7 ~ ">=5.7% and <6.5%",
+                   LBXGH >= 6.5 ~ ">= 6.5%",
+                   .default = NA),
+                 
+                  BMXBMI.cat = case_when( 
+                   BMXBMI < 25 ~ "Normal", 
+                   BMXBMI < 30 ~ "Overweight",
+                   BMXBMI >= 30 ~ "Obese",
+                   .default = NA), 
+                 
+                  INDFMPIR.cat = case_when(
+                   INDFMPIR == "PIR value greater than or equa" ~ ">= 1",
+                   INDFMPIR == "Value greater than or equal to" ~ ">= 1",
+                   as.numeric(INDFMPIR) >= 1 ~ ">=1",
+                   as.numeric(INDFMPIR) < 1 ~ "<1",
+                   .default = NA),
+                 
+                  DMDBORN.cat = case_when(
+                   DMDBORN == "Born in 50 US States or Washi" ~ "Within the US",
+                   is.na(DMDBORN) ~ NA,
+                   DMDBORN == "Don't Know" ~ NA,
+                   DMDBORN == "Refused" ~ NA,
+                   .default = "Outside the US"),
+                  
+                  dental.caries = OHXDECAY | OHXREST,
+
+                diabetes = case_when(
+                    is.na(LBXGH) & is.na(LBXGLU) ~ NA,
+                   LBXGH >= 6.5 | LBXGLU >= 126 ~ "diabetic",
+                   LBXGH >= 5.7 | LBXGLU >= 100 ~ "prediabetic",
+                    .default = "nondiabetic"))
+  
+```
+
+# Preparing Survey Analysis
+
+## Removing NA weights
+
+Recall from the reading that we can't have any missing values in the survey design variables. 
+Note that the analysis uses the TMEC weights as opposed to the fasting weights, I'm not sure if that's technically the correct call since we're looking at fasting glucose levels to define diabetic status. 
+
+::: callout-warning
+Despite the paper saying that they removed those without enough data to determine diabetic status, they did not remove those samples from their weighting calculations here. 
+:::
+
+::: {.callout-tip appearance="minimal"}
+## Exercise
+Remove all rows with `NA` for the main survey design variables; 
+`WTMEC2YR`, `SDMVPSU`, and `SDMVSTRA`.
+
+```{r}
+wt_nhanes <- all_nhanes %>%
+  drop_na(WTMEC2YR, SDMVPSU, SDMVSTRA)
+```
+:::
+
+## Creating combined survey weights
+
+Currently, our survey weights `WTSAF2YR` are for each 2 year cycle. 
+We need to combine them to represent the full 6-year period we are investigating. 
+Luckily NHANES has an [official guide](https://wwwn.cdc.gov/nchs/nhanes/tutorials/weighting.aspx) for combining these weights.
+It turns out, all we need to do is divide all weights by 3. 
+
+```{r}
+## Re-leveling the diabetes variable to be in a better order for plotting any analysis
+wt_nhanes <- wt_nhanes %>%
+  mutate(WTMEC6YR = WTMEC2YR * 1/3)
+wt_nhanes=data.frame(wt_nhanes)
+ wt_nhanes$diabetes = factor(wt_nhanes$diabetes, levels=c("nondiabetic","prediabetic","diabetic"))
+```
+
+## Creating the survey design object
+The CDC describes the survey as follows:
+*The sample design is a complex, multistage, clustered design using unequal probabilities of selection. Different groups (e.g., low-income persons, teens, older persons, and selected racial/ethnic populations) have been oversampled during specific survey cycles. Since 2011, the following groups have been oversampled: Hispanic persons; non-Hispanic black persons; non-Hispanic Asian persons; non-Hispanic white and other persons at or below 130 percent of poverty; and non-Hispanic white and other persons ages 80 and older. In 2015-16, the sampling design was revised, changing the cut-point for low-income oversampling from to at or below 185 percent of poverty. The estimation procedure used to produce national statistics for all NHANES involved inflation by the reciprocal of the probability of selection, adjustment for nonresponse, and post stratified ratio adjustment to population totals.*
+
+So to analyse this design we need to use some specialized survey analysis methods which are contained in the `survey` package written by Thomas Lumley.
+
+
+```{r}
+nhanes_design <- svydesign(id     = ~SDMVPSU,
+                          strata  = ~SDMVSTRA,
+                          weights = ~WTMEC6YR,
+                          nest    = TRUE,
+                          survey.lonely.psu = "adjust",
+                          data    = wt_nhanes)
+
+summary(nhanes_design)
+```
+
+Now we can take our data subset from the survey design object. 
+
+```{r}
+ado_design <- subset(nhanes_design, RIDAGEYR >= 13 & RIDAGEYR <= 18 & !is.na(OHXDECAY))
+
+#Also make a tibble of this data to analyze
+ado_data <- wt_nhanes %>%
+  filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% # Gets the 3660 nonedentulous adolescents
+  filter(!is.na(OHXDECAY)) %>% # Gets the 3346 with non-NA dental carie variable
+  filter(!is.na(diabetes)) # Gets the 3046 with a diabetic status
+```
+
+
+These correctly replicate the counts in table 1a
+```{r}
+tab1 = svytable(~age.cat + dental.caries, ado_design)
+round(tab1[1,]/sum(tab1[1,]), digits=3)
+round(tab1[2,]/sum(tab1[2,]), digits=3)
+```
+
+And then we can also replicate the ethnicity distributions
+
+```{r svyEthn}
+svytable(~RIDRETH1, ado_design)
+```
+
+## Logistic Regression
+
+Let's recreate the analysis shown in table 2 of the Beheshti analysis. 
+The table's caption explains the 5 different models:
+
+> Model 1=crude (unadjusted); model 2=controlled for age, race/ethnicity, gender; model 3=controlled for age, race/ethnicity, gender, BMI; model 4=controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio; model 5=controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth.
+
+Below model 1 has been reproduced.
+See if you can recreate models 2-5.
+
+Currently model gets the same odds ratio as the paper, but model 2 doesn't. 
+
+```{r}
+
+# Model 1: Unadjusted
+logit1 <- svyglm(dental.caries~ diabetes, family=quasibinomial, design=ado_design, na.action = na.omit)
+exp(coef(logit1))
+summary(logit1)
+```
+
+A Wald test for `diabetes`:
+```{r}
+regTermTest(logit1, ~diabetes)
+
+```
+
+Next adjust form ethnicity, age and sex.
+
+```{r}
+# Model 2: Controlled for age, race/ethnicity, gender
+logit2 <- svyglm(dental.caries~ diabetes + RIDRETH1 + RIAGENDR + RIDAGEYR, family=quasibinomial, design=ado_design, na.action = na.omit)
+exp(coef(logit2))
+summary(logit2)
+```
+
+We could perform some Wald tests,
+```{r}
+regTermTest(logit2, ~RIDRETH1)
+regTermTest(logit2, ~RIAGENDR)
+regTermTest(logit2, ~RIDAGEYR)
+
+regTermTest(logit2, ~diabetes)
+
+```
+```{r}
+# Model 3: Controlled for age, race/ethnicity, gender, BMI
+logit3 <- svyglm(dental.caries~ diabetes + RIDRETH1 + RIAGENDR + RIDAGEYR + BMXBMI, family=quasibinomial, design=ado_design, na.action = na.omit)
+summary(logit3)
+
+# Model 4: Controlled for age, race/ethnicity, gender, BMI, and family income-to-poverty ratio
+
+# Model 5: Controlled for age, race/ethnicity, gender, BMI, family income-to-poverty ratio, and country of birth
+
+```
+
+:::

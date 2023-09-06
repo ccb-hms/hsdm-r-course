@@ -1,1061 +1,1331 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<meta name="author" content="Center for Computational Biomedicine">
-
-<title>Research Design and Analysis - Week 6: Statistical tests</title>
-<style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-</style>
-
-
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<html lang="en"><head>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 20,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.3.433">
+
+  <title>Research Design and Analysis - Week 6: Regression</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto.css">
+  <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
   }
-}</script>
 
-<script src="../../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<link href="../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="../../site_libs/datatables-binding-0.29/datatables.js"></script>
-<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="../../site_libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="../../site_libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="../../site_libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
-<link href="../../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-<script src="../../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
 
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
 </head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
 
-<body class="nav-sidebar docked nav-fixed">
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Week 6: Regression</h1>
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
-    <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Research Design and Analysis</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../readings/readings.html" rel="" target="">
- <span class="menu-text">Readings</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="../../session-materials/sessions.html" rel="" target="" aria-current="page">
- <span class="menu-text">In-Class Materials</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../exercises/exercises.html" rel="" target="">
- <span class="menu-text">Exercises</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../resources/resources.html" rel="" target="">
- <span class="menu-text">NHANES Docker Container</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../resources/resources.html" rel="" target="">
- <span class="menu-text">Resources</span></a>
-  </li>  
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="introduction" class="slide level2 smaller">
+<h2>Introduction</h2>
+<ul>
+<li>Regression comes in many forms.</li>
+<li>Here we will learn about linear regression.</li>
+<li>Regression is a set of tools that allow you to model and interpret the relationships between two or more variables.</li>
+<li>In regression we treat on variable as the response and a set of variables as possible predictors of the response.</li>
+<li>Regression models can be used for prediction, for explanation, to test hypotheses about relationships between variables</li>
+<li>the lectures are loosly based on <em>Chance Encounters</em> by Seber and Wild.</li>
+<li><a href="https://www.stat.auckland.ac.nz/~wild/ChanceEnc/index.shtml" class="uri">https://www.stat.auckland.ac.nz/~wild/ChanceEnc/index.shtml</a></li>
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-</div>
-          </div> <!-- /navcollapse -->
-      </div> <!-- /container-fluid -->
-    </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../session-materials/session6/session6.html">Week 6: Statistical tests</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-    </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../session-materials/sessions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sessions</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../session-materials/session0/bootcamp-1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Bootcamp Part 1: R Basics</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../session-materials/session0/bootcamp-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Bootcamp Part 2: Starting with Data</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../session-materials/session2/session2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 2: Markdown and introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../session-materials/session3/session3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 3: Plotting</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../session-materials/session4/session4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 4: Preparing Data</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../session-materials/session5/session5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 5: Exploring survey data</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../session-materials/session6/session6.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Week 6: Statistical tests</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../session-materials/session7/session7.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 7: Regression</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../session-materials/session8/session8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 8: Putting it all together</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a></li>
-  <li><a href="#performing-simple-tests" id="toc-performing-simple-tests" class="nav-link" data-scroll-target="#performing-simple-tests">Performing simple tests</a></li>
-  <li><a href="#adding-chi-square-tests-to-the-table" id="toc-adding-chi-square-tests-to-the-table" class="nav-link" data-scroll-target="#adding-chi-square-tests-to-the-table">Adding Chi-square tests to the table</a></li>
-  <li><a href="#depression-gender-and-age-in-nhanes" id="toc-depression-gender-and-age-in-nhanes" class="nav-link" data-scroll-target="#depression-gender-and-age-in-nhanes">Depression, gender, and age in NHANES</a>
-  <ul class="collapse">
-  <li><a href="#downloading-nhanes-data" id="toc-downloading-nhanes-data" class="nav-link" data-scroll-target="#downloading-nhanes-data">Downloading NHANES data</a></li>
-  <li><a href="#survey-design" id="toc-survey-design" class="nav-link" data-scroll-target="#survey-design">Survey design</a></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
-  </ul></li>
-  </ul>
-</nav>
-    </div>
-<!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Week 6: Statistical tests</h1>
-</div>
-
-
-
-<div class="quarto-title-meta">
-
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Center for Computational Biomedicine </p>
-          </div>
-  </div>
-    
-  
-    
-  </div>
-  
-
-</header>
-
+</section>
+<section id="causal-relationships" class="slide level2">
+<h2>Causal Relationships</h2>
+<p>Let’s look at some data from 1989 on infant death rates per 1000 of population.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.2     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.1     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>infdeath <span class="ot">=</span> <span class="fu">read.table</span>( <span class="st">"infdeath.txt"</span>, <span class="at">head=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">"</span><span class="sc">\t</span><span class="st">"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">dim</span>(infdeath)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20  4</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: grid
-Loading required package: Matrix
-
-Attaching package: 'Matrix'
-
-The following objects are masked from 'package:tidyr':
-
-    expand, pack, unpack
-
-Loading required package: survival
-
-Attaching package: 'survey'
-
-The following object is masked from 'package:graphics':
-
-    dotchart</code></pre>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">colnames</span>(infdeath)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "country" "safe"    "breast"  "death"  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nhanesA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="data" class="level1">
-<h1>Data</h1>
-<p>We can load our processed NHANES data and recreate the survey objects from last week.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"processed_beheshti.RData"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>wt_nhanes <span class="ot">&lt;-</span> all_nhanes <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(WTMEC2YR, SDMVPSU, SDMVSTRA) <span class="sc">%&gt;%</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">WTMEC6YR =</span> WTMEC2YR <span class="sc">*</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create survey design object</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>nhanes_design <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">id     =</span> <span class="sc">~</span>SDMVPSU,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">strata  =</span> <span class="sc">~</span>SDMVSTRA,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                          <span class="at">weights =</span> <span class="sc">~</span>WTMEC6YR,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                          <span class="at">nest    =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data    =</span> wt_nhanes)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Subset the study population</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>ado_design <span class="ot">&lt;-</span> <span class="fu">subset</span>(nhanes_design, RIDAGEYR <span class="sc">&gt;=</span> <span class="dv">13</span> <span class="sc">&amp;</span> RIDAGEYR <span class="sc">&lt;=</span> <span class="dv">18</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(OHXDECAY))</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Also make a tibble of this data to analyze</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>ado_data <span class="ot">&lt;-</span> wt_nhanes <span class="sc">%&gt;%</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(RIDAGEYR <span class="sc">&gt;=</span> <span class="dv">13</span> <span class="sc">&amp;</span> RIDAGEYR <span class="sc">&lt;=</span> <span class="dv">18</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(OHXDECAY)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(diabetes)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>we have 20 measurements on</li>
+<li><code>safe</code>=access to safe water</li>
+<li><code>breast</code>= percentage of mothers breast feeding at 6 months</li>
+<li><code>death</code> = infant death rate</li>
+</ul>
+</section>
+<section id="correlation-vs.-causation" class="slide level2 smaller">
+<h2>Correlation vs.&nbsp;Causation</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="infdeath1.png"></p>
+<p>This suggests that longer time breast feeding leads to greater infant mortality.</p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="infdeath2.png"></p>
+<p>Countries with access to safe water breast feed for less time.</p>
+</div>
 </div>
 </section>
-<section id="performing-simple-tests" class="level1">
-<h1>Performing simple tests</h1>
-<p>Let’s start by looking at the relationship between ethnicity and dental caries using the <code>table</code> command.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ado_data<span class="sc">$</span>RIDRETH1, ado_data<span class="sc">$</span>dental.caries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                                
-                                 FALSE TRUE
-  Mexican American                 283  575
-  Non-Hispanic Black               354  507
-  Non-Hispanic White               411  517
-  Other Hispanic                   104  148
-  Other Race - Including Multi-R    59   94</code></pre>
-</div>
-</div>
-<p>We can group and summarize the data to take a look at percents by group instead:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>eth_ado <span class="ot">&lt;-</span> ado_data <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(RIDRETH1, dental.caries) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">perc =</span> count<span class="sc">/</span><span class="fu">sum</span>(count))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'RIDRETH1'. You can override using the
-`.groups` argument.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>eth_ado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 4
-# Groups:   RIDRETH1 [5]
-   RIDRETH1                       dental.caries count  perc
-   &lt;fct&gt;                          &lt;lgl&gt;         &lt;int&gt; &lt;dbl&gt;
- 1 Mexican American               FALSE           283 0.330
- 2 Mexican American               TRUE            575 0.670
- 3 Non-Hispanic Black             FALSE           354 0.411
- 4 Non-Hispanic Black             TRUE            507 0.589
- 5 Non-Hispanic White             FALSE           411 0.443
- 6 Non-Hispanic White             TRUE            517 0.557
- 7 Other Hispanic                 FALSE           104 0.413
- 8 Other Hispanic                 TRUE            148 0.587
- 9 Other Race - Including Multi-R FALSE            59 0.386
-10 Other Race - Including Multi-R TRUE             94 0.614</code></pre>
-</div>
-</div>
-<p>We could also visualize the different distributions:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">filter</span>(eth_ado, dental.caries <span class="sc">==</span> <span class="cn">TRUE</span>), <span class="fu">aes</span>(<span class="at">x =</span> RIDRETH1, <span class="at">y =</span> perc<span class="sc">*</span><span class="dv">100</span>)) <span class="sc">+</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Ethnicity"</span>, <span class="at">y =</span> <span class="st">"Percent Dental Caries"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="causation" class="slide level2">
+<h2>Causation</h2>
+<ul>
+<li>often, as in the example above, there is a third variable (access to clean water) that affects both the response and the predictor</li>
+<li>to get at causation we typically need a randomized controlled experiment</li>
+<li>we cannot always do experiments, eg most epidemiology</li>
+</ul>
+</section>
+<section id="linear-regression" class="slide level2 smaller">
+<h2>Linear Regression</h2>
+<ul>
+<li><p>We want to relate the response, <span class="math inline">\(y\)</span> to the predictor <span class="math inline">\(x\)</span> using a straight line model</p>
+<p><span class="math inline">\(y = \beta_0 + \beta_1 \cdot x + \epsilon\)</span></p></li>
+<li><p>in this model <span class="math inline">\(\beta_0\)</span> is the intercept - the value that <span class="math inline">\(y\)</span> takes when <span class="math inline">\(x=0\)</span></p></li>
+<li><p><span class="math inline">\(\beta_1\)</span> is the slope of the line, relating <span class="math inline">\(x\)</span> to <span class="math inline">\(y\)</span> and can be interpreted as the average change in <span class="math inline">\(y\)</span> for a one unit change in <span class="math inline">\(x\)</span></p></li>
+<li><p><span class="math inline">\(\epsilon\)</span> represents the inherent variability in the system, it is assumed to be zero on average</p></li>
+<li><p>some of the statistical theory is easier if you assume that <span class="math inline">\(\epsilon\)</span>’s come as independent observations with the same distribution (<em>i</em>.<em>i</em>.<em>d</em>), but this is not essential</p></li>
+</ul>
+</section>
+<section id="plot-the-data" class="slide level2 smaller">
+<h2>Plot the data</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<p><img src="session6_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="session6_files/figure-revealjs/unnamed-chunk-5-1.png" width="480"></p>
+</figure>
 </div>
 </div>
-<p>We can also perform a Chi-squared test to examine the relationship between the variables. We either print the result directly or store it in a variable and examine it’s different components.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>the intercept is about -27</li>
+<li>the slope is about 1.5</li>
+<li>interpret these….</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="linear-regression-1" class="slide level2">
+<h2>Linear Regression</h2>
+<ul>
+<li>we can easily fit this model to the data</li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="fu">table</span>(ado_data<span class="sc">$</span>RIDRETH1, ado_data<span class="sc">$</span>dental.caries))</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>method</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Pearson's Chi-squared test"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.18672e-05</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>statistic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>X-squared 
- 25.39656 </code></pre>
-</div>
-</div>
-<p>However, as opposed to directly examining the survey data we may instead want to use the survey weights to infer statistics about the total population.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">svychisq</span>(<span class="sc">~</span>RIDRETH1 <span class="sc">+</span> dental.caries, ado_design)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-    Pearson's X^2: Rao &amp; Scott adjustment
+Call:
+lm(formula = infdeath$death ~ infdeath$breast)
 
-data:  svychisq(~RIDRETH1 + dental.caries, ado_design)
-F = 6.2373, ndf = 3.0173, ddf = 141.8150, p-value = 0.0005088</code></pre>
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-37.568 -21.047   1.368  19.479  33.705 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      -26.978     20.148  -1.339 0.205392    
+infdeath$breast    1.467      0.288   5.093 0.000265 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 23.86 on 12 degrees of freedom
+  (6 observations deleted due to missingness)
+Multiple R-squared:  0.6837,    Adjusted R-squared:  0.6573 
+F-statistic: 25.94 on 1 and 12 DF,  p-value: 0.000265</code></pre>
 </div>
 </div>
 </section>
-<section id="adding-chi-square-tests-to-the-table" class="level1">
-<h1>Adding Chi-square tests to the table</h1>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Take a look at the p-values in tables 1a and 1b in the Beheshti paper. Choose at least one test from 1a and one test from 1b, and reproduce them. Compare them to their counterparts using the data without incorporating survey weights.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>What is the purpose of these tests in the paper? How useful do you find these results? Do you think there would be a better analysis to perform instead?</p>
-</div>
-</div>
+<section id="linear-regression-2" class="slide level2">
+<h2>Linear Regression</h2>
+<ul>
+<li>we denote our estimates by putting a hat on the parameter, e.g.&nbsp;<span class="math inline">\(\hat{\beta_0}\)</span></li>
+<li>our estimated line is the given by <span class="math inline">\(\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 \cdot x\)</span></li>
+<li>given a new <span class="math inline">\(x\)</span> we can then predict <span class="math inline">\(y\)</span></li>
+<li>but we have to be careful about whether the new <span class="math inline">\(x\)</span> is sensible</li>
+<li>how do we choose the <strong>best</strong> straight line?</li>
+</ul>
 </section>
-<section id="depression-gender-and-age-in-nhanes" class="level1">
-<h1>Depression, gender, and age in NHANES</h1>
-<p>Let’s take a look at an example analysis comparing the prevalence of depression among men and women in different age groups. This is taken from a CDC <a href="https://wwwn.cdc.gov/nchs/nhanes/tutorials/samplecode.aspx">sample analysis</a> replicating <a href="https://www.cdc.gov/nchs/products/databriefs/db303.htm">this debrief</a>.</p>
-<section id="downloading-nhanes-data" class="level2">
-<h2 data-anchor-id="downloading-nhanes-data">Downloading NHANES data</h2>
-<p>So far, we’ve been using data from the dockerized database. Today, let’s take a look at an alternate way to access NHANES data in R using the <code>nhanesA</code> package.</p>
-<p>With <code>nhanesA</code>, we can easily download entire tables from NHANES. However, there are some extra processing steps we’ll have to perform compared to using the dockerized database. You can learn more about using <code>nhanesA</code> <a href="https://cran.r-project.org/web/packages/nhanesA/vignettes/Introducing_nhanesA.html">here</a>.</p>
+<section id="least-squares" class="slide level2">
+<h2>Least Squares</h2>
+<ul>
+<li><p>let our <em>predicted values</em> be <span class="math inline">\(\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 \cdot x_i\)</span></p></li>
+<li><p>then one strategy is to minimize the sum of squared prediction errors <span class="math display">\[
+\sum_{i=1}^n (y_i - \hat{y}_i)^2
+\]</span></p></li>
+<li><p>this method is called <em>least squares</em> and was described by Gauss in 1822</p></li>
+</ul>
+</section>
+<section id="the-estimates-are-random" class="slide level2">
+<h2>The estimates are random…</h2>
+<ul>
+<li>our model says <span class="math display">\[
+Y = \beta_0 + \beta_1 \cdot X + \epsilon
+\]</span></li>
+<li>where we use <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span> to represent the fact that data came from some form of sample from a population we want to make inference about</li>
+<li>usually we will assume <span class="math inline">\(\epsilon \sim N(0, \sigma^2)\)</span> are independent (but that is not strictly necessary)</li>
+</ul>
+</section>
+<section id="simulation-experiments" class="slide level2">
+<h2>Simulation Experiments</h2>
+<ul>
+<li><p>one tool that you can use to understand how different methods work is to create a simulation experiment</p></li>
+<li><p>in these experiments you create a model, where you know the answer, and you control the variability or stochastic component</p></li>
+<li><p>then you can interpret the way in which the different quantities you are estimating behave</p></li>
+</ul>
+</section>
+<section id="simulation-experiment" class="slide level2">
+<h2>Simulation Experiment</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get data with nahnesA</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>DEMO_H <span class="ot">=</span> <span class="fu">nhanes</span>(<span class="st">'DEMO_H'</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>DEMO_I <span class="ot">=</span> <span class="fu">nhanes</span>(<span class="st">'DEMO_I'</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>DPQ_H <span class="ot">=</span> <span class="fu">nhanes</span>(<span class="st">'DPQ_H'</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>DPQ_I <span class="ot">=</span> <span class="fu">nhanes</span>(<span class="st">'DPQ_I'</span>)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Append Files</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>DEMO <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(DEMO_H, DEMO_I)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>DPQ <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(DPQ_H, DPQ_I)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(<span class="fu">head</span>(DEMO))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4e64303798757878d518" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-4e64303798757878d518">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[73557,73558,73559,73560,73561,73562],[8,8,8,8,8,8],[2,2,2,2,2,2],[1,1,1,1,2,1],[69,54,72,9,73,56],[null,null,null,null,null,null],[4,3,3,3,3,1],[4,3,3,3,3,1],[1,1,2,1,1,1],[null,null,null,119,null,null],[1,2,1,null,2,1],[1,null,1,null,null,2],[1,1,1,1,1,1],[1,1,1,1,1,1],[null,null,null,null,null,null],[null,null,null,3,null,null],[3,3,4,null,5,4],[4,1,1,null,1,3],[null,null,null,null,null,null],[1,1,1,1,1,1],[2,2,2,1,2,2],[2,2,2,2,2,2],[1,1,1,1,1,1],[2,2,2,2,2,2],[2,2,2,2,2,2],[1,1,1,1,1,1],[2,2,2,2,2,2],[2,2,2,2,2,2],[1,1,null,1,null,1],[3,4,2,4,2,1],[3,4,2,4,2,1],[0,0,0,0,0,0],[0,2,0,2,0,0],[2,0,2,0,2,0],[1,1,1,1,1,1],[69,54,72,33,78,56],[1,1,1,1,1,1],[3,3,4,3,5,4],[4,1,1,1,1,3],[null,1,3,4,5,null],[13281.237386,23682.057386,57214.803319,55201.178592,63709.667069,24978.144602],[13481.042095,24471.769625,57193.285376,55766.512438,65541.871229,25344.992359],[1,1,1,2,2,1],[112,108,109,109,116,111],[4,7,10,9,15,9],[4,7,10,9,15,9],[0.84,1.78,4.51,2.52,5,4.79]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>SEQN<\/th>\n      <th>SDDSRVYR<\/th>\n      <th>RIDSTATR<\/th>\n      <th>RIAGENDR<\/th>\n      <th>RIDAGEYR<\/th>\n      <th>RIDAGEMN<\/th>\n      <th>RIDRETH1<\/th>\n      <th>RIDRETH3<\/th>\n      <th>RIDEXMON<\/th>\n      <th>RIDEXAGM<\/th>\n      <th>DMQMILIZ<\/th>\n      <th>DMQADFC<\/th>\n      <th>DMDBORN4<\/th>\n      <th>DMDCITZN<\/th>\n      <th>DMDYRSUS<\/th>\n      <th>DMDEDUC3<\/th>\n      <th>DMDEDUC2<\/th>\n      <th>DMDMARTL<\/th>\n      <th>RIDEXPRG<\/th>\n      <th>SIALANG<\/th>\n      <th>SIAPROXY<\/th>\n      <th>SIAINTRP<\/th>\n      <th>FIALANG<\/th>\n      <th>FIAPROXY<\/th>\n      <th>FIAINTRP<\/th>\n      <th>MIALANG<\/th>\n      <th>MIAPROXY<\/th>\n      <th>MIAINTRP<\/th>\n      <th>AIALANGA<\/th>\n      <th>DMDHHSIZ<\/th>\n      <th>DMDFMSIZ<\/th>\n      <th>DMDHHSZA<\/th>\n      <th>DMDHHSZB<\/th>\n      <th>DMDHHSZE<\/th>\n      <th>DMDHRGND<\/th>\n      <th>DMDHRAGE<\/th>\n      <th>DMDHRBR4<\/th>\n      <th>DMDHREDU<\/th>\n      <th>DMDHRMAR<\/th>\n      <th>DMDHSEDU<\/th>\n      <th>WTINT2YR<\/th>\n      <th>WTMEC2YR<\/th>\n      <th>SDMVPSU<\/th>\n      <th>SDMVSTRA<\/th>\n      <th>INDHHIN2<\/th>\n      <th>INDFMIN2<\/th>\n      <th>INDFMPIR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-</div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(<span class="fu">head</span>(DPQ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d58b9d51b196dd297b79" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d58b9d51b196dd297b79">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[73557,73558,73559,73561,73562,73564],[1,2,0,2,3,0],[0,0,0,1,3,1],[0,0,0,0,3,0],[0,0,0,3,3,1],[0,0,0,3,3,0],[0,0,0,0,1,0],[0,0,0,0,2,0],[0,0,0,0,1,0],[0,0,0,0,0,0],[1,0,null,1,3,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>SEQN<\/th>\n      <th>DPQ010<\/th>\n      <th>DPQ020<\/th>\n      <th>DPQ030<\/th>\n      <th>DPQ040<\/th>\n      <th>DPQ050<\/th>\n      <th>DPQ060<\/th>\n      <th>DPQ070<\/th>\n      <th>DPQ080<\/th>\n      <th>DPQ090<\/th>\n      <th>DPQ100<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,11]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
-<p>There are a few differences between this data and the processed data we’ve been using. First, we have to <code>join</code> the DEMO and DPQ tables. We’ll learn more about joining or merging data in the last week of class.</p>
-<p>Second, the values in the raw NHANES tables are numeric encodings for each variable. With nhanesA we can lookup the code using <code>nhanesCodebook</code> and convert numeric codes using <code>nhanesTranslate</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nhanesCodebook</span>(<span class="st">'DEMO_H'</span>, <span class="st">'RIAGENDR'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a> <span class="do">##get some x's</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a> x <span class="ot">=</span> <span class="fu">runif</span>(<span class="dv">20</span>, <span class="at">min=</span><span class="dv">20</span>, <span class="at">max=</span><span class="dv">70</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a> <span class="do">## set our regression</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a> y <span class="ot">=</span> <span class="dv">5</span> <span class="sc">+</span> .<span class="dv">2</span> <span class="sc">*</span>x </span>
+<span id="cb6-6"><a href="#cb6-6"></a> </span>
+<span id="cb6-7"><a href="#cb6-7"></a> yobs <span class="ot">=</span> y <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">sd=</span><span class="fl">1.5</span>)</span>
+<span id="cb6-8"><a href="#cb6-8"></a> lm2 <span class="ot">=</span> <span class="fu">lm</span>(yobs<span class="sc">~</span>x)</span>
+<span id="cb6-9"><a href="#cb6-9"></a> <span class="fu">summary</span>(lm2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>$`Variable Name:`
-[1] "RIAGENDR"
+<pre><code>
+Call:
+lm(formula = yobs ~ x)
 
-$`SAS Label:`
-[1] "Gender"
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.1142 -0.9480 -0.1303  1.0299  2.8389 
 
-$`English Text:`
-[1] "Gender of the participant."
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  6.71335    1.04242   6.440 4.63e-06 ***
+x            0.16055    0.02088   7.691 4.28e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-$`Target:`
-[1] "Both males and females 0 YEARS -\r 150 YEARS"
-
-$RIAGENDR
-# A tibble: 3 × 5
-  `Code or Value` `Value Description` Count Cumulative `Skip to Item`
-  &lt;chr&gt;           &lt;chr&gt;               &lt;int&gt;      &lt;int&gt; &lt;lgl&gt;         
-1 1               Male                 5003       5003 NA            
-2 2               Female               5172      10175 NA            
-3 .               Missing                 0      10175 NA            </code></pre>
+Residual standard error: 1.426 on 18 degrees of freedom
+Multiple R-squared:  0.7667,    Adjusted R-squared:  0.7537 
+F-statistic: 59.15 on 1 and 18 DF,  p-value: 4.275e-07</code></pre>
 </div>
-</div>
-<p>However, in this example analysis the authors chose to instead directly convert values.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge DEMO and DPQ files and create derived variables</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>One <span class="ot">&lt;-</span> <span class="fu">left_join</span>(DEMO, DPQ, <span class="at">by=</span><span class="st">"SEQN"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set 7=Refused and 9=Don't Know To Missing for variables DPQ010 thru DPQ090 ##</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(DPQ010<span class="sc">:</span>DPQ090), <span class="sc">~</span><span class="fu">ifelse</span>(. <span class="sc">&gt;=</span><span class="dv">7</span>, <span class="cn">NA</span>, .)) <span class="sc">%&gt;%</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(. , </span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>         <span class="co"># create indicator for overall summary</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">one =</span> <span class="dv">1</span>,</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>         <span class="co"># Create depression score as sum of variables DPQ010 -- DPQ090</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">Depression.Score =</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(. , DPQ010<span class="sc">:</span>DPQ090)),</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>         <span class="co"># Create depression indicator as binary 0/100 variable. (is missing if Depression.Score is missing)</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">Depression=</span> <span class="fu">ifelse</span>(Depression.Score <span class="sc">&gt;=</span><span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">0</span>), </span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>         <span class="co"># Create factor variables</span></span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">factor</span>(RIAGENDR, <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Men"</span>, <span class="st">"Women"</span>)),</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">Age.Group =</span> <span class="fu">cut</span>(RIDAGEYR, <span class="at">breaks=</span><span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>,<span class="dv">19</span>,<span class="dv">39</span>,<span class="dv">59</span>,<span class="cn">Inf</span>),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Under 20"</span>, <span class="st">"20-39"</span>,<span class="st">"40-59"</span>,<span class="st">"60 and over"</span>)),</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>         <span class="co"># Generate 4-year MEC weight (Divide weight by 2 because we are appending 2 survey cycles)</span></span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">WTMEC4YR =</span> WTMEC2YR<span class="sc">/</span><span class="dv">2</span> ,</span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>         <span class="co"># Define indicator for analysis population of interest: adults aged 20 and over with a valid depression score</span></span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">inAnalysis=</span> (RIDAGEYR <span class="sc">&gt;=</span> <span class="dv">20</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(Depression.Score))</span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># drop DPQ variables</span></span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(., <span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"DPQ"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="survey-design" class="level2">
-<h2 data-anchor-id="survey-design">Survey design</h2>
-<p>With our data processed, we can make the survey design object.</p>
+<section id="simulation" class="slide level2">
+<h2>Simulation</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To keep things the same as in the report</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">survey.lonely.psu=</span><span class="st">'adjust'</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define survey design for overall dataset</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>NHANES_all <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">data=</span>One, <span class="at">id=</span><span class="sc">~</span>SDMVPSU, <span class="at">strata=</span><span class="sc">~</span>SDMVSTRA, <span class="at">weights=</span><span class="sc">~</span>WTMEC4YR, <span class="at">nest=</span><span class="cn">TRUE</span>)</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>                    </span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a survey design object for the subset of interest: adults aged 20 and over with a valid depression score </span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Subsetting the original survey design object ensures we keep the design information about the number of clusters and strata</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>NHANES <span class="ot">&lt;-</span> <span class="fu">subset</span>(NHANES_all, inAnalysis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>NITER<span class="ot">=</span><span class="dv">1000</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>b0vec <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>, NITER)</span>
+<span id="cb8-3"><a href="#cb8-3"></a>b1vec <span class="ot">=</span> <span class="fu">rep</span>(<span class="cn">NA</span>, NITER)</span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NITER) {</span>
+<span id="cb8-6"><a href="#cb8-6"></a>  ei <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">sd=</span><span class="fl">1.5</span>)</span>
+<span id="cb8-7"><a href="#cb8-7"></a>  yoi <span class="ot">=</span> y <span class="sc">+</span> ei</span>
+<span id="cb8-8"><a href="#cb8-8"></a>  lmi <span class="ot">=</span> <span class="fu">lm</span>(yoi <span class="sc">~</span> x)</span>
+<span id="cb8-9"><a href="#cb8-9"></a>  b0vec[i] <span class="ot">=</span> lmi<span class="sc">$</span>coefficients[<span class="dv">1</span>]</span>
+<span id="cb8-10"><a href="#cb8-10"></a>  b1vec[i] <span class="ot">=</span> lmi<span class="sc">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb8-11"><a href="#cb8-11"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>we repeatedly sample from a Normal distribution with <code>sd=1.5</code> and create a new <span class="math inline">\(y\)</span></li>
+<li>then we estimate the parameters for that model, and save them</li>
+</ul>
+</section>
+<section id="plots" class="slide level2">
+<h2>Plots</h2>
+
+<img data-src="session6_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"><ul>
+<li><span class="math inline">\(\hat{\beta}_0\)</span> mean: 4.965; sd: 1.119</li>
+<li><span class="math inline">\(\hat{\beta}_1\)</span> mean: 0.201; sd: 0.023</li>
+</ul>
+</section>
+<section id="compare-with-the-regression-summary" class="slide level2">
+<h2>Compare with the Regression summary</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = yobs ~ x)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.1142 -0.9480 -0.1303  1.0299  2.8389 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  6.71335    1.04242   6.440 4.63e-06 ***
+x            0.16055    0.02088   7.691 4.28e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.426 on 18 degrees of freedom
+Multiple R-squared:  0.7667,    Adjusted R-squared:  0.7537 
+F-statistic: 59.15 on 1 and 18 DF,  p-value: 4.275e-07</code></pre>
+</div>
 </div>
 </section>
-<section id="analysis" class="level2">
-<h2 data-anchor-id="analysis">Analysis</h2>
-<p>Let’s start by taking a look at how depression varies for our other variables of interest.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function to call svymean and unweighted count</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>getSummary <span class="ot">&lt;-</span> <span class="cf">function</span>(varformula, byformula, design){</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get mean, stderr, and unweighted sample size</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  c <span class="ot">&lt;-</span> <span class="fu">svyby</span>(varformula, byformula, design, unwtd.count ) </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">svyby</span>(varformula, byformula, design, svymean ) </span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  outSum <span class="ot">&lt;-</span> <span class="fu">left_join</span>(<span class="fu">select</span>(c,<span class="sc">-</span>se), p) </span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  outSum</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' </span><span class="al">###</span><span class="co"> Calculate prevalence of depression overall, by gender, by age group, and by age and gender</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co">#' Adults</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="fu">getSummary</span>(<span class="sc">~</span>Depression, <span class="sc">~</span>one, NHANES)</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co">#' By sex</span></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="fu">getSummary</span>(<span class="sc">~</span>Depression, <span class="sc">~</span>Gender, NHANES)</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co">#' By age</span></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="fu">getSummary</span>(<span class="sc">~</span>Depression, <span class="sc">~</span>Age.Group, NHANES)</span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="co">#' By sex and age</span></span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="fu">getSummary</span>(<span class="sc">~</span>Depression, <span class="sc">~</span>Gender <span class="sc">+</span> Age.Group, NHANES)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Much like running the Chi-squared test, we need to use <code>svyttest</code> as opposed to <code>t.test</code> so we can incorporate the survey weights.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' </span><span class="al">###</span><span class="co"> Compare Prevalence Between Men And Women</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Gender, NHANES)<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Gender, <span class="fu">subset</span>(NHANES, Age.Group<span class="sc">==</span><span class="st">"20-39"</span>))<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Gender, <span class="fu">subset</span>(NHANES, Age.Group<span class="sc">==</span><span class="st">"40-59"</span>))<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Gender, <span class="fu">subset</span>(NHANES, Age.Group<span class="sc">==</span><span class="st">"60 and over"</span>))<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We can also examine the prevalence of depression by age. We can perform t-tests on all pairs of age groups as done in the initial analysis.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' </span><span class="al">###</span><span class="co"> Pairwise t-testing by age groups for total, men, and women</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' Differences by age group, among all adults</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Age.Group, <span class="fu">subset</span>(NHANES, Age.Group<span class="sc">==</span><span class="st">"20-39"</span> <span class="sc">|</span> Age.Group<span class="sc">==</span><span class="st">"40-59"</span>))<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Age.Group, <span class="fu">subset</span>(NHANES, Age.Group<span class="sc">==</span><span class="st">"20-39"</span> <span class="sc">|</span> Age.Group<span class="sc">==</span><span class="st">"60 and over"</span>))<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Age.Group, <span class="fu">subset</span>(NHANES, Age.Group<span class="sc">==</span><span class="st">"40-59"</span> <span class="sc">|</span> Age.Group<span class="sc">==</span><span class="st">"60 and over"</span>))<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>And then further break things down by gender.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Differences by age group, among men</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Age.Group, <span class="fu">subset</span>(NHANES, Gender<span class="sc">==</span><span class="st">"Men"</span> <span class="sc">&amp;</span> (Age.Group<span class="sc">==</span><span class="st">"20-39"</span> <span class="sc">|</span> Age.Group<span class="sc">==</span><span class="st">"40-59"</span>)))<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Age.Group, <span class="fu">subset</span>(NHANES, Gender<span class="sc">==</span><span class="st">"Men"</span> <span class="sc">&amp;</span> (Age.Group<span class="sc">==</span><span class="st">"20-39"</span> <span class="sc">|</span> Age.Group<span class="sc">==</span><span class="st">"60 and over"</span>)))<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Age.Group, <span class="fu">subset</span>(NHANES, Gender<span class="sc">==</span><span class="st">"Men"</span> <span class="sc">&amp;</span> (Age.Group<span class="sc">==</span><span class="st">"40-59"</span> <span class="sc">|</span> Age.Group<span class="sc">==</span><span class="st">"60 and over"</span>)))<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' Differences by age group, among women</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Age.Group, <span class="fu">subset</span>(NHANES, Gender<span class="sc">==</span><span class="st">"Women"</span> <span class="sc">&amp;</span> (Age.Group<span class="sc">==</span><span class="st">"20-39"</span> <span class="sc">|</span> Age.Group<span class="sc">==</span><span class="st">"40-59"</span>)))<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Age.Group, <span class="fu">subset</span>(NHANES, Gender<span class="sc">==</span><span class="st">"Women"</span> <span class="sc">&amp;</span> (Age.Group<span class="sc">==</span><span class="st">"20-39"</span> <span class="sc">|</span> Age.Group<span class="sc">==</span><span class="st">"60 and over"</span>)))<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">svyttest</span>(Depression<span class="sc">~</span>Age.Group, <span class="fu">subset</span>(NHANES, Gender<span class="sc">==</span><span class="st">"Women"</span> <span class="sc">&amp;</span> (Age.Group<span class="sc">==</span><span class="st">"40-59"</span> <span class="sc">|</span> Age.Group<span class="sc">==</span><span class="st">"60 and over"</span>)))<span class="sc">$</span>p.value <span class="sc">%&gt;%</span> as.numeric</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Exercise: The dangers of multiple testing
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Let’s say we’re running this analysis with the traditional <span class="math inline">\(\alpha\)</span>-level (p-value cut-off) of <span class="math inline">\(p &lt; 0.05\)</span>. What does our <span class="math inline">\(alpha\)</span>-level mean?</p>
-<p>How many t-tests have we performed in this depression analysis? How does that relate to the <span class="math inline">\(alpha\)</span>-level?</p>
-<p>To help understand this relationship, consider a binomial test to determine if the result of 100 coin flips is fair:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>numFlips <span class="ot">=</span> <span class="dv">100</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>probHead <span class="ot">=</span> <span class="fl">0.5</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>coinFlips <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"H"</span>, <span class="st">"T"</span>), <span class="at">size =</span> numFlips,</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(probHead, <span class="dv">1</span> <span class="sc">-</span> probHead))</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>numHeads <span class="ot">&lt;-</span> <span class="fu">sum</span>(coinFlips <span class="sc">==</span> <span class="st">"H"</span>)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>pval <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="at">x =</span> numHeads, <span class="at">n =</span> numFlips, <span class="at">p =</span> <span class="fl">0.5</span>)<span class="sc">$</span>p.value</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>pval</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now let’s look at the range of p-values we get if we run the test 10000 times.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's make a function for performing our experiment</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>flip_coin <span class="ot">&lt;-</span> <span class="cf">function</span>(numFlips, probHead){</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  numFlips <span class="ot">=</span> <span class="dv">100</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  probHead <span class="ot">=</span> <span class="fl">0.50</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  coinFlips <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"H"</span>, <span class="st">"T"</span>), <span class="at">size =</span> numFlips,</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(probHead, <span class="dv">1</span> <span class="sc">-</span> probHead))</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  numHeads <span class="ot">&lt;-</span> <span class="fu">sum</span>(coinFlips <span class="sc">==</span> <span class="st">"H"</span>)</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  pval <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="at">x =</span> numHeads, <span class="at">n =</span> numFlips, <span class="at">p =</span> <span class="fl">0.5</span>)<span class="sc">$</span>p.value</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pval)</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="co">#And then run it 10000 times</span></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>parray <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">flip_coin</span>(<span class="dv">1000</span>, <span class="fl">0.5</span>), <span class="at">simplify=</span><span class="cn">TRUE</span>)</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="sc">-</span><span class="fu">log</span>(parray), <span class="at">breaks=</span><span class="dv">100</span>)</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(parray)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-
-
+<section id="inference-about-the-model" class="slide level2">
+<h2>Inference about the model</h2>
+<ul>
+<li>typically the intercept is not that interesting</li>
+<li>we test the hypothesis <span class="math inline">\(H_0: \beta_1 = 0\)</span> to determine whether <span class="math inline">\(x\)</span> provides any explanation of <span class="math inline">\(y\)</span></li>
+<li><span class="math inline">\(R^2\)</span> and multiple <span class="math inline">\(R^2\)</span> tell us about how much of the variation in <span class="math inline">\(y\)</span> has been captured by the terms in the model</li>
+<li>the residual standard error is an estimate of <span class="math inline">\(\sigma\)</span> from the distribution of the <span class="math inline">\(\epsilon_i\)</span></li>
+</ul>
 </section>
+<section id="but." class="slide level2">
+<h2>But….</h2>
+<ul>
+<li>all of that inference is dependent on the model being correct</li>
+<li>if the linear model does not fit the data, then the <span class="math inline">\(\beta\)</span>’s are not meaningful, the variance cannot be estimated, we cannot correctly assess whether or not the covariate(s) x(’s) help to predict <span class="math inline">\(y\)</span></li>
+</ul>
 </section>
+<section id="anscombes-quartet" class="slide level2">
+<h2>Anscombe’s Quartet</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="Anscombe.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="AnscombeSummary.png"></p>
+</div>
+</div>
+</section>
+<section id="and-so" class="slide level2">
+<h2>And so…</h2>
+<ul>
+<li>only the top left plot represents a statistical regression model</li>
+<li>the top right model represents a non-linear relationship, and one that seems to have no error</li>
+<li>the bottom left plot is a straight line, with one possible recording error, but no statistical variation</li>
+<li>the bottom right plot shows no relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> for most points, but there is one <em>outlier</em>, in both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> that affects the estimated relationship</li>
+</ul>
+</section>
+<section id="the-hard-part" class="slide level2">
+<h2>The hard part…</h2>
+<ul>
+<li>is not writing the command <code>lm(y~x)</code> - anyone could do that</li>
+<li>it is ensuring that the model adequately represents the data and the relationships within it</li>
+<li>once you have convinced yourself, and others, that this is true then you can interpret, test hypotheses etc</li>
+</ul>
+</section>
+<section id="so-how-might-we-do-that" class="slide level2">
+<h2>So how might we do that:</h2>
+<ul>
+<li><p>the residuals are defined as <span class="math display">\[
+e_i = y_i - \hat{y}_i
+\]</span></p></li>
+<li><p>we check the residuals for various behaviors</p>
+<ol type="1">
+<li>Constant spread: the <span class="math inline">\(e_i\)</span>’s have about the same spread regardless of the value of <span class="math inline">\(x\)</span></li>
+<li>Independence: Do the <span class="math inline">\(e_i\)</span>’s show any signs of correlation.</li>
+<li>Symmetry and Unimodality: Do the <span class="math inline">\(e_i\)</span>’s have an approximately symmetric distribution with a single mode.</li>
+<li>Normality: but that is often too strong a requirement</li>
+</ol></li>
+</ul>
+</section>
+<section id="residual-plots" class="slide level2">
+<h2>Residual Plots</h2>
+<ul>
+<li>plot the residuals (<span class="math inline">\(y\)</span>-axis) against:
+<ul>
+<li>any covariates (<span class="math inline">\(x\)</span>’s)</li>
+<li>the predicted values (<span class="math inline">\(\hat{y}\)</span>’s)</li>
+</ul></li>
+<li>look for trends, increasing or decreasing variability (fans)</li>
+<li>outliers - but more on that in a later lecture</li>
+<li>when data are collected over time, we sometimes look for relationships between successive residuals</li>
+<li>when you don’t have much data don’t over interpret</li>
+</ul>
+</section>
+<section id="residual-plots-1" class="slide level2">
+<h2>Residual Plots</h2>
+<ul>
+<li>we return to our child birth example</li>
+</ul>
 
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
+<img data-src="session6_files/figure-revealjs/residplots-1.png" width="960" class="r-stretch"></section>
+<section id="extensions---non-linear-models" class="slide level2">
+<h2>Extensions - non-linear models</h2>
+<ul>
+<li>fitting straight lines is fine, most of the time</li>
+<li>we know that complex relationships can be approximated by a straight line over a restricted set of values</li>
+<li>we can add polynomials in our covariates <span class="math display">\[
+y = \beta_0 + \beta_1 \cdot x + \beta_2 \cdot x^2 + \epsilon
+\]</span></li>
+<li>these models have very strong assumptions and the effect of the polynomial terms on the fit can be large</li>
+</ul>
+</section>
+<section id="extensions-non-linear-models" class="slide level2">
+<h2>Extensions: non-linear models</h2>
+<ul>
+<li>a straight line model is appropriate if <span class="math inline">\(y\)</span> changes by a fixed amount for every unit change in <span class="math inline">\(x\)</span></li>
+<li>an exponential curve represents the case where <span class="math inline">\(y\)</span> changes by a fixed percentage (or proportion) for every unit change in <span class="math inline">\(x\)</span></li>
+<li>many economic models are exponential</li>
+<li>the exponential model: <span class="math display">\[
+y = a \cdot e^{bx} \\
+ln(y) = ln(a) + b \cdot x
+\]</span></li>
+</ul>
+</section>
+<section id="extensions---non-linear-models-1" class="slide level2">
+<h2>Extensions - non-linear models</h2>
+<ul>
+<li>so we see that we can fit an exponential model with linear regression if we <em>transform</em> <span class="math inline">\(y\)</span></li>
+<li>there are many other transformations of <span class="math inline">\(y\)</span> that could be used and an extensive literature on choosing the best ones (Box-Cox transformation)</li>
+<li>a transformation of <span class="math inline">\(y\)</span> will in general not just effect the mean relationship but it also affects the variability in your <span class="math inline">\(y\)</span> values as a function of <span class="math inline">\(x\)</span></li>
+</ul>
+</section>
+<section id="exponential-models-with-different-error-assumptions" class="slide level2">
+<h2>Exponential models with different error assumptions</h2>
+<ul>
+<li>the models are not the same</li>
+<li>we would need the error to be multiplicative in M1 for them to be the same <span class="math display">\[
+M1: y = a \cdot e^{bx} + \epsilon \\
+M2: ln(y) = ln(a) + b \cdot x + \epsilon \\
+\epsilon \sim N(0, \sigma^2)
+\]</span></li>
+</ul>
+</section>
+<section id="plots-1" class="slide level2">
+<h2>Plots</h2>
+
+<img data-src="session6_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<section id="prediction-and-prediction-intervals" class="slide level2">
+<h2>Prediction and Prediction intervals</h2>
+<ul>
+<li><p>there are two kinds of predictions that are interesting</p>
+<ul>
+<li><em>confidence interval</em>: predict the mean response for a given value of <span class="math inline">\(x\)</span>;</li>
+<li><em>prediction interval</em>: predict the value of the response <span class="math inline">\(y\)</span> for an individual whose covariate is <span class="math inline">\(x\)</span>;</li>
+</ul></li>
+<li><p>almost all regression methods in R have prediction methods associated with them, you are encouraged to use them</p></li>
+<li><p>the first of these has less variability than the second</p></li>
+</ul>
+</section>
+<section id="confidence-interval-vs-prediction-interval" class="slide level2">
+<h2>Confidence Interval vs Prediction Interval</h2>
+<ul>
+<li>return to our example on infant death</li>
+</ul>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = death ~ breast, data = infdeath)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-37.568 -21.047   1.368  19.479  33.705 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -26.978     20.148  -1.339 0.205392    
+breast         1.467      0.288   5.093 0.000265 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 23.86 on 12 degrees of freedom
+  (6 observations deleted due to missingness)
+Multiple R-squared:  0.6837,    Adjusted R-squared:  0.6573 
+F-statistic: 25.94 on 1 and 12 DF,  p-value: 0.000265</code></pre>
+</div>
+</div>
+</section>
+<section id="ci-and-pi" class="slide level2">
+<h2>CI and PI</h2>
+<ul>
+<li>we can predict the mean response for country where 62% of the women breast feed at 6 months</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">predict</span>(lm1, <span class="at">newdata=</span><span class="fu">list</span>(<span class="at">breast=</span><span class="dv">62</span>), <span class="at">interval=</span><span class="st">"confidence"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit     lwr      upr
+1 63.96593 49.8048 78.12705</code></pre>
+</div>
+</div>
+<ul>
+<li>or we can predict the response for a specific country where 62% of the women breast feed at 6 months</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">predict</span>(lm1, <span class="at">newdata=</span><span class="fu">list</span>(<span class="at">breast=</span><span class="dv">62</span>), <span class="at">interval=</span><span class="st">"prediction"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       fit      lwr      upr
+1 63.96593 10.08279 117.8491</code></pre>
+</div>
+</div>
+</section>
+<section id="factors---and-their-role-in-regression" class="slide level2">
+<h2>Factors - and their role in regression</h2>
+<ul>
+<li><p>a <em>factor</em> is a variable that takes on a discrete set of different values</p></li>
+<li><p>these values can be unordered, e.g.&nbsp;Male/Female or European, Asian, African, etc.</p></li>
+<li><p>or they can be ordered, age: less than 18, 18-40, more than 40</p></li>
+<li><p>we typically implement factors using <em>dummy variables</em></p></li>
+<li><p>essentially we create a new set of variables using indicator functions, <span class="math inline">\(1_{Ai} = 1\)</span> if observation <span class="math inline">\(i\)</span> has the level <span class="math inline">\(A\)</span>.</p></li>
+</ul>
+</section>
+<section id="fitting-factors-in-regression-models" class="slide level2">
+<h2>Fitting factors in regression models</h2>
+<ul>
+<li><p>suppose we have a factor with <span class="math inline">\(K\)</span> levels</p></li>
+<li><p>we can fit factors in two ways</p>
+<ul>
+<li><strong>M1:</strong> includes an intercept in the model and then use <span class="math inline">\(K-1\)</span> indicator variables</li>
+<li><strong>M2L=:</strong> no intercept and use <span class="math inline">\(K\)</span> indicator variables.</li>
+</ul></li>
+<li><p>in <strong>M1</strong> we the intercept is the mean value of <span class="math inline">\(y\)</span>, and each <span class="math inline">\(\beta_j\)</span> is the difference in mean for the <span class="math inline">\(j^{th}\)</span> retained factor level from the overall mean.</p></li>
+<li><p>in <strong>M2</strong> each of the <span class="math inline">\(\beta_j\)</span> is the mean value for <span class="math inline">\(y\)</span> only within factor level <span class="math inline">\(j\)</span></p></li>
+</ul>
+</section>
+<section id="regression-with-factors" class="slide level2">
+<h2>Regression with factors</h2>
+<ul>
+<li>simple example, suppose our factor is sex, which has two levels, M and F, then</li>
+</ul>
+<p><span class="math display">\[
+  M1:  Y = \beta_0 + \beta_M \cdot 1_{M} + \epsilon \\
+  E[Y | F]= \beta_0 \quad \mbox{and} \quad E[Y|M] = \beta_0 + \beta_M
+\]</span></p>
+<p>Or <span class="math display">\[
+  M2: y = \beta_M \cdot 1_{M} + \beta_{F} \cdot 1_{F} + \epsilon \\
+  E[Y|F] = \beta_F \quad \mbox{and} E[Y|M] = \beta_M
+\]</span></p>
+</section>
+<section id="small-warning" class="slide level2">
+<h2>Small warning</h2>
+<ul>
+<li><p>there are some issues you have to worry about when fitting a model without an intercept</p></li>
+<li><p>in these models the test for each group, <span class="math inline">\(H_0: \beta_j = 0\)</span> is then comparing the mean for that group to zero (0)</p></li>
+<li><p>with a model that has an intercept then for each group the test for <span class="math inline">\(H_0: \beta_j = 0\)</span> tests whether that group mean is different from the mean for the group that was used to determine the intercept.</p></li>
+<li><p>in the first of these, multiple-<span class="math inline">\(R^2\)</span> does not have a reasonable interpretation.</p></li>
+</ul>
+</section>
+<section id="example" class="slide level2 smaller">
+<h2>Example</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = heights ~ sex)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7.7290 -3.4115  0.5925  3.7202  5.9065 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  68.0986     0.9463  71.966   &lt;2e-16 ***
+sexM          0.2882     1.3060   0.221    0.827    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.125 on 38 degrees of freedom
+Multiple R-squared:  0.00128,   Adjusted R-squared:  -0.025 
+F-statistic: 0.04871 on 1 and 38 DF,  p-value: 0.8265</code></pre>
+</div>
+</div>
+</section>
+<section id="example-cont" class="slide level2 smaller">
+<h2>Example con’t</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = heights ~ sex - 1)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7.7290 -3.4115  0.5925  3.7202  5.9065 
+
+Coefficients:
+     Estimate Std. Error t value Pr(&gt;|t|)    
+sexF  68.0986     0.9463   71.97   &lt;2e-16 ***
+sexM  68.3868     0.9001   75.98   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.125 on 38 degrees of freedom
+Multiple R-squared:  0.9965,    Adjusted R-squared:  0.9964 
+F-statistic:  5476 on 2 and 38 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</section>
+<section id="other-resources" class="slide level2">
+<h2>Other Resources</h2>
+<ul>
+<li>there are lots of regression notes and examples around the web</li>
+<li><a href="http://www.stat.ucla.edu/~dinov/courses_students.dir/02/Fall/STAT13.dir/STAT13_notes.html" class="uri">http://www.stat.ucla.edu/~dinov/courses_students.dir/02/Fall/STAT13.dir/STAT13_notes.html</a></li>
+</ul>
+
+<div class="footer footer-default">
+
+</div>
+</section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
         }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
         } else {
-          toggle.classList.remove("alternate");
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
         }
       }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  let localAlternateSentinel = 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
         }
       }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn) {
-    const config = {
-      allowHTML: true,
-      content: contentFn,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start'
-    };
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
           }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
+        }
+        return false;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
           }
-          selectedAnnoteEl = annoteEl;
+          return codeEl.innerText;
         }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Handle positioning of the toggle
-      window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
         }
-      }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
           }
-        };
-      }
-      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
-      for (let i=0; i<annoteTargets.length; i++) {
-        const annoteTarget = annoteTargets[i];
-        const targetCell = annoteTarget.getAttribute("data-target-cell");
-        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
-        const contentFn = () => {
-          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          if (content) {
-            const tipContent = content.cloneNode(true);
-            tipContent.classList.add("code-annotation-tip-content");
-            return tipContent.outerHTML;
-          }
-        }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
         const config = {
           allowHTML: true,
           content: contentFn,
-          onShow: (instance) => {
-            selectCodeLines(instance.reference);
-            instance.reference.classList.add('code-annotation-active');
-            window.tippy.hideAll();
-          },
-          onHide: (instance) => {
-            unselectCodeLines();
-            instance.reference.classList.remove('code-annotation-active');
-          },
-          maxWidth: 300,
-          delay: [50, 0],
-          duration: [200, 0],
-          offset: [5, 10],
-          arrow: true,
-          trigger: 'click',
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
           appendTo: function(el) {
-            return el.parentElement.parentElement.parentElement;
+              return el.closest('section.slide') || el.parentElement;
           },
           interactive: true,
           interactiveBorder: 10,
-          theme: 'quarto',
-          placement: 'right',
-          positionFixed: true,
-          popperOptions: {
-            modifiers: [
-            {
-              name: 'flip',
-              options: {
-                flipVariations: false, // true by default
-                allowedAutoPlacements: ['right'],
-                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
-              },
-            },
-            {
-              name: 'preventOverflow',
-              options: {
-                mainAxis: false,
-                altAxis: false
-              }
-            }
-            ]        
-          }      
+          theme: 'light-border',
+          placement: 'bottom-start'
         };
-        window.tippy(annoteTarget, config); 
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
       }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
         });
-        return popup.innerHTML;
-      });
-    }
-  }
-});
-</script>
-</div> <!-- /content -->
-
-
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
 
 </body></html>

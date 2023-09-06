@@ -1,8 +1,96 @@
 ---
 title: "Analysis Practice"
-author: "Center for Computational Biomedicine"
 format: 
   html: default
 code-annotations: select
 ---
 
+## Data analysis exercise 1: Due October 25
+
+1. What is at least one challenge you expect to encounter when analyzing your project's data?
+Examples of challenges include: 
+
+- A high percent of missing data.
+- Groups of interest are of uneven size.
+- A specialized type of data which is difficult to deal with (such as geographic or time-series data).
+- Unreliable data (values may be incorrect).
+- Data has to be combined from many different sources. 
+- How the data was collected or recorded changed over time. 
+
+*Tip: If you are unsure what challenges your project's data might face, take a look at other papers which use the same or similar data. Do the authors mention any special data cleaning or analysis steps?*
+
+2. How do you plan to deal with this challenge? Are there specialized R packages which can help with this challenge? If you are unsure, how do you plan to learn how to deal with this challenge?
+
+3. A small, simulated dataset is useful when creating an analysis. 
+Since we know the exact properties of the simulated dataset, we can make sure any calculations or corrections we perform in our analysis are correct by first trying them on the simulated dataset. 
+
+Create a small dataset (50 or fewer rows) which is similar to your project's data and if possible contains the challenge you talk about above. You can create the dataset by hand, as a subset of real data, or by random generation. 
+
+Attach your dataset and any code you used to generate your dataset to your solution.
+
+You can create vectors of different types in R:
+
+```{r}
+# Make a vector of 10 0's and 0 empty strings ""
+num_vec <- numeric(10)
+char_vec <- character(10)
+
+num_vec
+char_vec
+```
+And then assign values and create a dataframe:
+
+```{r}
+num_vec[1:3] <- 6
+num_vec[4:10] <- 8.5
+num_vec
+
+char_vec[1:5] <- "Male"
+char_vec[5:10] <- "Female"
+char_vec
+
+df <- data.frame(char_vec, num_vec)
+```
+
+You can generate random numbers using functions like `rnorm`:
+
+```{r}
+# Generate 50 random numbers centered around 1000 with a standard deviation of 300
+norm_nums <- rnorm(50, 1000, 300)
+norm_nums
+```
+
+Another useful function for generating example data is `sample`. 
+It selects random items from a vector.
+
+```{r}
+# Select a random item 8 times from norm_nums
+sample(norm_nums, 8, replace = TRUE)
+
+# Select 6 different random whole numbers between 1 and 100
+sample(1:100, 6, replace=FALSE)
+
+# Randomly replace 25% of norm_nums with NA to simulate missing data
+n <- length(norm_nums)
+idx <- sample(1:n, round(n * .25), replace = FALSE)
+norm_nums[idx] <- NA
+norm_nums
+```
+
+## Data analysis exercise 2: Due November 8
+1. What is a data visualization or table you plan to create as a part of your analysis? 
+2. Using your simulated dataset dataset, create an example of the visualization. Try to get it as close to 'publication ready' as possible in terms of legends, axis labels, colors, text size, etc.
+3. Export your figure and attach it to your solution.
+
+## Data analysis exercise 3: Due November 15
+
+1. Name 2 ways you could deal with either missing or duplicate data.
+2. Will the data you're using for your project contain duplicate and/or missing data?
+3. Write R code on your sample data to demonstrate one of the solutions you mentioned. If the data for your project will contain neither, use the NHANES adolescent diabetes dataset from in-class. 
+
+## Data analysis exercise 4: Due November 29
+
+1. Choose a relationship between 2 or more variables in your project's data you wish to explore the relationship between.
+2. What test or model would you use to explore that relationship?
+3. Write R code using to run your chosen model or test on your simulated dataset. 
+4. Create the results figure, statement, or table you plan to use in your final report around this result, but using the result from your simulated dataset. 

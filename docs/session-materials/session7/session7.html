@@ -9,7 +9,7 @@
 <meta name="author" content="RG">
 <meta name="dcterms.date" content="2023-06-26">
 
-<title>Research Design and Analysis - Week 7: Regression</title>
+<title>Research Design and Analysis - Week 7: Advanced Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -146,7 +146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Exercises</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../resources/resources.html" rel="" target="">
+    <a class="nav-link" href="../../docker/install-docker.html" rel="" target="">
  <span class="menu-text">NHANES Docker Container</span></a>
   </li>  
   <li class="nav-item">
@@ -165,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../session-materials/session7/session7.html">Week 7: Regression</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../session-materials/session7/session7.html">Week 7: Advanced Regression</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -216,25 +216,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session5/session5.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 5: Exploring survey data</span></a>
+ <span class="menu-text">Week 5: Statistical tests and missing data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session6/session6.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 6: Statistical tests</span></a>
+ <span class="menu-text">Week 6: Regression</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session7/session7.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Week 7: Regression</span></a>
+ <span class="menu-text">Week 7: Advanced Regression</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../session-materials/session8/session8.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Week 8: Putting it all together</span></a>
+ <span class="menu-text">Week 8: Exploring survey data</span></a>
   </div>
 </li>
     </ul>
@@ -264,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 7: Regression</h1>
+<h1 class="title">Week 7: Advanced Regression</h1>
 </div>
 
 
@@ -303,8 +303,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>DT<span class="sc">::</span><span class="fu">datatable</span>(metaD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-44e05048cea4733e6e17" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-44e05048cea4733e6e17">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],["RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2","WTINT2YR","SDMVPSU","SDMVSTRA","INDFMPIR","BPQ050A","BPQ020","BPQ080","BPQ100D","LBDHDD","LBXGH","DIQ010","DIQ050","DIQ070","DIQ160","BMXBMI","LBXTC"],["Age in years at screening","Gender","Race/Hispanic origin","Education level - Adults 20+","Full sample 2 year interview weight","Masked variance pseudo-PSU","Masked variance pseudo-stratum","Ratio of family income to poverty","Now taking prescribed medicine for HBP","Ever told you had high blood pressure","Doctor told you - high cholesterol level","Now taking prescribed medicine","Direct HDL-Cholesterol (mg/dL)","Glycohemoglobin (%)","Doctor told you have diabetes","Taking insulin now","Take diabetic pills to lower blood sugar","Ever told you have prediabetes","Body Mass Index (kg/m**2)","Total Cholesterol (mg/dL)"],["Age in years of the participant at the time of screening. Individuals 80 and over are topcoded at 80 years of age.","Gender of the participant.","Recode of reported race and Hispanic origin information","What is the highest grade or level of school {you have/SP has} completed or the highest degree {you have/s/he has} received?","Full sample 2 year interview weight.","Masked variance unit pseudo-PSU variable for variance estimation","Masked variance unit pseudo-stratum variable for variance estimation","A ratio of family income to poverty guidelines.","HELP AVAILABLE (Are you/Is SP) now taking prescribed medicine","{Have you/Has SP} ever been told by a doctor or other health professional that {you/s/he} had hypertension also called high blood pressure?","{Have you/Has SP} ever been told by a doctor or other health professional that {your/his/her} blood cholesterol level was high?","(Are you/Is SP) now following this advice to take prescribed medicine?","Direct HDL-Cholesterol (mg/dL)","Glycohemoglobin (%)","The next questions are about specific medical conditions. {Other than during pregnancy {have you/has SP}/{Have you/Has SP}} ever been told by a doctor or health professional that {you have/{he/she/SP} has} diabetes or sugar diabetes?","{Is SP/Are you} now taking insulin","{Is SP/Are you} now taking diabetic pills to lower {{his/her}/your} blood sugar? These are sometimes called oral agents or oral hypoglycemic agents.","{Have you/Has SP} ever been told by a doctor or other health professional that {you have/SP has} any of the following: prediabetes impaired fasting glucose impaired glucose tolerance borderline diabetes or that {your/her/his} blood sugar is higher than normal but not high enough to be called diabetes or sugar diabetes?","Body Mass Index (kg/m**2)","Total Cholesterol (mg/dL)"],["Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 20 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 16 YEARS - 150 YEARS","Both males and females 16 YEARS - 150 YEARS","Both males and females 16 YEARS - 150 YEARS","Both males and females 16 YEARS - 150 YEARS","Both males and females 6 YEARS - 150 YEARS","Both males and females 12 YEARS - 150 YEARS","Both males and females 1 YEARS - 150 YEARS","Both males and females 1 YEARS - 150 YEARS","Both males and females 1 YEARS - 150 YEARS","Both males and females 12 YEARS - 150 YEARS","Both males and females 2 YEARS - 150 YEARS","Both males and females 6 YEARS - 150 YEARS"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>VariableName<\/th>\n      <th>SASLabel<\/th>\n      <th>EnglishText<\/th>\n      <th>Target<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e0af935560c8176c4ec8" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-e0af935560c8176c4ec8">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],["RIDAGEYR","RIAGENDR","RIDRETH1","DMDEDUC2","WTINT2YR","SDMVPSU","SDMVSTRA","INDFMPIR","BPQ050A","BPQ020","BPQ080","BPQ100D","LBDHDD","LBXGH","DIQ010","DIQ050","DIQ070","DIQ160","BMXBMI","LBXTC"],["Age in years at screening","Gender","Race/Hispanic origin","Education level - Adults 20+","Full sample 2 year interview weight","Masked variance pseudo-PSU","Masked variance pseudo-stratum","Ratio of family income to poverty","Now taking prescribed medicine for HBP","Ever told you had high blood pressure","Doctor told you - high cholesterol level","Now taking prescribed medicine","Direct HDL-Cholesterol (mg/dL)","Glycohemoglobin (%)","Doctor told you have diabetes","Taking insulin now","Take diabetic pills to lower blood sugar","Ever told you have prediabetes","Body Mass Index (kg/m**2)","Total Cholesterol (mg/dL)"],["Age in years of the participant at the time of screening. Individuals 80 and over are topcoded at 80 years of age.","Gender of the participant.","Recode of reported race and Hispanic origin information","What is the highest grade or level of school {you have/SP has} completed or the highest degree {you have/s/he has} received?","Full sample 2 year interview weight.","Masked variance unit pseudo-PSU variable for variance estimation","Masked variance unit pseudo-stratum variable for variance estimation","A ratio of family income to poverty guidelines.","HELP AVAILABLE (Are you/Is SP) now taking prescribed medicine","{Have you/Has SP} ever been told by a doctor or other health professional that {you/s/he} had hypertension also called high blood pressure?","{Have you/Has SP} ever been told by a doctor or other health professional that {your/his/her} blood cholesterol level was high?","(Are you/Is SP) now following this advice to take prescribed medicine?","Direct HDL-Cholesterol (mg/dL)","Glycohemoglobin (%)","The next questions are about specific medical conditions. {Other than during pregnancy {have you/has SP}/{Have you/Has SP}} ever been told by a doctor or health professional that {you have/{he/she/SP} has} diabetes or sugar diabetes?","{Is SP/Are you} now taking insulin","{Is SP/Are you} now taking diabetic pills to lower {{his/her}/your} blood sugar? These are sometimes called oral agents or oral hypoglycemic agents.","{Have you/Has SP} ever been told by a doctor or other health professional that {you have/SP has} any of the following: prediabetes impaired fasting glucose impaired glucose tolerance borderline diabetes or that {your/her/his} blood sugar is higher than normal but not high enough to be called diabetes or sugar diabetes?","Body Mass Index (kg/m**2)","Total Cholesterol (mg/dL)"],["Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 20 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 0 YEARS - 150 YEARS","Both males and females 16 YEARS - 150 YEARS","Both males and females 16 YEARS - 150 YEARS","Both males and females 16 YEARS - 150 YEARS","Both males and females 16 YEARS - 150 YEARS","Both males and females 6 YEARS - 150 YEARS","Both males and females 12 YEARS - 150 YEARS","Both males and females 1 YEARS - 150 YEARS","Both males and females 1 YEARS - 150 YEARS","Both males and females 1 YEARS - 150 YEARS","Both males and females 12 YEARS - 150 YEARS","Both males and females 2 YEARS - 150 YEARS","Both males and females 6 YEARS - 150 YEARS"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>VariableName<\/th>\n      <th>SASLabel<\/th>\n      <th>EnglishText<\/th>\n      <th>Target<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>We will look at the relationship between the variable LBXTC (which is Total Cholesterol in mg/dL measured by a blood draw) and the age of the participant in years.</p>
@@ -840,8 +840,8 @@ Multiple R-squared:  0.09487,   Adjusted R-squared:  0.0919
 F-statistic: 31.95 on 15 and 4572 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p><em>Exercise::</em></p>
-<p>In the code below, we drop the terms that were not statistically significant in the model and then compare this smaller model to the larger one, above. Interpret the results.</p>
+<p><em>Exercise</em></p>
+<p>In the code below, we drop the terms that were not statistically significant in the model and then compare this smaller model to the larger one, above. Try interpreting the results.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>lmFx4 <span class="ot">=</span> <span class="fu">lm</span>(LBXTC <span class="sc">~</span> <span class="fu">ns</span>(RIDAGEYR, <span class="at">df=</span><span class="dv">7</span>) <span class="sc">+</span> LBDHDD<span class="sc">+</span>LBXGH<span class="sc">+</span>Black, <span class="at">data=</span>d7sub)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmFx4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

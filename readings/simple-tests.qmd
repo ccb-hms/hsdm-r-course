@@ -4,7 +4,7 @@
 ## Extended Materials
 
 You can find the original, extended version of this chapter [here](https://epirhandbook.com/en/simple-statistical-tests.html).
-::
+:::
 
 This page demonstrates how to conduct simple statistical tests using **base** R, **rstatix**, and **gtsummary**.  
 

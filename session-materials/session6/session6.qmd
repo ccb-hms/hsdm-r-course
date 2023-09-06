@@ -1,285 +1,453 @@
 ---
-title: "Week 6: Statistical tests"
-author: "Center for Computational Biomedicine"
+title: "Week 6: Regression"
 format: 
-  html: default
-code-annotations: select
+  revealjs:
+    slide-number: c/t
+editor: visual
 ---
 
-```{r}
-library(tidyverse)
-library(survey)
-library(DT)
-library(nhanesA)
-```
-
-# Data
-
-We can load our processed NHANES data and recreate the survey objects from last week. 
+## Introduction {.smaller}
 
 ```{r}
-load("processed_beheshti.RData")
+#| echo: false
 
-wt_nhanes <- all_nhanes %>%
-  drop_na(WTMEC2YR, SDMVPSU, SDMVSTRA) %>%
-  mutate(WTMEC6YR = WTMEC2YR * 1/3)
-
-# Create survey design object
-nhanes_design <- svydesign(id     = ~SDMVPSU,
-                          strata  = ~SDMVSTRA,
-                          weights = ~WTMEC6YR,
-                          nest    = TRUE,
-                          data    = wt_nhanes)
-
-#Subset the study population
-ado_design <- subset(nhanes_design, RIDAGEYR >= 13 & RIDAGEYR <= 18 & !is.na(OHXDECAY))
-
-#Also make a tibble of this data to analyze
-ado_data <- wt_nhanes %>%
-  filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% 
-  filter(!is.na(OHXDECAY)) %>% 
-  filter(!is.na(diabetes)) 
+dataPath = "Ch12data/"
 ```
 
-# Performing simple tests
+-   Regression comes in many forms.
+-   Here we will learn about linear regression.
+-   Regression is a set of tools that allow you to model and interpret the relationships between two or more variables.
+-   In regression we treat on variable as the response and a set of variables as possible predictors of the response.
+-   Regression models can be used for prediction, for explanation, to test hypotheses about relationships between variables
+-   the lectures are loosly based on *Chance Encounters* by Seber and Wild.
+-   <https://www.stat.auckland.ac.nz/~wild/ChanceEnc/index.shtml>
 
-Let's start by looking at the relationship between ethnicity and dental caries using the `table` command. 
+## Causal Relationships
+
+Let's look at some data from 1989 on infant death rates per 1000 of population.
 
 ```{r}
-table(ado_data$RIDRETH1, ado_data$dental.caries)
-```
-We can group and summarize the data to take a look at percents by group instead:
-```{r}
-eth_ado <- ado_data %>%
-  group_by(RIDRETH1, dental.caries) %>%
-  summarise(count = n()) %>%
-  mutate(perc = count/sum(count))
-eth_ado
+#| echo: true
+
+infdeath = read.table( "infdeath.txt", head=TRUE, sep="\t")
+dim(infdeath)
+colnames(infdeath)
 ```
 
-We could also visualize the different distributions:
-```{r}
-ggplot(filter(eth_ado, dental.caries == TRUE), aes(x = RIDRETH1, y = perc*100)) + 
-    geom_bar(stat = "identity") + 
-    theme(axis.text.x = element_text(angle = 45, hjust=1)) +
-    labs(x = "Ethnicity", y = "Percent Dental Caries")
-```
-We can also perform a Chi-squared test to examine the relationship between the variables. 
-We either print the result directly or store it in a variable and examine it's different components. 
+-   we have 20 measurements on
+-   `safe`=access to safe water
+-   `breast`= percentage of mothers breast feeding at 6 months
+-   `death` = infant death rate
+
+## Correlation vs. Causation {.smaller}
+
+::: columns
+::: {.column width="50%"}
+![](infdeath1.png)
 
 ```{r}
-res <- chisq.test(table(ado_data$RIDRETH1, ado_data$dental.caries))
+#| echo: false
+#| eval: false
+#> FIXME - need to get the points and text and line widths bumped up
 
-res$method
-res$p.value
-res$statistic
+png(filename="infdeath1.png")
+plot(infdeath$breast, infdeath$death, xlab="% Breast Feeding", 
+     ylab="Infant Death Rate", pty="s", pch=19, cex.axis=1.5,
+     cex.lab=1.5)
+dev.off()
 ```
 
-However, as opposed to directly examining the survey data we may instead want to use the survey weights to infer statistics about the total population. 
-
-```{r}
-svychisq(~RIDRETH1 + dental.caries, ado_design)
-```
-
-# Adding Chi-square tests to the table
-
-::: {.callout-tip appearance="minimal"}
-## Exercise
-
-Take a look at the p-values in tables 1a and 1b in the Beheshti paper. 
-Choose at least one test from 1a and one test from 1b, and reproduce them. 
-Compare them to their counterparts using the data without incorporating survey weights. 
-
-```{r}
-#Your code here
-```
-
-What is the purpose of these tests in the paper?
-How useful do you find these results? 
-Do you think there would be a better analysis to perform instead?
-
+This suggests that longer time breast feeding leads to greater infant mortality.
 :::
 
-
-# Depression, gender, and age in NHANES
-
-Let's take a look at an example analysis comparing the prevalence of depression among men and women in different age groups. This is taken from a CDC [sample analysis](https://wwwn.cdc.gov/nchs/nhanes/tutorials/samplecode.aspx) replicating [this debrief](https://www.cdc.gov/nchs/products/databriefs/db303.htm).
-
-## Downloading NHANES data
-
-So far, we've been using data from the dockerized database. 
-Today, let's take a look at an alternate way to access NHANES data in R using the `nhanesA` package.
-
-With `nhanesA`, we can easily download entire tables from NHANES. 
-However, there are some extra processing steps we'll have to perform compared to using the dockerized database. 
-You can learn more about using `nhanesA` [here](https://cran.r-project.org/web/packages/nhanesA/vignettes/Introducing_nhanesA.html).
+::: {.column width="50%"}
+![](infdeath2.png)
 
 ```{r}
-# Get data with nahnesA
-DEMO_H = nhanes('DEMO_H')
-DEMO_I = nhanes('DEMO_I')
-DPQ_H = nhanes('DPQ_H')
-DPQ_I = nhanes('DPQ_I')
+#| echo: false
+#| eval: false
 
-# Append Files
-DEMO <- bind_rows(DEMO_H, DEMO_I)
-DPQ <- bind_rows(DPQ_H, DPQ_I)
-
-datatable(head(DEMO))
-datatable(head(DPQ))
+png(filename="infdeath2.png")
+plot(infdeath$safe, infdeath$breast, ylab="% Breast Feeding", 
+     xlab="% Access to safe water", pty="s", pch=19, cex.axis=1.5,
+     cex.lab=1.5)
+dev.off()
 ```
 
-There are a few differences between this data and the processed data we've been using. 
-First, we have to `join` the DEMO and DPQ tables. 
-We'll learn more about joining or merging data in the last week of class. 
-
-Second, the values in the raw NHANES tables are numeric encodings for each variable. 
-With nhanesA we can lookup the code using `nhanesCodebook` and convert numeric codes using `nhanesTranslate`.
-
-
-```{r}
-nhanesCodebook('DEMO_H', 'RIAGENDR')
-```
-However, in this example analysis the authors chose to instead directly convert values.
-
-```{r, eval=FALSE}
-# Merge DEMO and DPQ files and create derived variables
-
-One <- left_join(DEMO, DPQ, by="SEQN") %>%
-  # Set 7=Refused and 9=Don't Know To Missing for variables DPQ010 thru DPQ090 ##
-  mutate_at(vars(DPQ010:DPQ090), ~ifelse(. >=7, NA, .)) %>%
-  mutate(. , 
-         # create indicator for overall summary
-         one = 1,
-         # Create depression score as sum of variables DPQ010 -- DPQ090
-         Depression.Score = rowSums(select(. , DPQ010:DPQ090)),
-         # Create depression indicator as binary 0/100 variable. (is missing if Depression.Score is missing)
-         Depression= ifelse(Depression.Score >=10, 100, 0), 
-         # Create factor variables
-         Gender = factor(RIAGENDR, labels=c("Men", "Women")),
-         Age.Group = cut(RIDAGEYR, breaks=c(-Inf,19,39,59,Inf),labels=c("Under 20", "20-39","40-59","60 and over")),
-         # Generate 4-year MEC weight (Divide weight by 2 because we are appending 2 survey cycles)
-         WTMEC4YR = WTMEC2YR/2 ,
-         # Define indicator for analysis population of interest: adults aged 20 and over with a valid depression score
-         inAnalysis= (RIDAGEYR >= 20 & !is.na(Depression.Score))
-         ) %>% 
-  # drop DPQ variables
-  select(., -starts_with("DPQ"))
-```
-
-## Survey design
-
-With our data processed, we can make the survey design object. 
-
-```{r, eval=FALSE}
-# To keep things the same as in the report
-options(survey.lonely.psu='adjust')
-
-# Define survey design for overall dataset
-NHANES_all <- svydesign(data=One, id=~SDMVPSU, strata=~SDMVSTRA, weights=~WTMEC4YR, nest=TRUE)
-                    
-# Create a survey design object for the subset of interest: adults aged 20 and over with a valid depression score 
-# Subsetting the original survey design object ensures we keep the design information about the number of clusters and strata
-NHANES <- subset(NHANES_all, inAnalysis)
-
-```
-## Analysis
-
-Let's start by taking a look at how depression varies for our other variables of interest. 
-```{r, eval=FALSE}
-# Define a function to call svymean and unweighted count
-getSummary <- function(varformula, byformula, design){
-  # Get mean, stderr, and unweighted sample size
-  c <- svyby(varformula, byformula, design, unwtd.count ) 
-  p <- svyby(varformula, byformula, design, svymean ) 
-  outSum <- left_join(select(c,-se), p) 
-  outSum
-}
-
-#' ### Calculate prevalence of depression overall, by gender, by age group, and by age and gender
-#' Adults
-getSummary(~Depression, ~one, NHANES)
-#' By sex
-getSummary(~Depression, ~Gender, NHANES)
-#' By age
-getSummary(~Depression, ~Age.Group, NHANES)
-#' By sex and age
-getSummary(~Depression, ~Gender + Age.Group, NHANES)
-```
-
-Much like running the Chi-squared test, we need to use `svyttest` as opposed to `t.test` so we can incorporate the survey weights. 
-
-```{r, eval=FALSE}
-#' ### Compare Prevalence Between Men And Women
-svyttest(Depression~Gender, NHANES)$p.value %>% as.numeric 
-svyttest(Depression~Gender, subset(NHANES, Age.Group=="20-39"))$p.value %>% as.numeric
-svyttest(Depression~Gender, subset(NHANES, Age.Group=="40-59"))$p.value %>% as.numeric
-svyttest(Depression~Gender, subset(NHANES, Age.Group=="60 and over"))$p.value %>% as.numeric
-```
-
-We can also examine the prevalence of depression by age.
-We can perform t-tests on all pairs of age groups as done in the initial analysis.
-
-```{r, eval=FALSE}
-#' ### Pairwise t-testing by age groups for total, men, and women
-#' Differences by age group, among all adults
-svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="20-39" | Age.Group=="40-59"))$p.value %>% as.numeric
-svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="20-39" | Age.Group=="60 and over"))$p.value %>% as.numeric
-svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="40-59" | Age.Group=="60 and over"))$p.value %>% as.numeric
-```
-
-And then further break things down by gender.
-```{r, eval=FALSE}
-#' Differences by age group, among men
-svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="20-39" | Age.Group=="40-59")))$p.value %>% as.numeric
-svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="20-39" | Age.Group=="60 and over")))$p.value %>% as.numeric
-svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="40-59" | Age.Group=="60 and over")))$p.value %>% as.numeric
-#' Differences by age group, among women
-svyttest(Depression~Age.Group, subset(NHANES, Gender=="Women" & (Age.Group=="20-39" | Age.Group=="40-59")))$p.value %>% as.numeric
-svyttest(Depression~Age.Group, subset(NHANES, Gender=="Women" & (Age.Group=="20-39" | Age.Group=="60 and over")))$p.value %>% as.numeric
-svyttest(Depression~Age.Group, subset(NHANES, Gender=="Women" & (Age.Group=="40-59" | Age.Group=="60 and over")))$p.value %>% as.numeric
-```
-::: callout-important
-## Exercise: The dangers of multiple testing
-
-Let's say we're running this analysis with the traditional $\alpha$-level (p-value cut-off) of $p < 0.05$. What does our $alpha$-level mean?
-
-How many t-tests have we performed in this depression analysis?
-How does that relate to the $alpha$-level?
-
-To help understand this relationship, consider a binomial test to determine if the result of 100 coin flips is fair:
-
-```{r, eval=FALSE}
-numFlips = 100
-probHead = 0.5
-coinFlips = sample(c("H", "T"), size = numFlips,
-  replace = TRUE, prob = c(probHead, 1 - probHead))
-numHeads <- sum(coinFlips == "H")
-pval <- binom.test(x = numHeads, n = numFlips, p = 0.5)$p.value
-pval
-```
-
-Now let's look at the range of p-values we get if we run the test 10000 times. 
-
-
-```{r, eval=FALSE}
-#Let's make a function for performing our experiment
-flip_coin <- function(numFlips, probHead){
-  numFlips = 100
-  probHead = 0.50
-  coinFlips = sample(c("H", "T"), size = numFlips,
-    replace = TRUE, prob = c(probHead, 1 - probHead))
-  numHeads <- sum(coinFlips == "H")
-  pval <- binom.test(x = numHeads, n = numFlips, p = 0.5)$p.value
-  return(pval)
-}
-
-#And then run it 10000 times
-parray <- replicate(10000, flip_coin(1000, 0.5), simplify=TRUE)
-hist(-log(parray), breaks=100)
-min(parray)
-```
-
+Countries with access to safe water breast feed for less time.
+:::
 :::
 
+## Causation
 
+-   often, as in the example above, there is a third variable (access to clean water) that affects both the response and the predictor
+-   to get at causation we typically need a randomized controlled experiment
+-   we cannot always do experiments, eg most epidemiology
+
+## Linear Regression {.smaller}
+
+-   We want to relate the response, $y$ to the predictor $x$ using a straight line model
+
+    $y = \beta_0 + \beta_1 \cdot x + \epsilon$
+
+-   in this model $\beta_0$ is the intercept - the value that $y$ takes when $x=0$
+
+-   $\beta_1$ is the slope of the line, relating $x$ to $y$ and can be interpreted as the average change in $y$ for a one unit change in $x$
+
+-   $\epsilon$ represents the inherent variability in the system, it is assumed to be zero on average
+
+-   some of the statistical theory is easier if you assume that $\epsilon$'s come as independent observations with the same distribution (*i*.*i*.*d*), but this is not essential
+
+## Plot the data {.smaller}
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+#| fig-align: "center"
+#| fig-width: 5
+
+plot(infdeath$breast, infdeath$death, xlab="% Breast Feeding", 
+     ylab="Infant Death Rate", pty="s", pch=19, cex.axis=1.5,
+     cex.lab=1.5, xlim=c(0, 100), ylim=c(-30,150))
+lm1 = lm(infdeath$death~infdeath$breast)
+abline(lm1, col="blue")
+
+```
+:::
+
+::: {.column width="50%"}
+-   the intercept is about -27
+-   the slope is about 1.5
+-   interpret these....
+:::
+:::
+
+## Linear Regression
+
+-   we can easily fit this model to the data
+
+```{r}
+
+lm1 = lm(infdeath$death~infdeath$breast)
+summary(lm1)
+
+```
+
+## Linear Regression
+
+-   we denote our estimates by putting a hat on the parameter, e.g. $\hat{\beta_0}$
+-   our estimated line is the given by $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 \cdot x$
+-   given a new $x$ we can then predict $y$
+-   but we have to be careful about whether the new $x$ is sensible
+-   how do we choose the **best** straight line?
+
+## Least Squares
+
+-   let our *predicted values* be $\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 \cdot x_i$
+
+-   then one strategy is to minimize the sum of squared prediction errors $$
+     \sum_{i=1}^n (y_i - \hat{y}_i)^2
+    $$
+
+-   this method is called *least squares* and was described by Gauss in 1822
+
+## The estimates are random...
+
+-   our model says $$
+     Y = \beta_0 + \beta_1 \cdot X + \epsilon
+    $$
+-   where we use $Y$ and $X$ to represent the fact that data came from some form of sample from a population we want to make inference about
+-   usually we will assume $\epsilon \sim N(0, \sigma^2)$ are independent (but that is not strictly necessary)
+
+## Simulation Experiments
+
+-   one tool that you can use to understand how different methods work is to create a simulation experiment
+
+-   in these experiments you create a model, where you know the answer, and you control the variability or stochastic component
+
+-   then you can interpret the way in which the different quantities you are estimating behave
+
+## Simulation Experiment
+
+```{r}
+#| echo: true
+
+
+set.seed(123)
+ ##get some x's
+ x = runif(20, min=20, max=70)
+ ## set our regression
+ y = 5 + .2 *x 
+ 
+ yobs = y + rnorm(20, sd=1.5)
+ lm2 = lm(yobs~x)
+ summary(lm2)
+
+```
+
+## Simulation
+
+```{r}
+#| echo: true
+NITER=1000
+b0vec = rep(NA, NITER)
+b1vec = rep(NA, NITER)
+
+for( i in 1:NITER) {
+  ei = rnorm(20, sd=1.5)
+  yoi = y + ei
+  lmi = lm(yoi ~ x)
+  b0vec[i] = lmi$coefficients[1]
+  b1vec[i] = lmi$coefficients[2]
+}
+
+```
+
+-   we repeatedly sample from a Normal distribution with `sd=1.5` and create a new $y$
+-   then we estimate the parameters for that model, and save them
+
+## Plots
+
+```{r}
+#| echo: false
+
+par(mfrow=c(1,2))
+hist(b0vec)
+hist(b1vec)
+
+```
+
+-   $\hat{\beta}_0$ mean: `r round(mean(b0vec), digits=3)`; sd: `r round(sqrt(var(b0vec)), digits=3)`
+-   $\hat{\beta}_1$ mean: `r round(mean(b1vec), digits=3)`; sd: `r round(sqrt(var(b1vec)), digits=3)`
+
+## Compare with the Regression summary
+
+```{r}
+summary(lm2)
+```
+
+## Inference about the model
+
+-   typically the intercept is not that interesting
+-   we test the hypothesis $H_0: \beta_1 = 0$ to determine whether $x$ provides any explanation of $y$
+-   $R^2$ and multiple $R^2$ tell us about how much of the variation in $y$ has been captured by the terms in the model
+-   the residual standard error is an estimate of $\sigma$ from the distribution of the $\epsilon_i$
+
+## But....
+
+-   all of that inference is dependent on the model being correct
+-   if the linear model does not fit the data, then the $\beta$'s are not meaningful, the variance cannot be estimated, we cannot correctly assess whether or not the covariate(s) x('s) help to predict $y$
+
+## Anscombe's Quartet
+
+::: columns
+::: {.column width="50%"}
+![](Anscombe.png)
+:::
+
+::: {.column width="50%"}
+![](AnscombeSummary.png)
+:::
+:::
+
+## And so...
+
+-   only the top left plot represents a statistical regression model
+-   the top right model represents a non-linear relationship, and one that seems to have no error
+-   the bottom left plot is a straight line, with one possible recording error, but no statistical variation
+-   the bottom right plot shows no relationship between $x$ and $y$ for most points, but there is one *outlier*, in both $x$ and $y$ that affects the estimated relationship
+
+## The hard part...
+
+-   is not writing the command `lm(y~x)` - anyone could do that
+-   it is ensuring that the model adequately represents the data and the relationships within it
+-   once you have convinced yourself, and others, that this is true then you can interpret, test hypotheses etc
+
+## So how might we do that:
+
+-   the residuals are defined as $$
+     e_i = y_i - \hat{y}_i
+    $$
+
+-   we check the residuals for various behaviors
+
+    1.  Constant spread: the $e_i$'s have about the same spread regardless of the value of $x$
+    2.  Independence: Do the $e_i$'s show any signs of correlation.
+    3.  Symmetry and Unimodality: Do the $e_i$'s have an approximately symmetric distribution with a single mode.
+    4.  Normality: but that is often too strong a requirement
+
+## Residual Plots
+
+-   plot the residuals ($y$-axis) against:
+    -   any covariates ($x$'s)
+    -   the predicted values ($\hat{y}$'s)
+-   look for trends, increasing or decreasing variability (fans)
+-   outliers - but more on that in a later lecture
+-   when data are collected over time, we sometimes look for relationships between successive residuals
+-   when you don't have much data don't over interpret
+
+## Residual Plots
+
+-   we return to our child birth example
+
+```{r residplots, echo=FALSE}
+par(mfrow=c(1,2))
+plot(lm1$fitted.values, lm1$residuals, xlab="Fitted Values", ylab="Residuals")
+abline(h=0)
+plot(lm1$model$`infdeath$breast`, lm1$residuals, xlab="Proportion of Mothers Breastfeeding at 6mo", ylab="Residuals")
+abline(h=0)
+```
+
+## Extensions - non-linear models
+
+-   fitting straight lines is fine, most of the time
+-   we know that complex relationships can be approximated by a straight line over a restricted set of values
+-   we can add polynomials in our covariates $$
+    y = \beta_0 + \beta_1 \cdot x + \beta_2 \cdot x^2 + \epsilon
+    $$
+-   these models have very strong assumptions and the effect of the polynomial terms on the fit can be large
+
+## Extensions: non-linear models
+
+-   a straight line model is appropriate if $y$ changes by a fixed amount for every unit change in $x$
+-   an exponential curve represents the case where $y$ changes by a fixed percentage (or proportion) for every unit change in $x$
+-   many economic models are exponential
+-   the exponential model: $$
+     y = a \cdot e^{bx} \\
+     ln(y) = ln(a) + b \cdot x
+    $$
+
+## Extensions - non-linear models
+
+-   so we see that we can fit an exponential model with linear regression if we *transform* $y$
+-   there are many other transformations of $y$ that could be used and an extensive literature on choosing the best ones (Box-Cox transformation)
+-   a transformation of $y$ will in general not just effect the mean relationship but it also affects the variability in your $y$ values as a function of $x$
+
+## Exponential models with different error assumptions
+
+-   the models are not the same
+-   we would need the error to be multiplicative in M1 for them to be the same $$
+     M1: y = a \cdot e^{bx} + \epsilon \\
+     M2: ln(y) = ln(a) + b \cdot x + \epsilon \\
+     \epsilon \sim N(0, \sigma^2)
+    $$
+
+## Plots
+
+```{r}
+a = 1.5
+b = 0.3
+x = runif(100, 1,11)
+eps = rnorm(100, 2)
+m1v = a*exp(b*x) + eps
+m2v = log(a) + b*x + eps
+par(mfrow=c(1,3))
+plot(x,m1v, pch=19, xlab="x", ylab="y-hat", main="M1")
+plot(x, log(m1v), pch=19, xlab="x", ylab = "log(y-hat)", main="M1 transformed")
+plot(x,m2v, pch=19, xlab="x", ylab ="log(y)-hat", main="M2")
+```
+
+## Prediction and Prediction intervals
+
+-   there are two kinds of predictions that are interesting
+
+    -   *confidence interval*: predict the mean response for a given value of $x$;
+    -   *prediction interval*: predict the value of the response $y$ for an individual whose covariate is $x$;
+
+-   almost all regression methods in R have prediction methods associated with them, you are encouraged to use them
+
+-   the first of these has less variability than the second
+
+## Confidence Interval vs Prediction Interval
+
+-   return to our example on infant death
+
+```{r}
+lm1 = lm(death~breast, data=infdeath)
+summary(lm1)
+```
+
+## CI and PI
+
+-   we can predict the mean response for country where 62% of the women breast feed at 6 months
+
+```{r, echo=TRUE}
+predict(lm1, newdata=list(breast=62), interval="confidence")
+```
+
+-   or we can predict the response for a specific country where 62% of the women breast feed at 6 months
+
+```{r, echo=TRUE}
+predict(lm1, newdata=list(breast=62), interval="prediction")
+```
+
+## Factors - and their role in regression
+
+-   a *factor* is a variable that takes on a discrete set of different values
+
+-   these values can be unordered, e.g. Male/Female or European, Asian, African, etc.
+
+-   or they can be ordered, age: less than 18, 18-40, more than 40
+
+-   we typically implement factors using *dummy variables*
+
+-   essentially we create a new set of variables using indicator functions, $1_{Ai} = 1$ if observation $i$ has the level $A$.
+
+## Fitting factors in regression models
+
+-   suppose we have a factor with $K$ levels
+
+-   we can fit factors in two ways
+
+    -   **M1:** includes an intercept in the model and then use $K-1$ indicator variables
+    -   **M2L=:** no intercept and use $K$ indicator variables.
+
+-   in **M1** we the intercept is the mean value of $y$, and each $\beta_j$ is the difference in mean for the $j^{th}$ retained factor level from the overall mean.
+
+-   in **M2** each of the $\beta_j$ is the mean value for $y$ only within factor level $j$
+
+## Regression with factors
+
+-   simple example, suppose our factor is sex, which has two levels, M and F, then
+
+$$
+  M1:  Y = \beta_0 + \beta_M \cdot 1_{M} + \epsilon \\
+  E[Y | F]= \beta_0 \quad \mbox{and} \quad E[Y|M] = \beta_0 + \beta_M
+$$
+
+Or $$ 
+  M2: y = \beta_M \cdot 1_{M} + \beta_{F} \cdot 1_{F} + \epsilon \\
+  E[Y|F] = \beta_F \quad \mbox{and} E[Y|M] = \beta_M
+$$
+
+## Small warning
+
+-   there are some issues you have to worry about when fitting a model without an intercept
+
+-   in these models the test for each group, $H_0: \beta_j = 0$ is then comparing the mean for that group to zero (0)
+
+-   with a model that has an intercept then for each group the test for $H_0: \beta_j = 0$ tests whether that group mean is different from the mean for the group that was used to determine the intercept.
+
+-   in the first of these, multiple-$R^2$ does not have a reasonable interpretation.
+
+## Example {.smaller}
+
+```{r FMreg}
+heights = runif(40, min=60, max=75)
+sex = sample(c("M","F"), 40, replace=TRUE)
+lm1 = lm(heights ~ sex)
+summary(lm1)
+```
+
+## Example con't {.smaller}
+
+```{r FMreg2}
+lm2 = lm(heights ~ sex - 1)
+summary(lm2)
+```
+
+## Other Resources
+
+-   there are lots of regression notes and examples around the web
+-   <http://www.stat.ucla.edu/~dinov/courses_students.dir/02/Fall/STAT13.dir/STAT13_notes.html>
