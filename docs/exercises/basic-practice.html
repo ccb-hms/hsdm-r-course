@@ -192,7 +192,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#week-1-complete-by-september-8" id="toc-week-1-complete-by-september-8" class="nav-link active" data-scroll-target="#week-1-complete-by-september-8">Week 1: Complete by September 8</a></li>
+  <li><a href="#set-1-complete-by-september-8" id="toc-set-1-complete-by-september-8" class="nav-link active" data-scroll-target="#set-1-complete-by-september-8">Set 1: Complete by September 8</a></li>
+  <li><a href="#set-2-due-september-22" id="toc-set-2-due-september-22" class="nav-link" data-scroll-target="#set-2-due-september-22">Set 2: Due September 22</a></li>
   </ul>
 </nav>
     </div>
@@ -222,8 +223,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="week-1-complete-by-september-8" class="level2">
-<h2 data-anchor-id="week-1-complete-by-september-8">Week 1: Complete by September 8</h2>
+<section id="set-1-complete-by-september-8" class="level2">
+<h2 data-anchor-id="set-1-complete-by-september-8">Set 1: Complete by September 8</h2>
 <p>Please try to complete the following problems and email your solutions to Chris at <a href="christopher_magnano@hms.harvard.edu">christopher_magnano@hms.harvard.edu</a>. It is okay if you are not able to complete the exercises, you may also email Chris whatever you are able to complete within an hour.</p>
 <ol type="1">
 <li>What will the <code>class</code> and values in <code>vec1</code> to <code>vec4</code> be after the following lines of code? Try to figure it out without running the code, then check your work:</li>
@@ -250,6 +251,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Calculate the mean plasma glucose in the <code>nhanes</code> dataset, ignoring missing values.</p></li>
 <li><p>Create a <code>dataframe</code> or <code>tibble</code>, <code>nhanes_mean_filled</code>, where all missing plasma glucose values in <code>nhanes</code> have been replaced by the mean value calculated in part a. <em>Hint: Check out the <code>replace_na</code> function, you can find <a href="https://tidyr.tidyverse.org/reference/replace_na.html">its documentation here</a>.</em></p></li>
 </ol>
+</section>
+<section id="set-2-due-september-22" class="level2">
+<h2 data-anchor-id="set-2-due-september-22">Set 2: Due September 22</h2>
+<p>Start by loading <code>tidyverse</code> and reading in the <code>nhanes</code> example data from the bootcamp:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>nhanes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session0/session0Data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>The <code>dyplr</code> package, a part of the <code>tidyverse</code> set of packages, contains an <code>arrange</code> function.</li>
+</ol>
+<ol type="a">
+<li>What does the <code>arrange</code> function do?</li>
+<li>What is the <code>arrange</code> function’s default behavior towards <code>NA</code> values?</li>
+</ol>
+<p><em>Hint: Recall that you can look up information on a function with the command <code>?function</code>.</em></p>
+<ol start="2" type="1">
+<li><p>Sort <code>nhanes</code> by BMI from lowest to highest and store the result in a new variable, <code>nhanes_sorted</code>.</p></li>
+<li><p>Add an additional column to <code>nhanes_sorted</code> called <code>bmi_rank</code> which contains each participant’s BMI rank, meaning that the value for the lowest BMI would be 1, the second lowest BMI would be 2, etc. all the way up to the highest BMI. Don’t worry about ties or preserving the original order of the data.</p></li>
+</ol>
+<p><em>Hint: You might want to use the <code>seq</code> function or colon notation (<code>1:num</code>) to generate a sequence of numbers for the new column.</em></p>
 
 
 </section>

@@ -6,7 +6,7 @@ format:
 code-annotations: select
 ---
 
-## Week 1: Complete by September 8
+## Set 1: Complete by September 8
 
 Please try to complete the following problems and email your solutions to Chris at [christopher_magnano@hms.harvard.edu](christopher_magnano@hms.harvard.edu). It is okay if you are not able to complete the exercises, you may also email Chris whatever you are able to complete within an hour. 
 
@@ -35,4 +35,29 @@ a. Calculate the mean plasma glucose in the `nhanes` dataset, ignoring missing v
 
 b. Create a `dataframe` or `tibble`, `nhanes_mean_filled`, where all missing plasma glucose values in `nhanes` have been replaced by the mean value calculated in part a. 
 *Hint: Check out the `replace_na` function, you can find [its documentation here](https://tidyr.tidyverse.org/reference/replace_na.html).*
+
+
+## Set 2: Due September 22
+
+Start by loading `tidyverse` and reading in the `nhanes` example data from the bootcamp:
+
+```{r, eval=FALSE}
+library(tidyverse)
+
+nhanes <- read_csv("https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session0/session0Data.csv")
+``` 
+
+1. The `dyplr` package, a part of the `tidyverse` set of packages, contains an `arrange` function. 
+
+a. What does the `arrange` function do?
+b. What is the `arrange` function's default behavior towards `NA` values? 
+
+*Hint: Recall that you can look up information on a function with the command `?function`.*
+
+2. Sort `nhanes` by BMI from lowest to highest and store the result in a new variable, `nhanes_sorted`. 
+
+3. Add an additional column to `nhanes_sorted` called `bmi_rank` which contains each participant's BMI rank, meaning that the value for the lowest BMI would be 1, the second lowest BMI would be 2, etc. all the way up to the highest BMI. Don't worry about ties or preserving the original order of the data.
+
+*Hint: You might want to use the `seq` function or colon notation (`1:num`) to generate a sequence of numbers for the new column.*
+	
 

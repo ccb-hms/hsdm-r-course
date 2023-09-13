@@ -9,22 +9,23 @@ This set of pages practice exercises split into 2 main categories.
 
 ## Basic Practice (August 30 - October 11)
 
-These short, weekly exercises cover basic R coding and data manipulation. 
+These short exercises cover basic R coding and data manipulation. 
 One similarity of learning coding and learning a foreign language is that learned skills can quickly fade if not used. 
 The purpose of these exercises are to help you develop and maintain skills in basic data manipulation in R. 
 
 These exercises are to be completed between the end of the bootcamp (August 30) and the beginning of the data analysis module (October 11).
+There will be 3-4 in total. 
 
 ## Project Practice
 
-These short, weekly exercises will ask you to complete tasks related to your project. 
+These short exercises will ask you to complete tasks related to your project. 
 They will allow you to practice the skills we learn in-class and seeing how they apply to the particular data you plan to use in your project. 
 
 If you have not yet determined or been able to access your data, or a particular exercise wouldn't make sense with your data, backup data from NHANES will be provided. 
 
 ## Exercise length
 
-The exercises should take 1 - 1.5 hours per week. 
+The exercises should take 1 - 1.5 hours. 
 As this is the first the we are running the course in this format, it is likely that the length of some of the problem sets will be need additional tuning. 
 Therefore, if you find a week's exercises taking significantly more than an hour, please reach out instructors.
 We want to make sure we are not overly burdening your already busy semester.
