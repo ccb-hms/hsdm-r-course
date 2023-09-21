@@ -191,10 +191,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-analysis-exercise-1-due-october-25" id="toc-data-analysis-exercise-1-due-october-25" class="nav-link active" data-scroll-target="#data-analysis-exercise-1-due-october-25">Data analysis exercise 1: Due October 25</a></li>
-  <li><a href="#data-analysis-exercise-2-due-november-8" id="toc-data-analysis-exercise-2-due-november-8" class="nav-link" data-scroll-target="#data-analysis-exercise-2-due-november-8">Data analysis exercise 2: Due November 8</a></li>
-  <li><a href="#data-analysis-exercise-3-due-november-15" id="toc-data-analysis-exercise-3-due-november-15" class="nav-link" data-scroll-target="#data-analysis-exercise-3-due-november-15">Data analysis exercise 3: Due November 15</a></li>
-  <li><a href="#data-analysis-exercise-4-due-november-29" id="toc-data-analysis-exercise-4-due-november-29" class="nav-link" data-scroll-target="#data-analysis-exercise-4-due-november-29">Data analysis exercise 4: Due November 29</a></li>
+  <li><a href="#data-analysis-exercise-1-due-november-8" id="toc-data-analysis-exercise-1-due-november-8" class="nav-link active" data-scroll-target="#data-analysis-exercise-1-due-november-8">Data analysis exercise 1: Due November 8</a></li>
+  <li><a href="#data-analysis-exercise-2-due-november-15" id="toc-data-analysis-exercise-2-due-november-15" class="nav-link" data-scroll-target="#data-analysis-exercise-2-due-november-15">Data analysis exercise 2: Due November 15</a></li>
+  <li><a href="#data-analysis-exercise-3-due-november-29" id="toc-data-analysis-exercise-3-due-november-29" class="nav-link" data-scroll-target="#data-analysis-exercise-3-due-november-29">Data analysis exercise 3: Due November 29</a></li>
+  <li><a href="#data-analysis-exercise-4-due-december-6" id="toc-data-analysis-exercise-4-due-december-6" class="nav-link" data-scroll-target="#data-analysis-exercise-4-due-december-6">Data analysis exercise 4: Due December 6</a></li>
   </ul>
 </nav>
     </div>
@@ -218,8 +218,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="data-analysis-exercise-1-due-october-25" class="level2">
-<h2 data-anchor-id="data-analysis-exercise-1-due-october-25">Data analysis exercise 1: Due October 25</h2>
+<section id="data-analysis-exercise-1-due-november-8" class="level2">
+<h2 data-anchor-id="data-analysis-exercise-1-due-november-8">Data analysis exercise 1: Due November 8</h2>
 <ol type="1">
 <li>What is at least one challenge you expect to encounter when analyzing your project’s data? Examples of challenges include:</li>
 </ol>
@@ -234,10 +234,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>Tip: If you are unsure what challenges your project’s data might face, take a look at other papers which use the same or similar data. Do the authors mention any special data cleaning or analysis steps?</em></p>
 <ol start="2" type="1">
 <li><p>How do you plan to deal with this challenge? Are there specialized R packages which can help with this challenge? If you are unsure, how do you plan to learn how to deal with this challenge?</p></li>
-<li><p>A small, simulated dataset is useful when creating an analysis. Since we know the exact properties of the simulated dataset, we can make sure any calculations or corrections we perform in our analysis are correct by first trying them on the simulated dataset.</p></li>
+<li><p>In a later session we’ll see how to perform small simulation experiments. For a simulation experiment, we need simulated data. Since we know the exact properties of a simulated dataset, we can make sure any calculations or models we use in our analysis are correct by first trying them on the simulated dataset.</p></li>
 </ol>
-<p>Create a small dataset (50 or fewer rows) which is similar to your project’s data and if possible contains the challenge you talk about above. You can create the dataset by hand, as a subset of real data, or by random generation.</p>
-<p>Attach your dataset and any code you used to generate your dataset to your solution.</p>
+<p>Create a small dataset (50 or fewer rows) which is similar to your project’s data and if possible contains the challenge you talk about above. Try using some of the functions explained below to make your simulated dataset. Attach your dataset and any code you used to generate your dataset to your solution.</p>
 <p>You can create vectors of different types in R:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a vector of 10 0's and 0 empty strings ""</span></span>
@@ -276,14 +275,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>norm_nums <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">1000</span>, <span class="dv">300</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>norm_nums</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 1116.6379  563.9742 1231.9937  895.2387  853.6645 1247.6103 1410.7942
- [8]  493.6071 1517.8996 1331.8473  546.5383  923.6370 1023.6361 1277.3763
-[15]  312.3785  936.9149 1514.6225 1135.7611  714.0299 1362.7430 1024.7950
-[22] 1359.3195  511.7774 1129.9905  711.4480  827.8140 1006.3039 1028.9449
-[29] 1222.6779  651.3089  399.4065 1019.8172  744.3571  661.3804  854.0215
-[36] 1078.0156 1873.4845 1312.8426 1265.6508 1229.0833 1105.4688  910.2854
-[43]  487.4748 1141.4996  586.9807  723.0083 1639.8555 1330.9395 1176.6209
-[50]  684.7990</code></pre>
+<pre><code> [1] 1126.4345 1067.4174  588.3428 1078.7706 1240.3175  698.2286  558.6805
+ [8] 1179.9895  992.2884 1376.6810  989.1019  746.1001  948.8315 1081.7034
+[15] 1000.6495  926.4514 1380.7865  907.9265  884.3080 1420.4580  292.6609
+[22] 1492.0655 1019.7936 1169.1585  886.3705 1249.9328 1085.3756  980.6045
+[29] 1217.1841 1448.9882 1517.8855 1296.2094 1168.3350  688.4007  659.0311
+[36] 1349.0249  901.7750 1024.4576  686.9752 1013.3624 1213.8419 1153.2568
+[43]  804.8285  464.6196 1329.8591 1284.6515 1314.6911 1205.3706  963.8970
+[50] 1162.6755</code></pre>
 </div>
 </div>
 <p>Another useful function for generating example data is <code>sample</code>. It selects random items from a vector.</p>
@@ -291,13 +290,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select a random item 8 times from norm_nums</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(norm_nums, <span class="dv">8</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1135.7611 1514.6225 1330.9395 1019.8172 1176.6209  923.6370  910.2854
-[8] 1247.6103</code></pre>
+<pre><code>[1] 1205.3706 1213.8419  688.4007 1217.1841 1162.6755 1169.1585 1153.2568
+[8] 1000.6495</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select 6 different random whole numbers between 1 and 100</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">6</span>, <span class="at">replace=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  7 22 51 65 62  4</code></pre>
+<pre><code>[1] 36 23 95 88 69 32</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomly replace 25% of norm_nums with NA to simulate missing data</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(norm_nums)</span>
@@ -305,40 +304,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>norm_nums[idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>norm_nums</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 1116.6379        NA 1231.9937  895.2387  853.6645 1247.6103        NA
- [8]        NA 1517.8996 1331.8473  546.5383  923.6370        NA 1277.3763
-[15]  312.3785        NA 1514.6225 1135.7611  714.0299 1362.7430 1024.7950
-[22] 1359.3195        NA        NA        NA  827.8140 1006.3039 1028.9449
-[29] 1222.6779  651.3089        NA 1019.8172  744.3571  661.3804  854.0215
-[36] 1078.0156 1873.4845 1312.8426 1265.6508 1229.0833 1105.4688  910.2854
-[43]  487.4748 1141.4996        NA        NA        NA 1330.9395 1176.6209
-[50]  684.7990</code></pre>
+<pre><code> [1] 1126.4345 1067.4174  588.3428 1078.7706 1240.3175  698.2286  558.6805
+ [8] 1179.9895  992.2884        NA  989.1019  746.1001  948.8315 1081.7034
+[15]        NA  926.4514 1380.7865        NA  884.3080 1420.4580  292.6609
+[22] 1492.0655        NA 1169.1585        NA 1249.9328 1085.3756  980.6045
+[29] 1217.1841        NA 1517.8855        NA 1168.3350  688.4007  659.0311
+[36]        NA  901.7750 1024.4576  686.9752 1013.3624 1213.8419 1153.2568
+[43]        NA  464.6196        NA        NA 1314.6911        NA  963.8970
+[50] 1162.6755</code></pre>
 </div>
 </div>
 </section>
-<section id="data-analysis-exercise-2-due-november-8" class="level2">
-<h2 data-anchor-id="data-analysis-exercise-2-due-november-8">Data analysis exercise 2: Due November 8</h2>
+<section id="data-analysis-exercise-2-due-november-15" class="level2">
+<h2 data-anchor-id="data-analysis-exercise-2-due-november-15">Data analysis exercise 2: Due November 15</h2>
 <ol type="1">
 <li>What is a data visualization or table you plan to create as a part of your analysis?</li>
-<li>Using your simulated dataset dataset, create an example of the visualization. Try to get it as close to ‘publication ready’ as possible in terms of legends, axis labels, colors, text size, etc.</li>
+<li>Using your simulated dataset, your project data, or the NHANES data from class, create an example of the visualization. Try to get it as close to ‘publication ready’ as possible in terms of legends, axis labels, colors, text size, etc.</li>
 <li>Export your figure and attach it to your solution.</li>
 </ol>
 </section>
-<section id="data-analysis-exercise-3-due-november-15" class="level2">
-<h2 data-anchor-id="data-analysis-exercise-3-due-november-15">Data analysis exercise 3: Due November 15</h2>
+<section id="data-analysis-exercise-3-due-november-29" class="level2">
+<h2 data-anchor-id="data-analysis-exercise-3-due-november-29">Data analysis exercise 3: Due November 29</h2>
 <ol type="1">
-<li>Name 2 ways you could deal with either missing or duplicate data.</li>
+<li>Name either 2 strategies to deal with missing data, or 2 strategies to deal with duplicate data.</li>
 <li>Will the data you’re using for your project contain duplicate and/or missing data?</li>
-<li>Write R code on your sample data to demonstrate one of the solutions you mentioned. If the data for your project will contain neither, use the NHANES adolescent diabetes dataset from in-class.</li>
+<li>Write R code on simulated dataset, your project data, or the NHANES data from class to demonstrate one of the solutions you mentioned.</li>
 </ol>
 </section>
-<section id="data-analysis-exercise-4-due-november-29" class="level2">
-<h2 data-anchor-id="data-analysis-exercise-4-due-november-29">Data analysis exercise 4: Due November 29</h2>
+<section id="data-analysis-exercise-4-due-december-6" class="level2">
+<h2 data-anchor-id="data-analysis-exercise-4-due-december-6">Data analysis exercise 4: Due December 6</h2>
 <ol type="1">
 <li>Choose a relationship between 2 or more variables in your project’s data you wish to explore the relationship between.</li>
 <li>What test or model would you use to explore that relationship?</li>
-<li>Write R code using to run your chosen model or test on your simulated dataset.</li>
-<li>Create the results figure, statement, or table you plan to use in your final report around this result, but using the result from your simulated dataset.</li>
+<li>Write R code using to run your chosen model or test on your simulated dataset, your project data, or the NHANES data from class.</li>
+<li>How will you evaluate your model’s success for failure?</li>
 </ol>
 
 

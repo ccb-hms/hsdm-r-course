@@ -5,7 +5,7 @@ format:
 code-annotations: select
 ---
 
-## Data analysis exercise 1: Due October 25
+## Data analysis exercise 1: Due November 8
 
 1. What is at least one challenge you expect to encounter when analyzing your project's data?
 Examples of challenges include: 
@@ -21,11 +21,12 @@ Examples of challenges include:
 
 2. How do you plan to deal with this challenge? Are there specialized R packages which can help with this challenge? If you are unsure, how do you plan to learn how to deal with this challenge?
 
-3. A small, simulated dataset is useful when creating an analysis. 
-Since we know the exact properties of the simulated dataset, we can make sure any calculations or corrections we perform in our analysis are correct by first trying them on the simulated dataset. 
+3. In a later session we'll see how to perform small simulation experiments. 
+For a simulation experiment, we need simulated data. 
+Since we know the exact properties of a simulated dataset, we can make sure any calculations or models we use in our analysis are correct by first trying them on the simulated dataset. 
 
-Create a small dataset (50 or fewer rows) which is similar to your project's data and if possible contains the challenge you talk about above. You can create the dataset by hand, as a subset of real data, or by random generation. 
-
+Create a small dataset (50 or fewer rows) which is similar to your project's data and if possible contains the challenge you talk about above.
+Try using some of the functions explained below to make your simulated dataset. 
 Attach your dataset and any code you used to generate your dataset to your solution.
 
 You can create vectors of different types in R:
@@ -77,20 +78,20 @@ norm_nums[idx] <- NA
 norm_nums
 ```
 
-## Data analysis exercise 2: Due November 8
+## Data analysis exercise 2: Due November 15
 1. What is a data visualization or table you plan to create as a part of your analysis? 
-2. Using your simulated dataset dataset, create an example of the visualization. Try to get it as close to 'publication ready' as possible in terms of legends, axis labels, colors, text size, etc.
+2. Using your simulated dataset, your project data, or the NHANES data from class, create an example of the visualization. Try to get it as close to 'publication ready' as possible in terms of legends, axis labels, colors, text size, etc.
 3. Export your figure and attach it to your solution.
 
-## Data analysis exercise 3: Due November 15
+## Data analysis exercise 3: Due November 29
 
-1. Name 2 ways you could deal with either missing or duplicate data.
+1. Name either 2 strategies to deal with missing data, or 2 strategies to deal with duplicate data.
 2. Will the data you're using for your project contain duplicate and/or missing data?
-3. Write R code on your sample data to demonstrate one of the solutions you mentioned. If the data for your project will contain neither, use the NHANES adolescent diabetes dataset from in-class. 
+3. Write R code on simulated dataset, your project data, or the NHANES data from class to demonstrate one of the solutions you mentioned.
 
-## Data analysis exercise 4: Due November 29
+## Data analysis exercise 4: Due December 6
 
 1. Choose a relationship between 2 or more variables in your project's data you wish to explore the relationship between.
 2. What test or model would you use to explore that relationship?
-3. Write R code using to run your chosen model or test on your simulated dataset. 
-4. Create the results figure, statement, or table you plan to use in your final report around this result, but using the result from your simulated dataset. 
+3. Write R code using to run your chosen model or test on your simulated dataset, your project data, or the NHANES data from class. 
+4. How will you evaluate your model's success for failure?
