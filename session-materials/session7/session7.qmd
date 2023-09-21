@@ -1,6 +1,5 @@
 ---
 title: "Week 7: Advanced Regression"
-author: "RG"
 date: "2023-06-26"
 output: html_document
 ---
@@ -11,7 +10,7 @@ library("splines")
 library("DT")
 ```
 
-*Note that this is a copy of NhanesAnalysis.Rmd*
+This week we'll take a deeper look at regression models using a different NHANES dataset. 
 
 ## Load the data
 
@@ -32,10 +31,10 @@ We will look at the relationship between the variable LBXTC (which is Total Chol
 plot(d4$RIDAGEYR, d4$LBXTC, xlab="Age in Years", ylab="Total Cholesterol, mg/dL")
 ```
 
-And we can see that plotting, over-plotting is a substantial issue here.
+And we can see that in this plot, over-plotting is a substantial issue here.
 You might also notice what seems like a lot of data at age 80, this is because any age over 80 was truncated to 80 to prevent reidentification of survey participants. In a complete analysis, this should probably be adjusted for in some way, but we will ignore it for now.
 
-We can try some other methods, such as `hexbin` plotting and `smoothScatter`
+We can try some other methods, such as `hexbin` plotting and `smoothScatter` to get a better idea of the distribution of the data.  
 
 ```{r, echo=FALSE}
 smoothScatter(d4$RIDAGEYR, d4$LBXTC, xlab="Age in Years", ylab="Total Cholesterol, mg/dL")
@@ -61,15 +60,20 @@ abline(h=0, col="red")
 
 ```
 
-Notice that both terms in the model are very significant, but that the multiple $R^2$ is only around 2%.  So age, in years, is not explaining very much of the variation. But because we have such a large data set, the parameter estimates are found to be significantly different from zero.
+Notice that both terms in the model are very significant, but that the multiple $R^2$ is only around 2%.  
+So age, in years, is not explaining very much of the variation. 
+But because we have such a large data set, the parameter estimates are found to be significantly different from zero.
 
 ## Spline Models
 
-- when a linear model does not appear sufficient we can try other models.
-- one choice is to use natural splines, which are very flexible
-- they are based on B-splines with the previso that the model is linear outside the range of the data
-- based on the initial analysis, we chose to use df=7, which gives five internal knots when fitting the splines
-- you have almost 6,000 degrees of freedom here, so using up a few to get a more appropriate fit seems good.
+When a linear model does not appear sufficient we can try other models.
+One choice is to use natural splines, which are very flexible.
+They create a "knotted" line, where at each knot the slope of the line can change. 
+They are based on B-splines with the prevision that the model is linear outside the range of the data.
+
+However, we have to decide the number of knots we want to use in the model. 
+Based on the initial analysis, we chose to use df=7, which gives five internal knots when fitting the splines.
+You have almost 6,000 degrees of freedom here, so using up a few to get a more appropriate fit seems good.
 
 ```{r}
 library("splines")
@@ -78,7 +82,7 @@ summary(lm2)
 ```
 
 
-- we can use standard tools for comparing models
+We can use an anova to compare the models.
 ```{r}
 anova(lm1, lm2)
 ```
@@ -94,13 +98,13 @@ We can use the regression model we fit to make predictions for any one, and thes
 
 ## Spline Models
 
-- even though the regression summary prints out a different row for each spline term, they are not independent variables, and you need to either retain them all, or retain none of them
+Even though the regression summary prints out a different row for each spline term, they are not independent variables, and you need to either retain them all, or retain none of them.
 
 ## Sex
 
-- next we might want to start to add other variables and explore the different relationships.
-- let's consider sex, for now we will leave out age, and just try to understand what happens with sex
-- first I will fit the model without an intercept
+Next we might want to start to add other variables and explore the different relationships.
+Let's consider sex, for now we will leave out age, and just try to understand what happens with sex
+First let's fit the model without an intercept
 
 ```{r}
 lm3 = lm(LBXTC ~ RIAGENDR-1, data=d4)
@@ -108,22 +112,19 @@ summary(lm3)
 
 ```
 
-- here we can see the mean for males is a bit higher than for females
-- both are significant and notice how large the multiple $R^2$ value is
-- this is not a very interesting test - we are asking if the mean is zero, which isn't even physically possible
-- our model is
+Here we can see the mean for males is a bit higher than for females
+Both are significant, and notice how large the multiple $R^2$ value is.
+This is not a very interesting test - we are asking if the mean is zero, which isn't even physically possible:
 $$
   y_i = \beta_M \cdot 1_{M,i} + \beta_F \cdot 1_{F,i}
 $$
-- where $1_{M,i}$ is 1 if the $i^{th}$ case is male and zero otherwise, similarly for $1_{F,i}$
-
-- instead we ask if the mean for males is different than that for females
+Where $1_{M,i}$ is 1 if the $i^{th}$ case is male and zero otherwise, similarly for $1_{F,i}$
+Instead let's use a model with an intercept to ask if the mean for males is different than that for females.
 $$ 
   y_i = \beta_0 + \beta_1 \cdot 1_{F,i}
 $$
 
-- so that $E[Y|M] = \beta_0$ and $E[Y|F] = \beta_0 + \beta_1$
-- $\beta_1$ estimates the difference in mean between male and female
+This way, $E[Y|M] = \beta_0$ and $E[Y|F] = \beta_0 + \beta_1$, and $\beta_1$ estimates the difference in mean between male and female
 
 
 ```{r}
@@ -132,13 +133,15 @@ summary(lm3)
 
 ```
 
-- now we see an Intercept term (that will be the overall mean)
-- and the estimate for females is represents how they differ, if it is zero then there is no difference in total cholesterol between men and women
+Now we see an Intercept term, which is the overall mean.
+The estimate for females represents how they differ by sex, if it is zero then there is no difference in total cholesterol between men and women.
 
-## Look at more variables
+## Looking at more variables
 
-- now we will put together a set of features (variables) that we are interested in
-- for simplicity we only keep partipants for which we have all the data
+Now we will put together a set of features (variables) that we are interested in.
+For simplicity we only keep participants for which we have all the data.
+Here, we use `apply`, which apply a function to each row in the dataset. 
+We also could have used the tidyverse functions for handling missing data which we've seen previously. 
 
 ```{r}
 ivars = c("RIDAGEYR", "RIAGENDR", "RIDRETH1", "DMDEDUC2", "INDFMPIR", "LBDHDD", "LBXGH", "BMXBMI", "LBXTC")
@@ -151,10 +154,10 @@ dim(d4sub)
 
 ```
 
-##One quick transformation
+## One quick transformation
 
-- the variable `DMDEDUC2` is a bit too granular for our purposes
-- we will modify it to be, less than high school, high school and more than high school
+The variable `DMDEDUC2` is a bit too granular for our purposes.
+Let's modify it to be less than high school, high school and more than high school
 
 ```{r}
 table(d4sub$DMDEDUC2)
@@ -172,50 +175,19 @@ d4sub = d4sub[-which(is.na(eduS)), ]
 table(eduS, dd, useNA = "always")
 ```
 
-## Principle Components
-
-- we can take the continuous variables and look at principle components
-- plotting the first two PCs suggest that these directions are dominated by outliers and that a good step in our analysis might be to remove them
-```{r}
-cvars = c("RIDAGEYR", "INDFMPIR", "LBDHDD", "LBXGH", "BMXBMI", "LBXTC")
-contd4sub=d4sub[, cvars]
-pcs = prcomp(contd4sub)
-
-##based on pc plot we have at least 3 outliers that are dominating the first 2 pcs
-contd4sub = contd4sub[-c(1077, 2876, 2933),]
-d4sub = d4sub[-c(1077, 2876, 2933),]
-pcs = prcomp(contd4sub)
-
-pcvals=pcs$x
-
-##which(abs(pcs$x[,1]) > 300)
-##which(abs(pcs$x[,2]) > 100)
-```
-
-
-## Random Forests
-
-- Random Forests are a simple way to get a sense of how important different variables are in predicting a variable of interest.
-- we will cover Random Forests in some detail in our AI/ML lecture for now we will just apply them
-
-```{r}
-library("randomForest")
-rf1 = randomForest(LBXTC ~ ., proximity=TRUE, data=d4sub)
-varImpPlot(rf1)
-```
-
 
 ## Back to Regression
+
+Let's run a regression including all of our variables on cholesterol. We can do this by just indicating `.` in the formula. 
 
 ```{r}
 lmF = lm(LBXTC ~ ., data=d4sub)
 summary(lmF)
 ```
 
- We see that being Non-hispanic black seems to have a pretty big effect, so we might want to just include that, and group all other ethnicities together
- Education level seems to have little to add, we can drop those.
- 
-It might be good to get a sense of the relationship with the poverty level variable.
+We see that being Non-hispanic black seems to have a pretty big effect, so we might want to just include that, and group all other ethnicities together.
+Education level seems to have little to add, let's drop it to simplify the analysis. 
+ It might be good to get a sense of the relationship with the poverty level variable `INDFMPIR`.
 
 ```{r}
  Black = ifelse(d4sub$RIDRETH1 == "Non-Hispanic Black", "B", "nonB")
@@ -227,10 +199,8 @@ It might be good to get a sense of the relationship with the poverty level varia
  
 ```
  
- Exercise:
-You can compare the two models using the `anova` function.
-Are the two models nested?
- 
+We can compare the two models using the `anova` function.
+
 ```{r, anova, eval=FALSE, echo=TRUE}
 anova(lmFx, lmF) 
 ``` 
@@ -267,7 +237,7 @@ lmFx2  = lm(LBXTC ~ . + Age80 , data=d6sub)
 What changes do you notice in the model fit?
 Use the anova function to compare `lmFx3` to `lmFx2`.
 How do you interpret the output?
-<look at INDFMPIR>
+*Hint: look at `INDFMPIR`*
 
 **Exercise:**
 Try to fit missing indicator variables for both of the repeated values in the INDFMPIR variable.
@@ -280,11 +250,9 @@ d7sub = cbind(d6sub, Pov5, Pov0)
 
 lmFx2  = lm(LBXTC ~ . + Age80 + Pov0 + Pov5, data=d7sub)
  summary(lmFx2)
-
 ```
 
 It seems that some of the apparent effect of INDFMPIR seems to be related to the fact that we are not fitting RIDAGEYR properly.
-
 
 ```{r}
  

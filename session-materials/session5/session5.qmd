@@ -1,6 +1,5 @@
 ---
-title: "Week 5: Statistical tests and missing data"
-author: "Center for Computational Biomedicine"
+title: "Week 5: Exploratory analysis and basic tests"
 format: 
   html: default
 code-annotations: select
@@ -8,49 +7,125 @@ code-annotations: select
 
 ```{r}
 library(tidyverse)
-library(survey)
 library(DT)
-library(nhanesA)
 ```
 
 # Data
 
-We can load our processed NHANES data and recreate the survey objects from last week. 
+We can load our processed NHANES data from last week. 
 
 ```{r}
-load("processed_beheshti.RData")
-
-wt_nhanes <- all_nhanes %>%
-  drop_na(WTMEC2YR, SDMVPSU, SDMVSTRA) %>%
-  mutate(WTMEC6YR = WTMEC2YR * 1/3)
-
-# Create survey design object
-nhanes_design <- svydesign(id     = ~SDMVPSU,
-                          strata  = ~SDMVSTRA,
-                          weights = ~WTMEC6YR,
-                          nest    = TRUE,
-                          data    = wt_nhanes)
-
-#Subset the study population
-ado_design <- subset(nhanes_design, RIDAGEYR >= 13 & RIDAGEYR <= 18 & !is.na(OHXDECAY))
-
-#Also make a tibble of this data to analyze
-ado_data <- wt_nhanes %>%
-  filter(RIDAGEYR >= 13 & RIDAGEYR <= 18) %>% 
-  filter(!is.na(OHXDECAY)) %>% 
-  filter(!is.na(diabetes)) 
+nhanes <- read_csv("../session4/nhanes_processed.csv")
 ```
+
+# Making tables
+
+For some data, we might want to visualize things with a table instead of a plot. 
+We can use the `table` builtin function to easily tabulate age by dental caries. 
+
+```{r}
+table(nhanes[,c("RIDAGEYR","dental.caries")])
+```
+However, we can also take advantage of packages written for this purpose. 
+For instance, we can quickly make a frequency table using the `proc_freq` function in `flextable`. 
+
+```{r}
+# install.packages("flextable")
+library(flextable)
+proc_freq(nhanes,"RIDAGEYR","dental.caries")
+```
+
+Or we can use the `gtsummary` package to summarize everything.
+
+```{r}
+library(gtsummary)
+
+select(nhanes,dental.caries, age.cat, bmi.cat, hba1c.cat, birthplace, diabetes) %>%
+  tbl_summary(by = dental.caries)
+```
+
+# Summary statistics or visualization?
+
+Summary statistics can compress datasets of any size into just a few numbers. 
+This can be vital for understanding large amounts of data, but can also lead to misconceptions.
+Let's take a look at a classic example, Anscombe's quartet. 
+
+```{r}
+library(datasets)
+datasets::anscombe
+```
+
+First, we need to restructure this data so we can easily group it by each of the different 4 datasets included. 
+This uses the `pivot_longer` command to reshape the data, which we will not be covering in-class but is mentioned in the readings. 
+
+```{r}
+# Let's restructure this data to have 3 variables, x, y, and the dataset number it belongs to
+long_ans <- anscombe |>
+  pivot_longer(
+    everything(),
+    cols_vary = "slowest",
+    names_to = c(".value", "set"),
+    names_pattern = "(.)(.)"
+  )
+
+```
+
+Now we can visualize the 4 datasets easily using a `facet_wrap` in ggplot:
+
+```{r}
+ggplot(long_ans,aes(x=x,y=y,group=set))+geom_point()+facet_wrap(~set)
+```
+::: {.callout-tip appearance="minimal"}
+# Exercise 
+
+Calculate the mean and variance for x and y, and the correlation between x and y of each of the 4 sets of data. 
+
+```{r}
+long_ans |>
+  group_by(set) |>
+  summarise(mean_x = mean(x), mean_y = mean(y), variance_x = var(x), variance_y = var(y), correlation = cor(x, y))
+```
+
+:::
+
+### Datasaurus
+
+A similar example is in the `datasauRus` package in R. 
+
+```{r}
+library(datasauRus)
+
+datasaurus_dozen |> 
+  group_by(dataset) |> 
+  summarize(
+    mean_x    = mean(x),
+    mean_y    = mean(y),
+    std_dev_x = sd(x),
+    std_dev_y = sd(y),
+    corr_x_y  = cor(x, y)
+  )
+```
+
+```{r}
+library(ggplot2)
+ggplot(datasaurus_dozen, aes(x = x, y = y, colour = dataset))+
+  geom_point()+
+  theme_void()+
+  theme(legend.position = "none")+
+  facet_wrap(~dataset, ncol = 3)
+```
+
 
 # Performing simple tests
 
 Let's start by looking at the relationship between ethnicity and dental caries using the `table` command. 
 
 ```{r}
-table(ado_data$RIDRETH1, ado_data$dental.caries)
+table(nhanes$RIDRETH1, nhanes$dental.caries)
 ```
 We can group and summarize the data to take a look at percents by group instead:
 ```{r}
-eth_ado <- ado_data %>%
+eth_ado <- nhanes %>%
   group_by(RIDRETH1, dental.caries) %>%
   summarise(count = n()) %>%
   mutate(perc = count/sum(count))
@@ -68,218 +143,208 @@ We can also perform a Chi-squared test to examine the relationship between the v
 We either print the result directly or store it in a variable and examine it's different components. 
 
 ```{r}
-res <- chisq.test(table(ado_data$RIDRETH1, ado_data$dental.caries))
+res <- chisq.test(table(nhanes$RIDRETH1, nhanes$dental.caries))
 
 res$method
 res$p.value
 res$statistic
 ```
 
-However, as opposed to directly examining the survey data we may instead want to use the survey weights to infer statistics about the total population. 
+# Calculating statistics by group
+
+Many data analysis tasks can be approached using the
+*split-apply-combine* paradigm: split the data into groups, apply some
+analysis to each group, and then combine the results. **`dplyr`**
+makes this very easy through the use of the `group_by()` function.
 
 ```{r}
-svychisq(~RIDRETH1 + dental.caries, ado_design)
+nhanes %>%
+  group_by(birthplace)
 ```
 
-# Adding Chi-square tests to the table
+The `group_by()` function doesn't perform any data processing, it
+groups the data into subsets: in the example above, our initial
+`tibble` of `r nrow(nhanes)` observations is split into
+`r length(unique(nhanes$birthplace))` groups based on the `birthplace` variable.
 
+We could similarly decide to group the tibble by sex:
+
+```{r}
+nhanes %>%
+  group_by(RIAGENDR)
+```
+
+Here our initial `tibble` of `r nrow(nhanes)` observations is split into
+`r length(unique(nhanes$sex))` groups based on the `sex` variable.
+
+Once the data has been grouped, subsequent operations will be
+applied on each group independently.
+
+### The `summarise()` function
+
+`group_by()` is often used together with `summarise()`, which
+collapses each group into a single-row summary of that group.
+
+`group_by()` takes as arguments the column names that contain the
+**categorical** variables for which you want to calculate the summary
+statistics. So to compute the mean `bmi` by birthplace:
+
+```{r}
+nhanes %>%
+  group_by(birthplace) %>%
+  summarise(mean_bmi = mean(BMXBMI, na.rm = TRUE))
+```
+
+But we can can also group by multiple columns:
+
+```{r}
+nhanes %>%
+  group_by(BMXBMI, RIDRETH1) %>%
+  summarise(mean_bmi = mean(BMXBMI, na.rm = TRUE))
+```
+
+Once the data is grouped, you can also summarise multiple variables at the same
+time (and not necessarily on the same variable). For instance, we could add
+columns indicating the mean and median plasma glucose (`LBXGLU`) by sex and ethnicity:
+
+```{r}
+nhanes %>%
+  group_by(RIDAGEYR, age.cat, RIDRETH1) %>%
+  summarise(mean_plasma_glucose = mean(LBXGLU, na.rm = TRUE),
+            median_plasma_glucose = median(LBXGLU, na.rm = TRUE))
+```
+
+::: {.callout-note icon=false}
+
+## Challenge
+
+Calculate the mean `hba1c` of participants born in the USA by age.
+
+:::
+
+
+::: {.callout-tip icon=false collapse=true}
+
+## Solution
+
+```{r}
+nhanes %>%
+  filter(birthplace == 'Within the US') %>%
+  group_by(age.cat) %>%
+  summarise(mean_hba1c = mean(LBXGH, na.rm = TRUE))
+```
+
+:::
+
+### Counting
+
+When working with data, we often want to know the number of observations found
+for each factor or combination of factors. For this task, **`dplyr`** provides
+`count()`. For example, if we wanted to count the number of rows of data for
+each age, we would do:
+
+```{r}
+nhanes %>%
+    count(RIDAGEYR)
+```
+
+The `count()` function is shorthand for something we've already seen: grouping by a variable, and summarising it by counting the number of observations in that group. In other words, `nhanes %>% count(age.years)` is equivalent to:
+
+```{r}
+nhanes %>%
+    group_by(age.cat) %>%
+    summarise(n = n())
+```
+
+The previous example shows the use of `count()` to count the number of rows/observations
+for *one* factor (i.e., `infection`).
+If we wanted to count a *combination of factors*, such as `age` and `sex`,
+we would specify the first and the second factor as the arguments of `count()`:
+
+```{r}
+nhanes %>%
+    count(RIDAGEYR, RIAGENDR)
+```
+
+::: {.callout-note icon=false}
+
+## Challenge
+
+1. How many participants have a non-empty plasma glucose value for each age (using `RIDAGEYR`)?
+2. Use `group_by()` and `summarise()` to evaluate BMI (`BMXBMI`) by ethnicity. Which ethnicity has the highest mean BMI?
+
+:::
+
+::: {.callout-tip icon=false collapse=true}
+
+## Solution
+
+```{r}
+#1
+nhanes %>% filter(!is.na(LBXGLU)) %>%
+  group_by(RIDAGEYR) %>%
+  count()
+
+#2
+nhanes %>% group_by(RIDRETH1) %>%
+  summarise(mean_BMI = mean(BMXBMI, na.rm = TRUE)) %>%
+  arrange(desc(mean_BMI))
+```
+
+
+:::
+
+## Analyzing the adolescent data
+
+As we just saw, we can use `group_by` and `summarize` to see summary statistics by various subgroups. 
+For instance, let's take a look at dental caries and birthplace. 
+
+```{r}
+nhanes |>
+  group_by(dental.caries, birthplace) |>
+  summarize(n = n())
+```
 ::: {.callout-tip appearance="minimal"}
-## Exercise
+## Summarizing
 
-Take a look at the p-values in tables 1a and 1b in the Beheshti paper. 
-Choose at least one test from 1a and one test from 1b, and reproduce them. 
-Compare them to their counterparts using the data without incorporating survey weights. 
+Calculate the percent of adolescents with dental caries for each birthplace category. 
 
 ```{r}
-#Your code here
+nhanes |>
+  group_by(birthplace) |> # Group by birthplace
+  summarize(n = n(), caries = sum(dental.caries)) |>
+  mutate(perc_caries = caries/n)
 ```
-
-What is the purpose of these tests in the paper?
-How useful do you find these results? 
-Do you think there would be a better analysis to perform instead?
-
 :::
 
+### Insulin
 
-# Depression, gender, and age in NHANES
-
-Let's take a look at an example analysis comparing the prevalence of depression among men and women in different age groups. This is taken from a CDC [sample analysis](https://wwwn.cdc.gov/nchs/nhanes/tutorials/samplecode.aspx) replicating [this debrief](https://www.cdc.gov/nchs/products/databriefs/db303.htm).
-
-## Downloading NHANES data
-
-So far, we've been using data from the dockerized database. 
-Today, let's take a look at an alternate way to access NHANES data in R using the `nhanesA` package.
-
-With `nhanesA`, we can easily download entire tables from NHANES. 
-However, there are some extra processing steps we'll have to perform compared to using the dockerized database. 
-You can learn more about using `nhanesA` [here](https://cran.r-project.org/web/packages/nhanesA/vignettes/Introducing_nhanesA.html).
+Let's look at the demographics of who's taking insulin by birthplace and family income. 
 
 ```{r}
-# Get data with nahnesA
-DEMO_H = nhanes('DEMO_H')
-DEMO_I = nhanes('DEMO_I')
-DPQ_H = nhanes('DPQ_H')
-DPQ_I = nhanes('DPQ_I')
-
-# Append Files
-DEMO <- bind_rows(DEMO_H, DEMO_I)
-DPQ <- bind_rows(DPQ_H, DPQ_I)
-
-datatable(head(DEMO))
-datatable(head(DPQ))
+nhanes |>
+  filter(diabetes == "diabetic") |>
+  group_by(birthplace, family.PIR.cat) |> 
+  summarize(n = n(), insulin = sum((DIQ050) == "Yes")) |>
+  mutate(perc_insulin = insulin/n)
 ```
 
-There are a few differences between this data and the processed data we've been using. 
-First, we have to `join` the DEMO and DPQ tables. 
-We'll learn more about joining or merging data in the last week of class. 
-
-Second, the values in the raw NHANES tables are numeric encodings for each variable. 
-With nhanesA we can lookup the code using `nhanesCodebook` and convert numeric codes using `nhanesTranslate`.
-
-
+We can also take a look at ethnicity.
+Let's split this into two steps. 
+First we make a table containing summarized data.
 ```{r}
-nhanesCodebook('DEMO_H', 'RIAGENDR')
+insulin_tbl <- nhanes |>
+  filter(diabetes == "diabetic") |>
+  group_by(RIDRETH1, birthplace) |> 
+  summarize(n = n(), insulin = sum((DIQ050) == "Yes"), na.rm=TRUE) |>
+  mutate(perc_insulin = insulin/n)
 ```
-However, in this example analysis the authors chose to instead directly convert values.
-
-```{r, eval=FALSE}
-# Merge DEMO and DPQ files and create derived variables
-
-One <- left_join(DEMO, DPQ, by="SEQN") %>%
-  # Set 7=Refused and 9=Don't Know To Missing for variables DPQ010 thru DPQ090 ##
-  mutate_at(vars(DPQ010:DPQ090), ~ifelse(. >=7, NA, .)) %>%
-  mutate(. , 
-         # create indicator for overall summary
-         one = 1,
-         # Create depression score as sum of variables DPQ010 -- DPQ090
-         Depression.Score = rowSums(select(. , DPQ010:DPQ090)),
-         # Create depression indicator as binary 0/100 variable. (is missing if Depression.Score is missing)
-         Depression= ifelse(Depression.Score >=10, 100, 0), 
-         # Create factor variables
-         Gender = factor(RIAGENDR, labels=c("Men", "Women")),
-         Age.Group = cut(RIDAGEYR, breaks=c(-Inf,19,39,59,Inf),labels=c("Under 20", "20-39","40-59","60 and over")),
-         # Generate 4-year MEC weight (Divide weight by 2 because we are appending 2 survey cycles)
-         WTMEC4YR = WTMEC2YR/2 ,
-         # Define indicator for analysis population of interest: adults aged 20 and over with a valid depression score
-         inAnalysis= (RIDAGEYR >= 20 & !is.na(Depression.Score))
-         ) %>% 
-  # drop DPQ variables
-  select(., -starts_with("DPQ"))
+And now we can plot it. 
+```{r}
+ggplot(insulin_tbl, aes(x = birthplace, y = perc_insulin)) + 
+  geom_bar(stat = "identity") + 
+  facet_grid(~RIDRETH1)
 ```
-
-## Survey design
-
-With our data processed, we can make the survey design object. 
-
-```{r, eval=FALSE}
-# To keep things the same as in the report
-options(survey.lonely.psu='adjust')
-
-# Define survey design for overall dataset
-NHANES_all <- svydesign(data=One, id=~SDMVPSU, strata=~SDMVSTRA, weights=~WTMEC4YR, nest=TRUE)
-                    
-# Create a survey design object for the subset of interest: adults aged 20 and over with a valid depression score 
-# Subsetting the original survey design object ensures we keep the design information about the number of clusters and strata
-NHANES <- subset(NHANES_all, inAnalysis)
-
-```
-## Analysis
-
-Let's start by taking a look at how depression varies for our other variables of interest. 
-```{r, eval=FALSE}
-# Define a function to call svymean and unweighted count
-getSummary <- function(varformula, byformula, design){
-  # Get mean, stderr, and unweighted sample size
-  c <- svyby(varformula, byformula, design, unwtd.count ) 
-  p <- svyby(varformula, byformula, design, svymean ) 
-  outSum <- left_join(select(c,-se), p) 
-  outSum
-}
-
-#' ### Calculate prevalence of depression overall, by gender, by age group, and by age and gender
-#' Adults
-getSummary(~Depression, ~one, NHANES)
-#' By sex
-getSummary(~Depression, ~Gender, NHANES)
-#' By age
-getSummary(~Depression, ~Age.Group, NHANES)
-#' By sex and age
-getSummary(~Depression, ~Gender + Age.Group, NHANES)
-```
-
-Much like running the Chi-squared test, we need to use `svyttest` as opposed to `t.test` so we can incorporate the survey weights. 
-
-```{r, eval=FALSE}
-#' ### Compare Prevalence Between Men And Women
-svyttest(Depression~Gender, NHANES)$p.value %>% as.numeric 
-svyttest(Depression~Gender, subset(NHANES, Age.Group=="20-39"))$p.value %>% as.numeric
-svyttest(Depression~Gender, subset(NHANES, Age.Group=="40-59"))$p.value %>% as.numeric
-svyttest(Depression~Gender, subset(NHANES, Age.Group=="60 and over"))$p.value %>% as.numeric
-```
-
-We can also examine the prevalence of depression by age.
-We can perform t-tests on all pairs of age groups as done in the initial analysis.
-
-```{r, eval=FALSE}
-#' ### Pairwise t-testing by age groups for total, men, and women
-#' Differences by age group, among all adults
-svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="20-39" | Age.Group=="40-59"))$p.value %>% as.numeric
-svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="20-39" | Age.Group=="60 and over"))$p.value %>% as.numeric
-svyttest(Depression~Age.Group, subset(NHANES, Age.Group=="40-59" | Age.Group=="60 and over"))$p.value %>% as.numeric
-```
-
-And then further break things down by gender.
-```{r, eval=FALSE}
-#' Differences by age group, among men
-svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="20-39" | Age.Group=="40-59")))$p.value %>% as.numeric
-svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="20-39" | Age.Group=="60 and over")))$p.value %>% as.numeric
-svyttest(Depression~Age.Group, subset(NHANES, Gender=="Men" & (Age.Group=="40-59" | Age.Group=="60 and over")))$p.value %>% as.numeric
-#' Differences by age group, among women
-svyttest(Depression~Age.Group, subset(NHANES, Gender=="Women" & (Age.Group=="20-39" | Age.Group=="40-59")))$p.value %>% as.numeric
-svyttest(Depression~Age.Group, subset(NHANES, Gender=="Women" & (Age.Group=="20-39" | Age.Group=="60 and over")))$p.value %>% as.numeric
-svyttest(Depression~Age.Group, subset(NHANES, Gender=="Women" & (Age.Group=="40-59" | Age.Group=="60 and over")))$p.value %>% as.numeric
-```
-::: callout-important
-## Exercise: The dangers of multiple testing
-
-Let's say we're running this analysis with the traditional $\alpha$-level (p-value cut-off) of $p < 0.05$. What does our $alpha$-level mean?
-
-How many t-tests have we performed in this depression analysis?
-How does that relate to the $alpha$-level?
-
-To help understand this relationship, consider a binomial test to determine if the result of 100 coin flips is fair:
-
-```{r, eval=FALSE}
-numFlips = 100
-probHead = 0.5
-coinFlips = sample(c("H", "T"), size = numFlips,
-  replace = TRUE, prob = c(probHead, 1 - probHead))
-numHeads <- sum(coinFlips == "H")
-pval <- binom.test(x = numHeads, n = numFlips, p = 0.5)$p.value
-pval
-```
-
-Now let's look at the range of p-values we get if we run the test 10000 times. 
-
-
-```{r, eval=FALSE}
-#Let's make a function for performing our experiment
-flip_coin <- function(numFlips, probHead){
-  numFlips = 100
-  probHead = 0.50
-  coinFlips = sample(c("H", "T"), size = numFlips,
-    replace = TRUE, prob = c(probHead, 1 - probHead))
-  numHeads <- sum(coinFlips == "H")
-  pval <- binom.test(x = numHeads, n = numFlips, p = 0.5)$p.value
-  return(pval)
-}
-
-#And then run it 10000 times
-parray <- replicate(10000, flip_coin(1000, 0.5), simplify=TRUE)
-hist(-log(parray), breaks=100)
-min(parray)
-```
-
-:::
-
-
+Unfortunately, it turns out insulin data is quite sparse for adolescents in the dataset. 
+Thus, we can't really get a good picture of insulin use within our study population. 
+This is probably why this data was not included in the paper's analysis. 

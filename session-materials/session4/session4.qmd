@@ -1,6 +1,5 @@
 ---
 title: "Week 4: Preparing Data"
-author: "Center for Computational Biomedicine"
 format: 
   html: default
 code-annotations: select
@@ -38,53 +37,7 @@ summary(base_df_f)
 ```
 
 
-
-::: {.callout-note collapse="true"}
-## See more about how we downloaded the data
-
-The NHANES data was downloaded using a packaged called `phonto`.
-`phonto` connects to a database of the NHANES data developed by the Center for Computational Biomedicine (CCB).
-The database is a relational database running on a virtual machine using the containerization software [Docker](https://www.docker.com/). 
-The code used to download the data is shown here:
-
-```r
-library(phonto)
-
-cols_d = list(DEMO_D=c("RIDAGEYR","RIAGENDR","RIDRETH1", 
-                       "DMDBORN", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
-                       "WTINT2YR", "WTMEC2YR"), 
-              OHX_D =c("OHXDECAY", "OHXREST"),
-              GLU_D =c("LBXGLU", "WTSAF2YR"), GHB_D = "LBXGH",
-              BMX_D="BMXBMI"
-)
-base_df_d <- jointQuery(cols_d)
-
-cols_e = list(DEMO_E=c("RIDAGEYR","RIAGENDR","RIDRETH1",
-                       "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
-                       "WTINT2YR", "WTMEC2YR"), 
-              OHX_E =c("OHXDECAY", "OHXREST"),
-              GLU_E =c("LBXGLU", "WTSAF2YR"), GHB_E = "LBXGH",
-              BMX_E ="BMXBMI"
-)
-base_df_e <- jointQuery(cols_e)
-
-cols_f = list(DEMO_F=c("RIDAGEYR","RIAGENDR","RIDRETH1",
-                       "DMDBORN2", "INDFMPIR", "SDMVPSU", "SDMVSTRA",
-                       "WTINT2YR", "WTMEC2YR"), 
-              OHXDEN_F =c("OHXDECAY", "OHXREST"),
-              GLU_F =c("LBXGLU", "WTSAF2YR"), GHB_F = "LBXGH",
-              BMX_F ="BMXBMI"
-)
-base_df_f <- jointQuery(cols_f)
-
-all_cols <- c(cols_d, cols_e, cols_f)
-metadata <- dataDescription(all_cols)
-save(base_df_d, base_df_e, base_df_f, metadata, file = "nhanes_beheshti_data.RData")
-```
-:::
-
-
-# Preparing the data
+# Combining data
 
 In the reading, we saw how to combine multiple sets of observations by appending datasets. However, before combining multiple datasets we need to make sure corresponding columns between years can be combined. 
 
@@ -339,6 +292,8 @@ Unfortunately, it looks `DID040` won't be very useful.
 
 We'll start by checking the consistency of the DIQ variables. 
 Was there anyone who said they were both diabetic and prediabetic?
+Here we're using the `table` function, which will give us a nice counts table as output. 
+We'll see some other ways to make tables next week. 
 
 ```{r}
 table(tib_all[,c("DIQ010", "DIQ160")], exclude = NULL)
@@ -360,11 +315,7 @@ tib_all <- tib_all |>
 table(tib_all[,c("diabetes.DIQ", "diabetes")])
 ```
 
-
-
-# Replicating Beheshti Analysis
-
-## Filter relevant population
+## Extracting the study population
 
 We need to filter the summary population. 
 Luckily, the paper provides total numbers of participants for most of the filtering steps performed. 
@@ -389,9 +340,7 @@ all_ado <- tib_all |>
   filter(in.study)
 ```
 
-# Exploring the adolescent population
-
-Let's see some statistics of our data. 
+We can now calculate values for adolescents with dental caries experience. 
 
 ::: {.callout-tip appearance="minimal"}
 ## Exercise
@@ -404,121 +353,18 @@ sum(all_ado$dental.caries)/nrow(all_ado)
 ```
 :::
 
-### Summarize groups
+## Exporting data
 
-We can use `group_by` and `summarize` to see summary statistics by various subgroups. 
-For instance, let's take a look at dental caries and birthplace. 
+Now that you have learned how to extract information from
+or summarise your raw data, you may want to export these new data sets to share
+them with your collaborators or for archival.
 
-```{r}
-all_ado |>
-  group_by(dental.caries, birthplace) |>
-  summarize(n = n())
-```
-::: {.callout-tip appearance="minimal"}
-## Summarizing
+Similar to the `read_csv()` function used for reading CSV files into R, there is
+a `write_csv()` function that generates CSV files from data frames.
 
-Calculate the percent of adolescents with dental caries for each birthplace category. 
+Let's use `write_csv()` to save the nhanes data.
 
-```{r}
-all_ado |>
-  group_by(birthplace) |> # Group by birthplace
-  summarize(n = n(), caries = sum(dental.caries)) |>
-  mutate(perc_caries = caries/n)
-```
-:::
-
-# Insulin
-
-Let's look at the demographics of who's taking insulin by birthplace and family income. 
-
-```{r}
-tib_all |>
-  filter(diabetes == "diabetic") |>
-  group_by(birthplace, family.PIR.cat) |> 
-  summarize(n = n(), insulin = sum((DIQ050) == "Yes")) |>
-  mutate(perc_insulin = insulin/n)
+```{r, purl=TRUE, eval=FALSE}
+write_csv(all_ado, file = "nhanes_processed.csv")
 ```
 
-We can also take a look at ethnicity.
-
-```{r}
-insulin_tbl <- tib_all |>
-  filter(diabetes == "diabetic") |>
-  group_by(RIDRETH1, birthplace) |> 
-  summarize(n = n(), insulin = sum((DIQ050) == "Yes")) |>
-  mutate(perc_insulin = insulin/n)
-```
-```{r}
-ggplot(insulin_tbl, aes(x = birthplace, y = perc_insulin)) + 
-  geom_bar(stat = "identity") + 
-  facet_grid(~RIDRETH1)
-```
-# Summary statistics or visualization?
-
-Summary statistics can compress datasets of any size into just a few numbers. 
-This can be vital for understanding large amounts of data, but can also lead to misconceptions.
-Let's take a look at a classic example, Anscombe's quartet. 
-
-```{r}
-library(datasets)
-datasets::anscombe
-```
-
-First, we need to restructure this data so we can easily group it by each of the different 4 datasets included. 
-We'll learn more about what the `pivot_longer` command does in the last week of class.
-```{r}
-# Let's restructure this data to have 3 variables, x, y, and the dataset number it belongs to
-long_ans <- anscombe |>
-  pivot_longer(
-    everything(),
-    cols_vary = "slowest",
-    names_to = c(".value", "set"),
-    names_pattern = "(.)(.)"
-  )
-
-```
-
-Now we can visualize the 4 datasets easily using a `facet_wrap` in ggplot:
-
-```{r}
-ggplot(long_ans,aes(x=x,y=y,group=set))+geom_point()+facet_wrap(~set)
-```
-::: {.callout-tip appearance="minimal"}
-# Exercise 
-
-Calculate the mean and variance for x and y, and the correlation between x and y of each of the 4 sets of data. 
-
-```{r}
-long_ans |>
-  group_by(set) |>
-  summarise(mean_x = mean(x), mean_y = mean(y), variance_x = var(x), variance_y = var(y), correlation = cor(x, y))
-```
-
-:::
-
-### Datasaurus
-
-A similar example is in the `datasauRus` package in R. 
-
-```{r}
-library(datasauRus)
-
-datasaurus_dozen |> 
-  group_by(dataset) |> 
-  summarize(
-    mean_x    = mean(x),
-    mean_y    = mean(y),
-    std_dev_x = sd(x),
-    std_dev_y = sd(y),
-    corr_x_y  = cor(x, y)
-  )
-```
-
-```{r}
-library(ggplot2)
-ggplot(datasaurus_dozen, aes(x = x, y = y, colour = dataset))+
-  geom_point()+
-  theme_void()+
-  theme(legend.position = "none")+
-  facet_wrap(~dataset, ncol = 3)
-```

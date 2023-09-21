@@ -76,18 +76,9 @@ website:
     - title: "Resources"
       contents:
         - resources/install.qmd
-        - resources/install-docker.qmd
-        - resources/accessing-nhanes.qmd
         - resources/resources.qmd
-        - resources/quarto-reports.qmd
         - resources/getting-help.qmd
         # navigation items
-        
-    - title: "NHANES Docker Container"
-      contents:
-        - docker/install.docker.qmd
-        - docker/getting-container.qmd
-        - docker/accessing-nhanes.qmd
         
     - title: "Exercises"
       contents:

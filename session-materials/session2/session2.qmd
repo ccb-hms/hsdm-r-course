@@ -1,6 +1,5 @@
 ---
-title: "Week 2: Markdown and introduction"
-author: "Center for Computational Biomedicine"
+title: "Session 2: Markdown and introduction"
 format: 
   html: default
 code-annotations: select
@@ -78,9 +77,9 @@ Let's dive into the dataset we will be using today.
 
 We will begin with a mostly processed dataset from NHANES as described in *Beheshti 2021*. Specifically, this dataset contains the 3346 adolescents recorded in NHANES from 2005 to 2010 with non-missing dental decay data.
 
-You can find the dataset [here]() in the session 1 materials folder. Download it and place it into an appropriate location in your project folder.
+You can find the dataset [here](https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session2/session2.qmd) in the session 2 materials folder. Download it and place it into an appropriate location in your project folder.
 
-We will use the `read_csv` function for reading in this `.csv` file. In a later lesson we will learn how to extract and transform this data directly from the raw NHANES database in R.
+We will use the `read_csv` function for reading in this `.csv` file. 
 
 ```{r}
 #| label: load-data
@@ -94,6 +93,7 @@ nhanes_ado <- read_csv("week2Data.csv") # <2>
 2.  You could change the filename to `file.choose()` to manually select a file location.
 
 Let's take a look at the first 200 rows of the dataframe.
+Note that you will need to have the `DT` package installed `install.packages('DT')`.
 
 ```{r}
 #| label: preview-data
@@ -180,57 +180,4 @@ This is an example of a markdown list.
 -   There are `r overweight` samples who are of a overweight (BMI between 25 and 29.9).
 -   There are `r decay_or_restore` samples who either have dental caries experience.
 -   There are `r white_and_medpg` samples who are Non-Hispanic White and whose plasma glucose is greater than the median.\
-:::
-
-# Transforming data
-
-If we take a look at Table 1a in [Beheshti et. al.](https://pubmed.ncbi.nlm.nih.gov/33892837/) we can see that all variable have been reported as categories. This is a common practice which allows the use of categorical tests such as the $\chi^2$ test. However, this means we need to transform our numeric variables into these categories.
-
-Recall that `mutate` can be used to create new columns out of old columns. We can combine this with `cut` to create new categories.
-
-```{r}
-nhanes_ado <- nhanes_ado %>%
-  mutate(
-    age.cat = cut(
-    age.years,
-    breaks = c(13, 15, 18),
-    include.lowest = TRUE,
-    labels = c("13-15", "16-18")
-  ))
-
-summary(nhanes_ado)
-```
-
-::: {.callout-tip appearance="minimal"}
-## Exercise
-
-Try to create the categories used in the paper for plasma glucose and HbA1C.
-
-```{r}
-#TODO
-```
-:::
-
-::: {.callout-warning appearance="minimal"}
-## Challenge
-
-Try to do the same for Family PIR. *Hint: Check the type of `family.PIR`.*
-
-```{r}
-# Solution where we deal with the text values first
-# Since we are converting to categories around 1, we can just set everything >5 to 5. 
-nhanes_ado <- nhanes_ado %>%
-  mutate(family.PIR.lt1 = str_replace(family.PIR,"PIR value greater than or equa|Value greater than or equal to", "5.0")) %>%
-  mutate(family.PIR.lt1 = as.numeric(family.PIR.lt1) < 1.0)
-```
-
-This alternate solution where we convert first seems like it could also work, but we would be replacing NA's which exist due to missing data.
-
-```{r}
-#| eval: false
-# NOT A VALID SOLUTION
-nhanes_ado <- nhanes_ado%>%
-  mutate(family.PIR.lt1 = as.numeric(family.PIR) < 1.0) %>%
-  replace_na(family.PIR.lt1 = FALSE)
-```
 :::

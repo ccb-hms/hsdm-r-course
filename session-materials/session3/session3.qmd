@@ -1,6 +1,5 @@
 ---
 title: "Week 3: Plotting"
-author: "Center for Computational Biomedicine"
 format: 
   html: default
 code-annotations: select
@@ -57,30 +56,6 @@ Let's make a scatterplot, created with `geom_point()` in ggplot.
 ggplot(nhanes_processed, aes(x = hba1c, y = plasma.glucose)) +
   geom_point()
 ```
-For some data, we might want to visualize things with a table instead of a plot. 
-We can use the `table` builtin function to easily tabulate age by dental caries. 
-
-```{r}
-table(nhanes_processed[,c("age.years","dental.caries")])
-```
-However, we can also take advantage of packages written for this purpose. 
-For instance, we can quickly make a frequency table using the `proc_freq` function in `flextable`. 
-
-```{r}
-# install.packages("flextable")
-library(flextable)
-proc_freq(nhanes_processed,"age.years","dental.caries")
-```
-
-Or we can use the `gtsummary` package to summarize everything.
-
-```{r}
-library(gtsummary)
-
-select(nhanes_processed,-family.PIR) %>%
-  tbl_summary(by = dental.caries)
-```
-
 Now, let's make a boxplot showing how BMI varies by subject ethnicity. 
 Inside of the `geom_boxplot` function, we'll also set the `varwidth` parameter to true so that the box sizes vary with how many samples are in each category.
 
