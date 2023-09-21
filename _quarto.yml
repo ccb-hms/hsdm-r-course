@@ -16,8 +16,6 @@ website:
         file: session-materials/sessions.qmd
       - text: "Exercises"
         file: exercises/exercises.qmd
-      - text: "NHANES Docker Container"
-        file: docker/install-docker.qmd
       - text: "Resources"
         file: resources/resources.qmd
 
@@ -47,7 +45,6 @@ website:
           contents:
             - readings/descriptive-statistics.qmd
             - readings/formatting-tables.qmd
-            - readings/survey-analysis.qmd
         - section: "Week 6"
           contents:
             - readings/missing-data.qmd
@@ -55,10 +52,11 @@ website:
         - section: "Week 7"
           contents:
             - readings/regression.qmd
-        - section: "Week 8"
+        - section: "Extra"
           contents:
             - readings/joining.qmd
             - readings/pivoting.qmd
+            - readings/survey-analysis.qmd
 
     - title: "In-Class Materials"
       contents:
@@ -71,7 +69,6 @@ website:
         - session-materials/session5/session5.qmd
         - session-materials/session6/session6.qmd
         - session-materials/session7/session7.qmd
-        - session-materials/session8/session8.qmd
 
     - title: "Resources"
       contents:

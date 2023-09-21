@@ -132,10 +132,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Exercises</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../docker/install-docker.html" rel="" target="">
- <span class="menu-text">NHANES Docker Container</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../resources/resources.html" rel="" target="">
  <span class="menu-text">Resources</span></a>
   </li>  
@@ -275,14 +271,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>norm_nums <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">1000</span>, <span class="dv">300</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>norm_nums</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 1126.4345 1067.4174  588.3428 1078.7706 1240.3175  698.2286  558.6805
- [8] 1179.9895  992.2884 1376.6810  989.1019  746.1001  948.8315 1081.7034
-[15] 1000.6495  926.4514 1380.7865  907.9265  884.3080 1420.4580  292.6609
-[22] 1492.0655 1019.7936 1169.1585  886.3705 1249.9328 1085.3756  980.6045
-[29] 1217.1841 1448.9882 1517.8855 1296.2094 1168.3350  688.4007  659.0311
-[36] 1349.0249  901.7750 1024.4576  686.9752 1013.3624 1213.8419 1153.2568
-[43]  804.8285  464.6196 1329.8591 1284.6515 1314.6911 1205.3706  963.8970
-[50] 1162.6755</code></pre>
+<pre><code> [1]  640.9130  660.8867 1065.2202  641.8616  620.4795  871.2181 1231.8824
+ [8]  798.9285  658.4892 1205.6382  949.6381 1023.0635 1186.7252  644.0759
+[15]  710.5684 1274.2630  752.8821  180.3608 1437.8623  967.6511 1120.9354
+[22]  924.1895 1391.5935 1035.7076  895.7383 1006.6611 1047.6945  855.8380
+[29] 1527.7569  748.8381  830.9430  673.7963  807.5968 1013.2189  964.8595
+[36] 1982.3150 1058.2373  641.6589  605.4450  729.3662  972.4381 1026.6850
+[43] 1099.0652  943.9444 1156.9957 1055.9027  846.9203 1221.5875  726.2062
+[50] 1133.9416</code></pre>
 </div>
 </div>
 <p>Another useful function for generating example data is <code>sample</code>. It selects random items from a vector.</p>
@@ -290,13 +286,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select a random item 8 times from norm_nums</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(norm_nums, <span class="dv">8</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1205.3706 1213.8419  688.4007 1217.1841 1162.6755 1169.1585 1153.2568
-[8] 1000.6495</code></pre>
+<pre><code>[1]  943.9444 1055.9027  846.9203  798.9285  752.8821  964.8595  710.5684
+[8]  967.6511</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select 6 different random whole numbers between 1 and 100</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">6</span>, <span class="at">replace=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 36 23 95 88 69 32</code></pre>
+<pre><code>[1] 50 12 19 28 94 47</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomly replace 25% of norm_nums with NA to simulate missing data</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(norm_nums)</span>
@@ -304,14 +300,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>norm_nums[idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>norm_nums</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 1126.4345 1067.4174  588.3428 1078.7706 1240.3175  698.2286  558.6805
- [8] 1179.9895  992.2884        NA  989.1019  746.1001  948.8315 1081.7034
-[15]        NA  926.4514 1380.7865        NA  884.3080 1420.4580  292.6609
-[22] 1492.0655        NA 1169.1585        NA 1249.9328 1085.3756  980.6045
-[29] 1217.1841        NA 1517.8855        NA 1168.3350  688.4007  659.0311
-[36]        NA  901.7750 1024.4576  686.9752 1013.3624 1213.8419 1153.2568
-[43]        NA  464.6196        NA        NA 1314.6911        NA  963.8970
-[50] 1162.6755</code></pre>
+<pre><code> [1]  640.9130  660.8867 1065.2202  641.8616  620.4795  871.2181 1231.8824
+ [8]  798.9285  658.4892 1205.6382  949.6381 1023.0635 1186.7252        NA
+[15]  710.5684 1274.2630        NA        NA        NA        NA 1120.9354
+[22]        NA 1391.5935 1035.7076        NA 1006.6611 1047.6945  855.8380
+[29] 1527.7569  748.8381  830.9430  673.7963        NA 1013.2189        NA
+[36]        NA 1058.2373  641.6589  605.4450  729.3662  972.4381 1026.6850
+[43] 1099.0652        NA 1156.9957 1055.9027        NA 1221.5875  726.2062
+[50] 1133.9416</code></pre>
 </div>
 </div>
 </section>

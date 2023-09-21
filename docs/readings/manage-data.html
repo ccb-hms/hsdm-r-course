@@ -143,10 +143,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Exercises</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../docker/install-docker.html" rel="" target="">
- <span class="menu-text">NHANES Docker Container</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../resources/resources.html" rel="" target="">
  <span class="menu-text">Resources</span></a>
   </li>  
@@ -293,12 +289,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Tables for presentation</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../readings/survey-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Survey analysis</span></a>
-  </div>
-</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -344,7 +334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
- <span class="menu-text">Week 8</span></a>
+ <span class="menu-text">Extra</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -360,6 +350,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../readings/pivoting.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pivoting data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../readings/survey-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Survey analysis</span></a>
   </div>
 </li>
       </ul>
@@ -1176,8 +1172,8 @@ Tip
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-211920a4708cc7820166" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-211920a4708cc7820166">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],[454,896,1469,885,1762,422],[22,21,21,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a4f351ae751b861989a4" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-a4f351ae751b861989a4">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)"],[454,896,1469,885,1762,422],[22,21,21,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Create a data frame with the “total” statistics (<em>not grouped by hospital</em>). This will return just one row.</p>
@@ -1193,8 +1189,8 @@ Tip
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-39dad0b91cb7d6363891" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-39dad0b91cb7d6363891">{"x":{"filter":"none","vertical":false,"data":[[5888],[22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[0,1]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5ab659c73db8a52ca04d" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5ab659c73db8a52ca04d">{"x":{"filter":"none","vertical":false,"data":[[5888],[22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[0,1]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  cases ct_value_med
@@ -1210,8 +1206,8 @@ Tip
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a59446246271dd8412ad" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-a59446246271dd8412ad">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)",null],[454,896,1469,885,1762,422,5888],[22,21,21,22,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-caffc937629defa02eda" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-caffc937629defa02eda">{"x":{"filter":"none","vertical":false,"data":[["Central Hospital","Military Hospital","Missing","Other","Port Hospital","St. Mark's Maternity Hospital (SMMH)",null],[454,896,1469,885,1762,422,5888],[22,21,21,22,22,22,22]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>hospital<\/th>\n      <th>cases<\/th>\n      <th>ct_value_med<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 3
