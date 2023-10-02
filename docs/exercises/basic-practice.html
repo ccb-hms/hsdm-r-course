@@ -190,6 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#set-1-complete-by-september-8" id="toc-set-1-complete-by-september-8" class="nav-link active" data-scroll-target="#set-1-complete-by-september-8">Set 1: Complete by September 8</a></li>
   <li><a href="#set-2-due-september-22" id="toc-set-2-due-september-22" class="nav-link" data-scroll-target="#set-2-due-september-22">Set 2: Due September 22</a></li>
+  <li><a href="#set-3-due-october-13" id="toc-set-3-due-october-13" class="nav-link" data-scroll-target="#set-3-due-october-13">Set 3: Due October 13</a></li>
   </ul>
 </nav>
     </div>
@@ -219,9 +220,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<p>Please try to complete the following problems and email your solutions to Chris at <a href="christopher_magnano@hms.harvard.edu">christopher_magnano@hms.harvard.edu</a>. It is okay if you are not able to complete the exercises, you may also email Chris whatever you are able to complete within an hour. You can email your code as an R script or report, or inside a document.</p>
 <section id="set-1-complete-by-september-8" class="level2">
 <h2 data-anchor-id="set-1-complete-by-september-8">Set 1: Complete by September 8</h2>
-<p>Please try to complete the following problems and email your solutions to Chris at <a href="christopher_magnano@hms.harvard.edu">christopher_magnano@hms.harvard.edu</a>. It is okay if you are not able to complete the exercises, you may also email Chris whatever you are able to complete within an hour.</p>
 <ol type="1">
 <li>What will the <code>class</code> and values in <code>vec1</code> to <code>vec4</code> be after the following lines of code? Try to figure it out without running the code, then check your work:</li>
 </ol>
@@ -231,30 +232,139 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>vec3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span> <span class="sc">+</span> <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>vec4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span><span class="sc">**</span><span class="dv">2</span>, <span class="dv">19</span><span class="sc">%%</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>vec1</code> will be a character vector with <code>"4"     "TRUE"  "FALSE" "FALSE"</code>.</p>
+<p><code>vec2</code> will be a character vector with <code>"9"      "banana" "16"     "apple"</code>.</p>
+<p><code>vec3</code> will be an integer vector with <code>2 1 0 1</code>. Integer is a type similar to <code>numeric</code> but only for whole numbers.</p>
+<p><code>vec4</code> will be a numeric vector with <code>9 1</code>.</p>
+</div>
+</div>
+</div>
 <ol start="2" type="1">
 <li>Write an R command or set of commands to make the <code>vec1</code> vector twice as large and contain all of the values of the original vector twice.</li>
 </ol>
 <p>For example, using this command <code>[1,2,3]</code> should become <code>[1,2,3,1,2,3]</code>, <code>["a"]</code> should become <code>["a", "a"]</code>, and <code>[2,3,1,2,1]</code> should become <code>[2,3,1,2,1,2,3,1,2,1]</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>There many ways this can be done in R, but lets look at two of the most common ways. The first (and one we learning during the bootcamp) is to use <code>c()</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>vec1 <span class="ot">&lt;-</span> <span class="fu">c</span>(vec1, vec1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We could also use the <code>rep</code> function:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(vec1, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Using rep is nice as we can easily change the number of times we want to repeat the vector, as opposed to having to manually type out each <code>vec1</code>.</p>
+</div>
+</div>
+</div>
 <ol start="3" type="1">
 <li>For this problem you will need to load in the <code>nhanes</code> example data and, if desired, load the <code>tidyverse</code> package.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>nhanes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session0/session0Data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>nhanes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session0/session0Data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="a">
-<li><p>Calculate the mean plasma glucose in the <code>nhanes</code> dataset, ignoring missing values.</p></li>
-<li><p>Create a <code>dataframe</code> or <code>tibble</code>, <code>nhanes_mean_filled</code>, where all missing plasma glucose values in <code>nhanes</code> have been replaced by the mean value calculated in part a. <em>Hint: Check out the <code>replace_na</code> function, you can find <a href="https://tidyr.tidyverse.org/reference/replace_na.html">its documentation here</a>.</em></p></li>
+<li>Calculate the mean plasma glucose in the <code>nhanes</code> dataset, ignoring missing values.</li>
 </ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Here we can just use <code>mean</code> with the <code>na.rm</code> argument set to <code>TRUE</code>. We might also want to round the mean to the nearest whole number, so it is simlilar to the rest of the plasma glucose values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.3     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.3     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>nhanes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session0/session0Data.csv"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plasma_mean <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(nhanes<span class="sc">$</span>plasma.glucose, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ol start="2" type="a">
+<li>Create a <code>dataframe</code> or <code>tibble</code>, <code>nhanes_mean_filled</code>, where all missing plasma glucose values in <code>nhanes</code> have been replaced by the mean value calculated in part a. <em>Hint: Check out the <code>replace_na</code> function, you can find <a href="https://tidyr.tidyverse.org/reference/replace_na.html">its documentation here</a>.</em></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Now that we have the mean plasma glucose, we can use it to fill in the <code>NA</code> values in the dataset. Note that in R we can set multiple indices of a vector to a single value. To do this in Tidyverse we would need to find the <code>replace_na</code> function, but it base R we can use simple indexing.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solution from part a</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>plasma_mean <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(nhanes<span class="sc">$</span>plasma.glucose, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The base R way:</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>nhanes_mean_filled <span class="ot">&lt;-</span> nhanes</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>nhanes_mean_filled<span class="sc">$</span>plasma.glucose[<span class="fu">is.na</span>(nhanes_mean_filled<span class="sc">$</span>plasma.glucose)] <span class="ot">&lt;-</span> plasma_mean</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The Tidyverse way</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>nhanes_mean_filled <span class="ot">&lt;-</span> nhanes <span class="sc">|&gt;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">plasma.glucose =</span> <span class="fu">replace_na</span>(plasma.glucose, plasma_mean))</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#double check NA count</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(nhanes_mean_filled<span class="sc">$</span>plasma.glucose))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="set-2-due-september-22" class="level2">
 <h2 data-anchor-id="set-2-due-september-22">Set 2: Due September 22</h2>
 <p>Start by loading <code>tidyverse</code> and reading in the <code>nhanes</code> example data from the bootcamp:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>nhanes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session0/session0Data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>nhanes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session0/session0Data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="1">
 <li>The <code>dyplr</code> package, a part of the <code>tidyverse</code> set of packages, contains an <code>arrange</code> function.</li>
@@ -264,11 +374,127 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>What is the <code>arrange</code> function’s default behavior towards <code>NA</code> values?</li>
 </ol>
 <p><em>Hint: Recall that you can look up information on a function with the command <code>?function</code>.</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p><code>arrange</code> orders the rows of a data frame by the values of selected columns. In other words, <code>arrange</code> is sorting our dataframe by the chosen column.</p></li>
+<li><p><code>arrange</code> will always put missing data at the end, no matter which way you sorted the data. The documentation also mentions an exception for remote data, but we don’t need to worry about that.</p></li>
+</ol>
+</div>
+</div>
+</div>
 <ol start="2" type="1">
-<li><p>Sort <code>nhanes</code> by BMI from lowest to highest and store the result in a new variable, <code>nhanes_sorted</code>.</p></li>
-<li><p>Add an additional column to <code>nhanes_sorted</code> called <code>bmi_rank</code> which contains each participant’s BMI rank, meaning that the value for the lowest BMI would be 1, the second lowest BMI would be 2, etc. all the way up to the highest BMI. Don’t worry about ties or preserving the original order of the data.</p></li>
+<li>Sort <code>nhanes</code> by BMI from lowest to highest and store the result in a new variable, <code>nhanes_sorted</code>.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nhanes_sorted <span class="ot">&lt;-</span> nhanes <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(bmi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Add an additional column to <code>nhanes_sorted</code> called <code>bmi_rank</code> which contains each participant’s BMI rank, meaning that the value for the lowest BMI would be 1, the second lowest BMI would be 2, etc. all the way up to the highest BMI. Don’t worry about ties or preserving the original order of the data.</li>
 </ol>
 <p><em>Hint: You might want to use the <code>seq</code> function or colon notation (<code>1:num</code>) to generate a sequence of numbers for the new column.</em></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Here, we can use <code>seq</code> with <code>mutate</code> to create a new column which contains the ranks. Since the data is already sorted, if we just increase the value by 1 each row we will naturally get the correct ranking value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can lay out the length</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>nhanes_sorted <span class="ot">&lt;-</span> nhanes_sorted <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bmi_rank =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(nhanes_sorted)))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Or just give the column directly as an argument to seq. </span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Seq will create a sequence of the same length as an input vector. </span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>nhanes_sorted <span class="ot">&lt;-</span> nhanes_sorted <span class="sc">|&gt;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bmi_rank =</span> <span class="fu">seq</span>(bmi))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="set-3-due-october-13" class="level2">
+<h2 data-anchor-id="set-3-due-october-13">Set 3: Due October 13</h2>
+<p>Start by loading <code>tidyverse</code> and reading in the <code>nhanes</code> example data from the bootcamp:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>nhanes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session0/session0Data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>Write R statements using your choice of base R or Tidyverse to compute the following counts:</li>
+</ol>
+<ol type="a">
+<li>The number of participants 14 or older.</li>
+<li>The number of participants 14 or older, or whose BMI is greater than 25 (or both).</li>
+<li>The number of participants who meet the criteria for part b and have dental decay present.</li>
+</ol>
+<ol start="2" type="1">
+<li>Right now, in the <code>nhanes</code> example data the <code>birthplace</code> variable is a bit unwieldy. We can see all of the values with <code>unique</code>:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(nhanes<span class="sc">$</span>birthplace)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Born in 50 US States or Washi"  "Born in Mexico"                
+[3] "Born Elsewhere"                 "Born in Other Non-Spanish Spea"
+[5] "Born in Other Spanish Speaking" "Refused"                       
+[7] "Don't Know"                    </code></pre>
+</div>
+</div>
+<p>These category names are generally cut-off, and many of the categories contain very few participants, which we can see with <code>count</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>nhanes <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(birthplace)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      birthplace    n
+1                 Born Elsewhere   58
+2  Born in 50 US States or Washi 2938
+3                 Born in Mexico  230
+4 Born in Other Non-Spanish Spea   62
+5 Born in Other Spanish Speaking   56
+6                     Don't Know    1
+7                        Refused    1</code></pre>
+</div>
+</div>
+<p>Write R code to convert the <code>birthplace</code> variable into a factor with only two levels: <code>"In USA"</code> and <code>"Outside USA"</code>. Remove the rows with <code>Don't Know</code> or <code>Refused</code> responses.</p>
+<p><em>Hint: There are multiple ways to go about the steps needed here. Note that <code>birthplace</code> is currently a <code>character</code> column. You can remove the <code>Don't Know</code> or <code>Refused</code> rows using negative selection with indexing or <code>filter</code>. You can then construct a large OR (<code>|</code>) statement inside <code>mutate</code>, use indexing to set values to new text value-by-value, try using <code>factor</code> all at once, or you can take a sneak peek at future weeks and try one of the specialized functions in the <a href="https://ccb-hms.github.io/hsdm-r-course/readings/recoding-values.html">reading on recoding values</a>.</em></p>
+<ol start="3" type="1">
+<li>Write R statements using your choice of base R or Tidyverse to compute the difference between the mean family poverty income ratio (PIR) of participants born in the United States versus outside the United States.</li>
+</ol>
+<p><strong>Bonus:</strong> Try also calculating the difference in the percent of participants with dental caries between those born in or outside the United States.</p>
 
 
 </section>

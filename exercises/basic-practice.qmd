@@ -6,9 +6,9 @@ format:
 code-annotations: select
 ---
 
-## Set 1: Complete by September 8
+Please try to complete the following problems and email your solutions to Chris at [christopher_magnano@hms.harvard.edu](christopher_magnano@hms.harvard.edu). It is okay if you are not able to complete the exercises, you may also email Chris whatever you are able to complete within an hour. You can email your code as an R script or report, or inside a document. 
 
-Please try to complete the following problems and email your solutions to Chris at [christopher_magnano@hms.harvard.edu](christopher_magnano@hms.harvard.edu). It is okay if you are not able to complete the exercises, you may also email Chris whatever you are able to complete within an hour. 
+## Set 1: Complete by September 8
 
 1. What will the `class` and values in `vec1` to `vec4` be after the following lines of code? Try to figure it out without running the code, then check your work:
 
@@ -19,9 +19,41 @@ vec3 <- c(TRUE + TRUE, TRUE, FALSE, TRUE)
 vec4 <- c(3**2, 19%%2)
 ```
 
+::: {.callout-note collapse="true"}
+## Solution
+
+`vec1` will be a character vector with `"4"     "TRUE"  "FALSE" "FALSE"`.
+
+`vec2` will be a character vector with `"9"      "banana" "16"     "apple" `.
+
+`vec3` will be an integer vector with `2 1 0 1`. Integer is a type similar to `numeric` but only for whole numbers. 
+
+`vec4` will be a numeric vector with `9 1`.
+
+:::
+
 2. Write an R command or set of commands to make the `vec1` vector twice as large and contain all of the values of the original vector twice. 
 
 For example, using this command `[1,2,3]` should become `[1,2,3,1,2,3]`, `["a"]` should become `["a", "a"]`, and `[2,3,1,2,1]` should become `[2,3,1,2,1,2,3,1,2,1]`.
+
+::: {.callout-note collapse="true"}
+## Solution
+
+There many ways this can be done in R, but lets look at two of the most common ways. 
+The first (and one we learning during the bootcamp) is to use `c()`:
+
+```r
+vec1 <- c(vec1, vec1)
+```
+
+We could also use the `rep` function:
+
+```r
+rep(vec1, 2)
+```
+Using rep is nice as we can easily change the number of times we want to repeat the vector, as opposed to having to manually type out each `vec1`. 
+
+:::
 
 3. For this problem you will need to load in the `nhanes` example data and, if desired, load the `tidyverse` package. 
 
@@ -33,9 +65,49 @@ nhanes <- read.csv("https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main
 
 a. Calculate the mean plasma glucose in the `nhanes` dataset, ignoring missing values. 
 
+::: {.callout-note collapse="true"}
+## Solution
+
+Here we can just use `mean` with the `na.rm` argument set to `TRUE`. 
+We might also want to round the mean to the nearest whole number, so it is simlilar to the rest of the plasma glucose values. 
+
+```{r}
+library(tidyverse)
+
+nhanes <- read.csv("https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session0/session0Data.csv")
+
+plasma_mean <- round(mean(nhanes$plasma.glucose, na.rm = TRUE))
+```
+
+:::
+
 b. Create a `dataframe` or `tibble`, `nhanes_mean_filled`, where all missing plasma glucose values in `nhanes` have been replaced by the mean value calculated in part a. 
 *Hint: Check out the `replace_na` function, you can find [its documentation here](https://tidyr.tidyverse.org/reference/replace_na.html).*
 
+::: {.callout-note collapse="true"}
+## Solution
+
+Now that we have the mean plasma glucose, we can use it to fill in the `NA` values in the dataset. 
+Note that in R we can set multiple indices of a vector to a single value. 
+To do this in Tidyverse we would need to find the `replace_na` function, but it base R we can use simple indexing. 
+
+```{r}
+# Solution from part a
+plasma_mean <- round(mean(nhanes$plasma.glucose, na.rm = TRUE))
+
+# The base R way:
+nhanes_mean_filled <- nhanes
+nhanes_mean_filled$plasma.glucose[is.na(nhanes_mean_filled$plasma.glucose)] <- plasma_mean
+
+# The Tidyverse way
+nhanes_mean_filled <- nhanes |>
+  mutate(plasma.glucose = replace_na(plasma.glucose, plasma_mean))
+
+#double check NA count
+sum(is.na(nhanes_mean_filled$plasma.glucose))
+```
+
+:::
 
 ## Set 2: Due September 22
 
@@ -54,10 +126,82 @@ b. What is the `arrange` function's default behavior towards `NA` values?
 
 *Hint: Recall that you can look up information on a function with the command `?function`.*
 
+::: {.callout-note collapse="true"}
+## Solution
+
+
+a. `arrange` orders the rows of a data frame by the values of selected columns. In other words, `arrange` is sorting our dataframe by the chosen column. 
+
+b. `arrange` will always put missing data at the end, no matter which way you sorted the data. The documentation also mentions an exception for remote data, but we don't need to worry about that. 
+
+:::
+
 2. Sort `nhanes` by BMI from lowest to highest and store the result in a new variable, `nhanes_sorted`. 
+
+::: {.callout-note collapse="true"}
+## Solution
+```{r}
+nhanes_sorted <- nhanes |>
+  arrange(bmi)
+```
+:::
+
 
 3. Add an additional column to `nhanes_sorted` called `bmi_rank` which contains each participant's BMI rank, meaning that the value for the lowest BMI would be 1, the second lowest BMI would be 2, etc. all the way up to the highest BMI. Don't worry about ties or preserving the original order of the data.
 
 *Hint: You might want to use the `seq` function or colon notation (`1:num`) to generate a sequence of numbers for the new column.*
-	
 
+
+	
+::: {.callout-note collapse="true"}
+## Solution
+
+Here, we can use `seq` with `mutate` to create a new column which contains the ranks. Since the data is already sorted, if we just increase the value by 1 each row we will naturally get the correct ranking value. 
+
+```{r}
+# We can lay out the length
+nhanes_sorted <- nhanes_sorted |>
+  mutate(bmi_rank = seq(1:nrow(nhanes_sorted)))
+
+# Or just give the column directly as an argument to seq. 
+# Seq will create a sequence of the same length as an input vector. 
+nhanes_sorted <- nhanes_sorted |>
+  mutate(bmi_rank = seq(bmi))
+```
+:::
+
+## Set 3: Due October 13
+
+Start by loading `tidyverse` and reading in the `nhanes` example data from the bootcamp:
+
+```{r, eval=FALSE}
+library(tidyverse)
+
+nhanes <- read_csv("https://raw.githubusercontent.com/ccb-hms/hsdm-r-course/main/session-materials/session0/session0Data.csv")
+```
+
+1. Write R statements using your choice of base R or Tidyverse to compute the following counts:
+
+a. The number of participants 14 or older. 
+b. The number of participants 14 or older, or whose BMI is greater than 25 (or both). 
+c. The number of participants who meet the criteria for part b and have dental decay present.
+
+2. Right now, in the `nhanes` example data the `birthplace` variable is a bit unwieldy. We can see all of the values with `unique`:
+
+```{r}
+unique(nhanes$birthplace)
+```
+
+These category names are generally cut-off, and many of the categories contain very few participants, which we can see with `count`:
+
+```{r}
+nhanes |>
+  count(birthplace)
+```
+Write R code to convert the `birthplace` variable into a factor with only two levels: `"In USA"` and `"Outside USA"`. Remove the rows with `Don't Know` or `Refused` responses. 
+
+*Hint: There are multiple ways to go about the steps needed here. Note that `birthplace` is currently a `character` column. You can remove the `Don't Know` or `Refused` rows using negative selection with indexing or `filter`. You can then construct a large OR (`|`) statement inside `mutate`, use indexing to set values to new text value-by-value, try using `factor` all at once, or you can take a sneak peek at future weeks and try one of the specialized functions in the [reading on recoding values](https://ccb-hms.github.io/hsdm-r-course/readings/recoding-values.html).*
+
+3. Write R statements using your choice of base R or Tidyverse to compute the difference between the mean family poverty income ratio (PIR) of participants born in the United States versus outside the United States. 
+
+**Bonus:** Try also calculating the difference in the percent of participants with dental caries between those born in or outside the United States. 
