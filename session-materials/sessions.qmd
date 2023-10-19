@@ -7,7 +7,7 @@ page-layout: full
 
 This set of pages contains the in-class materials we will be using.
 
-You can browse the materials for each week on this website, but for class you need to download these materials and datasets. 
+You can browse the materials for each week on this website, before class please you need to download these materials and datasets. 
 
 ### Week 2: Getting started with data
 [Download Week 2 Materials Here](https://download-directory.github.io?url=https://github.com/ccb-hms/hsdm-r-course/tree/main/session-materials/session2)
