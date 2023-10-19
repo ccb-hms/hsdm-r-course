@@ -69,7 +69,7 @@ website:
         - session-materials/session5/session5.qmd
         - session-materials/session6/session6.qmd
         - session-materials/session7/session7.qmd
-
+        
     - title: "Resources"
       contents:
         - resources/install.qmd
