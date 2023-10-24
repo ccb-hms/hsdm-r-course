@@ -2,8 +2,27 @@
 title: "About"
 ---
 
-About this site
+Since this is the first rendered page, let's put a set of required packages used in the session and other files here to help prevent rendering errors. Note that these are not all packages used everywhere, but most of those used in session materials and other places we do not already use pacman within the materials. 
 
 ```{r}
-1 + 1
+pacman::p_load(
+  rio,          # File import
+  here,         # File locator
+  skimr,        # get overview of data
+  tidyverse,    # data management + ggplot2 graphics 
+  gtsummary,    # summary statistics and tests
+  janitor,      # adding totals and percents to tables
+  scales,       # easily convert proportions to percents  
+  flextable,     # converting tables to pretty images
+  nhanesA,
+  reactable,
+  reactablefmtr,
+  ggrepel,
+  gghighlight,
+  ggforce,
+  kableExtra,
+  survey, 
+  DT,
+  wesanderson
+  )
 ```
