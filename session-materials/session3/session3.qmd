@@ -202,5 +202,19 @@ Nature preferred formats are:
 > If these formats are not possible, we can also accept the following formats: JPEG (high-resolution, 300–600 dpi), CorelDraw (up to version 8), Microsoft Word, Excel or PowerPoint.
 
 Export your figure using `ggsave` to comply with one of these sets of guidelines. 
+
+
+```{r}
+# let's assume this is the plot we want to save, we will save the most recently created plot
+ggplot(nhanes_processed, aes(x = ethnicity, y = bmi, fill = age.cat)) + 
+  geom_boxplot()
+
+# Saving as a raster image
+ggsave("myplot.jpeg", dpi = 500)
+
+# Saving as a vector
+ggsave("myplot.pdf")
+```
 :::
+
 

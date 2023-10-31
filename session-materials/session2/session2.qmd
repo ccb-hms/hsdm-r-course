@@ -122,19 +122,19 @@ Below is an incomplete set of code blocks summarizing the `nhanes_ado` dataset. 
 We've already looked at the first few rows of the dataset. Now let's check the **last 15 rows** using the tail function. You can type `?tail` into the R console to check how tail's arugments work.
 
 ```{r}
-# TODO use tail here
+tail(nhanes_ado)
 ```
 
 We can display a table showing the min, max, and mean for age and BMI. Replace the 0's below with the r expressions to correctly fill in the table.
 
 ```{r}
 
-min_age <- 0 #TODO 
-max_age <- 0 #TODO
-mean_age <- 0 #TODO
-min_bmi <- 0 #TODO 
-max_bmi <- 0 #TODO
-mean_bmi <- 0 #TODO
+min_age <- min(select(nhanes_ado, age.years)) # Tidyverse way
+max_age <- max(nhanes_ado$age.years) # base R way
+mean_age <- mean(nhanes_ado$age.years) 
+min_bmi <- min(nhanes_ado$bmi, na.rm = TRUE) # BMI has some NA's so we need na.rm
+max_bmi <- max(nhanes_ado$bmi, na.rm = TRUE)
+mean_bmi <- mean(nhanes_ado$bmi, na.rm = TRUE)
 
 ```
 
@@ -165,12 +165,13 @@ Let's try it now.
 Fill in the TODO's below with the correct expressions.
 
 ```{r}
-under_15 <- 0 # TODO
-underweight <- 0 # TODO
-overweight <- 0 # TODO
-decay_or_restore <- 0 # TODO
-decay_or_restore <- 0 # TODO
-white_and_medpg <- 0 # TODO
+under_15 <- nrow(filter(nhanes_ado, age.years < 15))
+underweight <- nrow(filter(nhanes_ado, bmi < 18.5))
+overweight <- nrow(filter(nhanes_ado, bmi >= 25 & bmi <= 29.9))
+decay_or_restore <- nrow(filter(nhanes_ado, dental.decay.present | dental.restoration.present))
+med_glu <- median(nhanes_ado$plasma.glucose, na.rm = TRUE)
+white_and_medpg <- nrow(filter(nhanes_ado, 
+                               ethnicity == "Non-Hispanic White" & plasma.glucose > med_glu))
 ```
 
 This is an example of a markdown list.

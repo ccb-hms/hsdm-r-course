@@ -271,14 +271,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>norm_nums <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">1000</span>, <span class="dv">300</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>norm_nums</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 1082.0349  858.3748  261.7013  992.8020 1067.0489  984.7924  646.6675
- [8]  968.4432 1111.5561  956.4409 1329.8285  870.3696 1180.7306  923.5924
-[15] 1671.8551  658.4388  320.7551 1000.7926 1273.2400  780.9735 1047.5009
-[22] 1053.0425 1133.6113  477.4465 1131.3099 1220.9305  914.0385  773.6577
-[29]  759.5805 1169.6879 1159.9158  740.7219  545.4055  833.4064  631.4479
-[36] 1165.1148 1321.8178 1030.8916 1260.2694  799.3316 1453.8870 1553.7319
-[43]  858.2111 1432.0835 1017.2905 1417.5963 1721.3612 1093.4296 1333.7782
-[50]  708.9891</code></pre>
+<pre><code> [1] 1013.3115 1048.9359  836.7754  662.9054  968.8997  633.0454 1225.6682
+ [8]  953.9327  952.5162 1086.6503  581.0465 1274.6035  952.2714 1425.3069
+[15]  799.9064  498.1916 1024.9842 1341.6011 1453.6266 1322.9491  782.1597
+[22] 1280.3406 1021.1595 1022.3608 1456.0364  864.6846  532.5921  829.2248
+[29] 1040.8391 1356.2277 1062.8606 1364.3579 1115.9920  949.8190  649.9025
+[36]  871.3767 1352.1953 1227.1977 1036.2927 1639.8234  907.2287  863.8866
+[43] 1158.2418  449.7143 1513.3078 1053.2559  898.7355 1094.4241  757.6526
+[50]  985.8059</code></pre>
 </div>
 </div>
 <p>Another useful function for generating example data is <code>sample</code>. It selects random items from a vector.</p>
@@ -286,13 +286,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select a random item 8 times from norm_nums</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(norm_nums, <span class="dv">8</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  870.3696  545.4055  780.9735 1133.6113  984.7924 1671.8551 1047.5009
-[8] 1131.3099</code></pre>
+<pre><code>[1] 1225.6682 1341.6011  581.0465 1341.6011  952.2714 1425.3069  907.2287
+[8] 1086.6503</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select 6 different random whole numbers between 1 and 100</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">6</span>, <span class="at">replace=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 32 87 95  4 35 73</code></pre>
+<pre><code>[1] 89 56  7 90 44 20</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Randomly replace 25% of norm_nums with NA to simulate missing data</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(norm_nums)</span>
@@ -300,13 +300,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>norm_nums[idx] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>norm_nums</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1]        NA  858.3748  261.7013        NA 1067.0489  984.7924        NA
- [8]  968.4432 1111.5561  956.4409 1329.8285        NA        NA  923.5924
-[15]        NA  658.4388  320.7551 1000.7926 1273.2400  780.9735 1047.5009
-[22] 1053.0425 1133.6113  477.4465        NA 1220.9305  914.0385  773.6577
-[29]        NA 1169.6879        NA  740.7219  545.4055  833.4064  631.4479
-[36] 1165.1148 1321.8178 1030.8916 1260.2694        NA 1453.8870 1553.7319
-[43]  858.2111 1432.0835 1017.2905 1417.5963 1721.3612        NA 1333.7782
+<pre><code> [1] 1013.3115        NA  836.7754  662.9054        NA  633.0454 1225.6682
+ [8]  953.9327  952.5162 1086.6503        NA 1274.6035  952.2714 1425.3069
+[15]  799.9064  498.1916 1024.9842 1341.6011        NA        NA        NA
+[22]        NA 1021.1595        NA 1456.0364  864.6846  532.5921  829.2248
+[29] 1040.8391 1356.2277 1062.8606        NA 1115.9920  949.8190  649.9025
+[36]  871.3767 1352.1953        NA 1036.2927 1639.8234  907.2287  863.8866
+[43] 1158.2418  449.7143 1513.3078 1053.2559  898.7355        NA  757.6526
 [50]        NA</code></pre>
 </div>
 </div>
